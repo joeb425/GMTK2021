@@ -229,7 +229,7 @@ public class GameBoard : MonoBehaviour
 		if (tile.Content.Type == GameTileContentType.Tower)
 		{
 			updatingContent.Remove(tile.Content);
-			tile.Content = contentFactory.Get(GameTileContentType.Empty);
+			tile.Content = contentFactory.Get(GameTileContentType.build);
 			FindPaths();
 		}
 		else if (tile.Content.Type == GameTileContentType.Empty)
