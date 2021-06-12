@@ -43,6 +43,8 @@ public class Game : MonoBehaviour
 	EnemyCollection enemies = new EnemyCollection();
 	Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
 
+	private bool linkAttempt = false;
+
 	void Awake()
 	{
 		board.Initialize(boardSize, tileContentFactory);
@@ -197,6 +199,24 @@ public class Game : MonoBehaviour
 		// IsGUIEnabled = menuEnabled;
 	}
 
+	private Tower sourceTower;
+	public void LinkSelect()
+	{
+		if (selectedTile.Content.Type == GameTileContentType.Tower)
+		{
+			if (linkAttempt)
+			{
+				((Tower)selectedTile.Content).LinkTower(sourceTower);
+				linkAttempt = false;
+				return;
+			}
+			else
+			{
+				linkAttempt = true;
+				sourceTower = (Tower)selectedTile.Content;
+			}
+		}
+	}
 	public void OnPointerClick(PointerEventData eventData)
 	{
 		Debug.Log("Pointer click");

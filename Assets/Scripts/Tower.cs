@@ -35,7 +35,8 @@ public class Tower : GameTileContent
 
 	private TargetPoint target = null;
 
-	private List<Tower> linkedTowers;
+	private List<Tower> linkedTowers = new List<Tower>();
+	private List<GameObject> beams = new List<GameObject>();
 
 	[SerializeField]
 	Transform linkBeam = default;
@@ -209,8 +210,12 @@ public class Tower : GameTileContent
 	{
 		// if (target != null)
 		// {
-		// 	Gizmos.DrawLine(turret.localPosition, target.Position);
+		//	Gizmos.DrawLine(turret.localPosition, target.Position);
 		// }
+		foreach (Tower link in linkedTowers)
+		{
+			Gizmos.DrawLine(transform.position, link.transform.position);
+		}	
 	}
 
 	void OnDrawGizmosSelected()
@@ -222,9 +227,11 @@ public class Tower : GameTileContent
 	}
 
 	Vector3 linkBeamScale;
-	void LinkTower(Tower link)
+	public void LinkTower(Tower link)
 	{
+		//beams.Add(GameObject.)
 		linkedTowers.Add(link);
+		Debug.Log(linkedTowers.Count);
 		Vector3 link_pos = link.transform.position;
 		//Vector3 current_pos = this.transform.position;
 
@@ -232,6 +239,20 @@ public class Tower : GameTileContent
 		float d = Vector3.Distance(turret.position, link_pos);
 		linkBeamScale.z = d;
 		linkBeam.localScale = linkBeamScale;
+
+		lineRenderer = GetComponent<LineRenderer>();
+		Color c1 = new Color(1f, 1f, 0.5f, 1);
+		//lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
+		lineRenderer.SetColors(c1, c1);
+		lineRenderer.SetWidth(0.2f, 0.2f);
+		lineRenderer.positionCount = linkedTowers.Count+1;
+		lineRenderer.SetPosition(0, transform.position + Vector3.up*0.05f);
+		for (int i = 0; i < (lineRenderer.positionCount-1); i++)
+		{
+			lineRenderer.SetPosition(i+1, linkedTowers[i].transform.position + Vector3.up*0.05f);
+		}
+
+		Debug.Log("We tried our best");
 
 		//Handel bonuses here as well :D
 	}

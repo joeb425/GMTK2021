@@ -151,6 +151,8 @@ MonoBehaviour:
   numTargets: 2
   splash: 0.5
   numSegments: 128
+  linkBeam: {fileID: 1882582869278306119, guid: e44b33155d3a65a41bf08d1e216b40e6,
+    type: 3}
 --- !u!135 &1588644127480943304
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -171,7 +173,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3242984198978901850}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -183,7 +185,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
