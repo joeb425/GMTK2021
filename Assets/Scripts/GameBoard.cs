@@ -5,12 +5,18 @@ public class GameBoard : MonoBehaviour
 {
 	[SerializeField]
 	Transform ground = default;
+	
+	[SerializeField]
+	Transform build = default;
 
 	[SerializeField]
 	GameTile tilePrefab = default;
 
 	[SerializeField]
 	Texture2D gridTexture = default;
+
+	[SerializeField]
+	TextAsset leveldesign;
 
 	Vector2Int size;
 
@@ -42,6 +48,17 @@ public class GameBoard : MonoBehaviour
 			{
 				m.mainTexture = null;
 			}
+
+//			Material b = ground.GetComponent<MeshRenderer>().material;
+//			if (ShowGrid)
+//			{
+//				b.mainTexture = gridTexture;
+//				b.SetTextureScale("_MainTex", size);
+//			}
+//			else
+//			{
+//				b.mainTexture = null;
+//			}
 		}
 	}
 
@@ -67,14 +84,41 @@ public class GameBoard : MonoBehaviour
 			}
 		}
 	}
-
+	[System.Serializable]
+	public class LevelData
+	{
+		public int tier;
+		public List<LevelRow> layout;
+	}
+	[System.Serializable]
+	public class LevelRow
+	{
+		public List<int> row;
+	}
+	[System.Serializable]
+	public class Levels
+	{
+		public LevelData[] level;
+	}
 	public void Initialize(
 		Vector2Int size, GameTileContentFactory contentFactory
 	)
 	{
+		int spawn_loc = 1;
+		int end_loc = 20;
+		Levels LevelsLoaded = JsonUtility.FromJson<Levels>(leveldesign.text);
+		foreach (LevelData level in LevelsLoaded.level)
+		{
+
+			size.x = level.layout.Count;
+			size.y = level.layout[0].row.Count;
+			//Debug.Log("Found Level: " + level.tier + " - " + level.layout.Count + "." + level.layout[1].row.Count + ".");
+		}
+
 		this.size = size;
 		this.contentFactory = contentFactory;
 		ground.localScale = new Vector3(size.x, size.y, 1f);
+		//build.localScale = new Vector3(size.x, size.y, 1f);
 
 		Vector2 offset = new Vector2(
 			(size.x - 1) * 0.5f, (size.y - 1) * 0.5f
@@ -84,6 +128,7 @@ public class GameBoard : MonoBehaviour
 		{
 			for (int x = 0; x < size.x; x++, i++)
 			{
+
 				GameTile tile = tiles[i] = Instantiate(tilePrefab);
 				tile.transform.SetParent(transform, false);
 				tile.transform.localPosition = new Vector3(
@@ -107,11 +152,30 @@ public class GameBoard : MonoBehaviour
 				}
 
 				tile.Content = contentFactory.Get(GameTileContentType.Empty);
+
+				int TileType = LevelsLoaded.level[0].layout[y].row[x];
+				switch (TileType)
+				{
+					case 0: //trees n shit, for looks
+						break;
+					case 1: //For building on no monsters
+						ToggleBuildSpot(tiles[i]);
+						break;
+					case 2: //For monster track
+						break;
+					case 3: //For spawn
+						spawn_loc = i;
+						break;
+					case 4: //For end
+						end_loc = i;
+						break;
+				}
 			}
 		}
 
-		ToggleDestination(tiles[tiles.Length / 2]);
-		ToggleSpawnPoint(tiles[0]);
+		ToggleDestination(tiles[end_loc]);
+		ToggleSpawnPoint(tiles[spawn_loc]);
+		FindPaths();
 	}
 
 	public void ToggleSpawnPoint(GameTile tile)
@@ -156,7 +220,10 @@ public class GameBoard : MonoBehaviour
 			FindPaths();
 		}
 	}
-
+	public void ToggleBuildSpot(GameTile tile)
+	{
+		tile.Content = contentFactory.Get(GameTileContentType.build);
+	}
 	public void ToggleTower(GameTile tile)
 	{
 		if (tile.Content.Type == GameTileContentType.Tower)
@@ -179,6 +246,11 @@ public class GameBoard : MonoBehaviour
 			}
 		}
 		else if (tile.Content.Type == GameTileContentType.Wall)
+		{
+			tile.Content = contentFactory.Get(GameTileContentType.Tower);
+			updatingContent.Add(tile.Content);
+		}
+		else if (tile.Content.Type ==  GameTileContentType.build)
 		{
 			tile.Content = contentFactory.Get(GameTileContentType.Tower);
 			updatingContent.Add(tile.Content);

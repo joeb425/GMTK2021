@@ -4,5 +4,6 @@
 	Destination,
 	Wall,
 	SpawnPoint,
-	Tower
+	Tower,
+	build
 }

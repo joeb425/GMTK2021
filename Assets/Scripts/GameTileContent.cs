@@ -11,7 +11,7 @@ public class GameTileContent : MonoBehaviour
 	public GameTileContentType Type => type;
 
 	public bool BlocksPath =>
-		Type == GameTileContentType.Wall || Type == GameTileContentType.Tower;
+		Type == GameTileContentType.Wall || Type == GameTileContentType.Tower || Type == GameTileContentType.build;
 
 	public GameTileContentFactory OriginFactory
 	{
