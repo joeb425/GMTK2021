@@ -46,6 +46,8 @@ public class Game : MonoBehaviour
 		bulletPool.Initialize();
 
 		SharedGame = this;
+
+		SetBuildMenuEnabled(false);
 	}
 
 	void OnValidate()
@@ -178,12 +180,7 @@ public class Game : MonoBehaviour
 	{
 		CanvasGroup canvasGroup = BuildMenu.GetComponent<CanvasGroup>();
 		canvasGroup.alpha = Enabled ? 1.0f : 0.0f;
-		
+		canvasGroup.interactable = Enabled;
 		IsGUIEnabled = Enabled;
-		Button[] buttons = BuildMenu.GetComponents<Button>();
-		foreach (Button button in buttons)
-		{
-			button.interactable = Enabled;
-		}
 	}
 }
