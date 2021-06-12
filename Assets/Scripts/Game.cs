@@ -16,6 +16,9 @@ public class Game : MonoBehaviour
 	[SerializeField]
 	EnemyFactory enemyFactory = default;
 
+	[SerializeField]
+	BulletPool bulletPool = default;
+
 	[SerializeField, Range(0.1f, 10f)]
 	float spawnSpeed = 1f;
 
@@ -28,6 +31,8 @@ public class Game : MonoBehaviour
 	{
 		board.Initialize(boardSize, tileContentFactory);
 		board.ShowGrid = true;
+
+		bulletPool.Initialize();
 	}
 
 	void OnValidate()
@@ -47,7 +52,6 @@ public class Game : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			Debug.Log("MB Down");
 			HandleTouch();
 		}
 		else if (Input.GetMouseButtonDown(1))
@@ -115,7 +119,6 @@ public class Game : MonoBehaviour
 		{
 			if (Input.GetKey(KeyCode.LeftShift))
 			{
-				Debug.Log("Tower");
 				board.ToggleTower(tile);
 			}
 			else
