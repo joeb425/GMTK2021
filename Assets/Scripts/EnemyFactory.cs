@@ -5,9 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class EnemyFactory : GameObjectFactory
 {
-
-	[SerializeField]
-	Enemy prefab = default;
+	[SerializeField] Enemy prefab = default;
 
 	public Enemy Get()
 	{

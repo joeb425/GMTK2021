@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
 [SelectionBase]
-public class GameTileContent : MonoBehaviour {
-
+public class GameTileContent : MonoBehaviour
+{
 	[SerializeField]
 	GameTileContentType type = default;
 
@@ -11,23 +11,24 @@ public class GameTileContent : MonoBehaviour {
 	public GameTileContentType Type => type;
 
 	public bool BlocksPath =>
-	Type == GameTileContentType.Wall || Type == GameTileContentType.Tower;
+		Type == GameTileContentType.Wall || Type == GameTileContentType.Tower;
 
-
-	public GameTileContentFactory OriginFactory {
+	public GameTileContentFactory OriginFactory
+	{
 		get => originFactory;
-		set {
+		set
+		{
 			Debug.Assert(originFactory == null, "Redefined origin factory!");
 			originFactory = value;
 		}
 	}
 
-	public virtual void GameUpdate ()
+	public virtual void GameUpdate()
 	{
-
 	}
 
-	public void Recycle () {
+	public void Recycle()
+	{
 		originFactory.Reclaim(this);
 	}
 }

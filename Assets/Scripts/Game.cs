@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+
 //3.3
 
-public class Game : MonoBehaviour {
-
+public class Game : MonoBehaviour
+{
 	[SerializeField]
 	Vector2Int boardSize = new Vector2Int(11, 11);
 
@@ -23,47 +24,63 @@ public class Game : MonoBehaviour {
 	EnemyCollection enemies = new EnemyCollection();
 	Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
 
-	void Awake () {
+	void Awake()
+	{
 		board.Initialize(boardSize, tileContentFactory);
 		board.ShowGrid = true;
 	}
 
-	void OnValidate () {
-		if (boardSize.x < 2) {
+	void OnValidate()
+	{
+		if (boardSize.x < 2)
+		{
 			boardSize.x = 2;
 		}
-		if (boardSize.y < 2) {
+
+		if (boardSize.y < 2)
+		{
 			boardSize.y = 2;
 		}
 	}
 
-	void Update () {
-		if (Input.GetMouseButtonDown(0)) {
+	void Update()
+	{
+		if (Input.GetMouseButtonDown(0))
+		{
+			Debug.Log("MB Down");
 			HandleTouch();
 		}
-		else if (Input.GetMouseButtonDown(1)) {
+		else if (Input.GetMouseButtonDown(1))
+		{
 			HandleAlternativeTouch();
 		}
 
-		if (Input.GetKeyDown(KeyCode.V)) {
+		if (Input.GetKeyDown(KeyCode.V))
+		{
 			board.ShowPaths = !board.ShowPaths;
 		}
-		if (Input.GetKeyDown(KeyCode.G)) {
+
+		if (Input.GetKeyDown(KeyCode.G))
+		{
 			board.ShowGrid = !board.ShowGrid;
 		}
+
 		spawnProgress += spawnSpeed * Time.deltaTime;
 		while (spawnProgress >= 1f)
 		{
 			spawnProgress -= 1f;
 			SpawnEnemy();
 		}
+
 		enemies.GameUpdate();
 		board.GameUpdate();
 	}
 
-	void HandleAlternativeTouch () {
+	void HandleAlternativeTouch()
+	{
 		GameTile tile = board.GetTile(TouchRay);
-		if (tile != null) {
+		if (tile != null)
+		{
 			if (Input.GetKey(KeyCode.LeftShift))
 			{
 				board.ToggleDestination(tile);
@@ -72,8 +89,8 @@ public class Game : MonoBehaviour {
 			{
 				board.ToggleSpawnPoint(tile);
 			}
-
 		}
+
 		spawnProgress += spawnSpeed * Time.deltaTime;
 		while (spawnProgress >= 1f)
 		{
@@ -90,11 +107,15 @@ public class Game : MonoBehaviour {
 		enemy.SpawnOn(spawnPoint);
 		enemies.Add(enemy);
 	}
-	void HandleTouch () {
+
+	void HandleTouch()
+	{
 		GameTile tile = board.GetTile(TouchRay);
-		if (tile != null) {
+		if (tile != null)
+		{
 			if (Input.GetKey(KeyCode.LeftShift))
 			{
+				Debug.Log("Tower");
 				board.ToggleTower(tile);
 			}
 			else

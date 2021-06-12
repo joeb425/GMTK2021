@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-
 	EnemyFactory originFactory;
 	GameTile tileFrom, tileTo;
 	Vector3 positionFrom, positionTo;
@@ -22,6 +21,7 @@ public class Enemy : MonoBehaviour
 			originFactory = value;
 		}
 	}
+
 	public void SpawnOn(GameTile tile)
 	{
 		//	transform.localPosition = tile.transform.localPosition;
@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
 		progress = 0f;
 		PrepareIntro();
 	}
+
 	void PrepareIntro()
 	{
 		positionFrom = tileFrom.transform.localPosition;
@@ -43,6 +44,7 @@ public class Enemy : MonoBehaviour
 		directionAngleFrom = directionAngleTo = direction.GetAngle();
 		transform.localRotation = direction.GetRotation();
 	}
+
 	public bool GameUpdate()
 	{
 		progress += Time.deltaTime;
@@ -56,15 +58,18 @@ public class Enemy : MonoBehaviour
 				OriginFactory.Reclaim(this);
 				return false;
 			}
+
 			//positionFrom = positionTo;
 			//positionTo = tileFrom.ExitPoint;
 			//transform.localRotation = tileFrom.PathDirection.GetRotation();
 			progress -= 1f;
 			PrepareNextState();
 		}
+
 		transform.localPosition = Vector3.LerpUnclamped(positionFrom, positionTo, progress);
 		return true;
 	}
+
 	void PrepareNextState()
 	{
 		positionFrom = positionTo;
@@ -74,17 +79,27 @@ public class Enemy : MonoBehaviour
 		directionAngleFrom = directionAngleTo;
 		switch (directionChange)
 		{
-			case DirectionChange.None: PrepareForward(); break;
-			case DirectionChange.TurnRight: PrepareTurnRight(); break;
-			case DirectionChange.TurnLeft: PrepareTurnLeft(); break;
-			default: PrepareTurnAround(); break;
+			case DirectionChange.None:
+				PrepareForward();
+				break;
+			case DirectionChange.TurnRight:
+				PrepareTurnRight();
+				break;
+			case DirectionChange.TurnLeft:
+				PrepareTurnLeft();
+				break;
+			default:
+				PrepareTurnAround();
+				break;
 		}
 	}
+
 	void PrepareForward()
 	{
 		transform.localRotation = direction.GetRotation();
 		directionAngleTo = direction.GetAngle();
 	}
+
 	void PrepareTurnRight()
 	{
 		directionAngleTo = directionAngleFrom + 90f;
