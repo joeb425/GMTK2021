@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 //3.3
 
 public class Game : MonoBehaviour
+	, IPointerClickHandler
 {
 	public static Game SharedGame;
 	
@@ -24,6 +26,9 @@ public class Game : MonoBehaviour
 
 	[SerializeField]
 	public Canvas BuildMenu = default;
+
+	[SerializeField]
+	public Canvas TowerUI = default;
 
 	[SerializeField, Range(0.1f, 10f)]
 	float spawnSpeed = 1f;
@@ -67,7 +72,7 @@ public class Game : MonoBehaviour
 	{
 		hoveredTile = board.GetTile(TouchRay);
 
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetButtonDown("Click"))
 		{
 			HandleTouch();
 		}
@@ -153,12 +158,12 @@ public class Game : MonoBehaviour
 	private void SelectTile()
 	{
 		selectedTile = board.GetTile(TouchRay);
-		if (selectedTile.Content.Type == GameTileContentType.Build)
-		{
-			CanvasGroup canvasGroup = BuildMenu.GetComponent<CanvasGroup>();
-			canvasGroup.alpha = 1.0f;
-			SetBuildMenuEnabled(true);
-		}
+		
+		bool showBuildMenu = selectedTile.Content.Type == GameTileContentType.Build;
+		SetBuildMenuEnabled(showBuildMenu);
+
+		bool showTowerUI = selectedTile.Content.Type == GameTileContentType.Tower;
+		SetTowerUIEnabled(showTowerUI);
 	}
 
 	private void OnDrawGizmos()
@@ -171,16 +176,29 @@ public class Game : MonoBehaviour
 
 		if (hoveredTile != null && hoveredTile != selectedTile)
 		{
-			Gizmos.color = new Color(1, 0, 0, 0.5f);
+			Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
 			Gizmos.DrawCube(hoveredTile.Content.transform.position, new Vector3(1, 1, 1));
 		}
 	}
 
-	public void SetBuildMenuEnabled(bool Enabled)
+	public void SetBuildMenuEnabled(bool menuEnabled)
 	{
 		CanvasGroup canvasGroup = BuildMenu.GetComponent<CanvasGroup>();
-		canvasGroup.alpha = Enabled ? 1.0f : 0.0f;
-		canvasGroup.interactable = Enabled;
-		IsGUIEnabled = Enabled;
+		canvasGroup.alpha = menuEnabled ? 1.0f : 0.0f;
+		canvasGroup.interactable = menuEnabled;
+		IsGUIEnabled = menuEnabled;
+	}
+
+	public void SetTowerUIEnabled(bool menuEnabled)
+	{
+		CanvasGroup canvasGroup = TowerUI.GetComponent<CanvasGroup>();
+		canvasGroup.alpha = menuEnabled ? 1.0f : 0.0f;
+		canvasGroup.interactable = true;
+		// IsGUIEnabled = menuEnabled;
+	}
+
+	public void OnPointerClick(PointerEventData eventData)
+	{
+		Debug.Log("Pointer click");
 	}
 }
