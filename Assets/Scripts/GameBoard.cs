@@ -151,7 +151,7 @@ public class GameBoard : MonoBehaviour
 					tile.IsAlternative = !tile.IsAlternative;
 				}
 
-				tile.Content = contentFactory.Get(GameTileContentType.Empty);
+				tile.Content = contentFactory.Get(GameTileContentType.Path);
 
 				int TileType = LevelsLoaded.level[0].layout[y].row[x];
 				switch (TileType)
@@ -185,10 +185,10 @@ public class GameBoard : MonoBehaviour
 			if (spawnPoints.Count > 1)
 			{
 				spawnPoints.Remove(tile);
-				tile.Content = contentFactory.Get(GameTileContentType.Empty);
+				tile.Content = contentFactory.Get(GameTileContentType.Path);
 			}
 		}
-		else if (tile.Content.Type == GameTileContentType.Empty)
+		else if (tile.Content.Type == GameTileContentType.Path)
 		{
 			tile.Content = contentFactory.Get(GameTileContentType.SpawnPoint);
 			spawnPoints.Add(tile);
@@ -206,7 +206,7 @@ public class GameBoard : MonoBehaviour
 	{
 		if (tile.Content.Type == GameTileContentType.Destination)
 		{
-			tile.Content = contentFactory.Get(GameTileContentType.Empty);
+			tile.Content = contentFactory.Get(GameTileContentType.Path);
 			if (!FindPaths())
 			{
 				tile.Content =
@@ -214,7 +214,7 @@ public class GameBoard : MonoBehaviour
 				FindPaths();
 			}
 		}
-		else if (tile.Content.Type == GameTileContentType.Empty)
+		else if (tile.Content.Type == GameTileContentType.Path)
 		{
 			tile.Content = contentFactory.Get(GameTileContentType.Destination);
 			FindPaths();
@@ -222,17 +222,17 @@ public class GameBoard : MonoBehaviour
 	}
 	public void ToggleBuildSpot(GameTile tile)
 	{
-		tile.Content = contentFactory.Get(GameTileContentType.build);
+		tile.Content = contentFactory.Get(GameTileContentType.Build);
 	}
 	public void ToggleTower(GameTile tile)
 	{
 		if (tile.Content.Type == GameTileContentType.Tower)
 		{
 			updatingContent.Remove(tile.Content);
-			tile.Content = contentFactory.Get(GameTileContentType.build);
+			tile.Content = contentFactory.Get(GameTileContentType.Build);
 			FindPaths();
 		}
-		else if (tile.Content.Type == GameTileContentType.Empty)
+		else if (tile.Content.Type == GameTileContentType.Path)
 		{
 			tile.Content = contentFactory.Get(GameTileContentType.Tower);
 			if (FindPaths())
@@ -241,7 +241,7 @@ public class GameBoard : MonoBehaviour
 			}
 			else
 			{
-				tile.Content = contentFactory.Get(GameTileContentType.Empty);
+				tile.Content = contentFactory.Get(GameTileContentType.Path);
 				FindPaths();
 			}
 		}
@@ -250,7 +250,7 @@ public class GameBoard : MonoBehaviour
 			tile.Content = contentFactory.Get(GameTileContentType.Tower);
 			updatingContent.Add(tile.Content);
 		}
-		else if (tile.Content.Type ==  GameTileContentType.build)
+		else if (tile.Content.Type ==  GameTileContentType.Build)
 		{
 			tile.Content = contentFactory.Get(GameTileContentType.Tower);
 			updatingContent.Add(tile.Content);
@@ -261,15 +261,15 @@ public class GameBoard : MonoBehaviour
 	{
 		if (tile.Content.Type == GameTileContentType.Wall)
 		{
-			tile.Content = contentFactory.Get(GameTileContentType.Empty);
+			tile.Content = contentFactory.Get(GameTileContentType.Path);
 			FindPaths();
 		}
-		else if (tile.Content.Type == GameTileContentType.Empty)
+		else if (tile.Content.Type == GameTileContentType.Path)
 		{
 			tile.Content = contentFactory.Get(GameTileContentType.Wall);
 			if (!FindPaths())
 			{
-				tile.Content = contentFactory.Get(GameTileContentType.Empty);
+				tile.Content = contentFactory.Get(GameTileContentType.Path);
 				FindPaths();
 			}
 		}

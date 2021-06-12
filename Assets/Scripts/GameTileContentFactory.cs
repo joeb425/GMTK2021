@@ -30,11 +30,11 @@ public class GameTileContentFactory : GameObjectFactory
 		switch (type)
 		{
 			case GameTileContentType.Destination: return Get(destinationPrefab);
-			case GameTileContentType.Empty: return Get(emptyPrefab);
+			case GameTileContentType.Path: return Get(emptyPrefab);
 			case GameTileContentType.Wall: return Get(wallPrefab);
 			case GameTileContentType.SpawnPoint: return Get(spawnPointPrefab);
 			case GameTileContentType.Tower: return Get(towerPrefab);
-			case GameTileContentType.build: return Get(buildPrefab);
+			case GameTileContentType.Build: return Get(buildPrefab);
 		}
 
 		Debug.Assert(false, "Unsupported type: " + type);

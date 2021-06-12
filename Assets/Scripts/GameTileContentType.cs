@@ -1,9 +1,9 @@
 ﻿public enum GameTileContentType
 {
-	Empty,
+	Path,
 	Destination,
 	Wall,
 	SpawnPoint,
 	Tower,
-	build
+	Build
 }
