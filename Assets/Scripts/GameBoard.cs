@@ -44,6 +44,7 @@ public class GameBoard : MonoBehaviour
 
 	List<GameTileContent> updatingContent = new List<GameTileContent>();
 
+
 	public bool ShowGrid
 	{
 		get => showGrid;

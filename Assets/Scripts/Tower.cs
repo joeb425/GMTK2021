@@ -35,6 +35,11 @@ public class Tower : GameTileContent
 
 	private TargetPoint target = null;
 
+	private List<Tower> linkedTowers;
+
+	[SerializeField]
+	Transform linkBeam = default;
+
 	private void Start()
 	{
 		InitSphereCollider();
@@ -214,5 +219,20 @@ public class Tower : GameTileContent
 		// Vector3 position = transform.localPosition;
 		// position.y += 0.01f;
 		// Gizmos.DrawWireSphere(position, targetingRange);
+	}
+
+	Vector3 linkBeamScale;
+	void LinkTower(Tower link)
+	{
+		linkedTowers.Add(link);
+		Vector3 link_pos = link.transform.position;
+		//Vector3 current_pos = this.transform.position;
+
+		linkBeam.localRotation = turret.localRotation;
+		float d = Vector3.Distance(turret.position, link_pos);
+		linkBeamScale.z = d;
+		linkBeam.localScale = linkBeamScale;
+
+		//Handel bonuses here as well :D
 	}
 }
