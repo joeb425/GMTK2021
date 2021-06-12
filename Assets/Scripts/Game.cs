@@ -24,6 +24,10 @@ public class Game : MonoBehaviour
 
 	float spawnProgress;
 
+	private GameTile selectedTile;
+
+	private GameTile hoveredTile;
+
 	EnemyCollection enemies = new EnemyCollection();
 	Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -50,6 +54,8 @@ public class Game : MonoBehaviour
 
 	void Update()
 	{
+		hoveredTile = board.GetTile(TouchRay);
+
 		if (Input.GetMouseButtonDown(0))
 		{
 			HandleTouch();
@@ -123,8 +129,23 @@ public class Game : MonoBehaviour
 			}
 			else
 			{
-				board.ToggleWall(tile);
+				selectedTile = board.GetTile(TouchRay);
 			}
+		}
+	}
+
+	private void OnDrawGizmos()
+	{
+		if (selectedTile != null)
+		{
+			Gizmos.color = new Color(1, 1, 0, 0.5f);
+			Gizmos.DrawCube(selectedTile.Content.transform.position, new Vector3(1, 1, 1));
+		}
+
+		if (hoveredTile != null && hoveredTile != selectedTile)
+		{
+			Gizmos.color = new Color(1, 0, 0, 0.5f);
+			Gizmos.DrawCube(hoveredTile.Content.transform.position, new Vector3(1, 1, 1));
 		}
 	}
 }
