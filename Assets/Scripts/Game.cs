@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 //3.3
 
@@ -19,6 +20,9 @@ public class Game : MonoBehaviour
 	[SerializeField]
 	BulletPool bulletPool = default;
 
+	[SerializeField]
+	Canvas BuildMenu = default;
+
 	[SerializeField, Range(0.1f, 10f)]
 	float spawnSpeed = 1f;
 
@@ -27,6 +31,8 @@ public class Game : MonoBehaviour
 	private GameTile selectedTile;
 
 	private GameTile hoveredTile;
+
+	private bool IsGUIEnabled = false;
 
 	EnemyCollection enemies = new EnemyCollection();
 	Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -120,6 +126,11 @@ public class Game : MonoBehaviour
 
 	void HandleTouch()
 	{
+		if (IsGUIEnabled)
+		{
+			return;
+		}
+
 		GameTile tile = board.GetTile(TouchRay);
 		if (tile != null)
 		{
@@ -129,8 +140,19 @@ public class Game : MonoBehaviour
 			}
 			else
 			{
-				selectedTile = board.GetTile(TouchRay);
+				SelectTile();
 			}
+		}
+	}
+
+	private void SelectTile()
+	{
+		selectedTile = board.GetTile(TouchRay);
+		if (selectedTile.Content.Type == GameTileContentType.Build)
+		{
+			CanvasGroup canvasGroup = BuildMenu.GetComponent<CanvasGroup>();
+			canvasGroup.alpha = 1.0f;
+			SetBuildMenuEnabled(true);
 		}
 	}
 
@@ -146,6 +168,27 @@ public class Game : MonoBehaviour
 		{
 			Gizmos.color = new Color(1, 0, 0, 0.5f);
 			Gizmos.DrawCube(hoveredTile.Content.transform.position, new Vector3(1, 1, 1));
+		}
+	}
+
+	public void PlaceTower()
+	{
+		if (selectedTile != null)
+		{
+			board.ToggleTower(selectedTile);
+			CanvasGroup canvasGroup = BuildMenu.GetComponent<CanvasGroup>();
+			canvasGroup.alpha = 0.0f;
+			SetBuildMenuEnabled(false);
+		}
+	}
+
+	public void SetBuildMenuEnabled(bool Enabled)
+	{
+		IsGUIEnabled = Enabled;
+		Button[] buttons = BuildMenu.GetComponents<Button>();
+		foreach (Button button in buttons)
+		{
+			button.interactable = Enabled;
 		}
 	}
 }
