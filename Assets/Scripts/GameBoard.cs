@@ -13,6 +13,21 @@ public class GameBoard : MonoBehaviour
 	Texture2D gridTexture = default;
 
 	[SerializeField]
+	Tower BasicTowerPrefab = default;
+
+	[SerializeField]
+	Tower DoubleTowerPrefab = default;
+
+	[SerializeField]
+	Tower SMGTowerPrefab = default;
+
+	[SerializeField]
+	Tower SniperTowerPrefab = default;
+
+	[SerializeField]
+	Tower RocketTowerPrefab = default;
+
+	[SerializeField]
 	TextAsset leveldesign;
 
 	Vector2Int size;
@@ -221,26 +236,13 @@ public class GameBoard : MonoBehaviour
 	{
 		tile.Content = contentFactory.Get(GameTileContentType.Build);
 	}
-	public void ToggleTower(GameTile tile)
+	public void ToggleTower(GameTile tile, Tower towerPrefab)
 	{
 		if (tile.Content.Type == GameTileContentType.Tower)
 		{
 			updatingContent.Remove(tile.Content);
 			tile.Content = contentFactory.Get(GameTileContentType.Build);
 			FindPaths();
-		}
-		else if (tile.Content.Type == GameTileContentType.Path)
-		{
-			tile.Content = contentFactory.Get(GameTileContentType.Tower);
-			if (FindPaths())
-			{
-				updatingContent.Add(tile.Content);
-			}
-			else
-			{
-				tile.Content = contentFactory.Get(GameTileContentType.Path);
-				FindPaths();
-			}
 		}
 		else if (tile.Content.Type == GameTileContentType.Wall)
 		{
@@ -249,7 +251,7 @@ public class GameBoard : MonoBehaviour
 		}
 		else if (tile.Content.Type ==  GameTileContentType.Build)
 		{
-			tile.Content = contentFactory.Get(GameTileContentType.Tower);
+			tile.Content = Instantiate(towerPrefab);
 			updatingContent.Add(tile.Content);
 		}
 	}
@@ -354,5 +356,39 @@ public class GameBoard : MonoBehaviour
 		{
 			updatingContent[i].GameUpdate();
 		}
+	}
+
+	public void PlaceTower(Tower tower)
+	{
+		if (Game.SharedGame.selectedTile == null)
+			return;
+
+		ToggleTower(Game.SharedGame.selectedTile, tower);
+		Game.SharedGame.SetBuildMenuEnabled(false);
+	}
+	
+	public void PlaceBasicTower()
+	{
+		PlaceTower(BasicTowerPrefab);
+	}
+
+	public void PlaceDoubleTower()
+	{
+		PlaceTower(DoubleTowerPrefab);
+	}
+
+	public void PlaceSMGTower()
+	{
+		PlaceTower(SMGTowerPrefab);
+	}
+
+	public void PlaceSniperTower()
+	{
+		PlaceTower(SniperTowerPrefab);
+	}
+
+	public void PlaceRocketTower()
+	{
+		PlaceTower(RocketTowerPrefab);
 	}
 }

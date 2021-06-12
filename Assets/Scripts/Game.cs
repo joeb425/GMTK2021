@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
+	public static Game SharedGame;
+	
 	[SerializeField]
 	Vector2Int boardSize = new Vector2Int(11, 11);
 
@@ -21,16 +23,15 @@ public class Game : MonoBehaviour
 	BulletPool bulletPool = default;
 
 	[SerializeField]
-	Canvas BuildMenu = default;
+	public Canvas BuildMenu = default;
 
 	[SerializeField, Range(0.1f, 10f)]
 	float spawnSpeed = 1f;
 
 	float spawnProgress;
 
-	private GameTile selectedTile;
-
-	private GameTile hoveredTile;
+	public GameTile selectedTile;
+	public GameTile hoveredTile;
 
 	private bool IsGUIEnabled = false;
 
@@ -43,6 +44,8 @@ public class Game : MonoBehaviour
 		board.ShowGrid = true;
 
 		bulletPool.Initialize();
+
+		SharedGame = this;
 	}
 
 	void OnValidate()
@@ -134,11 +137,11 @@ public class Game : MonoBehaviour
 		GameTile tile = board.GetTile(TouchRay);
 		if (tile != null)
 		{
-			if (Input.GetKey(KeyCode.LeftShift))
-			{
-				board.ToggleTower(tile);
-			}
-			else
+			// if (Input.GetKey(KeyCode.LeftShift))
+			// {
+			// 	board.ToggleTower(tile);
+			// }
+			// else
 			{
 				SelectTile();
 			}
@@ -171,19 +174,11 @@ public class Game : MonoBehaviour
 		}
 	}
 
-	public void PlaceTower()
-	{
-		if (selectedTile != null)
-		{
-			board.ToggleTower(selectedTile);
-			CanvasGroup canvasGroup = BuildMenu.GetComponent<CanvasGroup>();
-			canvasGroup.alpha = 0.0f;
-			SetBuildMenuEnabled(false);
-		}
-	}
-
 	public void SetBuildMenuEnabled(bool Enabled)
 	{
+		CanvasGroup canvasGroup = BuildMenu.GetComponent<CanvasGroup>();
+		canvasGroup.alpha = Enabled ? 1.0f : 0.0f;
+		
 		IsGUIEnabled = Enabled;
 		Button[] buttons = BuildMenu.GetComponents<Button>();
 		foreach (Button button in buttons)

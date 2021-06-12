@@ -468,18 +468,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &2069610539 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4171630199352765875, guid: 4a700ac1cb412c0468cbf9169c310c67,
-    type: 3}
-  m_PrefabInstance: {fileID: 4171630198132975250}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4a8c46f22f8c47a1a14e9657bbb981b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!223 &375104720547175923 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 8565986982069438048, guid: aa19e4d22a681b649a30002d3c6a013c,
@@ -672,6 +660,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Board
       objectReference: {fileID: 0}
+    - target: {fileID: 2409273647800608462, guid: 5ca5320c9691ec24ea02955902ac84d7,
+        type: 3}
+      propertyPath: SMGTowerPrefab
+      value: 
+      objectReference: {fileID: 7662874212954485398, guid: afc394f333da7184ca9c6a1db1ebca3b,
+        type: 3}
+    - target: {fileID: 2409273647800608462, guid: 5ca5320c9691ec24ea02955902ac84d7,
+        type: 3}
+      propertyPath: BasicTowerPrefab
+      value: 
+      objectReference: {fileID: 7682699519609654883, guid: d0f4d9b1f614fa34d841ba8748eaca4e,
+        type: 3}
+    - target: {fileID: 2409273647800608462, guid: 5ca5320c9691ec24ea02955902ac84d7,
+        type: 3}
+      propertyPath: DoubleTowerPrefab
+      value: 
+      objectReference: {fileID: 5942957368654960938, guid: 1038ec44c5e3c514485f69db945a9f65,
+        type: 3}
+    - target: {fileID: 2409273647800608462, guid: 5ca5320c9691ec24ea02955902ac84d7,
+        type: 3}
+      propertyPath: RocketTowerPrefab
+      value: 
+      objectReference: {fileID: 8119690419672304627, guid: 2add2897b33aaa44ca5482e243244e44,
+        type: 3}
+    - target: {fileID: 2409273647800608462, guid: 5ca5320c9691ec24ea02955902ac84d7,
+        type: 3}
+      propertyPath: SniperTowerPrefab
+      value: 
+      objectReference: {fileID: 5986433788513884090, guid: b0f70ac5db884bb408b2058aa38412f8,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ca5320c9691ec24ea02955902ac84d7, type: 3}
 --- !u!1001 &4171630198132975250
@@ -779,7 +797,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2069610539}
+      objectReference: {fileID: 495667348}
     - target: {fileID: 339886282856043752, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -788,12 +806,12 @@ PrefabInstance:
     - target: {fileID: 339886282856043752, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PlaceTower
+      value: PlaceSniperTower
       objectReference: {fileID: 0}
     - target: {fileID: 339886282856043752, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Game, Assembly-CSharp
+      value: GameBoard, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 339886282856043752, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
@@ -814,7 +832,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2069610539}
+      objectReference: {fileID: 495667348}
     - target: {fileID: 1630141219991615179, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -823,12 +841,12 @@ PrefabInstance:
     - target: {fileID: 1630141219991615179, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PlaceTower
+      value: PlaceBasicTower
       objectReference: {fileID: 0}
     - target: {fileID: 1630141219991615179, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Game, Assembly-CSharp
+      value: GameBoard, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1630141219991615179, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
@@ -849,7 +867,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2069610539}
+      objectReference: {fileID: 495667348}
     - target: {fileID: 5144138876593435751, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -858,12 +876,12 @@ PrefabInstance:
     - target: {fileID: 5144138876593435751, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PlaceTower
+      value: PlaceSMGTower
       objectReference: {fileID: 0}
     - target: {fileID: 5144138876593435751, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Game, Assembly-CSharp
+      value: GameBoard, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5144138876593435751, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
@@ -884,7 +902,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2069610539}
+      objectReference: {fileID: 495667348}
     - target: {fileID: 5859879262639468447, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -893,12 +911,12 @@ PrefabInstance:
     - target: {fileID: 5859879262639468447, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PlaceTower
+      value: PlaceDoubleTower
       objectReference: {fileID: 0}
     - target: {fileID: 5859879262639468447, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Game, Assembly-CSharp
+      value: GameBoard, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5859879262639468447, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
@@ -919,7 +937,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2069610539}
+      objectReference: {fileID: 495667348}
     - target: {fileID: 6715378618140462600, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -928,12 +946,12 @@ PrefabInstance:
     - target: {fileID: 6715378618140462600, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PlaceTower
+      value: PlaceRocketTower
       objectReference: {fileID: 0}
     - target: {fileID: 6715378618140462600, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Game, Assembly-CSharp
+      value: GameBoard, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6715378618140462600, guid: aa19e4d22a681b649a30002d3c6a013c,
         type: 3}
