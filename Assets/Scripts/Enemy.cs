@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -12,8 +13,10 @@ public class Enemy : MonoBehaviour
 	DirectionChange directionChange;
 	float directionAngleFrom, directionAngleTo;
 
-	public float Health { get; set; } = 100.0f;
-
+	public float Health { get; set; } = 500.0f;
+	public float maxHealth;
+	public GameObject healthBarUI;
+	public Slider slider;
 	public EnemyFactory OriginFactory
 	{
 		get => originFactory;
@@ -30,6 +33,7 @@ public class Enemy : MonoBehaviour
 		Debug.Assert(tile.NextTileOnPath != null, "Nowhere to go!", this);
 		tileFrom = tile;
 		tileTo = tile.NextTileOnPath;
+		maxHealth = Health;
 		//positionFrom = tileFrom.transform.localPosition;
 		//positionTo = tileFrom.ExitPoint;
 		//transform.localRotation = tileFrom.PathDirection.GetRotation();
@@ -55,10 +59,16 @@ public class Enemy : MonoBehaviour
 
 	public bool GameUpdate()
 	{
+		slider.value = CalculateHealth();
 		if (Health <= 0f)
 		{
 			OriginFactory.Reclaim(this);
 			return false;
+		}
+
+		if (Health < maxHealth)
+		{
+			healthBarUI.SetActive(true);
 		}
 
 		progress += Time.deltaTime;
@@ -84,6 +94,10 @@ public class Enemy : MonoBehaviour
 		return true;
 	}
 
+	float CalculateHealth()
+	{
+		return Health / maxHealth;
+	}
 	void PrepareNextState()
 	{
 		positionFrom = positionTo;
