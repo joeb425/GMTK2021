@@ -5,9 +5,6 @@ public class GameBoard : MonoBehaviour
 {
 	[SerializeField]
 	Transform ground = default;
-	
-	[SerializeField]
-	Transform build = default;
 
 	[SerializeField]
 	GameTile tilePrefab = default;
