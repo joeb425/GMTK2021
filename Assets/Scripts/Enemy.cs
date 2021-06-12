@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour
 	DirectionChange directionChange;
 	float directionAngleFrom, directionAngleTo;
 
+	public float Health { get; set; } = 100.0f;
+
 	public EnemyFactory OriginFactory
 	{
 		get => originFactory;
@@ -45,8 +47,20 @@ public class Enemy : MonoBehaviour
 		transform.localRotation = direction.GetRotation();
 	}
 
+	public void ApplyDamage(float damage)
+	{
+		Debug.Assert(damage >= 0f, "Negative damage applied.");
+		Health -= damage;
+	}
+
 	public bool GameUpdate()
 	{
+		if (Health <= 0f)
+		{
+			OriginFactory.Reclaim(this);
+			return false;
+		}
+
 		progress += Time.deltaTime;
 		while (progress >= 1f)
 		{
@@ -113,5 +127,10 @@ public class Enemy : MonoBehaviour
 	void PrepareTurnAround()
 	{
 		directionAngleTo = directionAngleFrom + 180f;
+	}
+
+	private void OnCollisionEnter(Collision other)
+	{
+		Debug.Log("Collision?");
 	}
 }
