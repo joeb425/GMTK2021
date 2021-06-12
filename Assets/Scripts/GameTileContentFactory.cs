@@ -47,7 +47,7 @@ public class GameTileContentFactory : GameObjectFactory
 		Destroy(content.gameObject);
 	}
 
-	GameTileContent Get(GameTileContent prefab)
+	public GameTileContent Get(GameTileContent prefab)
 	{
 		GameTileContent instance = CreateGameObjectInstance(prefab);
 		instance.OriginFactory = this;

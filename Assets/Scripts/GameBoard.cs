@@ -251,7 +251,7 @@ public class GameBoard : MonoBehaviour
 		}
 		else if (tile.Content.Type ==  GameTileContentType.Build)
 		{
-			tile.Content = Instantiate(towerPrefab);
+			tile.Content = contentFactory.Get(towerPrefab);
 			updatingContent.Add(tile.Content);
 		}
 	}
