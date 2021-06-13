@@ -1,14 +1,14 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
+﻿using Unity.Profiling;
+using UnityEngine;
 
 //3.3
 
 public class Game : MonoBehaviour
-	, IPointerClickHandler
 {
+	private MouseInput mouseInput;
+
 	public static Game SharedGame;
-	
+
 	[SerializeField]
 	Vector2Int boardSize = new Vector2Int(11, 11);
 
@@ -41,7 +41,7 @@ public class Game : MonoBehaviour
 	private bool IsGUIEnabled = false;
 
 	EnemyCollection enemies = new EnemyCollection();
-	Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
+	Ray touchRay;
 
 	private bool linkAttempt = false;
 
@@ -55,6 +55,19 @@ public class Game : MonoBehaviour
 		SharedGame = this;
 
 		SetBuildMenuEnabled(false);
+
+		mouseInput = new MouseInput();
+		mouseInput.Enable();
+
+		mouseInput.Mouse.MouseClick.performed += ctx => MouseClick();
+	}
+	
+	void MouseClick()
+	{
+		HandleTouch();
+		Debug.Log("Click");
+		// Vector2 mousePosition = mouseInput.Mouse.MousePosition.ReadValue<Vector2>();
+		// Debug.Log(mousePosition);
 	}
 
 	void OnValidate()
@@ -72,26 +85,10 @@ public class Game : MonoBehaviour
 
 	void Update()
 	{
-		hoveredTile = board.GetTile(TouchRay);
-
-		if (Input.GetButtonDown("Click"))
-		{
-			HandleTouch();
-		}
-		else if (Input.GetMouseButtonDown(1))
-		{
-			HandleAlternativeTouch();
-		}
-
-		if (Input.GetKeyDown(KeyCode.V))
-		{
-			board.ShowPaths = !board.ShowPaths;
-		}
-
-		if (Input.GetKeyDown(KeyCode.G))
-		{
-			board.ShowGrid = !board.ShowGrid;
-		}
+		Vector2 mousePosition = mouseInput.Mouse.MousePosition.ReadValue<Vector2>();
+		touchRay = Camera.main.ScreenPointToRay(new Vector3(mousePosition.x, mousePosition.y, 0.0f));
+		
+		hoveredTile = board.GetTile(touchRay);
 
 		spawnProgress += spawnSpeed * Time.deltaTime;
 		while (spawnProgress >= 1f)
@@ -106,7 +103,7 @@ public class Game : MonoBehaviour
 
 	void HandleAlternativeTouch()
 	{
-		GameTile tile = board.GetTile(TouchRay);
+		GameTile tile = board.GetTile(touchRay);
 		if (tile != null)
 		{
 			if (Input.GetKey(KeyCode.LeftShift))
@@ -143,7 +140,7 @@ public class Game : MonoBehaviour
 			return;
 		}
 
-		GameTile tile = board.GetTile(TouchRay);
+		GameTile tile = board.GetTile(touchRay);
 		if (tile != null)
 		{
 			// if (Input.GetKey(KeyCode.LeftShift))
@@ -159,8 +156,8 @@ public class Game : MonoBehaviour
 
 	private void SelectTile()
 	{
-		GameTile newSelectedTile = board.GetTile(TouchRay);
-		selectedTile = board.GetTile(TouchRay);
+		GameTile newSelectedTile = board.GetTile(touchRay);
+		selectedTile = board.GetTile(touchRay);
 
 		if (newSelectedTile != selectedTile)
 		{
@@ -227,9 +224,5 @@ public class Game : MonoBehaviour
 				sourceTower = (Tower) selectedTile.Content;
 			}
 		}
-	}
-	public void OnPointerClick(PointerEventData eventData)
-	{
-		Debug.Log("Pointer click");
 	}
 }
