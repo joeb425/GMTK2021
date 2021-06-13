@@ -68,14 +68,11 @@ public class Game : MonoBehaviour
 		mouseInput.Enable();
 
 		mouseInput.Mouse.MouseClick.performed += ctx => MouseClick();
-<<<<<<< HEAD
-		//spawnerHandler.Start();
-=======
 
+		//spawnerHandler.Start();
 		// var rootVisualElement = uiDocument.rootVisualElement;
 		// var spawnButton = rootVisualElement.Q<Button>("basic-tower-btn");
 		// spawnButton.RegisterCallback<ClickEvent>(ev => board.PlaceBasicTower());
->>>>>>> 2a7855f1d7abc232e1aad40cf81169ef10c2e757
 	}
 	
 	void MouseClick()

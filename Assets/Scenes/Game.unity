@@ -1121,15 +1121,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4171630199352765875, guid: 4a700ac1cb412c0468cbf9169c310c67,
         type: 3}
-<<<<<<< HEAD
       propertyPath: spawnerHandler
       value: 
       objectReference: {fileID: 812287041}
-=======
       propertyPath: uiDocument
       value: 
       objectReference: {fileID: 214363846}
->>>>>>> 2a7855f1d7abc232e1aad40cf81169ef10c2e757
     - target: {fileID: 4171630199352765875, guid: 4a700ac1cb412c0468cbf9169c310c67,
         type: 3}
       propertyPath: buttons.Array.size
