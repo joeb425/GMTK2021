@@ -156,14 +156,14 @@ public class Game : MonoBehaviour
 
 	private void SelectTile()
 	{
-		GameTile newSelectedTile = board.GetTile(touchRay);
+		GameTile oldSelectedTile = selectedTile;
 		selectedTile = board.GetTile(touchRay);
 
-		if (newSelectedTile != selectedTile)
+		if (oldSelectedTile != selectedTile)
 		{
-			OnSelectedTileChanged(selectedTile, newSelectedTile);
+			OnSelectedTileChanged(oldSelectedTile, selectedTile);
 		}
-
+		
 		bool showBuildMenu = selectedTile.Content.Type == GameTileContentType.Build;
 		SetBuildMenuEnabled(showBuildMenu);
 
@@ -180,6 +180,29 @@ public class Game : MonoBehaviour
 
 	private void OnSelectedTileChanged(GameTile oldTile, GameTile newTile)
 	{
+		Debug.Log("Old Tile " + oldTile + " | " + "New: " + newTile);
+		SetTileSelected(oldTile, false);
+		SetTileSelected(newTile, true);
+	}
+
+	private void SetTileSelected(GameTile tile, bool selected)
+	{
+		if (tile is null)
+		{
+			return;
+		}
+		
+		if (tile.Content.Type == GameTileContentType.Tower)
+		{
+			Renderer[] renderers = tile.Content.GetComponentsInChildren<Renderer>();
+			foreach (Renderer renderer in renderers)
+			{
+				if (renderer != null)
+				{
+					renderer.material.SetFloat("_OutlineWidth", selected ? 1.0f : 0.0f);
+				}
+			}
+		}
 	}
 
 	private void OnDrawGizmos()
