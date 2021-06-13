@@ -169,18 +169,11 @@ public class Game : MonoBehaviour
 
 		bool showTowerUI = selectedTile.Content.Type == GameTileContentType.Tower;
 		SetTowerUIEnabled(showTowerUI);
-
-		if (selectedTile.Content.Type == GameTileContentType.Tower)
-		{
-			Tower tower = selectedTile.Content as Tower;
-			Renderer shaders = tower.GetComponentInChildren<Renderer>();
-			shaders.sharedMaterial.SetFloat("_OutlineWidth", 1.05f);
-		}
 	}
 
 	private void OnSelectedTileChanged(GameTile oldTile, GameTile newTile)
 	{
-		Debug.Log("Old Tile " + oldTile + " | " + "New: " + newTile);
+		// Debug.Log("Old Tile " + oldTile.Content + " | " + "New: " + newTile.Content);
 		SetTileSelected(oldTile, false);
 		SetTileSelected(newTile, true);
 	}
@@ -194,12 +187,12 @@ public class Game : MonoBehaviour
 		
 		if (tile.Content.Type == GameTileContentType.Tower)
 		{
-			Renderer[] renderers = tile.Content.GetComponentsInChildren<Renderer>();
-			foreach (Renderer renderer in renderers)
+			MeshRenderer[] renderers = tile.Content.GetComponentsInChildren<MeshRenderer>();
+			foreach (MeshRenderer renderer in renderers)
 			{
 				if (renderer != null)
 				{
-					renderer.material.SetFloat("_OutlineWidth", selected ? 1.0f : 0.0f);
+					renderer.material.SetFloat("_OutlineWidth", selected ? 1.05f : 1.0f);
 				}
 			}
 		}
