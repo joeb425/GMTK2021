@@ -42,7 +42,9 @@ public class Tower : GameTileContent
 
 	private bool hasRotator;
 
-	private void Start()
+	private bool isGhostTower = false;
+
+	private void Awake()
 	{
 		InitLineRenderer();
 
@@ -69,6 +71,11 @@ public class Tower : GameTileContent
 
 	public override void GameUpdate()
 	{
+		if (isGhostTower)
+		{
+			return;
+		}
+		
 		if (TrackTarget() || AcquireTarget())
 		{
 			if (!hasRotator)
@@ -196,7 +203,7 @@ public class Tower : GameTileContent
 		{
 			float x = towerAttributes.finalTargetingRange * Mathf.Cos(theta);
 			float z = towerAttributes.finalTargetingRange * Mathf.Sin(theta);
-			Vector3 pos = new Vector3(x, transform.position.y + 0.05f, z);
+			Vector3 pos = new Vector3(x, transform.position.y + 0.25f, z);
 			radiusLineRenderer.SetPosition(i, pos);
 			theta += deltaTheta;
 		}
@@ -291,5 +298,11 @@ public class Tower : GameTileContent
 	public void OnSelected(bool selected)
 	{
 		radiusLineRenderer.enabled = selected;
+	}
+
+	public void SetGhostTower()
+	{
+		isGhostTower = true;
+		radiusLineRenderer.enabled = true;
 	}
 }
