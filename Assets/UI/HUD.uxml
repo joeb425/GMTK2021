@@ -1,11 +1,12 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="SpawnTowerBtn" src="SpawnTowerBtn.uxml" />
     <Style src="NewUSSFile.uss" />
     <ui:VisualElement style="flex-shrink: 1; flex-grow: 1;" />
-    <ui:VisualElement style="flex-direction: row; flex-grow: 0; align-items: stretch; justify-content: center;">
-        <ui:Button text="Basic&#10;" display-tooltip-when-elided="true" name="basic-tower-btn" />
-        <ui:Button text="Button" display-tooltip-when-elided="true" />
-        <ui:Button text="Button" display-tooltip-when-elided="true" />
-        <ui:Button text="SMG&#10;" display-tooltip-when-elided="true" />
-        <ui:Button text="SMG&#10;" display-tooltip-when-elided="true" />
+    <ui:VisualElement style="flex-direction: row; flex-grow: 0; align-items: stretch; justify-content: center; padding-right: 0; padding-left: 0; margin-right: 0;">
+        <ui:Instance template="SpawnTowerBtn" name="SpawnBasicBtn" />
+        <ui:Instance template="SpawnTowerBtn" name="SpawnDoubleBtn" />
+        <ui:Instance template="SpawnTowerBtn" name="SpawnRocketBtn" />
+        <ui:Instance template="SpawnTowerBtn" name="SpawnSMGBtn" />
+        <ui:Instance template="SpawnTowerBtn" name="SpawnSniperBtn" />
     </ui:VisualElement>
 </ui:UXML>

@@ -13,19 +13,19 @@ public class GameBoard : MonoBehaviour
 	Texture2D gridTexture = default;
 
 	[SerializeField]
-	Tower BasicTowerPrefab = default;
+	public Tower BasicTowerPrefab = default;
 
 	[SerializeField]
-	Tower DoubleTowerPrefab = default;
+	public Tower DoubleTowerPrefab = default;
 
 	[SerializeField]
-	Tower SMGTowerPrefab = default;
+	public Tower SMGTowerPrefab = default;
 
 	[SerializeField]
-	Tower SniperTowerPrefab = default;
+	public Tower SniperTowerPrefab = default;
 
 	[SerializeField]
-	Tower RocketTowerPrefab = default;
+	public Tower RocketTowerPrefab = default;
 
 	[SerializeField]
 	TextAsset leveldesign;
