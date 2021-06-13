@@ -1,1 +1,8 @@
-VisualElement {}
+VisualElement {
+}
+
+.unity-button {
+    margin-left: 0;
+    width: 64px;
+    height: 64px;
+}

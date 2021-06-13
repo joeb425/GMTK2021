@@ -40,6 +40,8 @@ public class Tower : GameTileContent
 
 	private int towerLevel = 0;
 
+	private bool hasRotator;
+
 	private void Start()
 	{
 		InitLineRenderer();
@@ -47,6 +49,9 @@ public class Tower : GameTileContent
 		UpdateAttributes();
 
 		UpdateTowerRangeCollider();
+
+		Rotator rotator = gameObject.GetComponent<Rotator>();
+		hasRotator = rotator != null;
 	}
 
 	public void InitLineRenderer()
@@ -66,8 +71,12 @@ public class Tower : GameTileContent
 	{
 		if (TrackTarget() || AcquireTarget())
 		{
-			Vector3 point = target.Position;
-			turret.LookAt(point);
+			if (!hasRotator)
+			{
+				Vector3 point = target.Position;
+				turret.LookAt(point);
+			}
+
 			UpdateAttacking();
 		}
 	}
@@ -234,8 +243,8 @@ public class Tower : GameTileContent
 			renderers[i].startWidth = 0.2f;
 			renderers[i].endWidth = 0.2f;
 			renderers[i].positionCount = 2; // [v1,v2,v3,v4] --> v1v2, v2v3, v3v4, v1v2,v1v3,v1v4
-			renderers[i].SetPosition(0, transform.position + Vector3.up * 0.05f);
-			renderers[i].SetPosition(1, linkedTowers[i].transform.position + Vector3.up * 0.05f);
+			renderers[i].SetPosition(0, transform.position + Vector3.up * 1.0f);
+			renderers[i].SetPosition(1, linkedTowers[i].transform.position + Vector3.up * 1.0f);
 		}
 
 		//Handel bonuses here as well :D

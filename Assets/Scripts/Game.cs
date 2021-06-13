@@ -1,5 +1,6 @@
 ﻿using Unity.Profiling;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 //3.3
 
@@ -46,6 +47,9 @@ public class Game : MonoBehaviour
 
 	private bool linkAttempt = false;
 
+	[SerializeField]
+	public UIDocument uiDocument;
+
 	void Awake()
 	{
 		board.Initialize(boardSize, tileContentFactory);
@@ -61,6 +65,10 @@ public class Game : MonoBehaviour
 		mouseInput.Enable();
 
 		mouseInput.Mouse.MouseClick.performed += ctx => MouseClick();
+
+		// var rootVisualElement = uiDocument.rootVisualElement;
+		// var spawnButton = rootVisualElement.Q<Button>("basic-tower-btn");
+		// spawnButton.RegisterCallback<ClickEvent>(ev => board.PlaceBasicTower());
 	}
 	
 	void MouseClick()
