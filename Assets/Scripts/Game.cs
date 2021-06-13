@@ -69,10 +69,20 @@ public class Game : MonoBehaviour
 
 		mouseInput.Mouse.MouseClick.performed += ctx => MouseClick();
 
-		//spawnerHandler.Start();
-		// var rootVisualElement = uiDocument.rootVisualElement;
-		// var spawnButton = rootVisualElement.Q<Button>("basic-tower-btn");
-		// spawnButton.RegisterCallback<ClickEvent>(ev => board.PlaceBasicTower());
+		BindButton(board.PlaceBasicTower, board.BasicTowerPrefab, "SpawnBasicBtn", "Basic");
+		BindButton(board.PlaceDoubleTower, board.DoubleTowerPrefab, "SpawnDoubleBtn", "Double");
+		BindButton(board.PlaceRocketTower, board.RocketTowerPrefab, "SpawnRocketBtn", "Rocket");
+		BindButton(board.PlaceSniperTower, board.SniperTowerPrefab, "SpawnSniperBtn", "Sniper");
+		BindButton(board.PlaceSMGTower, board.SMGTowerPrefab, "SpawnSMGBtn", "SMG");
+	}
+
+	void BindButton(Action action, Tower towerPrefab, string btnName, string btnText)
+	{
+		var rootVisualElement = uiDocument.rootVisualElement;
+		var spawnBasicTower = rootVisualElement.Q(btnName);
+		spawnBasicTower.RegisterCallback<ClickEvent>(ev => action());
+		spawnBasicTower.Q<Label>("Cost").text = "" + towerPrefab.Cost;
+		spawnBasicTower.Q<Button>("Button").text = btnText;
 	}
 	
 	void MouseClick()
