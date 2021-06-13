@@ -62,6 +62,9 @@ public class Game : MonoBehaviour
 	public Label cashLabel;
 	public Label livesLabel;
 
+	private Tower towerToBePlaced;
+	private Tower towerToBePlacedPrefab;
+
 	void Awake()
 	{
 		board.Initialize(boardSize, tileContentFactory);
@@ -97,15 +100,27 @@ public class Game : MonoBehaviour
 	{
 		var rootVisualElement = uiDocument.rootVisualElement;
 		var spawnBasicTower = rootVisualElement.Q(btnName);
-		spawnBasicTower.RegisterCallback<ClickEvent>(ev => action());
+		spawnBasicTower.RegisterCallback<ClickEvent>(ev => SetTowerToBePlaced(towerPrefab));
 		spawnBasicTower.Q<Label>("Cost").text = "" + towerPrefab.Cost;
 		spawnBasicTower.Q<Button>("Button").text = btnText;
+	}
+
+	void SetTowerToBePlaced(Tower towerPrefab)
+	{
+		if (towerToBePlaced)
+		{
+			Destroy(towerToBePlaced);
+		}
+
+		towerToBePlaced = Instantiate(towerPrefab);
+		towerToBePlacedPrefab = towerPrefab;
+		towerToBePlaced.SetGhostTower();
 	}
 	
 	void MouseClick()
 	{
 		HandleTouch();
-		Debug.Log("Click");
+		// Debug.Log("Click");
 		// Vector2 mousePosition = mouseInput.Mouse.MousePosition.ReadValue<Vector2>();
 		// Debug.Log(mousePosition);
 	}
@@ -139,6 +154,11 @@ public class Game : MonoBehaviour
 		spawnerHandler.GameUpdate(board.GetSpawnPoint(Random.Range(0, board.SpawnPointCount)));
 		enemies.GameUpdate();
 		board.GameUpdate();
+
+		if (towerToBePlaced != null && hoveredTile != null)
+		{
+			towerToBePlaced.transform.position = hoveredTile.Content.transform.position;
+		}
 	}
 
 	void HandleAlternativeTouch()
@@ -175,27 +195,20 @@ public class Game : MonoBehaviour
 
 	void HandleTouch()
 	{
-		if (IsGUIEnabled)
-		{
-			return;
-		}
-
 		GameTile tile = board.GetTile(touchRay);
 		if (tile != null)
 		{
-			// if (Input.GetKey(KeyCode.LeftShift))
-			// {
-			// 	board.ToggleTower(tile);
-			// }
-			// else
-			{
-				SelectTile();
-			}
+			SelectTile();
 		}
 	}
 
 	private void SelectTile()
 	{
+		if (PlaceCurrentTower())
+		{
+			return;
+		}
+		
 		GameTile oldSelectedTile = selectedTile;
 		GameTileContent oldSelectedContent = selectedTileContent;
 
@@ -213,8 +226,8 @@ public class Game : MonoBehaviour
 			OnSelectedTileChanged(oldSelectedTile, selectedTile);
 		}
 
-		bool showBuildMenu = selectedTile.Content.Type == GameTileContentType.Build;
-		SetBuildMenuEnabled(showBuildMenu);
+		// bool showBuildMenu = selectedTile.Content.Type == GameTileContentType.Build;
+		// SetBuildMenuEnabled(showBuildMenu);
 
 		bool showTowerUI = selectedTile.Content.Type == GameTileContentType.Tower;
 		SetTowerUIEnabled(showTowerUI);
@@ -311,5 +324,18 @@ public class Game : MonoBehaviour
 	{
 		currentLives = currentLives - lives;
 		livesLabel.text = currentLives + "/" + maxLives;
+	}
+
+	public bool PlaceCurrentTower()
+	{
+		// place tower
+		if (towerToBePlaced != null)
+		{
+			board.PlaceTowerAtTile(hoveredTile, towerToBePlacedPrefab);
+			Destroy(towerToBePlaced.gameObject);
+			return true;
+		}
+
+		return false;
 	}
 }

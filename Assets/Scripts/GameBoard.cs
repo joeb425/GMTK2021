@@ -366,6 +366,14 @@ public class GameBoard : MonoBehaviour
 		}
 	}
 
+	public void PlaceTowerAtTile(GameTile tile, Tower tower)
+	{
+		if (tile == null || tower == null)
+			return;
+
+		ToggleTower(tile, tower);
+	}
+
 	public void PlaceTower(Tower tower)
 	{
 		if (Game.SharedGame.selectedTile == null)
