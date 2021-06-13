@@ -25,7 +25,17 @@ PrefabInstance:
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: towerPerks.Array.size
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: towerPerks.Array.data[0].SpeedMod
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: towerPerks.Array.data[0].DamageMod
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
