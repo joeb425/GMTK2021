@@ -20,7 +20,7 @@ public class Tower : GameTileContent
 
 	public int numSegments = 64;
 
-	public LineRenderer lineRenderer;
+	public LineRenderer radiusLineRenderer;
 
 	private SphereCollider sphereCollider;
 
@@ -51,15 +51,15 @@ public class Tower : GameTileContent
 
 	public void InitLineRenderer()
 	{
-		lineRenderer = gameObject.AddComponent<LineRenderer>();
-		lineRenderer.startColor = Color.red;
-		lineRenderer.endColor = Color.red;
-		lineRenderer.startWidth = 0.05f;
-		lineRenderer.endWidth = 0.05f;
-		lineRenderer.loop = true;
-		lineRenderer.positionCount = numSegments + 1;
-		lineRenderer.useWorldSpace = false;
-		lineRenderer.enabled = false;
+		radiusLineRenderer = gameObject.AddComponent<LineRenderer>();
+		radiusLineRenderer.startColor = Color.red;
+		radiusLineRenderer.endColor = Color.red;
+		radiusLineRenderer.startWidth = 0.05f;
+		radiusLineRenderer.endWidth = 0.05f;
+		radiusLineRenderer.loop = true;
+		radiusLineRenderer.positionCount = numSegments + 1;
+		radiusLineRenderer.useWorldSpace = false;
+		radiusLineRenderer.enabled = false;
 	}
 
 	public override void GameUpdate()
@@ -188,7 +188,7 @@ public class Tower : GameTileContent
 			float x = towerAttributes.finalTargetingRange * Mathf.Cos(theta);
 			float z = towerAttributes.finalTargetingRange * Mathf.Sin(theta);
 			Vector3 pos = new Vector3(x, transform.position.y + 0.05f, z);
-			lineRenderer.SetPosition(i, pos);
+			radiusLineRenderer.SetPosition(i, pos);
 			theta += deltaTheta;
 		}
 	}
@@ -222,32 +222,20 @@ public class Tower : GameTileContent
 
 	public void LinkTower(Tower link)
 	{
-		//beams.Add(GameObject.)
 		linkedTowers.Add(link);
-		Debug.Log(linkedTowers.Count);
-		Vector3 link_pos = link.transform.position;
-		//Vector3 current_pos = this.transform.position;
-
-		linkBeam.localRotation = turret.localRotation;
-		float d = Vector3.Distance(turret.position, link_pos);
-		linkBeamScale.z = d;
-		linkBeam.localScale = linkBeamScale;
-
-		List<LineRenderer> lineRenderer = new List<LineRenderer>();
-
-		//lineRenderer = GetComponent<LineRenderer>();
+		
+		List<LineRenderer> renderers = new List<LineRenderer>();
 		Color c1 = new Color(1f, 1f, 0.5f, 1);
-		//lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
-
-
 		for (int i = 0; i < (linkedTowers.Count); i++)
 		{
-			lineRenderer.Add(Instantiate(linePrefab, transform));
-			lineRenderer[i].SetColors(c1, c1);
-			lineRenderer[i].SetWidth(0.2f, 0.2f);
-			lineRenderer[i].positionCount = 2; // [v1,v2,v3,v4] --> v1v2, v2v3, v3v4, v1v2,v1v3,v1v4
-			lineRenderer[i].SetPosition(0, transform.position + Vector3.up * 0.05f);
-			lineRenderer[i].SetPosition(1, linkedTowers[i].transform.position + Vector3.up * 0.05f);
+			renderers.Add(Instantiate(linePrefab, transform));
+			renderers[i].startColor = c1;
+			renderers[i].endColor = c1;
+			renderers[i].startWidth = 0.2f;
+			renderers[i].endWidth = 0.2f;
+			renderers[i].positionCount = 2; // [v1,v2,v3,v4] --> v1v2, v2v3, v3v4, v1v2,v1v3,v1v4
+			renderers[i].SetPosition(0, transform.position + Vector3.up * 0.05f);
+			renderers[i].SetPosition(1, linkedTowers[i].transform.position + Vector3.up * 0.05f);
 		}
 
 		//Handel bonuses here as well :D
@@ -293,6 +281,6 @@ public class Tower : GameTileContent
 
 	public void OnSelected(bool selected)
 	{
-		lineRenderer.enabled = selected;
+		radiusLineRenderer.enabled = selected;
 	}
 }
