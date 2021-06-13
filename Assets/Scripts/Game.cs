@@ -1,6 +1,8 @@
-﻿using Unity.Profiling;
+﻿using System;
+using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 //3.3
 
