@@ -5,43 +5,27 @@ using UnityEngine;
 
 public class TowerAttributes : MonoBehaviour
 {
-	[SerializeField, Range(1.5f, 10.5f)]
-	public float baseTargetingRange = 1.5f;
-
+	[SerializeField]
+	List<BaseAttributes> baseAttributesPerLevel;
+	
 	public float finalTargetingRange;
-
-	[SerializeField, Range(0.0f, 200f)]
-	public float baseDamage;
 
 	public float finalDamage;
 
-	[SerializeField, Range(0.0f, 200f)]
-	public float baseAttackSpeed = 1.0f;
-
 	public float finalAttackSpeed;
-
-	[SerializeField, Range(0.0f, 200f)]
-	public float baseNumTargets = 2.0f;
 
 	public float finalNumTargets;
 
-	[SerializeField, Range(0.0f, 200f)]
-	public float baseSplash = .5f;
-
 	public float finalSplash;
 
-	public void Reset()
-	{
-		finalTargetingRange = baseTargetingRange;
-		// todo
-	}
+	public int level = 0;
 
-	public void ApplyPerks(List<Perk> perks)
+	public void UpdateAttributes(int level, List<Perk> perks)
 	{
-		// finalDamage = baseDamage * perk.DamageMod
-		// set attributes
+		BaseAttributes attributes = baseAttributesPerLevel[level];
 		
+		finalTargetingRange = attributes.baseTargetingRange;
 		
-		//todo
+		// todo
 	}
 }

@@ -41,13 +41,16 @@ public class Tower : GameTileContent
 	private List<Tower> linkedTowers = new List<Tower>();
 	private List<GameObject> beams = new List<GameObject>();
 
-	private TowerAttributes towerAttributes;
+	[SerializeField]
+	TowerAttributes towerAttributes;
 
 	[SerializeField]
 	Transform linkBeam = default;
 
 	[SerializeField]
 	public List<Perk> towerPerks;
+	
+	private int towerLevel = 0;
 
 	private void Start()
 	{
@@ -273,8 +276,6 @@ public class Tower : GameTileContent
 	public void UpdateAttributes()
 	{
 		// clear old calculated value?
-		towerAttributes.Reset();
-
 		List<Perk> allPerks = new List<Perk>();
 		
 		foreach (Tower link in linkedTowers)
@@ -285,7 +286,7 @@ public class Tower : GameTileContent
 			}
 		}
 
-		towerAttributes.ApplyPerks(allPerks);
-
+		// todo update attributes when other towers change level
+		towerAttributes.UpdateAttributes(towerLevel, allPerks);
 	}
 }
