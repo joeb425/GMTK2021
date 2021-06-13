@@ -38,12 +38,11 @@ public class SpawnerHandler : MonoBehaviour
 		{
 			return;
 		}
-		Debug.Log("gm ef" + spawnPoint.NextTileOnPath);
+		
 		if (enemiesRemainingToSpawn > 0 && Time.time > nextSpawnTime)
 		{
 			enemiesRemainingToSpawn--;
 			nextSpawnTime = Time.time + currentWave.spawnSpeed;
-			Debug.Log("gm ef but better");
 			Enemy enemy = enemyFactory.Get(currentWave.enemyElementNo);
 			enemy.SpawnOn(spawnPoint);
 			//enemies.Add(enemy);

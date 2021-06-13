@@ -55,6 +55,9 @@ public class Game : MonoBehaviour
 	[SerializeField]
 	public UIDocument uiDocument;
 
+	public Label cashLabel;
+	public Label livesLabel;
+
 	void Awake()
 	{
 		board.Initialize(boardSize, tileContentFactory);
@@ -76,6 +79,11 @@ public class Game : MonoBehaviour
 		BindButton(board.PlaceRocketTower, board.RocketTowerPrefab, "SpawnRocketBtn", "Rocket");
 		BindButton(board.PlaceSniperTower, board.SniperTowerPrefab, "SpawnSniperBtn", "Sniper");
 		BindButton(board.PlaceSMGTower, board.SMGTowerPrefab, "SpawnSMGBtn", "SMG");
+
+		var rootVisualElement = uiDocument.rootVisualElement;
+		cashLabel = rootVisualElement.Q<Label>("Cash");
+		livesLabel = rootVisualElement.Q<Label>("Lives");
+		SetCash(50);
 	}
 
 	void BindButton(Action action, Tower towerPrefab, string btnName, string btnText)
@@ -285,5 +293,15 @@ public class Game : MonoBehaviour
 				sourceTower = (Tower) selectedTile.Content;
 			}
 		}
+	}
+
+	public void SetCash(int cash)
+	{
+		cashLabel.text = "" + cash;
+	}
+
+	public void SetLives(int lives)
+	{
+		livesLabel.text = "" + lives;
 	}
 }
