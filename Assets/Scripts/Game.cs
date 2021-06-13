@@ -159,13 +159,23 @@ public class Game : MonoBehaviour
 
 	private void SelectTile()
 	{
+		GameTile newSelectedTile = board.GetTile(TouchRay);
 		selectedTile = board.GetTile(TouchRay);
-		
+
+		if (newSelectedTile != selectedTile)
+		{
+			OnSelectedTileChanged(selectedTile, newSelectedTile);
+		}
+
 		bool showBuildMenu = selectedTile.Content.Type == GameTileContentType.Build;
 		SetBuildMenuEnabled(showBuildMenu);
 
 		bool showTowerUI = selectedTile.Content.Type == GameTileContentType.Tower;
 		SetTowerUIEnabled(showTowerUI);
+	}
+
+	private void OnSelectedTileChanged(GameTile oldTile, GameTile newTile)
+	{
 	}
 
 	private void OnDrawGizmos()
@@ -200,20 +210,21 @@ public class Game : MonoBehaviour
 	}
 
 	private Tower sourceTower;
+
 	public void LinkSelect()
 	{
 		if (selectedTile.Content.Type == GameTileContentType.Tower)
 		{
 			if (linkAttempt)
 			{
-				((Tower)selectedTile.Content).LinkTower(sourceTower);
+				((Tower) selectedTile.Content).LinkTower(sourceTower);
 				linkAttempt = false;
 				return;
 			}
 			else
 			{
 				linkAttempt = true;
-				sourceTower = (Tower)selectedTile.Content;
+				sourceTower = (Tower) selectedTile.Content;
 			}
 		}
 	}
