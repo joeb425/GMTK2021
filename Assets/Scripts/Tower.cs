@@ -21,6 +21,9 @@ public class Tower : GameTileContent
 	[SerializeField, Range(0.0f, 200f)]
 	public float baseAttackSpeed = 1.0f;
 
+	[SerializeField]
+	public LineRenderer linePrefab;
+
 	public float numTargets = 2.0f;
 
 	public float splash = .5f;
@@ -240,19 +243,22 @@ public class Tower : GameTileContent
 		linkBeamScale.z = d;
 		linkBeam.localScale = linkBeamScale;
 
-		lineRenderer = GetComponent<LineRenderer>();
+		List<LineRenderer> lineRenderer = new List<LineRenderer>();
+
+		//lineRenderer = GetComponent<LineRenderer>();
 		Color c1 = new Color(1f, 1f, 0.5f, 1);
 		//lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
-		lineRenderer.SetColors(c1, c1);
-		lineRenderer.SetWidth(0.2f, 0.2f);
-		lineRenderer.positionCount = linkedTowers.Count+1;
-		lineRenderer.SetPosition(0, transform.position + Vector3.up*0.05f);
-		for (int i = 0; i < (lineRenderer.positionCount-1); i++)
-		{
-			lineRenderer.SetPosition(i+1, linkedTowers[i].transform.position + Vector3.up*0.05f);
-		}
 
-		Debug.Log("We tried our best");
+		
+		for (int i = 0; i < (linkedTowers.Count); i++)
+		{
+			lineRenderer.Add(Instantiate(linePrefab, transform));
+			lineRenderer[i].SetColors(c1, c1);
+			lineRenderer[i].SetWidth(0.2f, 0.2f);
+			lineRenderer[i].positionCount = 2; // [v1,v2,v3,v4] --> v1v2, v2v3, v3v4, v1v2,v1v3,v1v4
+			lineRenderer[i].SetPosition(0, transform.position + Vector3.up * 0.05f);
+			lineRenderer[i].SetPosition(1, linkedTowers[i].transform.position + Vector3.up*0.05f);
+		}
 
 		//Handel bonuses here as well :D
 	}
