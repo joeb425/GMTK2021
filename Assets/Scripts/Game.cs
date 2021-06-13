@@ -166,6 +166,13 @@ public class Game : MonoBehaviour
 
 		bool showTowerUI = selectedTile.Content.Type == GameTileContentType.Tower;
 		SetTowerUIEnabled(showTowerUI);
+
+		if (selectedTile.Content.Type == GameTileContentType.Tower)
+		{
+			Tower tower = selectedTile.Content as Tower;
+			Renderer shaders = tower.GetComponentInChildren<Renderer>();
+			shaders.sharedMaterial.SetFloat("_OutlineWidth", 1.05f);
+		}
 	}
 
 	private void OnDrawGizmos()
