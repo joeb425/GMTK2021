@@ -237,7 +237,9 @@ public class Game : MonoBehaviour
 		{
 			if (linkAttempt)
 			{
-				((Tower) selectedTile.Content).LinkTower(sourceTower);
+				Tower otherTower = (Tower) selectedTile.Content;
+				otherTower.LinkTower(sourceTower);
+				sourceTower.LinkTower(otherTower);
 				linkAttempt = false;
 				return;
 			}
