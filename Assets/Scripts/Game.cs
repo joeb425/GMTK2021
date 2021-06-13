@@ -55,6 +55,10 @@ public class Game : MonoBehaviour
 	[SerializeField]
 	public UIDocument uiDocument;
 
+	[SerializeField]
+	public int maxLives = 20;
+	public int currentLives;
+
 	public Label cashLabel;
 	public Label livesLabel;
 
@@ -84,6 +88,7 @@ public class Game : MonoBehaviour
 		cashLabel = rootVisualElement.Q<Label>("Cash");
 		livesLabel = rootVisualElement.Q<Label>("Lives");
 		SetCash(50);
+		currentLives = maxLives;
 	}
 
 	void BindButton(Action action, Tower towerPrefab, string btnName, string btnText)
@@ -302,6 +307,7 @@ public class Game : MonoBehaviour
 
 	public void SetLives(int lives)
 	{
-		livesLabel.text = "" + lives;
+		currentLives = currentLives - lives;
+		livesLabel.text = currentLives + "/" + maxLives;
 	}
 }

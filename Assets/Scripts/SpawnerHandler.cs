@@ -47,11 +47,16 @@ public class SpawnerHandler : MonoBehaviour
 			enemy.SpawnOn(spawnPoint);
 			//enemies.Add(enemy);
 			Game.SharedGame.enemies.Add(enemy);
+			enemy.OnReachEnd += OnEnemyReachEnd;
 		}
 		if (enemiesRemainingToSpawn ==0 && Game.SharedGame.enemies.enemies.Count == 0)
 		{
 			NextWave();
 		}
+	}
+	public void OnEnemyReachEnd()
+	{
+		Game.SharedGame.SetLives(1);
 	}
 	void NextWave()
 	{
