@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 
-public class Perk : MonoBehaviour
+[Serializable]
+public struct Perk
 {
 	[SerializeField]
 	public float SpeedMod;
@@ -13,4 +15,7 @@ public class Perk : MonoBehaviour
 
 	[SerializeField]
 	public float SplitMod;
+
+	[SerializeField]
+	public float RangeMod;
 }

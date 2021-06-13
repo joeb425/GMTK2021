@@ -12,21 +12,11 @@ public class Tower : GameTileContent
 	[SerializeField]
 	Transform turret = default;
 	
-	[SerializeField, Range(1.5f, 10.5f)]
-	float targetingRange = 1.5f;
-
-	[SerializeField, Range(0.0f, 200f)]
-	public float damage;
-
-	[SerializeField, Range(0.0f, 200f)]
-	public float baseAttackSpeed = 1.0f;
-
 	[SerializeField]
 	public LineRenderer linePrefab;
 
-	public float numTargets = 2.0f;
-
-	public float splash = .5f;
+	[SerializeField]
+	public int Cost;
 
 	private float attackTimeRemaining;
 
@@ -54,7 +44,9 @@ public class Tower : GameTileContent
 
 	private void Start()
 	{
-		InitSphereCollider();
+		UpdateAttributes();
+
+		UpdateTowerRangeCollider();
 		// InitLineRenderer();
 	}
 
@@ -68,10 +60,10 @@ public class Tower : GameTileContent
 		}
 	}
 
-	private void InitSphereCollider()
+	private void UpdateTowerRangeCollider()
 	{
 		sphereCollider = gameObject.GetComponent<SphereCollider>();
-		sphereCollider.radius = targetingRange;
+		sphereCollider.radius = towerAttributes.finalTargetingRange;
 	}
 
 	bool TrackTarget()
@@ -83,7 +75,7 @@ public class Tower : GameTileContent
 
 		Vector3 a = transform.localPosition;
 		Vector3 b = target.Position;
-		if (Vector3.Distance(a, b) > targetingRange + 0.125f)
+		if (Vector3.Distance(a, b) > towerAttributes.finalTargetingRange + 0.125f)
 		{
 			target = null;
 			return false;
@@ -94,7 +86,7 @@ public class Tower : GameTileContent
 
 	Collider[] GetEnemiesInRadius()
 	{
-		return Physics.OverlapSphere(transform.localPosition, targetingRange, 1 << 9);
+		return Physics.OverlapSphere(transform.localPosition, towerAttributes.finalTargetingRange, 1 << 9);
 	}
 
 	bool AcquireTarget()
@@ -113,11 +105,6 @@ public class Tower : GameTileContent
 		return false;
 	}
 
-	private float GetAttackSpeed()
-	{
-		return baseAttackSpeed;
-	}
-
 	void UpdateAttacking()
 	{
 		if (target != null)
@@ -125,7 +112,7 @@ public class Tower : GameTileContent
 			attackTimeRemaining -= Time.deltaTime;
 			if (attackTimeRemaining <= 0)
 			{
-				attackTimeRemaining = GetAttackSpeed() - attackTimeRemaining;
+				attackTimeRemaining = towerAttributes.finalAttackSpeed - attackTimeRemaining;
 				Attack();
 			}
 		}
@@ -137,7 +124,7 @@ public class Tower : GameTileContent
 		targetsToAttack.Add(target);
 
 		Collider[] enemies = GetEnemiesInRadius();
-		int remainingTargets = Mathf.FloorToInt(numTargets) - 1;
+		int remainingTargets = Mathf.FloorToInt(towerAttributes.finalNumTargets) - 1;
 
 		foreach (Collider collider in enemies)
 		{
@@ -156,30 +143,25 @@ public class Tower : GameTileContent
 
 		foreach (TargetPoint targetToAttack in targetsToAttack)
 		{
-			// Physics.OverlapSphere(transform.localPosition, targetingRange, 1 << 9);
-			// Debug.DrawLine(turret.position, targetToAttack.Position, Color.red, 0.1f);
-			// Collider[] splashedTargets = Physics.OverlapSphere(targetToAttack.Position, 2.0f, 1 << 9);
-			//
-			// float damage = 50.0f;
-			//
-			// foreach (Collider collider in splashedTargets)
-			// {
-			// 	TargetPoint aoeTarget = collider.GetComponent<TargetPoint>();
-			// 	aoeTarget.Enemy.ApplyDamage(damage * splash);
-			// }
-			//
-			// targetToAttack.Enemy.ApplyDamage(damage);
-
-
-			GameObject bulletObject = BulletPool.SharedInstance.GetPooledObject();
-			if (bulletObject != null)
+			if (false)
 			{
-				bulletObject.transform.position = turret.position;
-				bulletObject.transform.rotation = turret.rotation;
-				bulletObject.SetActive(true);
+				Debug.DrawLine(transform.position, targetToAttack.Position, Color.red, 0.5f);
+				ApplyHit(targetToAttack);
+			}
+			else
+			{
+				GameObject bulletObject = BulletPool.SharedInstance.GetPooledObject();
+				if (bulletObject != null)
+				{
+					bulletObject.transform.position = turret.position;
+					bulletObject.transform.rotation = turret.rotation;
+					bulletObject.SetActive(true);
 
-				Bullet bullet = bulletObject.GetComponent<Bullet>();
-				bullet.target = targetToAttack;
+					Bullet bullet = bulletObject.GetComponent<Bullet>();
+					bullet.towerAttributes = towerAttributes;
+					bullet.target = targetToAttack;
+					bullet.tower = this;
+				}
 			}
 		}
 	}
@@ -288,5 +270,22 @@ public class Tower : GameTileContent
 
 		// todo update attributes when other towers change level
 		towerAttributes.UpdateAttributes(towerLevel, allPerks);
+		
+		UpdateTowerRangeCollider();
+	}
+
+	public void ApplyHit(TargetPoint targetPoint)
+	{
+		Collider[] splashedTargets = Physics.OverlapSphere(targetPoint.Position, 2.0f, 1 << 9);
+
+		float damage = towerAttributes.finalDamage;
+
+		foreach (Collider collider in splashedTargets)
+		{
+			TargetPoint aoeTarget = collider.GetComponent<TargetPoint>();
+			aoeTarget.Enemy.ApplyDamage(damage * towerAttributes.finalSplash);
+		}
+
+		targetPoint.Enemy.ApplyDamage(damage);
 	}
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public struct BaseAttributes
 {
-	[SerializeField, Range(1.5f, 10.5f)]
+	[SerializeField, Range(0.0f, 50.0f)]
 	public float baseTargetingRange;
 
 	[SerializeField, Range(0.0f, 200f)]
