@@ -5,13 +5,11 @@ using UnityEngine;
 using UnityEngineInternal;
 using Random = UnityEngine.Random;
 
-// [RequireComponent(typeof(LineRenderer))]
-[RequireComponent(typeof(SphereCollider))]
 public class Tower : GameTileContent
 {
 	[SerializeField]
 	Transform turret = default;
-	
+
 	[SerializeField]
 	public LineRenderer linePrefab;
 
@@ -22,7 +20,7 @@ public class Tower : GameTileContent
 
 	public int numSegments = 64;
 
-	private LineRenderer lineRenderer;
+	public LineRenderer lineRenderer;
 
 	private SphereCollider sphereCollider;
 
@@ -39,15 +37,29 @@ public class Tower : GameTileContent
 
 	[SerializeField]
 	public List<Perk> towerPerks;
-	
+
 	private int towerLevel = 0;
 
 	private void Start()
 	{
+		InitLineRenderer();
+
 		UpdateAttributes();
 
 		UpdateTowerRangeCollider();
-		// InitLineRenderer();
+	}
+
+	public void InitLineRenderer()
+	{
+		lineRenderer = gameObject.AddComponent<LineRenderer>();
+		lineRenderer.startColor = Color.red;
+		lineRenderer.endColor = Color.red;
+		lineRenderer.startWidth = 0.05f;
+		lineRenderer.endWidth = 0.05f;
+		lineRenderer.loop = true;
+		lineRenderer.positionCount = numSegments + 1;
+		lineRenderer.useWorldSpace = false;
+		lineRenderer.enabled = false;
 	}
 
 	public override void GameUpdate()
@@ -166,25 +178,15 @@ public class Tower : GameTileContent
 		}
 	}
 
-	
-	private void InitLineRenderer()
+	private void UpdateRangeDisplay()
 	{
-		lineRenderer = gameObject.GetComponent<LineRenderer>();
-		// Color c1 = new Color(0.5f, 0.5f, 0.5f, 1);
-		// //lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
-		lineRenderer.SetColors(Color.red, Color.red);
-		lineRenderer.SetWidth(0.1f, 0.1f);
-		lineRenderer.positionCount = numSegments + 1;
-		lineRenderer.useWorldSpace = false;
-		lineRenderer.enabled = false;
-
 		float deltaTheta = (float) (2.0 * Mathf.PI) / numSegments;
 		float theta = 0f;
 
 		for (int i = 0; i < numSegments + 1; i++)
 		{
-			float x = targetingRange * Mathf.Cos(theta);
-			float z = targetingRange * Mathf.Sin(theta);
+			float x = towerAttributes.finalTargetingRange * Mathf.Cos(theta);
+			float z = towerAttributes.finalTargetingRange * Mathf.Sin(theta);
 			Vector3 pos = new Vector3(x, transform.position.y + 0.05f, z);
 			lineRenderer.SetPosition(i, pos);
 			theta += deltaTheta;
@@ -205,7 +207,7 @@ public class Tower : GameTileContent
 		foreach (Tower link in linkedTowers)
 		{
 			Gizmos.DrawLine(transform.position, link.transform.position);
-		}	
+		}
 	}
 
 	void OnDrawGizmosSelected()
@@ -217,6 +219,7 @@ public class Tower : GameTileContent
 	}
 
 	Vector3 linkBeamScale;
+
 	public void LinkTower(Tower link)
 	{
 		//beams.Add(GameObject.)
@@ -236,7 +239,7 @@ public class Tower : GameTileContent
 		Color c1 = new Color(1f, 1f, 0.5f, 1);
 		//lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
 
-		
+
 		for (int i = 0; i < (linkedTowers.Count); i++)
 		{
 			lineRenderer.Add(Instantiate(linePrefab, transform));
@@ -244,11 +247,11 @@ public class Tower : GameTileContent
 			lineRenderer[i].SetWidth(0.2f, 0.2f);
 			lineRenderer[i].positionCount = 2; // [v1,v2,v3,v4] --> v1v2, v2v3, v3v4, v1v2,v1v3,v1v4
 			lineRenderer[i].SetPosition(0, transform.position + Vector3.up * 0.05f);
-			lineRenderer[i].SetPosition(1, linkedTowers[i].transform.position + Vector3.up*0.05f);
+			lineRenderer[i].SetPosition(1, linkedTowers[i].transform.position + Vector3.up * 0.05f);
 		}
 
 		//Handel bonuses here as well :D
-		
+
 		UpdateAttributes();
 	}
 
@@ -256,7 +259,7 @@ public class Tower : GameTileContent
 	{
 		// clear old calculated value?
 		List<Perk> allPerks = new List<Perk>();
-		
+
 		foreach (Tower link in linkedTowers)
 		{
 			foreach (Perk perk in link.towerPerks)
@@ -267,8 +270,10 @@ public class Tower : GameTileContent
 
 		// todo update attributes when other towers change level
 		towerAttributes.UpdateAttributes(towerLevel, allPerks);
-		
+
 		UpdateTowerRangeCollider();
+
+		UpdateRangeDisplay();
 	}
 
 	public void ApplyHit(TargetPoint targetPoint)
@@ -284,5 +289,10 @@ public class Tower : GameTileContent
 		}
 
 		targetPoint.Enemy.ApplyDamage(damage);
+	}
+
+	public void OnSelected(bool selected)
+	{
+		lineRenderer.enabled = selected;
 	}
 }

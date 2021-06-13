@@ -36,6 +36,7 @@ public class Game : MonoBehaviour
 	float spawnProgress;
 
 	public GameTile selectedTile;
+	public GameTileContent selectedTileContent;
 	public GameTile hoveredTile;
 
 	private bool IsGUIEnabled = false;
@@ -157,13 +158,22 @@ public class Game : MonoBehaviour
 	private void SelectTile()
 	{
 		GameTile oldSelectedTile = selectedTile;
+		GameTileContent oldSelectedContent = selectedTileContent;
+
 		selectedTile = board.GetTile(touchRay);
+		selectedTileContent = selectedTile.Content;
 
 		if (oldSelectedTile != selectedTile)
 		{
 			OnSelectedTileChanged(oldSelectedTile, selectedTile);
 		}
-		
+		// content may have changed as well
+		else if (oldSelectedTile != null && selectedTile != null && 
+		         oldSelectedContent != selectedTileContent)
+		{
+			OnSelectedTileChanged(oldSelectedTile, selectedTile);
+		}
+
 		bool showBuildMenu = selectedTile.Content.Type == GameTileContentType.Build;
 		SetBuildMenuEnabled(showBuildMenu);
 
@@ -173,7 +183,6 @@ public class Game : MonoBehaviour
 
 	private void OnSelectedTileChanged(GameTile oldTile, GameTile newTile)
 	{
-		// Debug.Log("Old Tile " + oldTile.Content + " | " + "New: " + newTile.Content);
 		SetTileSelected(oldTile, false);
 		SetTileSelected(newTile, true);
 	}
@@ -195,6 +204,9 @@ public class Game : MonoBehaviour
 					renderer.material.SetFloat("_OutlineWidth", selected ? 1.05f : 1.0f);
 				}
 			}
+
+			Tower tower = tile.Content as Tower;
+			tower.OnSelected(selected);
 		}
 	}
 

@@ -30,7 +30,7 @@ PrefabInstance:
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: towerAttributes.baseAttributesPerLevel.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
@@ -50,7 +50,7 @@ PrefabInstance:
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: towerAttributes.baseAttributesPerLevel.Array.data[0].baseTargetingRange
-      value: 3
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}

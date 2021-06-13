@@ -148,6 +148,7 @@ MonoBehaviour:
     type: 3}
   Cost: 0
   numSegments: 128
+  lineRenderer: {fileID: 0}
   towerAttributes:
     baseAttributesPerLevel:
     - baseTargetingRange: 1.5
