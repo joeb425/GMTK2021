@@ -39,7 +39,7 @@ public class @MouseInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6921eafa-d36f-48ef-a53c-4498ddd5684f"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",

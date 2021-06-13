@@ -10,22 +10,22 @@ PrefabInstance:
     - target: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.1
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 1.518
       objectReference: {fileID: 0}
     - target: {fileID: 3242984198978901850, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
@@ -36,7 +36,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+      objectReference: {fileID: -2124705421725058983, guid: f189d4a6c49b9724e8036fcc7fbdfb01,
+        type: 3}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: towerPerks.Array.size

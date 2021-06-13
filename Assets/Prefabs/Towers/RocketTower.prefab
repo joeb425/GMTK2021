@@ -7,6 +7,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.653
+      objectReference: {fileID: 0}
     - target: {fileID: 3242984198978901850, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_Name
@@ -16,7 +36,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+      objectReference: {fileID: 4711208715938537054, guid: ff8f19e1b3e633a4482dcc0d2624afd6,
+        type: 3}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: Cost
