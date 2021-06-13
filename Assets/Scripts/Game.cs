@@ -157,6 +157,15 @@ public class Game : MonoBehaviour
 
 	private void SelectTile()
 	{
+		if (selectedTile != null)
+		{
+			Tower lastTower = ((Tower) selectedTile.Content);
+			if (lastTower != null)
+			{
+				lastTower.lineRenderer.enabled = false;
+			}
+		}
+
 		selectedTile = board.GetTile(TouchRay);
 		
 		bool showBuildMenu = selectedTile.Content.Type == GameTileContentType.Build;
@@ -164,6 +173,8 @@ public class Game : MonoBehaviour
 
 		bool showTowerUI = selectedTile.Content.Type == GameTileContentType.Tower;
 		SetTowerUIEnabled(showTowerUI);
+
+		((Tower) selectedTile.Content).lineRenderer.enabled = showTowerUI;
 	}
 
 	private void OnDrawGizmos()
