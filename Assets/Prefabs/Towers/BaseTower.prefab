@@ -144,16 +144,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 4
   turret: {fileID: 263773572115014597}
-  targetingRange: 3
-  damage: 1
-  baseAttackSpeed: 2
   linePrefab: {fileID: 1792455083954044815, guid: 5241ef6354b1ece46aa5e64a54fa87e1,
     type: 3}
-  numTargets: 2
-  splash: 0.5
+  Cost: 0
   numSegments: 128
+  lineRenderer: {fileID: 0}
+  towerAttributes:
+    baseAttributesPerLevel:
+    - baseTargetingRange: 1.5
+      baseDamage: 1
+      baseAttackSpeed: 1
+      baseNumTargets: 1
+      baseSplash: 0
+    finalTargetingRange: 0
+    finalDamage: 0
+    finalAttackSpeed: 0
+    finalNumTargets: 0
+    finalSplash: 0
   linkBeam: {fileID: 1882582869278306119, guid: e44b33155d3a65a41bf08d1e216b40e6,
     type: 3}
+  towerPerks: []
 --- !u!135 &1588644127480943304
 SphereCollider:
   m_ObjectHideFlags: 0

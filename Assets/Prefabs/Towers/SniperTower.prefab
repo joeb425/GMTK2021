@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
@@ -25,7 +25,7 @@ PrefabInstance:
     - target: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.42
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3242984198978901850, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
@@ -37,6 +37,21 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: towerAttributes.baseAttributesPerLevel.Array.data[0].baseDamage
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: towerAttributes.baseAttributesPerLevel.Array.data[0].baseAttackSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: towerAttributes.baseAttributesPerLevel.Array.data[0].baseTargetingRange
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7822758320480785569, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_RootOrder

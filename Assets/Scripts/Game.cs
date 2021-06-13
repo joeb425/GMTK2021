@@ -36,6 +36,7 @@ public class Game : MonoBehaviour
 	float spawnProgress;
 
 	public GameTile selectedTile;
+	public GameTileContent selectedTileContent;
 	public GameTile hoveredTile;
 
 	private bool IsGUIEnabled = false;
@@ -157,30 +158,31 @@ public class Game : MonoBehaviour
 	private void SelectTile()
 	{
 		GameTile oldSelectedTile = selectedTile;
+		GameTileContent oldSelectedContent = selectedTileContent;
+
 		selectedTile = board.GetTile(touchRay);
+		selectedTileContent = selectedTile.Content;
 
 		if (oldSelectedTile != selectedTile)
 		{
 			OnSelectedTileChanged(oldSelectedTile, selectedTile);
 		}
-		
+		// content may have changed as well
+		else if (oldSelectedTile != null && selectedTile != null && 
+		         oldSelectedContent != selectedTileContent)
+		{
+			OnSelectedTileChanged(oldSelectedTile, selectedTile);
+		}
+
 		bool showBuildMenu = selectedTile.Content.Type == GameTileContentType.Build;
 		SetBuildMenuEnabled(showBuildMenu);
 
 		bool showTowerUI = selectedTile.Content.Type == GameTileContentType.Tower;
 		SetTowerUIEnabled(showTowerUI);
-
-		if (selectedTile.Content.Type == GameTileContentType.Tower)
-		{
-			Tower tower = selectedTile.Content as Tower;
-			Renderer shaders = tower.GetComponentInChildren<Renderer>();
-			shaders.sharedMaterial.SetFloat("_OutlineWidth", 1.05f);
-		}
 	}
 
 	private void OnSelectedTileChanged(GameTile oldTile, GameTile newTile)
 	{
-		Debug.Log("Old Tile " + oldTile + " | " + "New: " + newTile);
 		SetTileSelected(oldTile, false);
 		SetTileSelected(newTile, true);
 	}
@@ -194,14 +196,17 @@ public class Game : MonoBehaviour
 		
 		if (tile.Content.Type == GameTileContentType.Tower)
 		{
-			Renderer[] renderers = tile.Content.GetComponentsInChildren<Renderer>();
-			foreach (Renderer renderer in renderers)
+			MeshRenderer[] renderers = tile.Content.GetComponentsInChildren<MeshRenderer>();
+			foreach (MeshRenderer renderer in renderers)
 			{
 				if (renderer != null)
 				{
-					renderer.material.SetFloat("_OutlineWidth", selected ? 1.0f : 0.0f);
+					renderer.material.SetFloat("_OutlineWidth", selected ? 1.05f : 1.0f);
 				}
 			}
+
+			Tower tower = tile.Content as Tower;
+			tower.OnSelected(selected);
 		}
 	}
 
@@ -244,7 +249,9 @@ public class Game : MonoBehaviour
 		{
 			if (linkAttempt)
 			{
-				((Tower) selectedTile.Content).LinkTower(sourceTower);
+				Tower otherTower = (Tower) selectedTile.Content;
+				otherTower.LinkTower(sourceTower);
+				sourceTower.LinkTower(otherTower);
 				linkAttempt = false;
 				return;
 			}
