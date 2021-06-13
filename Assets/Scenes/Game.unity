@@ -217,7 +217,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &171715577
 GameObject:
@@ -515,7 +515,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1121398816 stripped
 MonoBehaviour:
@@ -1217,12 +1217,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4171630199352765875, guid: 4a700ac1cb412c0468cbf9169c310c67,
         type: 3}
-      propertyPath: spawnerHandler
-      value: 
-      objectReference: {fileID: 812287041}
       propertyPath: uiDocument
       value: 
       objectReference: {fileID: 214363846}
+    - target: {fileID: 4171630199352765875, guid: 4a700ac1cb412c0468cbf9169c310c67,
+        type: 3}
+      propertyPath: spawnerHandler
+      value: 
+      objectReference: {fileID: 812287041}
     - target: {fileID: 4171630199352765875, guid: 4a700ac1cb412c0468cbf9169c310c67,
         type: 3}
       propertyPath: buttons.Array.size
