@@ -87,8 +87,13 @@ public class Game : MonoBehaviour
 		var rootVisualElement = uiDocument.rootVisualElement;
 		cashLabel = rootVisualElement.Q<Label>("Cash");
 		livesLabel = rootVisualElement.Q<Label>("Lives");
+<<<<<<< HEAD
 		SetCash(50);
 		currentLives = maxLives;
+=======
+		
+		SetCash(board.cash);
+>>>>>>> origin/main
 	}
 
 	void BindButton(Action action, Tower towerPrefab, string btnName, string btnText)

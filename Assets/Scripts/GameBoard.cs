@@ -44,6 +44,7 @@ public class GameBoard : MonoBehaviour
 
 	List<GameTileContent> updatingContent = new List<GameTileContent>();
 
+	public int cash = 25;
 
 	public bool ShowGrid
 	{
@@ -252,8 +253,14 @@ public class GameBoard : MonoBehaviour
 		}
 		else if (tile.Content.Type ==  GameTileContentType.Build)
 		{
-			tile.Content = contentFactory.Get(towerPrefab);
-			updatingContent.Add(tile.Content);
+			if (BuyTower(towerPrefab))
+			{
+				tile.Content = contentFactory.Get(towerPrefab);
+				updatingContent.Add(tile.Content);
+
+				// update hud
+				Game.SharedGame.SetCash(cash);
+			}
 		}
 	}
 
@@ -391,5 +398,16 @@ public class GameBoard : MonoBehaviour
 	public void PlaceRocketTower()
 	{
 		PlaceTower(RocketTowerPrefab);
+	}
+
+	public bool BuyTower(Tower tower)
+	{
+		if (cash >= tower.Cost)
+		{
+			cash -= tower.Cost;
+			return true;
+		}
+
+		return false;
 	}
 }
