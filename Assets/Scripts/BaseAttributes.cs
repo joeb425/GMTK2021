@@ -1,22 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseAttributes : MonoBehaviour
+[Serializable]
+public struct BaseAttributes
 {
 	[SerializeField, Range(1.5f, 10.5f)]
-	public float baseTargetingRange = 1.5f;
+	public float baseTargetingRange;
 
 	[SerializeField, Range(0.0f, 200f)]
 	public float baseDamage;
 
 	[SerializeField, Range(0.0f, 200f)]
-	public float baseAttackSpeed = 1.0f;
+	public float baseAttackSpeed;
 
 	[SerializeField, Range(0.0f, 200f)]
-	public float baseNumTargets = 2.0f;
+	public float baseNumTargets;
 
 	[SerializeField, Range(0.0f, 200f)]
-	public float baseSplash = .5f;
+	public float baseSplash;
 
 }

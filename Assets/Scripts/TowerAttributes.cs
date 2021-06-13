@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerAttributes : MonoBehaviour
+[Serializable]
+public struct TowerAttributes
 {
 	[SerializeField]
 	List<BaseAttributes> baseAttributesPerLevel;
@@ -17,9 +18,7 @@ public class TowerAttributes : MonoBehaviour
 	public float finalNumTargets;
 
 	public float finalSplash;
-
-	public int level = 0;
-
+	
 	public void UpdateAttributes(int level, List<Perk> perks)
 	{
 		BaseAttributes attributes = baseAttributesPerLevel[level];
