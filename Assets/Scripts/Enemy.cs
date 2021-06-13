@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
 	public GameObject healthBarUI;
 	public Slider slider;
 	public EnemyFactory OriginFactory
+
 	{
 		get => originFactory;
 		set
@@ -79,6 +80,7 @@ public class Enemy : MonoBehaviour
 			// check for end tile
 			if (tileTo == null)
 			{
+
 				OriginFactory.Reclaim(this);
 				return false;
 			}

@@ -22,6 +22,9 @@ public class Game : MonoBehaviour
 	EnemyFactory enemyFactory = default;
 
 	[SerializeField]
+	SpawnerHandler spawnerHandler = default;
+
+	[SerializeField]
 	BulletPool bulletPool = default;
 
 	[SerializeField]
@@ -41,7 +44,7 @@ public class Game : MonoBehaviour
 
 	private bool IsGUIEnabled = false;
 
-	EnemyCollection enemies = new EnemyCollection();
+	public EnemyCollection enemies = new EnemyCollection();
 	Ray touchRay;
 
 	private bool linkAttempt = false;
@@ -61,6 +64,7 @@ public class Game : MonoBehaviour
 		mouseInput.Enable();
 
 		mouseInput.Mouse.MouseClick.performed += ctx => MouseClick();
+		//spawnerHandler.Start();
 	}
 	
 	void MouseClick()
@@ -92,12 +96,12 @@ public class Game : MonoBehaviour
 		hoveredTile = board.GetTile(touchRay);
 
 		spawnProgress += spawnSpeed * Time.deltaTime;
-		while (spawnProgress >= 1f)
-		{
-			spawnProgress -= 1f;
-			SpawnEnemy();
-		}
-
+		//		while (spawnProgress >= 1f)
+		//		{
+		//			spawnProgress -= 1f;
+		//			SpawnEnemy();
+		//		}
+		spawnerHandler.GameUpdate(board.GetSpawnPoint(Random.Range(0, board.SpawnPointCount)));
 		enemies.GameUpdate();
 		board.GameUpdate();
 	}
@@ -118,21 +122,21 @@ public class Game : MonoBehaviour
 		}
 
 		spawnProgress += spawnSpeed * Time.deltaTime;
-		while (spawnProgress >= 1f)
-		{
-			spawnProgress -= 1f;
-			SpawnEnemy();
-		}
+//		while (spawnProgress >= 1f)
+//		{
+//			spawnProgress -= 1f;
+//			SpawnEnemy();
+//		}
 	}
 
-	void SpawnEnemy()
-	{
-		GameTile spawnPoint =
-			board.GetSpawnPoint(Random.Range(0, board.SpawnPointCount));
-		Enemy enemy = enemyFactory.Get();
-		enemy.SpawnOn(spawnPoint);
-		enemies.Add(enemy);
-	}
+//	void SpawnEnemy()
+//	{
+//		GameTile spawnPoint =
+//			board.GetSpawnPoint(Random.Range(0, board.SpawnPointCount));
+//		Enemy enemy = enemyFactory.Get();
+//		enemy.SpawnOn(spawnPoint);
+//		enemies.Add(enemy);
+//	}
 
 	void HandleTouch()
 	{

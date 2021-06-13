@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyCollection
 {
-	List<Enemy> enemies = new List<Enemy>();
+	public List<Enemy> enemies = new List<Enemy>();
 
 	public void Add(Enemy enemy)
 	{
