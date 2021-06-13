@@ -5,11 +5,11 @@ using UnityEngine;
 [CreateAssetMenu]
 public class EnemyFactory : GameObjectFactory
 {
-	[SerializeField] Enemy prefab = default;
+	[SerializeField] List<Enemy> prefab = default;
 
 	public Enemy Get()
 	{
-		Enemy instance = CreateGameObjectInstance(prefab);
+		Enemy instance = CreateGameObjectInstance(prefab[Random.Range(0,4)]);
 		instance.OriginFactory = this;
 		return instance;
 	}
