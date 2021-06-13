@@ -44,6 +44,8 @@ public class Tower : GameTileContent
 
 	private bool isGhostTower = false;
 
+	private Dictionary<Tower, LineRenderer> renderers = new Dictionary<Tower, LineRenderer>(); 
+
 	private void Awake()
 	{
 		InitLineRenderer();
@@ -234,28 +236,23 @@ public class Tower : GameTileContent
 		// Gizmos.DrawWireSphere(position, targetingRange);
 	}
 
-	Vector3 linkBeamScale;
-
 	public void LinkTower(Tower link)
 	{
 		linkedTowers.Add(link);
-		
-		List<LineRenderer> renderers = new List<LineRenderer>();
+
 		Color c1 = new Color(1f, 1f, 0.5f, 1);
-		for (int i = 0; i < (linkedTowers.Count); i++)
-		{
-			renderers.Add(Instantiate(linePrefab, transform));
-			renderers[i].startColor = c1;
-			renderers[i].endColor = c1;
-			renderers[i].startWidth = 0.2f;
-			renderers[i].endWidth = 0.2f;
-			renderers[i].positionCount = 2; // [v1,v2,v3,v4] --> v1v2, v2v3, v3v4, v1v2,v1v3,v1v4
-			renderers[i].SetPosition(0, transform.position + Vector3.up * 1.0f);
-			renderers[i].SetPosition(1, linkedTowers[i].transform.position + Vector3.up * 1.0f);
-		}
 
-		//Handel bonuses here as well :D
-
+		LineRenderer lineRenderer = Instantiate(linePrefab, transform);
+		lineRenderer.startColor = c1;
+		lineRenderer.endColor = c1;
+		lineRenderer.startWidth = 0.05f;
+		lineRenderer.endWidth = 0.05f;
+		lineRenderer.positionCount = 2; // [v1,v2,v3,v4] --> v1v2, v2v3, v3v4, v1v2,v1v3,v1v4
+		lineRenderer.SetPosition(0, transform.position + Vector3.up * 1.0f);
+		lineRenderer.SetPosition(1, link.transform.position + Vector3.up * 1.0f);
+		
+		renderers.Add(link, lineRenderer);
+		
 		UpdateAttributes();
 	}
 
@@ -298,6 +295,10 @@ public class Tower : GameTileContent
 	public void OnSelected(bool selected)
 	{
 		radiusLineRenderer.enabled = selected;
+		foreach (KeyValuePair<Tower, LineRenderer> elem in renderers)
+		{
+			elem.Value.enabled = selected;
+		}
 	}
 
 	public void SetGhostTower()
