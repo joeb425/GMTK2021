@@ -24,16 +24,16 @@ public class UIHandler : MonoBehaviour
 		GameState.Get.OnCashChanged += (oldValue, newValue) => UpdateCashLabel(newValue);
 		GameState.Get.OnLivesChanged += (oldValue, newValue) => UpdateLivesLabel(newValue);
 
-		GameState.Get.board.OnSelectedTileChanged += (oldTile, newTile) => OnSelectedTileChanged(newTile);
+		GameState.Get.Board.OnSelectedTileChanged += (oldTile, newTile) => OnSelectedTileChanged(newTile);
 
 		UpdateCashLabel(GameState.Get.CurrentCash);
 		UpdateLivesLabel(GameState.Get.CurrentLives);
 
-		BindButton(GameState.Get.board.BasicTowerPrefab, "SpawnBasicBtn", "Basic");
-		BindButton(GameState.Get.board.DoubleTowerPrefab, "SpawnDoubleBtn", "Double");
-		BindButton(GameState.Get.board.RocketTowerPrefab, "SpawnRocketBtn", "Rocket");
-		BindButton(GameState.Get.board.SniperTowerPrefab, "SpawnSniperBtn", "Sniper");
-		BindButton(GameState.Get.board.SMGTowerPrefab, "SpawnSMGBtn", "SMG");
+		BindButton(GameState.Get.Board.BasicTowerPrefab, "SpawnBasicBtn", "Basic");
+		BindButton(GameState.Get.Board.DoubleTowerPrefab, "SpawnDoubleBtn", "Double");
+		BindButton(GameState.Get.Board.RocketTowerPrefab, "SpawnRocketBtn", "Rocket");
+		BindButton(GameState.Get.Board.SniperTowerPrefab, "SpawnSniperBtn", "Sniper");
+		BindButton(GameState.Get.Board.SMGTowerPrefab, "SpawnSMGBtn", "SMG");
 	}
 
 	public void ReadUIDocument()
@@ -73,7 +73,7 @@ public class UIHandler : MonoBehaviour
 		var spawnBasicTower = rootVisualElement.Q(btnName);
 		
 		// Spawn tower?
-		spawnBasicTower.RegisterCallback<ClickEvent>(ev => GameState.Get.board.SetTowerToBePlaced(towerPrefab));
+		spawnBasicTower.RegisterCallback<ClickEvent>(ev => GameState.Get.Board.SetTowerToBePlaced(towerPrefab));
 		
 		spawnBasicTower.Q<Label>("Cost").text = "" + towerPrefab.Cost;
 		spawnBasicTower.Q<Button>("Button").text = btnText;

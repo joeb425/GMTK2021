@@ -180,7 +180,7 @@ public class Tower : GameTileContent
 			}
 			else
 			{
-				GameObject bulletObject = BulletPool.SharedInstance.GetPooledObject();
+				GameObject bulletObject = BulletPool.Get.GetPooledObject();
 				if (bulletObject != null)
 				{
 					bulletObject.transform.position = turret.position;

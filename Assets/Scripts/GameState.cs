@@ -2,7 +2,7 @@
 {
 	public static GameState Get;
 
-	public GameBoard board;
+	public GameBoard Board;
 	
 	public event System.Action<int, int> OnCashChanged;
 	public event System.Action<int, int> OnLivesChanged;
@@ -19,14 +19,14 @@
 	{
 		int previousCash = CurrentCash;
 		CurrentCash = newCash;
-		OnCashChanged(previousCash, newCash);
+		OnCashChanged?.Invoke(previousCash, newCash);
 	}
 
 	public void SetLives(int newLives)
 	{
 		int previousLives = CurrentLives;
 		CurrentLives = newLives;
-		OnLivesChanged(previousLives, newLives);
+		OnLivesChanged?.Invoke(previousLives, newLives);
 	}
 
 	public void Init()

@@ -1,11 +1,4 @@
-﻿using System;
-using Unity.Profiling;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using Random = UnityEngine.Random;
-
-//3.3
-
+﻿using UnityEngine;
 public class Game : MonoBehaviour
 {
 	public static Game SharedGame;
@@ -26,6 +19,7 @@ public class Game : MonoBehaviour
 	[SerializeField]
 	Vector2Int boardSize = new Vector2Int(11, 11);
 
+	// Make these all singletons?
 	[SerializeField]
 	GameBoard board = default;
 
@@ -44,10 +38,9 @@ public class Game : MonoBehaviour
 	public EnemyCollection enemies = new EnemyCollection();
 
 	private bool linkAttempt = false;
-	
+
 	[SerializeField]
-	public int maxLives = 20;
-	public int currentLives;
+	private GenericObjectPool[] ObjectPools;
 
 	void Awake()
 	{
@@ -60,7 +53,7 @@ public class Game : MonoBehaviour
 		{
 			StartingCash = StartingCash, 
 			MaxLives = MaxLives, 
-			board = board
+			Board = board
 		};
 		
 		gameState.Init();
@@ -97,10 +90,10 @@ public class Game : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-		if (GameState.Get.board.hoveredTile)
+		if (GameState.Get.Board.hoveredTile)
 		{
 			Gizmos.color = new Color(1, 1, 0, 0.5f);
-			Gizmos.DrawSphere(GameState.Get.board.hoveredTile.transform.position, .25f);
+			Gizmos.DrawSphere(GameState.Get.Board.hoveredTile.transform.position, .25f);
 		}
 		// if (selectedTile != null)
 		// {

@@ -1,28 +1,26 @@
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
-public class BulletPool : MonoBehaviour
+[Serializable]
+public class GenericObjectPool
 {
-	public static BulletPool Get;
-
-	public List<GameObject> pooledObjects;
-
 	[SerializeField]
 	public GameObject objectToPool;
 
 	[SerializeField]
 	public int amountToPool = 1000;
 
+	private List<GameObject> pooledObjects;
+
 	public void Initialize()
 	{
-		Get = this;
-
 		pooledObjects = new List<GameObject>();
+
 		for (int i = 0; i < amountToPool; i++)
 		{
-			GameObject obj = (GameObject) Instantiate(objectToPool);
+			GameObject obj = Object.Instantiate(objectToPool);
 			obj.SetActive(false);
 			pooledObjects.Add(obj);
 		}

@@ -19,7 +19,7 @@ public class InputHandler
 
 	public void MouseClick()
 	{
-		GameBoard board = GameState.Get.board;
+		GameBoard board = GameState.Get.Board;
 		GameTile tile = board.GetTile(touchRay);
 		if (tile != null)
 		{
