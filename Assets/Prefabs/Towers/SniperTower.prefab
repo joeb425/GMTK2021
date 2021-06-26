@@ -32,12 +32,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: SniperTower
       objectReference: {fileID: 0}
+    - target: {fileID: 4880797105941278356, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5176ff0dd1c29324386b246bd637e40b, type: 2}
+    - target: {fileID: 5482323561982981059, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5176ff0dd1c29324386b246bd637e40b, type: 2}
     - target: {fileID: 6714694530973837297, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: -2124705421725058983, guid: f189d4a6c49b9724e8036fcc7fbdfb01,
         type: 3}
+    - target: {fileID: 6918217714850351385, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5176ff0dd1c29324386b246bd637e40b, type: 2}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: towerPerks.Array.size

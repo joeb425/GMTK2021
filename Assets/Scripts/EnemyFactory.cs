@@ -6,10 +6,9 @@ using UnityEngine;
 public class EnemyFactory : GameObjectFactory
 {
 	[SerializeField] List<Enemy> prefab = default;
-
-	public Enemy Get()
+	public Enemy Get(int enemyElementNo)
 	{
-		Enemy instance = CreateGameObjectInstance(prefab[Random.Range(0,4)]);
+		Enemy instance = CreateGameObjectInstance(prefab[enemyElementNo]);
 		instance.OriginFactory = this;
 		return instance;
 	}

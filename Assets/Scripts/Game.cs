@@ -1,6 +1,8 @@
-﻿using Unity.Profiling;
+﻿using System;
+using Unity.Profiling;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
 //3.3
 
@@ -9,6 +11,10 @@ public class Game : MonoBehaviour
 	private MouseInput mouseInput;
 
 	public static Game SharedGame;
+
+	public GameState gameState;
+
+	public UIHandler uiHandler;
 
 	[SerializeField]
 	Vector2Int boardSize = new Vector2Int(11, 11);
@@ -23,58 +29,62 @@ public class Game : MonoBehaviour
 	EnemyFactory enemyFactory = default;
 
 	[SerializeField]
+	SpawnerHandler spawnerHandler;
+
+	[SerializeField]
 	BulletPool bulletPool = default;
-
-	[SerializeField]
-	public Canvas BuildMenu = default;
-
-	[SerializeField]
-	public Canvas TowerUI = default;
-
-	[SerializeField, Range(0.1f, 10f)]
-	float spawnSpeed = 1f;
-
-	float spawnProgress;
 
 	public GameTile selectedTile;
 	public GameTileContent selectedTileContent;
 	public GameTile hoveredTile;
 
-	private bool IsGUIEnabled = false;
-
-	EnemyCollection enemies = new EnemyCollection();
+	public EnemyCollection enemies = new EnemyCollection();
 	Ray touchRay;
 
 	private bool linkAttempt = false;
-
+	
 	[SerializeField]
-	public UIDocument uiDocument;
+	public int maxLives = 20;
+	public int currentLives;
+	
+	private Tower towerToBePlaced;
+	private Tower towerToBePlacedPrefab;
 
 	void Awake()
 	{
 		board.Initialize(boardSize, tileContentFactory);
 		board.ShowGrid = true;
 
+		spawnerHandler.board = board;
+
 		bulletPool.Initialize();
 
 		SharedGame = this;
-
-		SetBuildMenuEnabled(false);
 
 		mouseInput = new MouseInput();
 		mouseInput.Enable();
 
 		mouseInput.Mouse.MouseClick.performed += ctx => MouseClick();
 
-		// var rootVisualElement = uiDocument.rootVisualElement;
-		// var spawnButton = rootVisualElement.Q<Button>("basic-tower-btn");
-		// spawnButton.RegisterCallback<ClickEvent>(ev => board.PlaceBasicTower());
+		uiHandler.Init();
+	}
+
+	void SetTowerToBePlaced(Tower towerPrefab)
+	{
+		if (towerToBePlaced)
+		{
+			Destroy(towerToBePlaced);
+		}
+
+		towerToBePlaced = Instantiate(towerPrefab);
+		towerToBePlacedPrefab = towerPrefab;
+		towerToBePlaced.SetGhostTower();
 	}
 	
 	void MouseClick()
 	{
 		HandleTouch();
-		Debug.Log("Click");
+		// Debug.Log("Click");
 		// Vector2 mousePosition = mouseInput.Mouse.MousePosition.ReadValue<Vector2>();
 		// Debug.Log(mousePosition);
 	}
@@ -99,15 +109,14 @@ public class Game : MonoBehaviour
 		
 		hoveredTile = board.GetTile(touchRay);
 
-		spawnProgress += spawnSpeed * Time.deltaTime;
-		while (spawnProgress >= 1f)
-		{
-			spawnProgress -= 1f;
-			SpawnEnemy();
-		}
-
+		spawnerHandler.GameUpdate();
 		enemies.GameUpdate();
 		board.GameUpdate();
+
+		if (towerToBePlaced != null && hoveredTile != null)
+		{
+			towerToBePlaced.transform.position = hoveredTile.Content.transform.position;
+		}
 	}
 
 	void HandleAlternativeTouch()
@@ -124,47 +133,24 @@ public class Game : MonoBehaviour
 				board.ToggleSpawnPoint(tile);
 			}
 		}
-
-		spawnProgress += spawnSpeed * Time.deltaTime;
-		while (spawnProgress >= 1f)
-		{
-			spawnProgress -= 1f;
-			SpawnEnemy();
-		}
-	}
-
-	void SpawnEnemy()
-	{
-		GameTile spawnPoint =
-			board.GetSpawnPoint(Random.Range(0, board.SpawnPointCount));
-		Enemy enemy = enemyFactory.Get();
-		enemy.SpawnOn(spawnPoint);
-		enemies.Add(enemy);
 	}
 
 	void HandleTouch()
 	{
-		if (IsGUIEnabled)
-		{
-			return;
-		}
-
 		GameTile tile = board.GetTile(touchRay);
 		if (tile != null)
 		{
-			// if (Input.GetKey(KeyCode.LeftShift))
-			// {
-			// 	board.ToggleTower(tile);
-			// }
-			// else
-			{
-				SelectTile();
-			}
+			SelectTile();
 		}
 	}
 
 	private void SelectTile()
 	{
+		if (PlaceCurrentTower())
+		{
+			return;
+		}
+		
 		GameTile oldSelectedTile = selectedTile;
 		GameTileContent oldSelectedContent = selectedTileContent;
 
@@ -182,11 +168,11 @@ public class Game : MonoBehaviour
 			OnSelectedTileChanged(oldSelectedTile, selectedTile);
 		}
 
-		bool showBuildMenu = selectedTile.Content.Type == GameTileContentType.Build;
-		SetBuildMenuEnabled(showBuildMenu);
+		// bool showBuildMenu = selectedTile.Content.Type == GameTileContentType.Build;
+		// SetBuildMenuEnabled(showBuildMenu);
 
 		bool showTowerUI = selectedTile.Content.Type == GameTileContentType.Tower;
-		SetTowerUIEnabled(showTowerUI);
+		uiHandler.SetTowerUIEnabled(showTowerUI);
 	}
 
 	private void OnSelectedTileChanged(GameTile oldTile, GameTile newTile)
@@ -233,22 +219,6 @@ public class Game : MonoBehaviour
 		}
 	}
 
-	public void SetBuildMenuEnabled(bool menuEnabled)
-	{
-		CanvasGroup canvasGroup = BuildMenu.GetComponent<CanvasGroup>();
-		canvasGroup.alpha = menuEnabled ? 1.0f : 0.0f;
-		canvasGroup.interactable = menuEnabled;
-		IsGUIEnabled = menuEnabled;
-	}
-
-	public void SetTowerUIEnabled(bool menuEnabled)
-	{
-		CanvasGroup canvasGroup = TowerUI.GetComponent<CanvasGroup>();
-		canvasGroup.alpha = menuEnabled ? 1.0f : 0.0f;
-		canvasGroup.interactable = true;
-		// IsGUIEnabled = menuEnabled;
-	}
-
 	private Tower sourceTower;
 
 	public void LinkSelect()
@@ -269,5 +239,29 @@ public class Game : MonoBehaviour
 				sourceTower = (Tower) selectedTile.Content;
 			}
 		}
+	}
+
+	public void SetCash(int cash)
+	{
+		uiHandler.SetCash(cash);
+	}
+
+	public void SetLives(int lives)
+	{
+		currentLives = currentLives - lives;
+		uiHandler.SetLives(lives);
+	}
+
+	public bool PlaceCurrentTower()
+	{
+		// place tower
+		if (towerToBePlaced != null)
+		{
+			board.PlaceTowerAtTile(hoveredTile, towerToBePlacedPrefab);
+			Destroy(towerToBePlaced.gameObject);
+			return true;
+		}
+
+		return false;
 	}
 }

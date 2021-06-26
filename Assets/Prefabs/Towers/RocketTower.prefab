@@ -44,12 +44,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: RocketTower
       objectReference: {fileID: 0}
+    - target: {fileID: 4880797105941278356, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 66758fc31446b494ba33f45f035f5d7c, type: 2}
+    - target: {fileID: 5482323561982981059, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 66758fc31446b494ba33f45f035f5d7c, type: 2}
     - target: {fileID: 6714694530973837297, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 4711208715938537054, guid: ff8f19e1b3e633a4482dcc0d2624afd6,
         type: 3}
+    - target: {fileID: 6918217714850351385, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 66758fc31446b494ba33f45f035f5d7c, type: 2}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: Cost

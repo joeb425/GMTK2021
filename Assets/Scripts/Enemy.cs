@@ -17,7 +17,12 @@ public class Enemy : MonoBehaviour
 	public float maxHealth;
 	public GameObject healthBarUI;
 	public Slider slider;
+
+	public event System.Action OnReachEnd;
+
+
 	public EnemyFactory OriginFactory
+
 	{
 		get => originFactory;
 		set
@@ -79,6 +84,8 @@ public class Enemy : MonoBehaviour
 			// check for end tile
 			if (tileTo == null)
 			{
+				// Take damage here
+				OnReachEnd();
 				OriginFactory.Reclaim(this);
 				return false;
 			}

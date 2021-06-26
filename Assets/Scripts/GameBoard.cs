@@ -13,19 +13,19 @@ public class GameBoard : MonoBehaviour
 	Texture2D gridTexture = default;
 
 	[SerializeField]
-	Tower BasicTowerPrefab = default;
+	public Tower BasicTowerPrefab = default;
 
 	[SerializeField]
-	Tower DoubleTowerPrefab = default;
+	public Tower DoubleTowerPrefab = default;
 
 	[SerializeField]
-	Tower SMGTowerPrefab = default;
+	public Tower SMGTowerPrefab = default;
 
 	[SerializeField]
-	Tower SniperTowerPrefab = default;
+	public Tower SniperTowerPrefab = default;
 
 	[SerializeField]
-	Tower RocketTowerPrefab = default;
+	public Tower RocketTowerPrefab = default;
 
 	[SerializeField]
 	TextAsset leveldesign;
@@ -44,6 +44,7 @@ public class GameBoard : MonoBehaviour
 
 	List<GameTileContent> updatingContent = new List<GameTileContent>();
 
+	public int cash = 25;
 
 	public bool ShowGrid
 	{
@@ -252,8 +253,14 @@ public class GameBoard : MonoBehaviour
 		}
 		else if (tile.Content.Type ==  GameTileContentType.Build)
 		{
-			tile.Content = contentFactory.Get(towerPrefab);
-			updatingContent.Add(tile.Content);
+			if (BuyTower(towerPrefab))
+			{
+				tile.Content = contentFactory.Get(towerPrefab);
+				updatingContent.Add(tile.Content);
+
+				// update hud
+				Game.SharedGame.SetCash(cash);
+			}
 		}
 	}
 
@@ -359,13 +366,23 @@ public class GameBoard : MonoBehaviour
 		}
 	}
 
+	public void PlaceTowerAtTile(GameTile tile, Tower tower)
+	{
+		if (tile == null || tower == null)
+			return;
+
+		ToggleTower(tile, tower);
+	}
+
 	public void PlaceTower(Tower tower)
 	{
 		if (Game.SharedGame.selectedTile == null)
 			return;
 
 		ToggleTower(Game.SharedGame.selectedTile, tower);
-		Game.SharedGame.SetBuildMenuEnabled(false);
+		
+		// TODO: this stupid
+		Game.SharedGame.uiHandler.SetBuildMenuEnabled(false);
 	}
 	
 	public void PlaceBasicTower()
@@ -391,5 +408,16 @@ public class GameBoard : MonoBehaviour
 	public void PlaceRocketTower()
 	{
 		PlaceTower(RocketTowerPrefab);
+	}
+
+	public bool BuyTower(Tower tower)
+	{
+		if (cash >= tower.Cost)
+		{
+			cash -= tower.Cost;
+			return true;
+		}
+
+		return false;
 	}
 }

@@ -17,3 +17,16 @@ MonoBehaviour:
   - {fileID: 4652461330361346228, guid: 86afe939ac0a4694290366e7e61711b1, type: 3}
   - {fileID: 4639886780305533709, guid: bd7be24a3eed8884dbc2cc39c0141222, type: 3}
   - {fileID: 4245920729341692378, guid: 4cf32012db15ad94ba363e1495feca53, type: 3}
+  waves:
+  - enemyCount: 3
+    spawnSpeed: 0.7
+    enemyElementNo: 0
+  - enemyCount: 4
+    spawnSpeed: 0.5
+    enemyElementNo: 1
+  - enemyCount: 5
+    spawnSpeed: 0.2
+    enemyElementNo: 2
+  - enemyCount: 5
+    spawnSpeed: 2
+    enemyElementNo: 3
