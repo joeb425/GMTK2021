@@ -12,6 +12,8 @@ public class Game : MonoBehaviour
 
 	public static Game SharedGame;
 
+	public GameState gameState;
+
 	[SerializeField]
 	Vector2Int boardSize = new Vector2Int(11, 11);
 
