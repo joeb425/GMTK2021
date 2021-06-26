@@ -25,7 +25,7 @@ public class Game : MonoBehaviour
 	EnemyFactory enemyFactory = default;
 
 	[SerializeField]
-	SpawnerHandler spawnerHandler = default;
+	SpawnerHandler spawnerHandler;
 
 	[SerializeField]
 	BulletPool bulletPool = default;
@@ -35,11 +35,6 @@ public class Game : MonoBehaviour
 
 	[SerializeField]
 	public Canvas TowerUI = default;
-
-	[SerializeField, Range(0.1f, 10f)]
-	float spawnSpeed = 1f;
-
-	float spawnProgress;
 
 	public GameTile selectedTile;
 	public GameTileContent selectedTileContent;
@@ -69,6 +64,8 @@ public class Game : MonoBehaviour
 	{
 		board.Initialize(boardSize, tileContentFactory);
 		board.ShowGrid = true;
+
+		spawnerHandler.board = board;
 
 		bulletPool.Initialize();
 
@@ -145,13 +142,7 @@ public class Game : MonoBehaviour
 		
 		hoveredTile = board.GetTile(touchRay);
 
-		spawnProgress += spawnSpeed * Time.deltaTime;
-		//		while (spawnProgress >= 1f)
-		//		{
-		//			spawnProgress -= 1f;
-		//			SpawnEnemy();
-		//		}
-		spawnerHandler.GameUpdate(board.GetSpawnPoint(Random.Range(0, board.SpawnPointCount)));
+		spawnerHandler.GameUpdate();
 		enemies.GameUpdate();
 		board.GameUpdate();
 
@@ -175,23 +166,7 @@ public class Game : MonoBehaviour
 				board.ToggleSpawnPoint(tile);
 			}
 		}
-
-		spawnProgress += spawnSpeed * Time.deltaTime;
-//		while (spawnProgress >= 1f)
-//		{
-//			spawnProgress -= 1f;
-//			SpawnEnemy();
-//		}
 	}
-
-//	void SpawnEnemy()
-//	{
-//		GameTile spawnPoint =
-//			board.GetSpawnPoint(Random.Range(0, board.SpawnPointCount));
-//		Enemy enemy = enemyFactory.Get();
-//		enemy.SpawnOn(spawnPoint);
-//		enemies.Add(enemy);
-//	}
 
 	void HandleTouch()
 	{
