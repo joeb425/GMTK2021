@@ -24,6 +24,8 @@ public class UIHandler : MonoBehaviour
 		GameState.Get.OnCashChanged += (oldValue, newValue) => UpdateCashLabel(newValue);
 		GameState.Get.OnLivesChanged += (oldValue, newValue) => UpdateLivesLabel(newValue);
 
+		GameState.Get.board.OnSelectedTileChanged += (oldTile, newTile) => OnSelectedTileChanged(newTile);
+
 		UpdateCashLabel(GameState.Get.CurrentCash);
 		UpdateLivesLabel(GameState.Get.CurrentLives);
 
@@ -75,5 +77,11 @@ public class UIHandler : MonoBehaviour
 		
 		spawnBasicTower.Q<Label>("Cost").text = "" + towerPrefab.Cost;
 		spawnBasicTower.Q<Button>("Button").text = btnText;
+	}
+
+	void OnSelectedTileChanged(GameTile selectedTile)
+	{
+		bool showTowerUI = selectedTile.Content.Type == GameTileContentType.Tower;
+		SetTowerUIEnabled(showTowerUI);
 	}
 }

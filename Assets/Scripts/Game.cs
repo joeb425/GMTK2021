@@ -95,20 +95,25 @@ public class Game : MonoBehaviour
 		inputHandler.GameUpdate();
 	}
 
-	// private void OnDrawGizmos()
-	// {
-	// 	if (selectedTile != null)
-	// 	{
-	// 		Gizmos.color = new Color(1, 1, 0, 0.5f);
-	// 		Gizmos.DrawCube(selectedTile.Content.transform.position, new Vector3(1, 1, 1));
-	// 	}
-	//
-	// 	if (hoveredTile != null && hoveredTile != selectedTile)
-	// 	{
-	// 		Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
-	// 		Gizmos.DrawCube(hoveredTile.Content.transform.position, new Vector3(1, 1, 1));
-	// 	}
-	// }
+	private void OnDrawGizmos()
+	{
+		if (GameState.Get.board.hoveredTile)
+		{
+			Gizmos.color = new Color(1, 1, 0, 0.5f);
+			Gizmos.DrawSphere(GameState.Get.board.hoveredTile.transform.position, .25f);
+		}
+		// if (selectedTile != null)
+		// {
+		// 	Gizmos.color = new Color(1, 1, 0, 0.5f);
+		// 	Gizmos.DrawCube(selectedTile.Content.transform.position, new Vector3(1, 1, 1));
+		// }
+		//
+		// if (hoveredTile != null && hoveredTile != selectedTile)
+		// {
+		// 	Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
+		// 	Gizmos.DrawCube(hoveredTile.Content.transform.position, new Vector3(1, 1, 1));
+		// }
+	}
 
 	// private Tower sourceTower;
 	//

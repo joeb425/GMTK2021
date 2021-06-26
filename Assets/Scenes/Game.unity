@@ -698,8 +698,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5008a26810a442da3a61f7ec7d34fd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuildMenu: {fileID: 375104720547175923}
-  TowerUI: {fileID: 540206313}
+  buildMenu: {fileID: 375104720547175923}
+  towerUI: {fileID: 540206313}
   uiDocument: {fileID: 214363846}
 --- !u!4 &1860175030
 Transform:
