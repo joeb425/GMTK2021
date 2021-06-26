@@ -503,6 +503,7 @@ MonoBehaviour:
   - enemyCount: 15
     spawnSpeed: 0.5
     enemyElementNo: 2
+  board: {fileID: 495667348}
 --- !u!4 &812287042
 Transform:
   m_ObjectHideFlags: 0
@@ -668,6 +669,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1860175028
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1860175030}
+  - component: {fileID: 1860175029}
+  m_Layer: 0
+  m_Name: UIHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1860175029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860175028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5008a26810a442da3a61f7ec7d34fd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BuildMenu: {fileID: 375104720547175923}
+  TowerUI: {fileID: 540206313}
+  uiDocument: {fileID: 214363846}
+--- !u!4 &1860175030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860175028}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.093322, y: -10.939302, z: 9.723929}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1918931692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1210,6 +1257,11 @@ PrefabInstance:
       propertyPath: BuildMenu
       value: 
       objectReference: {fileID: 375104720547175923}
+    - target: {fileID: 4171630199352765875, guid: 4a700ac1cb412c0468cbf9169c310c67,
+        type: 3}
+      propertyPath: uiHandler
+      value: 
+      objectReference: {fileID: 1860175029}
     - target: {fileID: 4171630199352765875, guid: 4a700ac1cb412c0468cbf9169c310c67,
         type: 3}
       propertyPath: spawnSpeed

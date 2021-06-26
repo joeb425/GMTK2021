@@ -5,60 +5,65 @@ using UnityEngine.UIElements;
 public class UIHandler : MonoBehaviour
 {
 	[SerializeField]
-	public Canvas BuildMenu = default;
+	public Canvas buildMenu = default;
 
 	[SerializeField]
-	public Canvas TowerUI = default;
+	public Canvas towerUI = default;
 
 	[SerializeField]
 	public UIDocument uiDocument;
 
-	public Label cashLabel;
-	public Label livesLabel;
+	private Label _cashLabel;
+	private Label _livesLabel;
 
 	public void Init()
 	{
+		ReadUIDocument();
+		
 		SetBuildMenuEnabled(false);
-		//
+		GameState.GlobalGameState.OnCashChanged += (oldValue, newValue) => UpdateCashLabel(newValue);
+		GameState.GlobalGameState.OnLivesChanged += (oldValue, newValue) => UpdateLivesLabel(newValue);
+
+		UpdateCashLabel(GameState.GlobalGameState.CurrentCash);
+		UpdateLivesLabel(GameState.GlobalGameState.CurrentLives);
+
 		// BindButton(board.PlaceBasicTower, board.BasicTowerPrefab, "SpawnBasicBtn", "Basic");
-  //       BindButton(board.PlaceDoubleTower, board.DoubleTowerPrefab, "SpawnDoubleBtn", "Double");
-  //       BindButton(board.PlaceRocketTower, board.RocketTowerPrefab, "SpawnRocketBtn", "Rocket");
-  //       BindButton(board.PlaceSniperTower, board.SniperTowerPrefab, "SpawnSniperBtn", "Sniper");
-  //       BindButton(board.PlaceSMGTower, board.SMGTowerPrefab, "SpawnSMGBtn", "SMG");
-  //
-  //       var rootVisualElement = uiDocument.rootVisualElement;
-  //       cashLabel = rootVisualElement.Q<Label>("Cash");
-  //       livesLabel = rootVisualElement.Q<Label>("Lives");
-  //       SetCash(50);
-  //       currentLives = maxLives;
-  //       SetCash(board.cash);
+		//       BindButton(board.PlaceDoubleTower, board.DoubleTowerPrefab, "SpawnDoubleBtn", "Double");
+		//       BindButton(board.PlaceRocketTower, board.RocketTowerPrefab, "SpawnRocketBtn", "Rocket");
+		//       BindButton(board.PlaceSniperTower, board.SniperTowerPrefab, "SpawnSniperBtn", "Sniper");
+		//       BindButton(board.PlaceSMGTower, board.SMGTowerPrefab, "SpawnSMGBtn", "SMG");
+		//
+	}
+
+	public void ReadUIDocument()
+	{
+		var rootVisualElement = uiDocument.rootVisualElement;
+		_cashLabel = rootVisualElement.Q<Label>("Cash");
+		_livesLabel = rootVisualElement.Q<Label>("Lives");
 	}
 
 	public void SetBuildMenuEnabled(bool menuEnabled)
 	{
-		CanvasGroup canvasGroup = BuildMenu.GetComponent<CanvasGroup>();
+		CanvasGroup canvasGroup = buildMenu.GetComponent<CanvasGroup>();
 		canvasGroup.alpha = menuEnabled ? 1.0f : 0.0f;
 		canvasGroup.interactable = menuEnabled;
-		// IsGUIEnabled = menuEnabled;
 	}
 
 	public void SetTowerUIEnabled(bool menuEnabled)
 	{
-		CanvasGroup canvasGroup = TowerUI.GetComponent<CanvasGroup>();
+		CanvasGroup canvasGroup = towerUI.GetComponent<CanvasGroup>();
 		canvasGroup.alpha = menuEnabled ? 1.0f : 0.0f;
 		canvasGroup.interactable = true;
-		// IsGUIEnabled = menuEnabled;
 	}
 
-	public void SetCash(int cash)
+	public void UpdateCashLabel(int lives)
 	{
-		cashLabel.text = "" + cash;
+		_cashLabel.text = "" + lives;
 	}
 
-	public void SetLives(int lives)
+	public void UpdateLivesLabel(int lives)
 	{
-		// currentLives = currentLives - lives;
-		// livesLabel.text = currentLives + "/" + maxLives;
+		_livesLabel.text = lives + "/" + GameState.GlobalGameState.MaxLives;
 	}
 
 	void BindButton(Tower towerPrefab, string btnName, string btnText)

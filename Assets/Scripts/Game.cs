@@ -12,9 +12,16 @@ public class Game : MonoBehaviour
 
 	public static Game SharedGame;
 
+	[SerializeField]
 	public GameState gameState;
 
 	public UIHandler uiHandler;
+
+	[SerializeField]
+	public int StartingCash = 10;
+
+	[SerializeField]
+	public int MaxLives = 25;
 
 	[SerializeField]
 	Vector2Int boardSize = new Vector2Int(11, 11);
@@ -56,6 +63,11 @@ public class Game : MonoBehaviour
 		board.ShowGrid = true;
 
 		spawnerHandler.board = board;
+
+		gameState = new GameState();
+		gameState.StartingCash = StartingCash;
+		gameState.MaxLives = MaxLives;
+		gameState.Init();
 
 		bulletPool.Initialize();
 
@@ -243,13 +255,13 @@ public class Game : MonoBehaviour
 
 	public void SetCash(int cash)
 	{
-		uiHandler.SetCash(cash);
+		uiHandler.UpdateCashLabel(cash);
 	}
 
 	public void SetLives(int lives)
 	{
 		currentLives = currentLives - lives;
-		uiHandler.SetLives(lives);
+		uiHandler.UpdateLivesLabel(lives);
 	}
 
 	public bool PlaceCurrentTower()
