@@ -380,7 +380,9 @@ public class GameBoard : MonoBehaviour
 			return;
 
 		ToggleTower(Game.SharedGame.selectedTile, tower);
-		Game.SharedGame.SetBuildMenuEnabled(false);
+		
+		// TODO: this stupid
+		Game.SharedGame.uiHandler.SetBuildMenuEnabled(false);
 	}
 	
 	public void PlaceBasicTower()

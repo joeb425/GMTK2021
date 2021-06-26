@@ -1,7 +1,7 @@
 ﻿using System;
 using Unity.Profiling;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 
 //3.3
@@ -13,6 +13,8 @@ public class Game : MonoBehaviour
 	public static Game SharedGame;
 
 	public GameState gameState;
+
+	public UIHandler uiHandler;
 
 	[SerializeField]
 	Vector2Int boardSize = new Vector2Int(11, 11);
@@ -32,33 +34,19 @@ public class Game : MonoBehaviour
 	[SerializeField]
 	BulletPool bulletPool = default;
 
-	[SerializeField]
-	public Canvas BuildMenu = default;
-
-	[SerializeField]
-	public Canvas TowerUI = default;
-
 	public GameTile selectedTile;
 	public GameTileContent selectedTileContent;
 	public GameTile hoveredTile;
-
-	private bool IsGUIEnabled = false;
 
 	public EnemyCollection enemies = new EnemyCollection();
 	Ray touchRay;
 
 	private bool linkAttempt = false;
-
-	[SerializeField]
-	public UIDocument uiDocument;
-
+	
 	[SerializeField]
 	public int maxLives = 20;
 	public int currentLives;
-
-	public Label cashLabel;
-	public Label livesLabel;
-
+	
 	private Tower towerToBePlaced;
 	private Tower towerToBePlacedPrefab;
 
@@ -73,35 +61,12 @@ public class Game : MonoBehaviour
 
 		SharedGame = this;
 
-		SetBuildMenuEnabled(false);
-
 		mouseInput = new MouseInput();
 		mouseInput.Enable();
 
 		mouseInput.Mouse.MouseClick.performed += ctx => MouseClick();
 
-		BindButton(board.PlaceBasicTower, board.BasicTowerPrefab, "SpawnBasicBtn", "Basic");
-		BindButton(board.PlaceDoubleTower, board.DoubleTowerPrefab, "SpawnDoubleBtn", "Double");
-		BindButton(board.PlaceRocketTower, board.RocketTowerPrefab, "SpawnRocketBtn", "Rocket");
-		BindButton(board.PlaceSniperTower, board.SniperTowerPrefab, "SpawnSniperBtn", "Sniper");
-		BindButton(board.PlaceSMGTower, board.SMGTowerPrefab, "SpawnSMGBtn", "SMG");
-
-		var rootVisualElement = uiDocument.rootVisualElement;
-		cashLabel = rootVisualElement.Q<Label>("Cash");
-		livesLabel = rootVisualElement.Q<Label>("Lives");
-		SetCash(50);
-		currentLives = maxLives;	
-		SetCash(board.cash);
-
-	}
-
-	void BindButton(Action action, Tower towerPrefab, string btnName, string btnText)
-	{
-		var rootVisualElement = uiDocument.rootVisualElement;
-		var spawnBasicTower = rootVisualElement.Q(btnName);
-		spawnBasicTower.RegisterCallback<ClickEvent>(ev => SetTowerToBePlaced(towerPrefab));
-		spawnBasicTower.Q<Label>("Cost").text = "" + towerPrefab.Cost;
-		spawnBasicTower.Q<Button>("Button").text = btnText;
+		uiHandler.Init();
 	}
 
 	void SetTowerToBePlaced(Tower towerPrefab)
@@ -207,7 +172,7 @@ public class Game : MonoBehaviour
 		// SetBuildMenuEnabled(showBuildMenu);
 
 		bool showTowerUI = selectedTile.Content.Type == GameTileContentType.Tower;
-		SetTowerUIEnabled(showTowerUI);
+		uiHandler.SetTowerUIEnabled(showTowerUI);
 	}
 
 	private void OnSelectedTileChanged(GameTile oldTile, GameTile newTile)
@@ -254,22 +219,6 @@ public class Game : MonoBehaviour
 		}
 	}
 
-	public void SetBuildMenuEnabled(bool menuEnabled)
-	{
-		CanvasGroup canvasGroup = BuildMenu.GetComponent<CanvasGroup>();
-		canvasGroup.alpha = menuEnabled ? 1.0f : 0.0f;
-		canvasGroup.interactable = menuEnabled;
-		IsGUIEnabled = menuEnabled;
-	}
-
-	public void SetTowerUIEnabled(bool menuEnabled)
-	{
-		CanvasGroup canvasGroup = TowerUI.GetComponent<CanvasGroup>();
-		canvasGroup.alpha = menuEnabled ? 1.0f : 0.0f;
-		canvasGroup.interactable = true;
-		// IsGUIEnabled = menuEnabled;
-	}
-
 	private Tower sourceTower;
 
 	public void LinkSelect()
@@ -294,13 +243,13 @@ public class Game : MonoBehaviour
 
 	public void SetCash(int cash)
 	{
-		cashLabel.text = "" + cash;
+		uiHandler.SetCash(cash);
 	}
 
 	public void SetLives(int lives)
 	{
 		currentLives = currentLives - lives;
-		livesLabel.text = currentLives + "/" + maxLives;
+		uiHandler.SetLives(lives);
 	}
 
 	public bool PlaceCurrentTower()
