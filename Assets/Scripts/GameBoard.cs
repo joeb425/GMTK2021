@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class GameBoard : MonoBehaviour
@@ -43,6 +44,9 @@ public class GameBoard : MonoBehaviour
 	List<GameTile> spawnPoints = new List<GameTile>();
 
 	List<GameTileContent> updatingContent = new List<GameTileContent>();
+
+	public event System.Action<GameTile, GameTile> OnSelectedTileChanged;
+	public event System.Action<GameTile, GameTile> OnHoveredTileChanged;
 
 	public int cash = 25;
 
@@ -190,6 +194,8 @@ public class GameBoard : MonoBehaviour
 		ToggleDestination(tiles[end_loc]);
 		ToggleSpawnPoint(tiles[spawn_loc]);
 		FindPaths();
+
+		OnSelectedTileChanged += SelectedTileChanged;
 	}
 
 	public void ToggleSpawnPoint(GameTile tile)
@@ -259,7 +265,7 @@ public class GameBoard : MonoBehaviour
 				updatingContent.Add(tile.Content);
 
 				// update hud
-				Game.SharedGame.SetCash(cash);
+				GameState.Get.SetCash(cash);
 			}
 		}
 	}
@@ -284,7 +290,7 @@ public class GameBoard : MonoBehaviour
 
 	public GameTile GetTile(Ray ray)
 	{
-		if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, 1))
+		if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, 7))
 		{
 			int x = (int) (hit.point.x + size.x * 0.5f);
 			int y = (int) (hit.point.z + size.y * 0.5f);
@@ -364,6 +370,13 @@ public class GameBoard : MonoBehaviour
 		{
 			updatingContent[i].GameUpdate();
 		}
+
+		hoveredTile = GetTile(InputHandler.Get.touchRay);
+
+		if (towerToBePlaced != null && hoveredTile != null)
+		{
+			towerToBePlaced.transform.position = hoveredTile.Content.transform.position;
+		}
 	}
 
 	public void PlaceTowerAtTile(GameTile tile, Tower tower)
@@ -376,10 +389,10 @@ public class GameBoard : MonoBehaviour
 
 	public void PlaceTower(Tower tower)
 	{
-		if (Game.SharedGame.selectedTile == null)
+		if (selectedTile == null)
 			return;
 
-		ToggleTower(Game.SharedGame.selectedTile, tower);
+		ToggleTower(selectedTile, tower);
 		
 		// TODO: this stupid
 		Game.SharedGame.uiHandler.SetBuildMenuEnabled(false);
@@ -419,5 +432,97 @@ public class GameBoard : MonoBehaviour
 		}
 
 		return false;
+	}
+
+	public GameTile selectedTile;
+	public GameTileContent selectedTileContent;
+	public GameTile hoveredTile;
+
+	private Tower towerToBePlaced;
+	private Tower towerToBePlacedPrefab;
+
+	private void SelectedTileChanged(GameTile oldTile, GameTile newTile)
+	{
+		SetTileSelected(oldTile, false);
+		SetTileSelected(newTile, true);
+	}
+
+	public void SelectTile(GameTile newSelectedTile)
+	{
+		if (PlaceCurrentTower())
+		{
+			return;
+		}
+
+		GameTile oldSelectedTile = selectedTile;
+		GameTileContent oldSelectedContent = selectedTileContent;
+
+		selectedTile = newSelectedTile; //GetTile(touchRay);
+		selectedTileContent = selectedTile.Content;
+
+		if (oldSelectedTile != selectedTile)
+		{
+			OnSelectedTileChanged(oldSelectedTile, selectedTile);
+		}
+		// content may have changed as well
+		else if (oldSelectedTile != null && selectedTile != null &&
+		         oldSelectedContent != selectedTileContent)
+		{
+			OnSelectedTileChanged(oldSelectedTile, selectedTile);
+		}
+
+		// bool showBuildMenu = selectedTile.Content.Type == GameTileContentType.Build;
+		// SetBuildMenuEnabled(showBuildMenu);
+
+		// bool showTowerUI = selectedTile.Content.Type == GameTileContentType.Tower;
+		// uiHandler.SetTowerUIEnabled(showTowerUI);
+	}
+
+	private void SetTileSelected(GameTile tile, bool selected)
+	{
+		if (tile is null)
+		{
+			return;
+		}
+
+		if (tile.Content.Type == GameTileContentType.Tower)
+		{
+			MeshRenderer[] renderers = tile.Content.GetComponentsInChildren<MeshRenderer>();
+			foreach (MeshRenderer renderer in renderers)
+			{
+				if (renderer != null)
+				{
+					renderer.material.SetFloat("_OutlineWidth", selected ? 1.05f : 1.0f);
+				}
+			}
+
+			Tower tower = tile.Content as Tower;
+			tower.OnSelected(selected);
+		}
+	}
+
+	public bool PlaceCurrentTower()
+	{
+		// place tower
+		if (towerToBePlaced != null)
+		{
+			PlaceTowerAtTile(hoveredTile, towerToBePlacedPrefab);
+			Destroy(towerToBePlaced.gameObject);
+			return true;
+		}
+
+		return false;
+	}
+
+	public void SetTowerToBePlaced(Tower towerPrefab)
+	{
+		if (towerToBePlaced)
+		{
+			Destroy(towerToBePlaced);
+		}
+
+		towerToBePlaced = Instantiate(towerPrefab);
+		towerToBePlacedPrefab = towerPrefab;
+		towerToBePlaced.SetGhostTower();
 	}
 }

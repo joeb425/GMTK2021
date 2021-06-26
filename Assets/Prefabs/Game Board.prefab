@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2409273647800608450}
   - component: {fileID: 2409273647800608462}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Game Board
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,7 +48,16 @@ MonoBehaviour:
   tilePrefab: {fileID: 8445076794503322131, guid: b6581b0301d964e92ad5edd7dd7ad0ee,
     type: 3}
   gridTexture: {fileID: 2800000, guid: 60e4548047ffa4add965f53d3acae855, type: 3}
+  BasicTowerPrefab: {fileID: 0}
+  DoubleTowerPrefab: {fileID: 0}
+  SMGTowerPrefab: {fileID: 0}
+  SniperTowerPrefab: {fileID: 0}
+  RocketTowerPrefab: {fileID: 0}
   leveldesign: {fileID: 4900000, guid: 8a5b7e646bc9d3f49a0b1978010b1c34, type: 3}
+  cash: 25
+  selectedTile: {fileID: 0}
+  selectedTileContent: {fileID: 0}
+  hoveredTile: {fileID: 0}
 --- !u!1 &2409273648826600899
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,7 +70,7 @@ GameObject:
   - component: {fileID: 2409273648826600902}
   - component: {fileID: 2409273648826600897}
   - component: {fileID: 2409273648826600896}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

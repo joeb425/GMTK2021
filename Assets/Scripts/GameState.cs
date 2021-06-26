@@ -1,7 +1,9 @@
 ﻿public class GameState
 {
-	public static GameState GlobalGameState;
+	public static GameState Get;
 
+	public GameBoard board;
+	
 	public event System.Action<int, int> OnCashChanged;
 	public event System.Action<int, int> OnLivesChanged;
 
@@ -29,7 +31,7 @@
 
 	public void Init()
 	{
-		GlobalGameState = this;
+		Get = this;
 
 		CurrentCash = StartingCash;
 		CurrentLives = MaxLives;
