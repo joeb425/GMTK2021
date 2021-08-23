@@ -462,13 +462,13 @@ public class GameBoard : MonoBehaviour
 
 		if (oldSelectedTile != selectedTile)
 		{
-			OnSelectedTileChanged(oldSelectedTile, selectedTile);
+			OnSelectedTileChanged?.Invoke(oldSelectedTile, selectedTile);
 		}
 		// content may have changed as well
 		else if (oldSelectedTile != null && selectedTile != null &&
 		         oldSelectedContent != selectedTileContent)
 		{
-			OnSelectedTileChanged(oldSelectedTile, selectedTile);
+			OnSelectedTileChanged?.Invoke(oldSelectedTile, selectedTile);
 		}
 
 		// bool showBuildMenu = selectedTile.Content.Type == GameTileContentType.Build;
