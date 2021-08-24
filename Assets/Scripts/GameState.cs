@@ -1,4 +1,6 @@
-﻿public class GameState
+﻿using UnityEngine;
+
+public class GameState
 {
 	public static GameState Get;
 

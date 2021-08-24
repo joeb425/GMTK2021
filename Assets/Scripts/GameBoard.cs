@@ -516,6 +516,7 @@ public class GameBoard : MonoBehaviour
 
 	public void SetTowerToBePlaced(Tower towerPrefab)
 	{
+		Debug.Log("Tessst");
 		if (towerToBePlaced)
 		{
 			Destroy(towerToBePlaced);

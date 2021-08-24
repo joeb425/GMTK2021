@@ -8,7 +8,7 @@ namespace UI.MainMenu
 	public class MainMenuManager : ScreenSwitcher
 		//ScreenSwitcher
 	{
-		// private ScreenSwitcher ScreenSwitcher;
+		// public string stringAttr { get; set; }
 		
 		public new class UxmlFactory : UxmlFactory<MainMenuManager, UxmlTraits>
 		{
@@ -16,6 +16,20 @@ namespace UI.MainMenu
 
 		public new class UxmlTraits : VisualElement.UxmlTraits
 		{
+			// UxmlStringAttributeDescription m_String = new UxmlStringAttributeDescription
+			// 	{ name = "string-attr", defaultValue = "default_value" };
+			
+			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
+			{
+				base.Init(ve, bag, cc);
+				
+				// var ate = ve as MainMenuManager;
+				//
+				// ate.Clear();
+				//
+				// ate.stringAttr = m_String.GetValueFromBag(bag, cc);
+				// ate.Add(new TextField("String") { value = ate.stringAttr });
+			}
 		}
 
 		private static String MENU_SCREEN_NAME = "MenuScreen";
