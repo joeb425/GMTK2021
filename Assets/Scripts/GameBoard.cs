@@ -14,21 +14,6 @@ public class GameBoard : MonoBehaviour
 	Texture2D gridTexture = default;
 
 	[SerializeField]
-	public Tower BasicTowerPrefab = default;
-
-	[SerializeField]
-	public Tower DoubleTowerPrefab = default;
-
-	[SerializeField]
-	public Tower SMGTowerPrefab = default;
-
-	[SerializeField]
-	public Tower SniperTowerPrefab = default;
-
-	[SerializeField]
-	public Tower RocketTowerPrefab = default;
-
-	[SerializeField]
 	TextAsset leveldesign;
 
 	Vector2Int size;
@@ -396,31 +381,6 @@ public class GameBoard : MonoBehaviour
 		
 		// TODO: this stupid
 		Game.SharedGame.uiHandler.SetBuildMenuEnabled(false);
-	}
-	
-	public void PlaceBasicTower()
-	{
-		PlaceTower(BasicTowerPrefab);
-	}
-
-	public void PlaceDoubleTower()
-	{
-		PlaceTower(DoubleTowerPrefab);
-	}
-
-	public void PlaceSMGTower()
-	{
-		PlaceTower(SMGTowerPrefab);
-	}
-
-	public void PlaceSniperTower()
-	{
-		PlaceTower(SniperTowerPrefab);
-	}
-
-	public void PlaceRocketTower()
-	{
-		PlaceTower(RocketTowerPrefab);
 	}
 
 	public bool BuyTower(Tower tower)
