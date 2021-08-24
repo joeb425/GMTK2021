@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,10 +16,13 @@ public class Enemy : MonoBehaviour
 
 	public float Health { get; set; } = 500.0f;
 	public float maxHealth;
-	public GameObject healthBarUI;
 	public Slider slider;
 
 	public event System.Action OnReachEnd;
+
+	[SerializeField]
+	public GameObject healthBarTest;
+	public GameObject _healthBarInstance;
 
 
 	public EnemyFactory OriginFactory
@@ -38,12 +42,17 @@ public class Enemy : MonoBehaviour
 		Debug.Assert(tile.NextTileOnPath != null, "Nowhere to go!", this);
 		tileFrom = tile;
 		tileTo = tile.NextTileOnPath;
-		maxHealth = Health;
+		Health = maxHealth;
 		//positionFrom = tileFrom.transform.localPosition;
 		//positionTo = tileFrom.ExitPoint;
 		//transform.localRotation = tileFrom.PathDirection.GetRotation();
 		progress = 0f;
 		PrepareIntro();
+
+		_healthBarInstance = Instantiate(healthBarTest);
+		_healthBarInstance.SetActive(true);
+
+		slider = _healthBarInstance.GetComponentInChildren<Slider>();
 	}
 
 	void PrepareIntro()
@@ -73,8 +82,10 @@ public class Enemy : MonoBehaviour
 
 		if (Health < maxHealth)
 		{
-			healthBarUI.SetActive(true);
+			_healthBarInstance.SetActive(true);
 		}
+
+		_healthBarInstance.transform.position = transform.position + Vector3.up * 2.0f + Vector3.forward * 0.5f;
 
 		progress += Time.deltaTime;
 		while (progress >= 1f)
@@ -153,5 +164,10 @@ public class Enemy : MonoBehaviour
 	private void OnCollisionEnter(Collision other)
 	{
 		Debug.Log("Collision?");
+	}
+
+	private void OnDestroy()
+	{
+		Destroy(_healthBarInstance);
 	}
 }

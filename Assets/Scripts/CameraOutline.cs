@@ -26,7 +26,7 @@ public class CameraOutline : MonoBehaviour
 		material.SetPass(0);
 		if (_selectedTile)
 		{
-			Graphics.DrawMeshNow(mesh, _selectedTile.Content.transform.position, Quaternion.identity);
+			Graphics.DrawMeshNow(mesh, _selectedTile.Content.transform.position + Vector3.up * 2.0f, Quaternion.identity);
 		}
 	}
 }
