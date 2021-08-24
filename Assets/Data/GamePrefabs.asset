@@ -12,15 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f3dcc4d46846ed88622898cd634990, type: 3}
   m_Name: GamePrefabs
   m_EditorClassIdentifier: 
-  associatedPrefab: {fileID: 3242984198978901850, guid: dfa6eb68b75ccea4e96aedc38b044481,
+  basicTowerPrefab: {fileID: 7682699519609654883, guid: d0f4d9b1f614fa34d841ba8748eaca4e,
     type: 3}
-  BasicTowerPrefab: {fileID: 7682699519609654883, guid: d0f4d9b1f614fa34d841ba8748eaca4e,
+  doubleTowerPrefab: {fileID: 5942957368654960938, guid: 1038ec44c5e3c514485f69db945a9f65,
     type: 3}
-  DoubleTowerPrefab: {fileID: 5942957368654960938, guid: 1038ec44c5e3c514485f69db945a9f65,
+  smgTowerPrefab: {fileID: 7662874212954485398, guid: afc394f333da7184ca9c6a1db1ebca3b,
     type: 3}
-  SMGTowerPrefab: {fileID: 7662874212954485398, guid: afc394f333da7184ca9c6a1db1ebca3b,
+  sniperTowerPrefab: {fileID: 5986433788513884090, guid: b0f70ac5db884bb408b2058aa38412f8,
     type: 3}
-  SniperTowerPrefab: {fileID: 5986433788513884090, guid: b0f70ac5db884bb408b2058aa38412f8,
-    type: 3}
-  RocketTowerPrefab: {fileID: 8119690419672304627, guid: 2add2897b33aaa44ca5482e243244e44,
+  rocketTowerPrefab: {fileID: 8119690419672304627, guid: 2add2897b33aaa44ca5482e243244e44,
     type: 3}
