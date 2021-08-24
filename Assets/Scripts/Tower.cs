@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngineInternal;
 using Random = UnityEngine.Random;
 
+[Serializable]
 public class Tower : GameTileContent
 {
 	[SerializeField]

@@ -14,21 +14,6 @@ public class GameBoard : MonoBehaviour
 	Texture2D gridTexture = default;
 
 	[SerializeField]
-	public Tower BasicTowerPrefab = default;
-
-	[SerializeField]
-	public Tower DoubleTowerPrefab = default;
-
-	[SerializeField]
-	public Tower SMGTowerPrefab = default;
-
-	[SerializeField]
-	public Tower SniperTowerPrefab = default;
-
-	[SerializeField]
-	public Tower RocketTowerPrefab = default;
-
-	[SerializeField]
 	TextAsset leveldesign;
 
 	Vector2Int size;
@@ -397,31 +382,6 @@ public class GameBoard : MonoBehaviour
 		// TODO: this stupid
 		Game.SharedGame.uiHandler.SetBuildMenuEnabled(false);
 	}
-	
-	public void PlaceBasicTower()
-	{
-		PlaceTower(BasicTowerPrefab);
-	}
-
-	public void PlaceDoubleTower()
-	{
-		PlaceTower(DoubleTowerPrefab);
-	}
-
-	public void PlaceSMGTower()
-	{
-		PlaceTower(SMGTowerPrefab);
-	}
-
-	public void PlaceSniperTower()
-	{
-		PlaceTower(SniperTowerPrefab);
-	}
-
-	public void PlaceRocketTower()
-	{
-		PlaceTower(RocketTowerPrefab);
-	}
 
 	public bool BuyTower(Tower tower)
 	{
@@ -462,13 +422,13 @@ public class GameBoard : MonoBehaviour
 
 		if (oldSelectedTile != selectedTile)
 		{
-			OnSelectedTileChanged(oldSelectedTile, selectedTile);
+			OnSelectedTileChanged?.Invoke(oldSelectedTile, selectedTile);
 		}
 		// content may have changed as well
 		else if (oldSelectedTile != null && selectedTile != null &&
 		         oldSelectedContent != selectedTileContent)
 		{
-			OnSelectedTileChanged(oldSelectedTile, selectedTile);
+			OnSelectedTileChanged?.Invoke(oldSelectedTile, selectedTile);
 		}
 
 		// bool showBuildMenu = selectedTile.Content.Type == GameTileContentType.Build;
@@ -516,6 +476,7 @@ public class GameBoard : MonoBehaviour
 
 	public void SetTowerToBePlaced(Tower towerPrefab)
 	{
+		Debug.Log("Tessst");
 		if (towerToBePlaced)
 		{
 			Destroy(towerToBePlaced);

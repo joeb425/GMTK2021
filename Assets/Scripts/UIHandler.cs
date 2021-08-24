@@ -1,26 +1,28 @@
-﻿using UnityEngine;
-
+﻿using System;
+using UI;
+using UI.MainMenu;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public class UIHandler : MonoBehaviour
 {
-	[SerializeField]
-	public Canvas buildMenu = default;
+	// [SerializeField]
+	// public Canvas buildMenu = default;
 
-	[SerializeField]
-	public Canvas towerUI = default;
+	// [SerializeField]
+	// public Canvas towerUI = default;
 
 	[SerializeField]
 	public UIDocument uiDocument;
 
 	private Label _cashLabel;
 	private Label _livesLabel;
+	private TowerBuildMenu _towerBuildMenu;
 
 	public void Init()
 	{
 		ReadUIDocument();
-		
-		SetBuildMenuEnabled(false);
+
 		GameState.Get.OnCashChanged += (oldValue, newValue) => UpdateCashLabel(newValue);
 		GameState.Get.OnLivesChanged += (oldValue, newValue) => UpdateLivesLabel(newValue);
 
@@ -29,11 +31,7 @@ public class UIHandler : MonoBehaviour
 		UpdateCashLabel(GameState.Get.CurrentCash);
 		UpdateLivesLabel(GameState.Get.CurrentLives);
 
-		BindButton(GameState.Get.Board.BasicTowerPrefab, "SpawnBasicBtn", "Basic");
-		BindButton(GameState.Get.Board.DoubleTowerPrefab, "SpawnDoubleBtn", "Double");
-		BindButton(GameState.Get.Board.RocketTowerPrefab, "SpawnRocketBtn", "Rocket");
-		BindButton(GameState.Get.Board.SniperTowerPrefab, "SpawnSniperBtn", "Sniper");
-		BindButton(GameState.Get.Board.SMGTowerPrefab, "SpawnSMGBtn", "SMG");
+		SetBuildMenuEnabled(false);
 	}
 
 	public void ReadUIDocument()
@@ -41,20 +39,17 @@ public class UIHandler : MonoBehaviour
 		var rootVisualElement = uiDocument.rootVisualElement;
 		_cashLabel = rootVisualElement.Q<Label>("Cash");
 		_livesLabel = rootVisualElement.Q<Label>("Lives");
+		_towerBuildMenu = uiDocument.rootVisualElement.Q<TowerBuildMenu>();
 	}
 
 	public void SetBuildMenuEnabled(bool menuEnabled)
 	{
-		CanvasGroup canvasGroup = buildMenu.GetComponent<CanvasGroup>();
-		canvasGroup.alpha = menuEnabled ? 1.0f : 0.0f;
-		canvasGroup.interactable = menuEnabled;
+		_towerBuildMenu.style.display = menuEnabled ? DisplayStyle.Flex : DisplayStyle.None;
 	}
 
 	public void SetTowerUIEnabled(bool menuEnabled)
 	{
-		CanvasGroup canvasGroup = towerUI.GetComponent<CanvasGroup>();
-		canvasGroup.alpha = menuEnabled ? 1.0f : 0.0f;
-		canvasGroup.interactable = true;
+		// TODO: Tower stat panel
 	}
 
 	public void UpdateCashLabel(int lives)
@@ -67,21 +62,12 @@ public class UIHandler : MonoBehaviour
 		_livesLabel.text = lives + "/" + GameState.Get.MaxLives;
 	}
 
-	void BindButton(Tower towerPrefab, string btnName, string btnText)
-	{
-		var rootVisualElement = uiDocument.rootVisualElement;
-		var spawnBasicTower = rootVisualElement.Q(btnName);
-		
-		// Spawn tower?
-		spawnBasicTower.RegisterCallback<ClickEvent>(ev => GameState.Get.Board.SetTowerToBePlaced(towerPrefab));
-		
-		spawnBasicTower.Q<Label>("Cost").text = "" + towerPrefab.Cost;
-		spawnBasicTower.Q<Button>("Button").text = btnText;
-	}
-
 	void OnSelectedTileChanged(GameTile selectedTile)
 	{
 		bool showTowerUI = selectedTile.Content.Type == GameTileContentType.Tower;
 		SetTowerUIEnabled(showTowerUI);
+
+		bool showBuildUI = selectedTile.Content.Type == GameTileContentType.Build;
+		SetBuildMenuEnabled(showBuildUI);
 	}
 }

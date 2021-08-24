@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="MenuScreen" src="MenuScreen.uxml" />
+    <ui:Template name="SettingsScreen" src="SettingsScreen.uxml" />
+    <UI.MainMenu.MainMenuManager style="flex-grow: 1; align-items: stretch; justify-content: flex-start;">
+        <ui:Instance template="MenuScreen" name="MenuScreen" />
+        <ui:Instance template="SettingsScreen" name="SettingsScreen" />
+    </UI.MainMenu.MainMenuManager>
+</ui:UXML>

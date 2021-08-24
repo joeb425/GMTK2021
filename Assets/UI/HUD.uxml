@@ -1,22 +1,20 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="SpawnTowerBtn" src="SpawnTowerBtn.uxml" />
-    <Style src="NewUSSFile.uss" />
-    <ui:VisualElement style="margin-right: 0; margin-top: 8px; margin-left: 8px; margin-bottom: 0;">
-        <ui:VisualElement style="flex-direction: row;">
-            <ui:Label text="Cash:&#10;" display-tooltip-when-elided="true" class="hud-label" style="width: 55px; -unity-text-align: upper-left;" />
-            <ui:Label text="10" display-tooltip-when-elided="true" name="Cash" class="hud-label" />
+    <ui:Template name="TowerBuildMenu" src="TowerBuildMenu.uxml" />
+    <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+        <ui:VisualElement style="flex-grow: 5; flex-direction: row;">
+            <ui:VisualElement style="margin-right: 0; margin-top: 8px; margin-left: 8px; margin-bottom: 0; flex-direction: column;">
+                <ui:VisualElement style="flex-direction: row;">
+                    <ui:Label text="Cash:&#10;" display-tooltip-when-elided="true" class="hud-label" style="width: 55px; -unity-text-align: upper-left;" />
+                    <ui:Label text="10" display-tooltip-when-elided="true" name="Cash" class="hud-label" />
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-direction: row;">
+                    <ui:Label text="Lives:&#10;" display-tooltip-when-elided="true" class="hud-label" style="width: 55px; -unity-text-align: upper-left;" />
+                    <ui:Label text="20" display-tooltip-when-elided="true" name="Lives" class="hud-label" />
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement style="flex-direction: row;">
-            <ui:Label text="Lives:&#10;" display-tooltip-when-elided="true" class="hud-label" style="width: 55px; -unity-text-align: upper-left;" />
-            <ui:Label text="20" display-tooltip-when-elided="true" name="Lives" class="hud-label" />
+        <ui:VisualElement style="flex-grow: 0; flex-direction: row; align-items: flex-start; justify-content: flex-end; width: 20%;">
+            <ui:Instance template="TowerBuildMenu" name="TowerBuildMenu" />
         </ui:VisualElement>
-    </ui:VisualElement>
-    <ui:VisualElement style="flex-shrink: 1; flex-grow: 1;" />
-    <ui:VisualElement style="flex-direction: row; flex-grow: 0; align-items: stretch; justify-content: center; padding-right: 0; padding-left: 0; margin-right: 0; padding-bottom: 8px;">
-        <ui:Instance template="SpawnTowerBtn" name="SpawnBasicBtn" />
-        <ui:Instance template="SpawnTowerBtn" name="SpawnDoubleBtn" />
-        <ui:Instance template="SpawnTowerBtn" name="SpawnRocketBtn" />
-        <ui:Instance template="SpawnTowerBtn" name="SpawnSMGBtn" />
-        <ui:Instance template="SpawnTowerBtn" name="SpawnSniperBtn" />
     </ui:VisualElement>
 </ui:UXML>

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 public class Game : MonoBehaviour
 {
 	public static Game SharedGame;
@@ -42,8 +43,14 @@ public class Game : MonoBehaviour
 	[SerializeField]
 	private GenericObjectPool[] ObjectPools;
 
+	private void Start()
+	{
+		Debug.Log("Game Awake");
+	}
+
 	void Awake()
 	{
+		Debug.Log("Game Awake");
 		board.Initialize(boardSize, tileContentFactory);
 		board.ShowGrid = true;
 
@@ -90,11 +97,11 @@ public class Game : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-		if (GameState.Get.Board.hoveredTile)
-		{
-			Gizmos.color = new Color(1, 1, 0, 0.5f);
-			Gizmos.DrawSphere(GameState.Get.Board.hoveredTile.transform.position, .25f);
-		}
+		// if (GameState.Get.Board.hoveredTile)
+		// {
+		// 	Gizmos.color = new Color(1, 1, 0, 0.5f);
+		// 	Gizmos.DrawSphere(GameState.Get.Board.hoveredTile.transform.position, .25f);
+		// }
 		// if (selectedTile != null)
 		// {
 		// 	Gizmos.color = new Color(1, 1, 0, 0.5f);
