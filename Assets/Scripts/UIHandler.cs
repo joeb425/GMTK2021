@@ -31,7 +31,6 @@ public class UIHandler : MonoBehaviour
 		UpdateCashLabel(GameState.Get.CurrentCash);
 		UpdateLivesLabel(GameState.Get.CurrentLives);
 
-		_towerBuildMenu.Setup();
 		SetBuildMenuEnabled(false);
 	}
 

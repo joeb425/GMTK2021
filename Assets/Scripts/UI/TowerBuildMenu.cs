@@ -1,4 +1,5 @@
 ﻿using UnityEditor;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public class TowerBuildMenu : VisualElement
@@ -13,23 +14,29 @@ public class TowerBuildMenu : VisualElement
 	{
 	}
 
-	public void Setup()
+	public TowerBuildMenu()
+	{
+		RegisterCallback<AttachToPanelEvent>(OnAttach);
+	}
+
+	private void OnAttach(AttachToPanelEvent evt)
 	{
 		_iconButton = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI/SpawnTowerBtn.uxml");
+		GamePrefabs gamePrefabs = AssetDatabase.LoadAssetAtPath<GamePrefabs>("Assets/Data/GamePrefabs.asset");
 
 		VisualElement buttons = this.Q<VisualElement>("Buttons");
 		if (buttons != null)
 		{
 			buttons.Clear();
-			CreateButton(buttons, GameState.Get.Board.BasicTowerPrefab, "Basic");
-			CreateButton(buttons, GameState.Get.Board.DoubleTowerPrefab, "Double");
-			CreateButton(buttons, GameState.Get.Board.RocketTowerPrefab, "Rocket");
-			CreateButton(buttons, GameState.Get.Board.SniperTowerPrefab, "Sniper");
-			CreateButton(buttons, GameState.Get.Board.SMGTowerPrefab, "SMG");
+			CreateButton(buttons, gamePrefabs.basicTowerPrefab, "Basic");
+			CreateButton(buttons, gamePrefabs.doubleTowerPrefab, "Double");
+			CreateButton(buttons, gamePrefabs.rocketTowerPrefab, "Rocket");
+			CreateButton(buttons, gamePrefabs.sniperTowerPrefab, "Sniper");
+			CreateButton(buttons, gamePrefabs.smgTowerPrefab, "SMG");
 		}
 	}
 
-	void CreateButton(VisualElement rootContainer, Tower towerPrefab, string btnText)
+	private void CreateButton(VisualElement rootContainer, Tower towerPrefab, string btnText)
 	{
 		VisualElement spawnBasicTower = _iconButton.CloneTree();
 		rootContainer.Add(spawnBasicTower);
