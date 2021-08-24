@@ -18,6 +18,7 @@ public class UIHandler : MonoBehaviour
 	private Label _cashLabel;
 	private Label _livesLabel;
 	private TowerBuildMenu _towerBuildMenu;
+	private TowerInfoMenu _towerInfoMenu;
 
 	public void Init()
 	{
@@ -32,6 +33,7 @@ public class UIHandler : MonoBehaviour
 		UpdateLivesLabel(GameState.Get.CurrentLives);
 
 		SetBuildMenuEnabled(false);
+		SetTowerInfoEnabled(false);
 	}
 
 	public void ReadUIDocument()
@@ -40,16 +42,31 @@ public class UIHandler : MonoBehaviour
 		_cashLabel = rootVisualElement.Q<Label>("Cash");
 		_livesLabel = rootVisualElement.Q<Label>("Lives");
 		_towerBuildMenu = uiDocument.rootVisualElement.Q<TowerBuildMenu>();
+		_towerInfoMenu = uiDocument.rootVisualElement.Q<TowerInfoMenu>();
+		Debug.Log("define");
 	}
 
 	public void SetBuildMenuEnabled(bool menuEnabled)
 	{
+
 		_towerBuildMenu.style.display = menuEnabled ? DisplayStyle.Flex : DisplayStyle.None;
+		Debug.Log("open" + menuEnabled);
 	}
 
-	public void SetTowerUIEnabled(bool menuEnabled)
+	public void SetTowerInfoEnabled(bool menuEnabled)
 	{
-		// TODO: Tower stat panel
+		Debug.Log("pre ui" + menuEnabled);
+		_towerInfoMenu.style.display = menuEnabled ? DisplayStyle.Flex : DisplayStyle.None;
+	}
+
+
+
+	void OnSelectedTileChanged(GameTile selectedTile)
+	{
+		bool showBuildUI = selectedTile.Content.Type == GameTileContentType.Build;
+		SetBuildMenuEnabled(showBuildUI);
+		bool showTowerUI = selectedTile.Content.Type == GameTileContentType.Tower;
+		SetTowerInfoEnabled(showTowerUI);
 	}
 
 	public void UpdateCashLabel(int lives)
@@ -60,14 +77,5 @@ public class UIHandler : MonoBehaviour
 	public void UpdateLivesLabel(int lives)
 	{
 		_livesLabel.text = lives + "/" + GameState.Get.MaxLives;
-	}
-
-	void OnSelectedTileChanged(GameTile selectedTile)
-	{
-		bool showTowerUI = selectedTile.Content.Type == GameTileContentType.Tower;
-		SetTowerUIEnabled(showTowerUI);
-
-		bool showBuildUI = selectedTile.Content.Type == GameTileContentType.Build;
-		SetBuildMenuEnabled(showBuildUI);
 	}
 }

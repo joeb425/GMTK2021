@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <TowerInfoMenu style="position: absolute; left: 60%; top: 0; right: 0; bottom: 0;">
+        <ui:MinMaxSlider picking-mode="Ignore" label="Min/Max Slider" min-value="10" max-value="12" low-limit="-10" high-limit="40" style="flex-direction: row-reverse;" />
+        <ui:VisualElement>
+            <ui:Button text="Button" display-tooltip-when-elided="true" />
+        </ui:VisualElement>
+        <ui:Toggle label="Toggle" />
+    </TowerInfoMenu>
+</ui:UXML>

@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="TowerInfoMenu" src="TowerInfoMenu.uxml" />
     <ui:Template name="TowerBuildMenu" src="TowerBuildMenu.uxml" />
     <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
         <ui:VisualElement style="flex-grow: 5; flex-direction: row;">
@@ -13,8 +14,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement style="flex-grow: 0; flex-direction: row; align-items: flex-start; justify-content: flex-end; width: 20%;">
-            <ui:Instance template="TowerBuildMenu" name="TowerBuildMenu" />
-        </ui:VisualElement>
     </ui:VisualElement>
+    <ui:Instance template="TowerInfoMenu" name="TowerInfoMenu" style="display: flex; position: absolute; left: 60%; top: 0; right: 0; bottom: 0;" />
+    <ui:Instance template="TowerBuildMenu" name="TowerBuildMenu" style="display: flex; position: absolute; left: 60%; top: 0; right: 0; bottom: 0;" />
 </ui:UXML>
