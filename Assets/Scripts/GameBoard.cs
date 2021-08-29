@@ -33,8 +33,6 @@ public class GameBoard : MonoBehaviour
 	public event System.Action<GameTile, GameTile> OnSelectedTileChanged;
 	public event System.Action<GameTile, GameTile> OnHoveredTileChanged;
 
-	public int cash = 25;
-
 	public bool ShowGrid
 	{
 		get => showGrid;
@@ -227,7 +225,10 @@ public class GameBoard : MonoBehaviour
 	}
 	public void ToggleBuildSpot(GameTile tile)
 	{
+		updatingContent.Remove(tile.Content);
 		tile.Content = contentFactory.Get(GameTileContentType.Build);
+		updatingContent.Add(tile.Content);
+
 	}
 	public void ToggleTower(GameTile tile, Tower towerPrefab)
 	{
@@ -250,7 +251,6 @@ public class GameBoard : MonoBehaviour
 				updatingContent.Add(tile.Content);
 
 				// update hud
-				GameState.Get.SetCash(cash);
 			}
 		}
 	}
@@ -385,9 +385,9 @@ public class GameBoard : MonoBehaviour
 
 	public bool BuyTower(Tower tower)
 	{
-		if (cash >= tower.Cost)
+		if (GameState.Get.CurrentCash >= tower.Cost)
 		{
-			cash -= tower.Cost;
+			GameState.Get.SetCash(GameState.Get.CurrentCash - tower.Cost);
 			return true;
 		}
 

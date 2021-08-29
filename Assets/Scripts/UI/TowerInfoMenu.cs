@@ -15,7 +15,7 @@ public class TowerInfoMenu : VisualElement
 
 	public TowerInfoMenu()
 	{
-		RegisterCallback<AttachToPanelEvent>(OnAttach);
+		RegisterCallback<AttachToPanelEvent>(OnAttach); // phil?=<ghenius 
 	}
 
 	private void OnAttach(AttachToPanelEvent evt)
@@ -41,6 +41,9 @@ public class TowerInfoMenu : VisualElement
 	{
 		// Sell the current tower -> Gameboard tells us content and sells tower?
 		Debug.Log("Sell Tower");
+		GameState.Get.Board.selectedTile.Content.Recycle();
+		GameState.Get.Board.ToggleBuildSpot(GameState.Get.Board.selectedTile);
+		GameState.Get.SetCash(GameState.Get.CurrentCash + 15);
 
 	}
 }
