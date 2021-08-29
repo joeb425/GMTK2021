@@ -19,6 +19,8 @@ public class UIHandler : MonoBehaviour
 	private Label _livesLabel;
 	private TowerBuildMenu _towerBuildMenu;
 	private TowerInfoMenu _towerInfoMenu;
+	private VisualElement _towerBuildMenuContainer;
+	private VisualElement _towerInfoMenuContainer;
 
 	public void Init()
 	{
@@ -42,21 +44,24 @@ public class UIHandler : MonoBehaviour
 		_cashLabel = rootVisualElement.Q<Label>("Cash");
 		_livesLabel = rootVisualElement.Q<Label>("Lives");
 		_towerBuildMenu = uiDocument.rootVisualElement.Q<TowerBuildMenu>();
+		_towerBuildMenuContainer = rootVisualElement.Q<VisualElement>("TowerBuildMenuContainer");
 		_towerInfoMenu = uiDocument.rootVisualElement.Q<TowerInfoMenu>();
+		_towerInfoMenuContainer = rootVisualElement.Q<VisualElement>("TowerInfoMenuContainer");
+		Debug.Log(_towerInfoMenu);
 		Debug.Log("define");
 	}
 
 	public void SetBuildMenuEnabled(bool menuEnabled)
 	{
 
-		_towerBuildMenu.style.display = menuEnabled ? DisplayStyle.Flex : DisplayStyle.None;
+		_towerBuildMenuContainer.style.display = menuEnabled ? DisplayStyle.Flex : DisplayStyle.None;
 		Debug.Log("open" + menuEnabled);
 	}
 
 	public void SetTowerInfoEnabled(bool menuEnabled)
 	{
 		Debug.Log("pre ui" + menuEnabled);
-		_towerInfoMenu.style.display = menuEnabled ? DisplayStyle.Flex : DisplayStyle.None;
+		_towerInfoMenuContainer.style.display = menuEnabled ? DisplayStyle.Flex : DisplayStyle.None;
 	}
 
 

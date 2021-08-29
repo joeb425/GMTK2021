@@ -1,9 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <TowerInfoMenu style="position: absolute; left: 60%; top: 0; right: 0; bottom: 0;">
-        <ui:MinMaxSlider picking-mode="Ignore" label="Min/Max Slider" min-value="10" max-value="12" low-limit="-10" high-limit="40" style="flex-direction: row-reverse;" />
-        <ui:VisualElement>
-            <ui:Button text="Button" display-tooltip-when-elided="true" />
-        </ui:VisualElement>
-        <ui:Toggle label="Toggle" />
+    <TowerInfoMenu name="TowerInfoMenu" style="position: absolute; left: 0; top: 2px; right: 0; bottom: -1px; overflow: visible;">
+        <ui:Button text="Upgrade ($$$)" display-tooltip-when-elided="true" name="UpgradeBtn" enable-rich-text="false" style="position: relative;" />
+        <ui:Button text="Sell" display-tooltip-when-elided="true" name="SellBtn" usage-hints="DynamicTransform" style="position: absolute; justify-content: flex-end; bottom: 5px; flex-direction: column;" />
+        <ui:Button text="Link" display-tooltip-when-elided="true" name="LinkBtn" style="position: relative;" />
+        <ui:MinMaxSlider picking-mode="Ignore" label="Min/Max Slider" min-value="10" max-value="12" low-limit="-10" high-limit="40" style="flex-direction: row-reverse; position: relative; overflow: hidden; align-items: flex-start;" />
+        <ui:Toggle label="Toggle" style="overflow: hidden;" />
     </TowerInfoMenu>
 </ui:UXML>
