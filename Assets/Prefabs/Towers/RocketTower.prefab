@@ -102,6 +102,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
+      propertyPath: towerData
+      value: 
+      objectReference: {fileID: 11400000, guid: a7df2799fc550b343aa549edd5050482,
+        type: 2}
+    - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
       propertyPath: towerAttributes.baseAttributesPerLevel.Array.data[0].baseDamage
       value: 4
       objectReference: {fileID: 0}

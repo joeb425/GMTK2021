@@ -1,20 +1,22 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="TowerBuildMenu" src="TowerBuildMenu.uxml" />
-    <ui:Template name="TowerInfoMenu" src="TowerInfoMenu.uxml" />
+    <ui:Template name="gameSidePanel" src="GameSidePanel.uxml" />
+    <Style src="StyleSheets/SidePanel.uss" />
     <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
-        <ui:VisualElement style="flex-grow: 5; flex-direction: row;">
-            <ui:VisualElement style="margin-right: 0; margin-top: 8px; margin-left: 8px; margin-bottom: 0; flex-direction: column;">
-                <ui:VisualElement style="flex-direction: row;">
-                    <ui:Label text="Cash:&#10;" display-tooltip-when-elided="true" class="hud-label" style="width: 55px; -unity-text-align: upper-left;" />
-                    <ui:Label text="10" display-tooltip-when-elided="true" name="Cash" class="hud-label" />
-                </ui:VisualElement>
-                <ui:VisualElement style="flex-direction: row;">
-                    <ui:Label text="Lives:&#10;" display-tooltip-when-elided="true" class="hud-label" style="width: 55px; -unity-text-align: upper-left;" />
-                    <ui:Label text="20" display-tooltip-when-elided="true" name="Lives" class="hud-label" />
+        <ui:VisualElement name="LeftPanel" style="flex-grow: 0; flex-direction: row;">
+            <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                <ui:VisualElement style="margin-right: 0; margin-top: 8px; margin-left: 8px; margin-bottom: 0; flex-direction: column;">
+                    <ui:VisualElement style="flex-direction: row;">
+                        <ui:Label text="Cash:&#10;" display-tooltip-when-elided="true" class="hud-label" style="width: 55px; -unity-text-align: upper-left;" />
+                        <ui:Label text="10" display-tooltip-when-elided="true" name="Cash" class="hud-label" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-direction: row;">
+                        <ui:Label text="Lives:&#10;" display-tooltip-when-elided="true" class="hud-label" style="width: 55px; -unity-text-align: upper-left;" />
+                        <ui:Label text="20" display-tooltip-when-elided="true" name="Lives" class="hud-label" style="flex-direction: column; flex-wrap: nowrap; flex-grow: 1;" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1; width: 128px;" />
+        <ui:Instance template="gameSidePanel" name="GameSidePanel" style="width: 30%; height: auto; flex-grow: 0; flex-basis: auto; min-width: 256px;" />
     </ui:VisualElement>
-    <ui:Instance template="TowerBuildMenu" name="TowerBuildMenuContainer" style="display: none; position: absolute; left: 60%; top: 0; right: 0; bottom: 0; visibility: visible; overflow: visible;" />
-    <ui:Instance template="TowerInfoMenu" name="TowerInfoMenuContainer" style="display: none; position: absolute; left: 60%; top: 0; right: 0; bottom: 0; overflow: visible;" />
 </ui:UXML>

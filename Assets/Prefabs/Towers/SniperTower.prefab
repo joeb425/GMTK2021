@@ -80,6 +80,12 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 5176ff0dd1c29324386b246bd637e40b, type: 2}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
+      propertyPath: towerData
+      value: 
+      objectReference: {fileID: 11400000, guid: 661d7925ea521b94a8c2aa440d07b46c,
+        type: 2}
+    - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
       propertyPath: towerPerks.Array.size
       value: 1
       objectReference: {fileID: 0}

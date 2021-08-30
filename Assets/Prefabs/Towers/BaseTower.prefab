@@ -274,6 +274,8 @@ MonoBehaviour:
   linePrefab: {fileID: 1792455083954044815, guid: 5241ef6354b1ece46aa5e64a54fa87e1,
     type: 3}
   Cost: 0
+  Name: Base
+  Icon: {fileID: 2800000, guid: 2ceee9a84e9a84bec9feb14261bba782, type: 3}
   numSegments: 128
   radiusLineRenderer: {fileID: 0}
   towerAttributes:

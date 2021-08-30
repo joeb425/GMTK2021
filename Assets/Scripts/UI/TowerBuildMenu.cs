@@ -40,14 +40,17 @@ public class TowerBuildMenu : VisualElement
 	{
 		VisualElement spawnBasicTower = _iconButton.CloneTree();
 		rootContainer.Add(spawnBasicTower);
-		spawnBasicTower.name = btnText;
 
-		if (towerPrefab)
-		{
-			spawnBasicTower.RegisterCallback<ClickEvent>(ev => GameState.Get.Board.PlaceTower(towerPrefab));
-			spawnBasicTower.Q<Label>("Cost").text = "" + towerPrefab.Cost;
-		}
+		Button button = spawnBasicTower.Q<Button>("Button");
+		var costLabel = spawnBasicTower.Q<Label>("Cost");
 
-		spawnBasicTower.Q<Button>("Button").text = btnText;
+		if (!towerPrefab)
+			return;
+
+		spawnBasicTower.RegisterCallback<ClickEvent>(ev => GameState.Get.Board.PlaceTower(towerPrefab));
+		costLabel.text = "" + towerPrefab.towerData.towerCost;
+		spawnBasicTower.name = towerPrefab.towerData.name;
+		button.text = btnText;
+		button.style.backgroundImage = towerPrefab.towerData.towerIcon;
 	}
 }

@@ -9,6 +9,9 @@ using Random = UnityEngine.Random;
 public class Tower : GameTileContent
 {
 	[SerializeField]
+	public TowerData towerData;
+	
+	[SerializeField]
 	Transform turret = default;
 
 	[SerializeField]
@@ -16,6 +19,12 @@ public class Tower : GameTileContent
 
 	[SerializeField]
 	public int Cost;
+
+	[SerializeField]
+	public string Name;
+
+	[SerializeField]
+	public Texture2D Icon;
 
 	private float attackTimeRemaining;
 

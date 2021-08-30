@@ -1,8 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="TowerInfoMenu" src="TowerInfoMenu.uxml" />
     <ui:Template name="TowerBuildMenu" src="TowerBuildMenu.uxml" />
-    <ui:VisualElement name="gameSidePanel" style="position: absolute; left: 60%; top: 0; right: 0; bottom: 0; flex-grow: 1;">
-        <ui:Instance template="TowerInfoMenu" name="TowerInfoMenu" style="display: none;" />
-        <ui:Instance template="TowerBuildMenu" name="TowerBuildMenu" style="display: none;" />
+    <Style src="StyleSheets/SidePanel.uss" />
+    <ui:VisualElement name="GameSidePanel" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; flex-grow: 1; width: 100%; height: 100%;">
+        <ui:Instance template="TowerInfoMenu" name="TowerInfoMenuContainer" style="width: 100%; height: 100%; position: absolute;" />
+        <ui:Instance template="TowerBuildMenu" name="TowerBuildMenuContainer" style="position: absolute; width: 100%; height: 100%;" />
     </ui:VisualElement>
 </ui:UXML>
