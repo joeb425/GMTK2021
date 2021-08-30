@@ -17,11 +17,30 @@ public class GameState
 
 	public int CurrentLives { get; private set; }
 
+	public bool SpendCash(int Cost)
+	{
+		if (CurrentCash > Cost)
+		{
+			SetCash(CurrentCash - Cost);
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public void SetCash(int newCash)
 	{
 		int previousCash = CurrentCash;
 		CurrentCash = newCash;
 		OnCashChanged?.Invoke(previousCash, newCash);
+	}
+
+	public void LoseLife()
+	{
+		if (CurrentLives > 0)
+		{
+			SetLives(CurrentLives - 1);
+		}
 	}
 
 	public void SetLives(int newLives)
