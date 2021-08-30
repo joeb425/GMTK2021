@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Transactions;
 using Attributes;
 using UnityEngine;
-using UnityEngineInternal;
-using Random = UnityEngine.Random;
 
 [Serializable]
 public class Tower : GameTileContent
@@ -14,22 +10,13 @@ public class Tower : GameTileContent
 	public TowerData towerData;
 	
 	[SerializeField]
-	Transform turret = default;
+	Transform turret;
 
 	[SerializeField]
-	Transform bulletSpawnPoint = default;
+	Transform bulletSpawnPoint;
 
 	[SerializeField]
 	public LineRenderer linePrefab;
-
-	[SerializeField]
-	public int Cost;
-
-	[SerializeField]
-	public string Name;
-
-	[SerializeField]
-	public Texture2D Icon;
 
 	private float attackTimeRemaining;
 
@@ -41,22 +28,10 @@ public class Tower : GameTileContent
 
 	private TargetPoint target = null;
 
-	private List<Tower> linkedTowers = new List<Tower>();
-	private List<GameObject> beams = new List<GameObject>();
-
-	[SerializeField]
-	Transform linkBeam = default;
-
 	[SerializeField]
 	public List<Perk> towerPerks;
 
-	private int towerLevel = 0;
-
 	private bool hasRotator;
-
-	private bool isGhostTower = false;
-	
-	private Dictionary<Tower, LineRenderer> renderers = new Dictionary<Tower, LineRenderer>();
 
 	public GameplayAttributeContainer Attributes = new GameplayAttributeContainer();
 
@@ -91,11 +66,6 @@ public class Tower : GameTileContent
 
 	public override void GameUpdate()
 	{
-		if (isGhostTower)
-		{
-			return;
-		}
-		
 		if (TrackTarget() || AcquireTarget())
 		{
 			if (!hasRotator)
@@ -240,62 +210,13 @@ public class Tower : GameTileContent
 
 	private void OnDrawGizmos()
 	{
-		// if (target != null)
-		// {
 		//	Gizmos.DrawLine(turret.localPosition, target.Position);
-		// }
-		foreach (Tower link in linkedTowers)
-		{
-			Gizmos.DrawLine(transform.position, link.transform.position);
-		}
-	}
-
-	void OnDrawGizmosSelected()
-	{
-		// Gizmos.color = Color.yellow;
-		// Vector3 position = transform.localPosition;
-		// position.y += 0.01f;
-		// Gizmos.DrawWireSphere(position, targetingRange);
-	}
-
-	public void LinkTower(Tower link)
-	{
-		linkedTowers.Add(link);
-
-		Color c1 = new Color(1f, 1f, 0.5f, 1);
-
-		LineRenderer lineRenderer = Instantiate(linePrefab, transform);
-		lineRenderer.startColor = c1;
-		lineRenderer.endColor = c1;
-		lineRenderer.startWidth = 0.05f;
-		lineRenderer.endWidth = 0.05f;
-		lineRenderer.positionCount = 2; // [v1,v2,v3,v4] --> v1v2, v2v3, v3v4, v1v2,v1v3,v1v4
-		lineRenderer.SetPosition(0, transform.position + Vector3.up * 1.0f);
-		lineRenderer.SetPosition(1, link.transform.position + Vector3.up * 1.0f);
-		
-		renderers.Add(link, lineRenderer);
-		
-		UpdateAttributes();
 	}
 
 	public void UpdateAttributes()
 	{
 		// TODO bind to callbacks when attributes change
 		
-		// clear old calculated value?
-		List<Perk> allPerks = new List<Perk>();
-
-		foreach (Tower link in linkedTowers)
-		{
-			foreach (Perk perk in link.towerPerks)
-			{
-				allPerks.Add(perk);
-			}
-		}
-
-		// todo update attributes when other towers change level
-		// towerAttributes.UpdateAttributes(towerLevel, allPerks);
-
 		UpdateTowerRangeCollider();
 
 		UpdateRangeDisplay();
@@ -320,15 +241,5 @@ public class Tower : GameTileContent
 	public void OnSelected(bool selected)
 	{
 		radiusLineRenderer.enabled = selected;
-		foreach (KeyValuePair<Tower, LineRenderer> elem in renderers)
-		{
-			elem.Value.enabled = selected;
-		}
-	}
-
-	public void SetGhostTower()
-	{
-		isGhostTower = true;
-		radiusLineRenderer.enabled = true;
 	}
 }

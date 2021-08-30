@@ -385,9 +385,10 @@ public class GameBoard : MonoBehaviour
 
 	public bool BuyTower(Tower tower)
 	{
-		if (GameState.Get.CurrentCash >= tower.Cost)
+		int towerCost = tower.towerData.towerCost;
+		if (GameState.Get.CurrentCash >= towerCost)
 		{
-			GameState.Get.SetCash(GameState.Get.CurrentCash - tower.Cost);
+			GameState.Get.SetCash(GameState.Get.CurrentCash - towerCost);
 			return true;
 		}
 
@@ -484,6 +485,5 @@ public class GameBoard : MonoBehaviour
 
 		towerToBePlaced = Instantiate(towerPrefab);
 		towerToBePlacedPrefab = towerPrefab;
-		towerToBePlaced.SetGhostTower();
 	}
 }
