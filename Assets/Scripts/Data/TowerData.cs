@@ -1,7 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Attributes;
 using UnityEngine;
 using UnityEngine.Serialization;
+
+[Serializable]
+public struct UpgradeInfo
+{
+	[SerializeField]
+	public int upgradeCost;
+	
+	[SerializeField]
+	public GameplayEffect upgradeEffect;
+}
 
 [CreateAssetMenu(menuName = "Data/TowerData")]
 public class TowerData : ScriptableObject
@@ -27,7 +38,6 @@ public class TowerData : ScriptableObject
 	[SerializeField, Range(0.0f, 200f)]
 	public float attackSpeed = 1;
 
-	[FormerlySerializedAs("numTargets")]
 	[SerializeField, Range(0, 200)]
 	public int split = 0;
 
@@ -42,4 +52,7 @@ public class TowerData : ScriptableObject
 
 	[SerializeField]
 	public Material bulletMaterial;
+
+	[SerializeField]
+	public UpgradeInfo[] upgradeInfos;
 }

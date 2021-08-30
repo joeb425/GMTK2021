@@ -24,7 +24,9 @@ namespace Attributes
 		public float defaultValue;
 
 		[HideInInspector]
-		public float currentValue;
+		public float currentValue { get; private set; }
+
+		public event System.Action<GameplayAttribute, float> OnAttributeChanged;
 
 		public GameplayAttribute()
 		{
@@ -38,5 +40,13 @@ namespace Attributes
 			this.defaultValue = defaultValue;
 			this.currentValue = defaultValue;
 		}
+
+		public void SetCurrentValue(float newValue)
+		{
+			float oldValue = currentValue;
+			currentValue = newValue;
+			OnAttributeChanged?.Invoke(this, oldValue);
+		}
+		
 	}
 }

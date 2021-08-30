@@ -12,7 +12,7 @@ namespace Attributes
 		public Dictionary<AttributeType, GameplayAttribute> finalAttributes =
 			new Dictionary<AttributeType, GameplayAttribute>();
 
-		public List<GameplayAttributeModifier> modifiers;
+		public List<GameplayAttributeModifier> modifiers = new List<GameplayAttributeModifier>();
 
 		public void InitAttribute(AttributeType attributeType, float defaultValue)
 		{
@@ -25,8 +25,18 @@ namespace Attributes
 
 		public void ApplyModifier(GameplayAttributeModifier modifier)
 		{
-			// TODO
-			// modifiers.Add(modifier);
+			modifiers.Add(modifier);
+			GameplayAttribute attribute = finalAttributes[modifier.attribute];
+			float newValue = finalAttributes[modifier.attribute].currentValue + modifier.value;
+			attribute.SetCurrentValue(newValue);
+		}
+
+		public void ApplyEffect(GameplayEffect effect)
+		{
+			foreach (GameplayAttributeModifier mod in effect.Modifiers)
+			{
+				ApplyModifier(mod);
+			}
 		}
 
 		public GameplayAttribute GetAttribute(AttributeType attribute)

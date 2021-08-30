@@ -39,6 +39,7 @@ public class TowerInfoMenu : VisualElement
 	{
 		// Grab tower on tile from gameboard and upgrade from tower clasS?
 		Debug.Log("upgrade a tower");
+		_currentTower.UpgradeTower();
 	}
 
 	void LinkTower()

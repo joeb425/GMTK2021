@@ -24,3 +24,6 @@ MonoBehaviour:
   bulletSpeed: 5
   bulletMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   bulletMaterial: {fileID: 2100000, guid: 60e9d42099cf8ec40897d6903f7e6c6e, type: 2}
+  upgradeInfos:
+  - upgradeCost: 5
+    upgradeEffect: {fileID: 11400000, guid: 5875d55ef89a56a45945586af535f14e, type: 2}

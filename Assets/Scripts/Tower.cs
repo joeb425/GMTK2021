@@ -35,6 +35,8 @@ public class Tower : GameTileContent
 
 	public GameplayAttributeContainer Attributes = new GameplayAttributeContainer();
 
+	private int _towerLevel = 0;
+
 	private void Awake()
 	{
 		InitLineRenderer();
@@ -216,6 +218,13 @@ public class Tower : GameTileContent
 	public void UpdateAttributes()
 	{
 		// TODO bind to callbacks when attributes change
+		Attributes.GetAttribute(AttributeType.Range).OnAttributeChanged += (attribute, oldValue) =>
+		{
+			if (attribute.attributeType == AttributeType.Range)
+			{
+				UpdateRangeDisplay();
+			}
+		};
 		
 		UpdateTowerRangeCollider();
 
@@ -241,5 +250,24 @@ public class Tower : GameTileContent
 	public void OnSelected(bool selected)
 	{
 		radiusLineRenderer.enabled = selected;
+	}
+
+	public bool CanUpgradeTower()
+	{
+		return _towerLevel < towerData.upgradeInfos.Length;
+	}
+	
+	public void UpgradeTower()
+	{
+		if (!CanUpgradeTower())
+		{
+			return;
+		}
+		
+		UpgradeInfo upgradeInfo = towerData.upgradeInfos[_towerLevel];
+		if (GameState.Get.SpendCash(upgradeInfo.upgradeCost))
+		{
+			Attributes.ApplyEffect(upgradeInfo.upgradeEffect);
+		}
 	}
 }
