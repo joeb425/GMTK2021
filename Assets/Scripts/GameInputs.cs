@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/MouseInput.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/GameInputs.inputactions'
 
 using System;
 using System.Collections;
@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public class @MouseInput : IInputActionCollection, IDisposable
+public class @GameInputs : IInputActionCollection, IDisposable
 {
     public InputActionAsset asset { get; }
-    public @MouseInput()
+    public @GameInputs()
     {
         asset = InputActionAsset.FromJson(@"{
-    ""name"": ""MouseInput"",
+    ""name"": ""GameInputs"",
     ""maps"": [
         {
             ""name"": ""Mouse"",
@@ -59,6 +59,33 @@ public class @MouseInput : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Keyboard"",
+            ""id"": ""d8b6c4e1-43d7-4af9-84e2-8fccd663a769"",
+            ""actions"": [
+                {
+                    ""name"": ""FastForward"",
+                    ""type"": ""Button"",
+                    ""id"": ""61c8201e-281f-416d-bef9-36dfe8245fd2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""2de10c1a-7d95-4e6b-9641-f2de5a2881a0"",
+                    ""path"": ""<Keyboard>/f1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FastForward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -67,6 +94,9 @@ public class @MouseInput : IInputActionCollection, IDisposable
         m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
         m_Mouse_MouseClick = m_Mouse.FindAction("MouseClick", throwIfNotFound: true);
         m_Mouse_MousePosition = m_Mouse.FindAction("MousePosition", throwIfNotFound: true);
+        // Keyboard
+        m_Keyboard = asset.FindActionMap("Keyboard", throwIfNotFound: true);
+        m_Keyboard_FastForward = m_Keyboard.FindAction("FastForward", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -120,8 +150,8 @@ public class @MouseInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Mouse_MousePosition;
     public struct MouseActions
     {
-        private @MouseInput m_Wrapper;
-        public MouseActions(@MouseInput wrapper) { m_Wrapper = wrapper; }
+        private @GameInputs m_Wrapper;
+        public MouseActions(@GameInputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @MouseClick => m_Wrapper.m_Mouse_MouseClick;
         public InputAction @MousePosition => m_Wrapper.m_Mouse_MousePosition;
         public InputActionMap Get() { return m_Wrapper.m_Mouse; }
@@ -153,9 +183,46 @@ public class @MouseInput : IInputActionCollection, IDisposable
         }
     }
     public MouseActions @Mouse => new MouseActions(this);
+
+    // Keyboard
+    private readonly InputActionMap m_Keyboard;
+    private IKeyboardActions m_KeyboardActionsCallbackInterface;
+    private readonly InputAction m_Keyboard_FastForward;
+    public struct KeyboardActions
+    {
+        private @GameInputs m_Wrapper;
+        public KeyboardActions(@GameInputs wrapper) { m_Wrapper = wrapper; }
+        public InputAction @FastForward => m_Wrapper.m_Keyboard_FastForward;
+        public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(KeyboardActions set) { return set.Get(); }
+        public void SetCallbacks(IKeyboardActions instance)
+        {
+            if (m_Wrapper.m_KeyboardActionsCallbackInterface != null)
+            {
+                @FastForward.started -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnFastForward;
+                @FastForward.performed -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnFastForward;
+                @FastForward.canceled -= m_Wrapper.m_KeyboardActionsCallbackInterface.OnFastForward;
+            }
+            m_Wrapper.m_KeyboardActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @FastForward.started += instance.OnFastForward;
+                @FastForward.performed += instance.OnFastForward;
+                @FastForward.canceled += instance.OnFastForward;
+            }
+        }
+    }
+    public KeyboardActions @Keyboard => new KeyboardActions(this);
     public interface IMouseActions
     {
         void OnMouseClick(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+    }
+    public interface IKeyboardActions
+    {
+        void OnFastForward(InputAction.CallbackContext context);
     }
 }

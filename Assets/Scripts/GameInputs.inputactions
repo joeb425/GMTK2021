@@ -1,5 +1,5 @@
 {
-    "name": "InputActions",
+    "name": "GameInputs",
     "maps": [
         {
             "name": "Mouse",
@@ -42,6 +42,33 @@
                     "processors": "",
                     "groups": "",
                     "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Keyboard",
+            "id": "d8b6c4e1-43d7-4af9-84e2-8fccd663a769",
+            "actions": [
+                {
+                    "name": "FastForward",
+                    "type": "Button",
+                    "id": "61c8201e-281f-416d-bef9-36dfe8245fd2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2de10c1a-7d95-4e6b-9641-f2de5a2881a0",
+                    "path": "<Keyboard>/f1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FastForward",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
