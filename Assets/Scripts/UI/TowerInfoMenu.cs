@@ -1,9 +1,13 @@
+using UI.MainMenu;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+
 public class TowerInfoMenu : VisualElement
 {
-	private VisualTreeAsset _iconButton;
+	private Tower _currentTower;
+
+	public AttributeContainerDisplay AttributeContainerDisplay { get; private set; }
 
 	public new class UxmlFactory : UxmlFactory<TowerInfoMenu, UxmlTraits>
 	{
@@ -20,11 +24,17 @@ public class TowerInfoMenu : VisualElement
 
 	private void OnAttach(AttachToPanelEvent evt)
 	{
-		Debug.Log("tower info initiate");
 		this.Q("UpgradeBtn")?.RegisterCallback<ClickEvent>(ev => UpgradeTower());
 		this.Q("LinkBtn")?.RegisterCallback<ClickEvent>(ev => LinkTower());
 		this.Q("SellBtn")?.RegisterCallback<ClickEvent>(ev => SellTower());
+		
+		AttributeContainerDisplay = this.Q<AttributeContainerDisplay>();
+		if (AttributeContainerDisplay == null)
+		{
+			Debug.Log("Failed to find attribute container display");
+		}
 	}
+
 	void UpgradeTower()
 	{
 		// Grab tower on tile from gameboard and upgrade from tower clasS?
@@ -44,6 +54,16 @@ public class TowerInfoMenu : VisualElement
 		GameState.Get.Board.selectedTile.Content.Recycle();
 		GameState.Get.Board.ToggleBuildSpot(GameState.Get.Board.selectedTile);
 		GameState.Get.SetCash(GameState.Get.CurrentCash + 15);
+	}
 
+	public void BindToTower(Tower tower)
+	{
+		if (tower is null)
+		{
+			return;
+		}
+
+		_currentTower = tower;
+		AttributeContainerDisplay.BindToAttributeContainer(tower.Attributes);
 	}
 }

@@ -1,6 +1,8 @@
 ﻿using System;
+using JetBrains.Annotations;
 using UI;
 using UI.MainMenu;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -35,7 +37,7 @@ public class UIHandler : MonoBehaviour
 		UpdateLivesLabel(GameState.Get.CurrentLives);
 
 		SetBuildMenuEnabled(false);
-		SetTowerInfoEnabled(false);
+		SetTowerInfoEnabled(false, null);
 	}
 
 	public void ReadUIDocument()
@@ -47,31 +49,33 @@ public class UIHandler : MonoBehaviour
 		_towerBuildMenuContainer = rootVisualElement.Q<VisualElement>("TowerBuildMenuContainer");
 		_towerInfoMenu = uiDocument.rootVisualElement.Q<TowerInfoMenu>();
 		_towerInfoMenuContainer = rootVisualElement.Q<VisualElement>("TowerInfoMenuContainer");
-		Debug.Log(_towerInfoMenu);
-		Debug.Log("define");
+		// Debug.Log(_towerInfoMenu);
+		// Debug.Log("define");
 	}
 
 	public void SetBuildMenuEnabled(bool menuEnabled)
 	{
-
 		_towerBuildMenuContainer.style.display = menuEnabled ? DisplayStyle.Flex : DisplayStyle.None;
-		Debug.Log("open" + menuEnabled);
+		// Debug.Log("open" + menuEnabled);
 	}
 
-	public void SetTowerInfoEnabled(bool menuEnabled)
+	public void SetTowerInfoEnabled(bool menuEnabled, [CanBeNull] GameTile tile)
 	{
-		Debug.Log("pre ui" + menuEnabled);
+		// Debug.Log("pre ui" + menuEnabled);
 		_towerInfoMenuContainer.style.display = menuEnabled ? DisplayStyle.Flex : DisplayStyle.None;
+
+		if (menuEnabled)
+		{
+			_towerInfoMenu.BindToTower((Tower) tile.Content);
+		}
 	}
-
-
 
 	void OnSelectedTileChanged(GameTile selectedTile)
 	{
 		bool showBuildUI = selectedTile.Content.Type == GameTileContentType.Build;
 		SetBuildMenuEnabled(showBuildUI);
 		bool showTowerUI = selectedTile.Content.Type == GameTileContentType.Tower;
-		SetTowerInfoEnabled(showTowerUI);
+		SetTowerInfoEnabled(showTowerUI, selectedTile);
 	}
 
 	public void UpdateCashLabel(int lives)

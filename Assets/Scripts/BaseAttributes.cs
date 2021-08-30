@@ -20,5 +20,4 @@ public struct BaseAttributes
 
 	[SerializeField, Range(0.0f, 200f)]
 	public float baseSplash;
-
 }

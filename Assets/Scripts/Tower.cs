@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Attributes;
 using UnityEngine;
 using UnityEngineInternal;
 using Random = UnityEngine.Random;
@@ -40,9 +41,6 @@ public class Tower : GameTileContent
 	private List<GameObject> beams = new List<GameObject>();
 
 	[SerializeField]
-	TowerAttributes towerAttributes;
-
-	[SerializeField]
 	Transform linkBeam = default;
 
 	[SerializeField]
@@ -54,15 +52,21 @@ public class Tower : GameTileContent
 
 	private bool isGhostTower = false;
 
-	private Dictionary<Tower, LineRenderer> renderers = new Dictionary<Tower, LineRenderer>(); 
+	private Dictionary<Tower, LineRenderer> renderers = new Dictionary<Tower, LineRenderer>();
+
+	public GameplayAttributeContainer Attributes = new GameplayAttributeContainer();
 
 	private void Awake()
 	{
 		InitLineRenderer();
 
-		UpdateAttributes();
+		Attributes.InitAttribute(AttributeType.Damage, towerData.damage);
+		Attributes.InitAttribute(AttributeType.SplashPercent, towerData.splash);
+		Attributes.InitAttribute(AttributeType.Range, towerData.attackRange);
+		Attributes.InitAttribute(AttributeType.AttackSpeed, towerData.attackSpeed);
+		Attributes.InitAttribute(AttributeType.Split, towerData.split);
 
-		UpdateTowerRangeCollider();
+		UpdateAttributes();
 
 		Rotator rotator = gameObject.GetComponent<Rotator>();
 		hasRotator = rotator != null;
@@ -103,7 +107,7 @@ public class Tower : GameTileContent
 	private void UpdateTowerRangeCollider()
 	{
 		sphereCollider = gameObject.GetComponent<SphereCollider>();
-		sphereCollider.radius = towerAttributes.finalTargetingRange;
+		sphereCollider.radius = Attributes.GetCurrentValue(AttributeType.Range);
 	}
 
 	bool TrackTarget()
@@ -115,7 +119,7 @@ public class Tower : GameTileContent
 
 		Vector3 a = transform.localPosition;
 		Vector3 b = target.Position;
-		if (Vector3.Distance(a, b) > towerAttributes.finalTargetingRange + 0.125f)
+		if (Vector3.Distance(a, b) > Attributes.GetCurrentValue(AttributeType.Range) + 0.125f)
 		{
 			target = null;
 			return false;
@@ -126,7 +130,7 @@ public class Tower : GameTileContent
 
 	Collider[] GetEnemiesInRadius()
 	{
-		return Physics.OverlapSphere(transform.localPosition, towerAttributes.finalTargetingRange, 1 << 9);
+		return Physics.OverlapSphere(transform.localPosition, Attributes.GetCurrentValue(AttributeType.Range), 1 << 9);
 	}
 
 	bool AcquireTarget()
@@ -152,7 +156,7 @@ public class Tower : GameTileContent
 			attackTimeRemaining -= Time.deltaTime;
 			if (attackTimeRemaining <= 0)
 			{
-				attackTimeRemaining = towerAttributes.finalAttackSpeed - attackTimeRemaining;
+				attackTimeRemaining = Attributes.GetCurrentValue(AttributeType.AttackSpeed) - attackTimeRemaining;
 				Attack();
 			}
 		}
@@ -164,19 +168,19 @@ public class Tower : GameTileContent
 		targetsToAttack.Add(target);
 
 		Collider[] enemies = GetEnemiesInRadius();
-		int remainingTargets = Mathf.FloorToInt(towerAttributes.finalNumTargets) - 1;
+		int numExtraTargets = Mathf.FloorToInt(Attributes.GetCurrentValue(AttributeType.Split));
 
 		foreach (Collider collider in enemies)
 		{
-			if (remainingTargets == 0)
+			if (numExtraTargets == 0)
 			{
 				break;
 			}
-
+			
 			TargetPoint targetPoint = collider.GetComponent<TargetPoint>();
 			if (targetPoint != target)
 			{
-				remainingTargets -= 1;
+				numExtraTargets -= 1;
 				targetsToAttack.Add(targetPoint);
 			}
 		}
@@ -198,7 +202,6 @@ public class Tower : GameTileContent
 					bulletObject.SetActive(true);
 
 					Bullet bullet = bulletObject.GetComponent<Bullet>();
-					bullet.towerAttributes = towerAttributes;
 					bullet.target = targetToAttack;
 					bullet.tower = this;
 				}
@@ -213,8 +216,9 @@ public class Tower : GameTileContent
 
 		for (int i = 0; i < numSegments + 1; i++)
 		{
-			float x = towerAttributes.finalTargetingRange * Mathf.Cos(theta);
-			float z = towerAttributes.finalTargetingRange * Mathf.Sin(theta);
+			float range = Attributes.GetCurrentValue(AttributeType.Range);
+			float x = range * Mathf.Cos(theta);
+			float z = range * Mathf.Sin(theta);
 			Vector3 pos = new Vector3(x, transform.position.y + 0.25f, z);
 			radiusLineRenderer.SetPosition(i, pos);
 			theta += deltaTheta;
@@ -268,6 +272,8 @@ public class Tower : GameTileContent
 
 	public void UpdateAttributes()
 	{
+		// TODO bind to callbacks when attributes change
+		
 		// clear old calculated value?
 		List<Perk> allPerks = new List<Perk>();
 
@@ -280,7 +286,7 @@ public class Tower : GameTileContent
 		}
 
 		// todo update attributes when other towers change level
-		towerAttributes.UpdateAttributes(towerLevel, allPerks);
+		// towerAttributes.UpdateAttributes(towerLevel, allPerks);
 
 		UpdateTowerRangeCollider();
 
@@ -291,12 +297,13 @@ public class Tower : GameTileContent
 	{
 		Collider[] splashedTargets = Physics.OverlapSphere(targetPoint.Position, 2.0f, 1 << 9);
 
-		float damage = towerAttributes.finalDamage;
+		float damage = Attributes.GetCurrentValue(AttributeType.Damage);
 
 		foreach (Collider collider in splashedTargets)
 		{
 			TargetPoint aoeTarget = collider.GetComponent<TargetPoint>();
-			aoeTarget.Enemy.ApplyDamage(damage * towerAttributes.finalSplash);
+			float splashPercent = Attributes.GetCurrentValue(AttributeType.SplashPercent);
+			aoeTarget.Enemy.ApplyDamage(damage * splashPercent);
 		}
 
 		targetPoint.Enemy.ApplyDamage(damage);

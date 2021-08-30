@@ -45,7 +45,7 @@ public class Game : MonoBehaviour
 
 	private void Start()
 	{
-		Debug.Log("Game Awake");
+		Debug.Log("Game Start");
 	}
 
 	void Awake()

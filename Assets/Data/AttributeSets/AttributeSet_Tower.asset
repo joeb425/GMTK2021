@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d3e69a6a6547c48aae5ab0bb0d0063, type: 3}
+  m_Name: AttributeSet_Tower
+  m_EditorClassIdentifier: 
+  Attributes:
+  - attributeType: 1
+    defaultValue: 2
+    currentValue: 0
+  - attributeType: 2
+    defaultValue: 5
+    currentValue: 0
+  - attributeType: 3
+    defaultValue: 1
+    currentValue: 0
+  - attributeType: 4
+    defaultValue: 0
+    currentValue: 0
+  - attributeType: 5
+    defaultValue: 0
+    currentValue: 0

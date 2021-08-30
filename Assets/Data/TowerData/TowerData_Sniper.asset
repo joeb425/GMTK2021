@@ -16,16 +16,8 @@ MonoBehaviour:
   towerIcon: {fileID: 2800000, guid: 5297040d9a8ed9045a54d6823e7f1d31, type: 3}
   towerCost: 4
   towerSell: 4
-  towerPerks: []
-  towerAttributes:
-    baseAttributesPerLevel:
-    - baseTargetingRange: 4
-      baseDamage: 1
-      baseAttackSpeed: 1
-      baseNumTargets: 1
-      baseSplash: 0
-    finalTargetingRange: 0
-    finalDamage: 0
-    finalAttackSpeed: 0
-    finalNumTargets: 0
-    finalSplash: 0
+  attackRange: 5
+  damage: 5
+  attackSpeed: 1
+  split: 0
+  splash: 1

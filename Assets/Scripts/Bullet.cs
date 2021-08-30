@@ -9,8 +9,6 @@ public class Bullet : MonoBehaviour
 	
 	public TargetPoint target;
 
-	public TowerAttributes towerAttributes;
-
 	[SerializeField]
 	public float bulletSpeed = 3.0f;
 
@@ -36,17 +34,5 @@ public class Bullet : MonoBehaviour
 	private void Explode()
 	{
 		tower.ApplyHit(target);
-		
-		// Collider[] splashedTargets = Physics.OverlapSphere(target.Position, 2.0f, 1 << 9);
-		//
-		// float damage = towerAttributes.finalDamage;
-		//
-		// foreach (Collider collider in splashedTargets)
-		// {
-		// 	TargetPoint aoeTarget = collider.GetComponent<TargetPoint>();
-		// 	aoeTarget.Enemy.ApplyDamage(damage * towerAttributes.finalSplash);
-		// }
-		//
-		// target.Enemy.ApplyDamage(damage);
 	}
 }

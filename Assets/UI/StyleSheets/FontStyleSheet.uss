@@ -1,0 +1,18 @@
+.BoldText {
+    -unity-font-definition: resource('Fonts & Materials/LiberationSans SDF');
+    color: rgb(255, 146, 146);
+    -unity-font-style: bold;
+}
+
+.RegularText {
+    -unity-font-definition: resource('Fonts & Materials/LiberationSans SDF');
+    color: rgb(255, 146, 146);
+    -unity-font-style: bold;
+}
+
+.ValueText {
+    -unity-font-style: bold;
+    -unity-font-definition: resource('Fonts & Materials/LiberationSans SDF');
+    font-size: 12px;
+    color: rgb(255, 255, 255);
+}
