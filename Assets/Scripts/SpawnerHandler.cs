@@ -59,7 +59,7 @@ public class SpawnerHandler : MonoBehaviour
 
 	public void OnEnemyReachEnd()
 	{
-		GameState.Get.SetLives(1);
+		GameState.Get.LoseLife();
 	}
 
 	void NextWave()
