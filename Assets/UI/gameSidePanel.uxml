@@ -2,8 +2,8 @@
     <ui:Template name="TowerInfoMenu" src="TowerInfoMenu.uxml" />
     <ui:Template name="TowerBuildMenu" src="TowerBuildMenu.uxml" />
     <Style src="StyleSheets/SidePanel.uss" />
-    <ui:VisualElement name="GameSidePanel" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; flex-grow: 1; width: 100%; height: 100%;">
+    <ui:VisualElement name="GameSidePanel" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; flex-grow: 0; width: 100%; height: 100%;">
         <ui:Instance template="TowerInfoMenu" name="TowerInfoMenuContainer" style="width: 100%; height: 100%; position: absolute;" />
-        <ui:Instance template="TowerBuildMenu" name="TowerBuildMenuContainer" style="position: absolute; width: 100%; height: 100%; opacity: 1; display: flex;" />
+        <ui:Instance template="TowerBuildMenu" name="TowerBuildMenuContainer" style="position: absolute; width: 100%; height: 100%;" />
     </ui:VisualElement>
 </ui:UXML>
