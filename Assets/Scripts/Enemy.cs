@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
 
 	public void SpawnOn(GameTile tile)
 	{
-		//	transform.localPosition = tile.transform.localPosition;
+		transform.position = tile.transform.position;
 		Debug.Assert(tile.NextTileOnPath != null, "Nowhere to go!", this);
 		tileFrom = tile;
 		tileTo = tile.NextTileOnPath;
@@ -49,8 +49,13 @@ public class Enemy : MonoBehaviour
 		progress = 0f;
 		PrepareIntro();
 
-		_healthBarInstance = Instantiate(healthBarTest);
+		if (!_healthBarInstance)
+		{
+			_healthBarInstance = Instantiate(healthBarTest);
+		}
+
 		_healthBarInstance.SetActive(true);
+		SetHealthbarPosition();
 
 		slider = _healthBarInstance.GetComponentInChildren<Slider>();
 	}
@@ -76,6 +81,7 @@ public class Enemy : MonoBehaviour
 		slider.value = CalculateHealth();
 		if (Health <= 0f)
 		{
+			_healthBarInstance.SetActive(false);
 			OriginFactory.Reclaim(this);
 			return false;
 		}
@@ -85,7 +91,7 @@ public class Enemy : MonoBehaviour
 			_healthBarInstance.SetActive(true);
 		}
 
-		_healthBarInstance.transform.position = transform.position + Vector3.up * 2.0f + Vector3.forward * 0.5f;
+		SetHealthbarPosition();
 
 		progress += Time.deltaTime;
 		while (progress >= 1f)
@@ -110,6 +116,11 @@ public class Enemy : MonoBehaviour
 
 		transform.localPosition = Vector3.LerpUnclamped(positionFrom, positionTo, progress);
 		return true;
+	}
+
+	void SetHealthbarPosition()
+	{
+		_healthBarInstance.transform.position = transform.position + Vector3.up * 2.0f + Vector3.forward * 0.5f;
 	}
 
 	float CalculateHealth()
