@@ -54,6 +54,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicTower
       objectReference: {fileID: 0}
+    - target: {fileID: 4880797105941278356, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880797105941278356, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880797105941278356, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 18ca0938e450d0342a895c131f2037f7, type: 2}
+    - target: {fileID: 5482323561982981059, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6714694530973837297, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_Mesh

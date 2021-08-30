@@ -156,7 +156,7 @@ Transform:
   m_GameObject: {fileID: 1745973593644027845}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.95, y: 0.1, z: 0.95}
   m_Children: []
   m_Father: {fileID: 7822758320480785569}
   m_RootOrder: 0
@@ -188,7 +188,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -5857886671465511977, guid: 8a2643f0c79a1ec4c9597a33a402e929, type: 3}
+  - {fileID: 2100000, guid: fe87a267a154b2a47a06e01d9854c7b4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -270,6 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 4
+  towerData: {fileID: 0}
   turret: {fileID: 263773572115014597}
   linePrefab: {fileID: 1792455083954044815, guid: 5241ef6354b1ece46aa5e64a54fa87e1,
     type: 3}
@@ -278,18 +279,6 @@ MonoBehaviour:
   Icon: {fileID: 2800000, guid: 2ceee9a84e9a84bec9feb14261bba782, type: 3}
   numSegments: 128
   radiusLineRenderer: {fileID: 0}
-  towerAttributes:
-    baseAttributesPerLevel:
-    - baseTargetingRange: 1.5
-      baseDamage: 1
-      baseAttackSpeed: 1
-      baseNumTargets: 1
-      baseSplash: 0
-    finalTargetingRange: 0
-    finalDamage: 0
-    finalAttackSpeed: 0
-    finalNumTargets: 0
-    finalSplash: 0
   linkBeam: {fileID: 1882582869278306119, guid: e44b33155d3a65a41bf08d1e216b40e6,
     type: 3}
   towerPerks: []

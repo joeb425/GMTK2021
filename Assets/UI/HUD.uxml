@@ -16,7 +16,6 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement style="flex-grow: 1; width: 128px;" />
-        <ui:Instance template="gameSidePanel" name="GameSidePanel" style="width: 30%; height: auto; flex-grow: 0; flex-basis: auto; min-width: 256px;" />
+        <ui:Instance template="gameSidePanel" name="GameSidePanel" style="width: 30%; height: 100%; flex-grow: 0; flex-basis: auto; min-width: 256px; position: absolute; right: 0;" />
     </ui:VisualElement>
 </ui:UXML>
