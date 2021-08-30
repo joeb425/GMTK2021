@@ -110,10 +110,9 @@ public class GameBoard : MonoBehaviour
 		Levels LevelsLoaded = JsonUtility.FromJson<Levels>(leveldesign.text);
 		foreach (LevelData level in LevelsLoaded.level)
 		{
-
-			size.x = level.layout.Count;
-			size.y = level.layout[0].row.Count;
-			//Debug.Log("Found Level: " + level.tier + " - " + level.layout.Count + "." + level.layout[1].row.Count + ".");
+			size.x = level.layout[0].row.Count;
+			size.y = level.layout.Count;
+			Debug.Log("Found Level: " + level.tier + " - " + level.layout.Count + "." + level.layout[1].row.Count + ".");
 		}
 
 		this.size = size;
@@ -154,6 +153,7 @@ public class GameBoard : MonoBehaviour
 
 				tile.Content = contentFactory.Get(GameTileContentType.Path);
 
+				Debug.Log(x + ", " + y);
 				int TileType = LevelsLoaded.level[0].layout[y].row[x];
 				switch (TileType)
 				{
