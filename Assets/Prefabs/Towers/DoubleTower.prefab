@@ -67,6 +67,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[3]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5004033099111384222, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.395
+      objectReference: {fileID: 0}
     - target: {fileID: 5482323561982981059, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -94,6 +99,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 810afb442e82933488b984a3a0773f8f,
         type: 2}
+    - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: bulletMesh
+      value: 
+      objectReference: {fileID: 2658298410976716736, guid: 168c1269ab99ca541b0fae11e250601b,
+        type: 3}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: towerPerks.Array.size

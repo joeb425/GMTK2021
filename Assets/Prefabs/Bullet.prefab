@@ -144,6 +144,8 @@ MonoBehaviour:
   tower: {fileID: 0}
   target: {fileID: 0}
   bulletSpeed: 3
+  bulletMesh: {fileID: 6625289499911562201}
+  bulletMeshRenderer: {fileID: 8314737916787986481}
 --- !u!135 &138631549473575450
 SphereCollider:
   m_ObjectHideFlags: 0

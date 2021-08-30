@@ -33,4 +33,13 @@ public class TowerData : ScriptableObject
 
 	[SerializeField, Range(0.0f, 200f)]
 	public float splash = 0;
+
+	[SerializeField]
+	public float bulletSpeed;
+
+	[SerializeField]
+	public Mesh bulletMesh;
+
+	[SerializeField]
+	public Material bulletMaterial;
 }

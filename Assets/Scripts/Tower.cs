@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
 using Attributes;
 using UnityEngine;
 using UnityEngineInternal;
@@ -14,6 +15,9 @@ public class Tower : GameTileContent
 	
 	[SerializeField]
 	Transform turret = default;
+
+	[SerializeField]
+	Transform bulletSpawnPoint = default;
 
 	[SerializeField]
 	public LineRenderer linePrefab;
@@ -51,7 +55,7 @@ public class Tower : GameTileContent
 	private bool hasRotator;
 
 	private bool isGhostTower = false;
-
+	
 	private Dictionary<Tower, LineRenderer> renderers = new Dictionary<Tower, LineRenderer>();
 
 	public GameplayAttributeContainer Attributes = new GameplayAttributeContainer();
@@ -97,6 +101,7 @@ public class Tower : GameTileContent
 			if (!hasRotator)
 			{
 				Vector3 point = target.Position;
+				point.y = turret.transform.position.y;
 				turret.LookAt(point);
 			}
 
@@ -197,13 +202,16 @@ public class Tower : GameTileContent
 				GameObject bulletObject = BulletPool.Get.GetPooledObject();
 				if (bulletObject != null)
 				{
-					bulletObject.transform.position = turret.position;
-					bulletObject.transform.rotation = turret.rotation;
+					bulletObject.transform.position = bulletSpawnPoint.position;
+					bulletObject.transform.rotation = bulletSpawnPoint.rotation;
 					bulletObject.SetActive(true);
 
 					Bullet bullet = bulletObject.GetComponent<Bullet>();
 					bullet.target = targetToAttack;
 					bullet.tower = this;
+					bullet.bulletMesh.mesh = towerData.bulletMesh;
+					bullet.bulletSpeed = towerData.bulletSpeed;
+					bullet.bulletMeshRenderer.materials[0] = towerData.bulletMaterial;
 				}
 			}
 		}

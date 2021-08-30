@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Bullet : MonoBehaviour
 {
@@ -9,8 +10,13 @@ public class Bullet : MonoBehaviour
 	
 	public TargetPoint target;
 
-	[SerializeField]
 	public float bulletSpeed = 3.0f;
+
+	[SerializeField]
+	public MeshFilter bulletMesh;
+
+	[SerializeField]
+	public MeshRenderer bulletMeshRenderer;
 
 	private void Update()
 	{

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276807, g: 0.21589197, b: 0.29782572, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -829,6 +829,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Board
       objectReference: {fileID: 0}
+    - target: {fileID: 2409273647800608462, guid: 5ca5320c9691ec24ea02955902ac84d7,
+        type: 3}
+      propertyPath: leveldesign
+      value: 
+      objectReference: {fileID: 4900000, guid: 29a4ff9bb7ec0d045b7cef3605b6ca0f, type: 3}
     - target: {fileID: 2409273647800608462, guid: 5ca5320c9691ec24ea02955902ac84d7,
         type: 3}
       propertyPath: SMGTowerPrefab

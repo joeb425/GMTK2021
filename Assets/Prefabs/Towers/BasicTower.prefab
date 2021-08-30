@@ -1,17 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &7096953219334154559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1953447902769355003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f67495bedd7c8941b382c9863cd92d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1131784772613730071
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69,6 +57,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 18ca0938e450d0342a895c131f2037f7, type: 2}
+    - target: {fileID: 5004033099111384222, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.412
+      objectReference: {fileID: 0}
     - target: {fileID: 5482323561982981059, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_ReceiveShadows
@@ -234,9 +227,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfa6eb68b75ccea4e96aedc38b044481, type: 3}
---- !u!1 &1953447902769355003 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1488689015234951148, guid: dfa6eb68b75ccea4e96aedc38b044481,
-    type: 3}
-  m_PrefabInstance: {fileID: 1131784772613730071}
-  m_PrefabAsset: {fileID: 0}
