@@ -34,6 +34,7 @@ namespace UI.MainMenu
 
 		private static String MENU_SCREEN_NAME = "MenuScreen";
 		private static String SETTINGS_SCREEN_NAME = "SettingsScreen";
+		private static String LEVELSELECT_SCREEN_NAME = "LevelSelectScreen";
 
 		public MainMenuManager()
 		{
@@ -47,14 +48,20 @@ namespace UI.MainMenu
 			Debug.Log("Geometry change");
 			AddScreen(MENU_SCREEN_NAME);
 			AddScreen(SETTINGS_SCREEN_NAME);
+			AddScreen(LEVELSELECT_SCREEN_NAME);
+			
+			EnableScreen(MENU_SCREEN_NAME);
 			
 			VisualElement mainMenuScreen = GetScreen(MENU_SCREEN_NAME);
-			mainMenuScreen?.Q("StartBtn")?.RegisterCallback<ClickEvent>(ev => StartGame());
+			mainMenuScreen?.Q("StartBtn")?.RegisterCallback<ClickEvent>(ev => EnableScreen(LEVELSELECT_SCREEN_NAME));
 			mainMenuScreen?.Q("SettingsBtn")?.RegisterCallback<ClickEvent>(ev => EnableScreen(SETTINGS_SCREEN_NAME));
 			mainMenuScreen?.Q("ExitBtn")?.RegisterCallback<ClickEvent>(ev => ExitGame());
 			
 			VisualElement settingsScreen = GetScreen(SETTINGS_SCREEN_NAME);
 			settingsScreen?.Q("BackBtn")?.RegisterCallback<ClickEvent>(ev => EnableScreen(MENU_SCREEN_NAME));
+
+			VisualElement levelSelectScreen = GetScreen(LEVELSELECT_SCREEN_NAME);
+			levelSelectScreen?.Q("BackBtn")?.RegisterCallback<ClickEvent>(ev => EnableScreen(MENU_SCREEN_NAME));
 		}
 
 		void StartGame()

@@ -107,8 +107,13 @@ public class GameBoard : MonoBehaviour
 	{
 		int spawn_loc = 1;
 		int end_loc = 20;
-		Levels LevelsLoaded = JsonUtility.FromJson<Levels>(leveldesign.text);
-		foreach (LevelData level in LevelsLoaded.level)
+
+		Debug.Log("Try load level " + GlobalData.CurrentLevel);
+		TextAsset levelToLoad = GlobalData.CurrentLevel < 0 ? leveldesign : GlobalData.GetLevelData().levels[GlobalData.CurrentLevel];
+
+		Levels levelsLoaded = JsonUtility.FromJson<Levels>(levelToLoad.text);
+
+		foreach (LevelData level in levelsLoaded.level)
 		{
 			size.x = level.layout[0].row.Count;
 			size.y = level.layout.Count;
@@ -154,7 +159,7 @@ public class GameBoard : MonoBehaviour
 				tile.Content = contentFactory.Get(GameTileContentType.Path);
 
 				Debug.Log(x + ", " + y);
-				int TileType = LevelsLoaded.level[0].layout[y].row[x];
+				int TileType = levelsLoaded.level[0].layout[y].row[x];
 				switch (TileType)
 				{
 					case 0: //trees n shit, for looks

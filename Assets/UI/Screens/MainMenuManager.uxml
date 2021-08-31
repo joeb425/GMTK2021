@@ -1,8 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <ui:Template name="MenuScreen" src="MenuScreen.uxml" />
     <ui:Template name="SettingsScreen" src="SettingsScreen.uxml" />
+    <ui:Template name="LevelSelectScreen" src="LevelSelectScreen.uxml" />
+    <Style src="/Assets/UI/StyleSheets/MainMenuStyleSheet.uss" />
     <UI.MainMenu.MainMenuManager style="flex-grow: 1; align-items: stretch; justify-content: flex-start;">
-        <ui:Instance template="MenuScreen" name="MenuScreen" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;" />
-        <ui:Instance template="SettingsScreen" name="SettingsScreen" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: none;" />
+        <ui:Instance template="MenuScreen" name="MenuScreen" class="Screen" />
+        <ui:Instance template="SettingsScreen" name="SettingsScreen" class="Screen" style="display: none;" />
+        <ui:Instance template="LevelSelectScreen" name="LevelSelectScreen" class="Screen" style="display: flex;" />
     </UI.MainMenu.MainMenuManager>
 </ui:UXML>
