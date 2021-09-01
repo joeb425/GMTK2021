@@ -33,6 +33,22 @@ public class @GameInputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""TouchDelta"",
+                    ""type"": ""Value"",
+                    ""id"": ""5329e858-4252-46e5-ad3d-9a42e1aaa9e1"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""MouseWheel"",
+                    ""type"": ""Value"",
+                    ""id"": ""3d03b7dd-4690-4e76-9c98-0750d78de3d2"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": ""Clamp(min=-1,max=1)"",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -55,6 +71,28 @@ public class @GameInputs : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d16e327d-113b-42e7-a6a1-b2981261040c"",
+                    ""path"": ""<Touchscreen>/touch0/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TouchDelta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c0d2209a-8e7f-4650-983f-0fff3447dc71"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseWheel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -94,6 +132,8 @@ public class @GameInputs : IInputActionCollection, IDisposable
         m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
         m_Mouse_MouseClick = m_Mouse.FindAction("MouseClick", throwIfNotFound: true);
         m_Mouse_MousePosition = m_Mouse.FindAction("MousePosition", throwIfNotFound: true);
+        m_Mouse_TouchDelta = m_Mouse.FindAction("TouchDelta", throwIfNotFound: true);
+        m_Mouse_MouseWheel = m_Mouse.FindAction("MouseWheel", throwIfNotFound: true);
         // Keyboard
         m_Keyboard = asset.FindActionMap("Keyboard", throwIfNotFound: true);
         m_Keyboard_FastForward = m_Keyboard.FindAction("FastForward", throwIfNotFound: true);
@@ -148,12 +188,16 @@ public class @GameInputs : IInputActionCollection, IDisposable
     private IMouseActions m_MouseActionsCallbackInterface;
     private readonly InputAction m_Mouse_MouseClick;
     private readonly InputAction m_Mouse_MousePosition;
+    private readonly InputAction m_Mouse_TouchDelta;
+    private readonly InputAction m_Mouse_MouseWheel;
     public struct MouseActions
     {
         private @GameInputs m_Wrapper;
         public MouseActions(@GameInputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @MouseClick => m_Wrapper.m_Mouse_MouseClick;
         public InputAction @MousePosition => m_Wrapper.m_Mouse_MousePosition;
+        public InputAction @TouchDelta => m_Wrapper.m_Mouse_TouchDelta;
+        public InputAction @MouseWheel => m_Wrapper.m_Mouse_MouseWheel;
         public InputActionMap Get() { return m_Wrapper.m_Mouse; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -169,6 +213,12 @@ public class @GameInputs : IInputActionCollection, IDisposable
                 @MousePosition.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnMousePosition;
                 @MousePosition.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnMousePosition;
                 @MousePosition.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnMousePosition;
+                @TouchDelta.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnTouchDelta;
+                @TouchDelta.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnTouchDelta;
+                @TouchDelta.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnTouchDelta;
+                @MouseWheel.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnMouseWheel;
+                @MouseWheel.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnMouseWheel;
+                @MouseWheel.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnMouseWheel;
             }
             m_Wrapper.m_MouseActionsCallbackInterface = instance;
             if (instance != null)
@@ -179,6 +229,12 @@ public class @GameInputs : IInputActionCollection, IDisposable
                 @MousePosition.started += instance.OnMousePosition;
                 @MousePosition.performed += instance.OnMousePosition;
                 @MousePosition.canceled += instance.OnMousePosition;
+                @TouchDelta.started += instance.OnTouchDelta;
+                @TouchDelta.performed += instance.OnTouchDelta;
+                @TouchDelta.canceled += instance.OnTouchDelta;
+                @MouseWheel.started += instance.OnMouseWheel;
+                @MouseWheel.performed += instance.OnMouseWheel;
+                @MouseWheel.canceled += instance.OnMouseWheel;
             }
         }
     }
@@ -220,6 +276,8 @@ public class @GameInputs : IInputActionCollection, IDisposable
     {
         void OnMouseClick(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+        void OnTouchDelta(InputAction.CallbackContext context);
+        void OnMouseWheel(InputAction.CallbackContext context);
     }
     public interface IKeyboardActions
     {
