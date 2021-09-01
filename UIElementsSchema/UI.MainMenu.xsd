@@ -64,7 +64,7 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="LevelSelectionPanel" substitutionGroup="engine:VisualElement" xmlns:q3="UI.MainMenu" type="q3:LevelSelectionPanelType" />
-  <xs:complexType name="LevelSelectionScreenType">
+  <xs:complexType name="GameOverScreenType">
     <xs:complexContent mixed="false">
       <xs:restriction base="engine:VisualElementType">
         <xs:sequence minOccurs="0" maxOccurs="unbounded">
@@ -84,7 +84,7 @@
       </xs:restriction>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="LevelSelectionScreen" substitutionGroup="engine:VisualElement" xmlns:q4="UI.MainMenu" type="q4:LevelSelectionScreenType" />
+  <xs:element name="GameOverScreen" substitutionGroup="engine:VisualElement" xmlns:q4="UI.MainMenu" type="q4:GameOverScreenType" />
   <xs:complexType name="MainMenuManagerType">
     <xs:complexContent mixed="false">
       <xs:restriction base="engine:VisualElementType">

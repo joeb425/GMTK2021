@@ -93,6 +93,11 @@ public class Game : MonoBehaviour
 		enemies.GameUpdate();
 		board.GameUpdate();
 		inputHandler.GameUpdate();
+
+		if (Input.GetKeyDown(KeyCode.Z))
+		{
+			GameState.Get.LoseLife();
+		}
 	}
 
 	private void OnDrawGizmos()

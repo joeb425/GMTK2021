@@ -6,7 +6,6 @@ public class InputHandler
 	public Ray touchRay;
 	private bool _isFastForwardEnabled = false;
 
-
 	public static InputHandler Get;
 
 

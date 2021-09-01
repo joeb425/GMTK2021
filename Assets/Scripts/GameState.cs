@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngineInternal;
 
 public class GameState
 {
 	public static GameState Get;
 
 	public GameBoard Board;
-	
+
 	public event System.Action<int, int> OnCashChanged;
 	public event System.Action<int, int> OnLivesChanged;
+	public event System.Action OnGameOver;
 
 	public int StartingCash;
 
@@ -24,10 +27,10 @@ public class GameState
 			SetCash(CurrentCash - Cost);
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	public void SetCash(int newCash)
 	{
 		int previousCash = CurrentCash;
@@ -48,6 +51,11 @@ public class GameState
 		int previousLives = CurrentLives;
 		CurrentLives = newLives;
 		OnLivesChanged?.Invoke(previousLives, newLives);
+
+		if (newLives <= 0)
+		{
+			OnGameOver?.Invoke();
+		}
 	}
 
 	public void Init()
@@ -56,5 +64,15 @@ public class GameState
 
 		CurrentCash = StartingCash;
 		CurrentLives = MaxLives;
+	}
+
+	public void RestartGame()
+	{
+		SceneManager.LoadScene("Assets/Scenes/Game.unity");
+	}
+
+	public void GoToMainMenu()
+	{
+		SceneManager.LoadScene("Assets/Scenes/MainMenu.unity");
 	}
 }

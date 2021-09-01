@@ -17,13 +17,18 @@ public class UIHandler : MonoBehaviour
 	[SerializeField]
 	public UIDocument uiDocument;
 
+	[SerializeField]
+	public VisualTreeAsset gameOverScreen;
+
+	private VisualElement _rootVisualElement;
 	private Label _cashLabel;
 	private Label _livesLabel;
 	private TowerBuildMenu _towerBuildMenu;
 	private TowerInfoMenu _towerInfoMenu;
 	private VisualElement _towerBuildMenuContainer;
 	private VisualElement _towerInfoMenuContainer;
-
+	private VisualElement _gameOverScreen;
+	
 	public void Init()
 	{
 		ReadUIDocument();
@@ -32,6 +37,8 @@ public class UIHandler : MonoBehaviour
 		GameState.Get.OnLivesChanged += (oldValue, newValue) => UpdateLivesLabel(newValue);
 
 		GameState.Get.Board.OnSelectedTileChanged += (oldTile, newTile) => OnSelectedTileChanged(newTile);
+
+		GameState.Get.OnGameOver += OnGameOver;
 
 		UpdateCashLabel(GameState.Get.CurrentCash);
 		UpdateLivesLabel(GameState.Get.CurrentLives);
@@ -42,13 +49,14 @@ public class UIHandler : MonoBehaviour
 
 	public void ReadUIDocument()
 	{
-		var rootVisualElement = uiDocument.rootVisualElement;
-		_cashLabel = rootVisualElement.Q<Label>("Cash");
-		_livesLabel = rootVisualElement.Q<Label>("Lives");
+		_rootVisualElement = uiDocument.rootVisualElement;
+		_cashLabel = _rootVisualElement.Q<Label>("Cash");
+		_livesLabel = _rootVisualElement.Q<Label>("Lives");
 		_towerBuildMenu = uiDocument.rootVisualElement.Q<TowerBuildMenu>();
-		_towerBuildMenuContainer = rootVisualElement.Q<VisualElement>("TowerBuildMenuContainer");
+		_towerBuildMenuContainer = _rootVisualElement.Q<VisualElement>("TowerBuildMenuContainer");
 		_towerInfoMenu = uiDocument.rootVisualElement.Q<TowerInfoMenu>();
-		_towerInfoMenuContainer = rootVisualElement.Q<VisualElement>("TowerInfoMenuContainer");
+		_towerInfoMenuContainer = _rootVisualElement.Q<VisualElement>("TowerInfoMenuContainer");
+		_gameOverScreen = _rootVisualElement.Q<VisualElement>("GameOverScreen");
 		// Debug.Log(_towerInfoMenu);
 		// Debug.Log("define");
 	}
@@ -86,5 +94,11 @@ public class UIHandler : MonoBehaviour
 	public void UpdateLivesLabel(int lives)
 	{
 		_livesLabel.text = lives + "/" + GameState.Get.MaxLives;
+	}
+
+	public void OnGameOver()
+	{
+		// _rootVisualElement.Add(gameOverScreen.CloneTree());
+		_gameOverScreen.style.visibility = Visibility.Visible;
 	}
 }

@@ -11,6 +11,11 @@ namespace UI.MainMenu
 	{
 		public Dictionary<String, VisualElement> Screens = new Dictionary<string, VisualElement>();
 
+		public void ClearScreens()
+		{
+			Screens = new Dictionary<string, VisualElement>();
+		}
+
 		public void AddScreen(String screenName)
 		{
 			Screens.Add(screenName, this?.Q(screenName));
