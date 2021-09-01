@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
@@ -32,20 +33,18 @@ namespace UI.MainMenu
 			}
 		}
 
-		private static String MENU_SCREEN_NAME = "MenuScreen";
-		private static String SETTINGS_SCREEN_NAME = "SettingsScreen";
-		private static String LEVELSELECT_SCREEN_NAME = "LevelSelectScreen";
+		private static string MENU_SCREEN_NAME = "MenuScreen";
+		private static string SETTINGS_SCREEN_NAME = "SettingsScreen";
+		private static string LEVELSELECT_SCREEN_NAME = "LevelSelectScreen";
 
 		public MainMenuManager()
 		{
-			Debug.Log("Test");
-			// yes need this
-			RegisterCallback<GeometryChangedEvent>(OnGeometryChange);
+			RegisterCallback<AttachToPanelEvent>(OnAttach);
 		}
 
-		void OnGeometryChange(GeometryChangedEvent evt)
+		private void OnAttach(AttachToPanelEvent evt)
 		{
-			Debug.Log("Geometry change");
+			ClearScreens();
 			AddScreen(MENU_SCREEN_NAME);
 			AddScreen(SETTINGS_SCREEN_NAME);
 			AddScreen(LEVELSELECT_SCREEN_NAME);
