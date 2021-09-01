@@ -2,24 +2,25 @@
     <ui:Template name="gameSidePanel" src="GameSidePanel.uxml" />
     <ui:Template name="GameOverScreen" src="Screens/GameOverScreen.uxml" />
     <Style src="StyleSheets/SidePanel.uss" />
+    <Style src="StyleSheets/FontStyleSheet.uss" />
     <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
         <ui:VisualElement name="LeftPanel" style="flex-grow: 0; flex-direction: row;">
             <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
                 <ui:VisualElement style="margin-right: 0; margin-top: 8px; margin-left: 8px; margin-bottom: 0; flex-direction: column;">
                     <ui:VisualElement style="flex-direction: row;">
-                        <ui:Label text="Cash:&#10;" display-tooltip-when-elided="true" class="hud-label" style="width: 55px; -unity-text-align: upper-left;" />
-                        <ui:Label text="10" display-tooltip-when-elided="true" name="Cash" class="hud-label" />
+                        <ui:Label text="Cash:&#10;" display-tooltip-when-elided="true" class="hud-label RegularText" style="width: 55px; -unity-text-align: upper-left;" />
+                        <ui:Label text="10" display-tooltip-when-elided="true" name="Cash" class="hud-label ValueText" />
                     </ui:VisualElement>
                     <ui:VisualElement style="flex-direction: row;">
-                        <ui:Label text="Lives:&#10;" display-tooltip-when-elided="true" class="hud-label" style="width: 55px; -unity-text-align: upper-left;" />
-                        <ui:Label text="20" display-tooltip-when-elided="true" name="Lives" class="hud-label" style="flex-direction: column; flex-wrap: nowrap; flex-grow: 1;" />
+                        <ui:Label text="Lives:&#10;" display-tooltip-when-elided="true" class="hud-label RegularText" style="width: 55px; -unity-text-align: upper-left;" />
+                        <ui:Label text="20" display-tooltip-when-elided="true" name="Lives" class="hud-label ValueText" style="flex-direction: column; flex-wrap: nowrap; flex-grow: 1;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:Instance template="gameSidePanel" name="GameSidePanel" style="width: 30%; height: 100%; flex-grow: 0; flex-basis: auto; min-width: 256px; position: absolute; right: 0;" />
-        <ui:VisualElement style="position: absolute; width: 100%; height: 100%; align-items: center; justify-content: center; flex-direction: row;">
-            <ui:Instance template="GameOverScreen" name="GameOverScreen" style="position: relative; align-items: center; flex-grow: 0; width: 40%; height: 100%; left: 0; right: 0; justify-content: center; visibility: hidden;" />
+        <ui:VisualElement name="GameOverScreenContainer" style="align-items: center; width: 100%; height: 100%; position: absolute; display: none;">
+            <ui:Instance template="GameOverScreen" name="GameOverScreen" style="width: 30%; height: 100%;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

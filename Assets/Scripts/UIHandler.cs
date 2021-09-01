@@ -56,7 +56,7 @@ public class UIHandler : MonoBehaviour
 		_towerBuildMenuContainer = _rootVisualElement.Q<VisualElement>("TowerBuildMenuContainer");
 		_towerInfoMenu = uiDocument.rootVisualElement.Q<TowerInfoMenu>();
 		_towerInfoMenuContainer = _rootVisualElement.Q<VisualElement>("TowerInfoMenuContainer");
-		_gameOverScreen = _rootVisualElement.Q<VisualElement>("GameOverScreen");
+		_gameOverScreen = _rootVisualElement.Q<VisualElement>("GameOverScreenContainer");
 		// Debug.Log(_towerInfoMenu);
 		// Debug.Log("define");
 	}
@@ -99,6 +99,6 @@ public class UIHandler : MonoBehaviour
 	public void OnGameOver()
 	{
 		// _rootVisualElement.Add(gameOverScreen.CloneTree());
-		_gameOverScreen.style.visibility = Visibility.Visible;
+		_gameOverScreen.style.display = DisplayStyle.Flex;
 	}
 }
