@@ -15,6 +15,12 @@ namespace DefaultNamespace.HexGridEditor
 		[SerializeField]
 		public GameObject pathPrefab;
 
+		[SerializeField]
+		public GameObject exitPrefab;
+
+		[SerializeField]
+		public GameObject startPrefab;
+
 		public Layout flat;
 
 		// public HexGridData _hexGridData = new HexGridData();

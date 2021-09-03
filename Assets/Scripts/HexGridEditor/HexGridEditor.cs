@@ -74,6 +74,16 @@ namespace DefaultNamespace.HexGridEditor
 					objectToPlace = grid.pathPrefab;
 					index = 1;
 				}
+				else if (e.keyCode == KeyCode.F3)
+				{
+					objectToPlace = grid.exitPrefab;
+					index = 2;
+				}
+				else if (e.keyCode == KeyCode.F4)
+				{
+					objectToPlace = grid.startPrefab;
+					index = 3;
+				}
 
 				if (!objectToPlace)
 				{
