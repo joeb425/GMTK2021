@@ -1,11 +1,21 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.EnhancedTouch;
+using UnityEngine.UIElements;
+using UnityEngineInternal;
+
+// TODO: Enhanced touch
+// https://gamedev-resources.com/implementing-touch-with-input-systems-enhanced-touch-api/
+
 
 public class InputHandler
 {
 	private GameInputs _gameInputs;
 	public Ray touchRay;
+
+	public Vector2 mousePos;
+	
 	private bool _isFastForwardEnabled = false;
 
 	public static InputHandler Get;
@@ -36,6 +46,11 @@ public class InputHandler
 
 	public void MouseClick()
 	{
+		if (UIHandler.Get.IsMouseBlocked(mousePos))
+		{
+			return;
+		}
+		
 		GameBoard board = GameState.Get.Board;
 		GameTile tile = board.GetTile(touchRay);
 		if (tile != null)
@@ -55,8 +70,8 @@ public class InputHandler
 		Camera camera = Camera.main;
 		
 		// Update touch ray
-		Vector2 mousePosition = _gameInputs.Mouse.MousePosition.ReadValue<Vector2>();
-		touchRay = camera.ScreenPointToRay(new Vector3(mousePosition.x, mousePosition.y, 0.0f));
+		mousePos = _gameInputs.Mouse.MousePosition.ReadValue<Vector2>();
+		touchRay = camera.ScreenPointToRay(new Vector3(mousePos.x, mousePos.y, 0.0f));
 
 		UpdateCamera();
 	}
@@ -67,10 +82,13 @@ public class InputHandler
 		Camera camera = Camera.main;
 		
 		// Update camera position
-		Vector2 cameraDelta = _gameInputs.Mouse.TouchDelta.ReadValue<Vector2>();
-		_desiredCameraLocation -= new Vector3(cameraDelta.x, 0, cameraDelta.y) * _cameraSpeed;
-		camera.transform.position = Vector3.Lerp(camera.transform.position, _desiredCameraLocation, Time.deltaTime *
-			_cameraLerpSpeed);
+		if (!UIHandler.Get.IsMouseBlocked(mousePos))
+		{
+			Vector2 cameraDelta = _gameInputs.Mouse.TouchDelta.ReadValue<Vector2>();
+			_desiredCameraLocation -= new Vector3(cameraDelta.x, 0, cameraDelta.y) * _cameraSpeed;
+			camera.transform.position = Vector3.Lerp(camera.transform.position, _desiredCameraLocation, Time.deltaTime *
+				_cameraLerpSpeed);
+		}
 
 		// Update zoom
 		float zoom = _gameInputs.Mouse.MouseWheel.ReadValue<float>();

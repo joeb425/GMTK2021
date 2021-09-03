@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using UI;
 using UI.MainMenu;
@@ -13,6 +15,8 @@ public class UIHandler : MonoBehaviour
 
 	// [SerializeField]
 	// public Canvas towerUI = default;
+
+	public static UIHandler Get { get; private set; }
 
 	[SerializeField]
 	public UIDocument uiDocument;
@@ -29,9 +33,13 @@ public class UIHandler : MonoBehaviour
 	private VisualElement _towerInfoMenuContainer;
 	private VisualElement _gameOverScreen;
 	private VisualElement _levelFinishedScreen;
-	
+
+	private List<VisualElement> _elementsBlockingMouse = new List<VisualElement>();
+
 	public void Init()
 	{
+		Get = this;
+
 		ReadUIDocument();
 
 		GameState.Get.OnCashChanged += (oldValue, newValue) => UpdateCashLabel(newValue);
@@ -61,13 +69,12 @@ public class UIHandler : MonoBehaviour
 		_towerInfoMenuContainer = _rootVisualElement.Q<VisualElement>("TowerInfoMenuContainer");
 		_gameOverScreen = _rootVisualElement.Q<VisualElement>("GameOverScreenContainer");
 		_levelFinishedScreen = _rootVisualElement.Q<VisualElement>("LevelFinishedScreenContainer");
-		// Debug.Log(_towerInfoMenu);
-		// Debug.Log("define");
 	}
 
 	public void SetBuildMenuEnabled(bool menuEnabled)
 	{
 		_towerBuildMenuContainer.style.display = menuEnabled ? DisplayStyle.Flex : DisplayStyle.None;
+		SetElementBlockingMouse(_towerBuildMenuContainer, menuEnabled);
 		// Debug.Log("open" + menuEnabled);
 	}
 
@@ -75,10 +82,10 @@ public class UIHandler : MonoBehaviour
 	{
 		// Debug.Log("pre ui" + menuEnabled);
 		_towerInfoMenuContainer.style.display = menuEnabled ? DisplayStyle.Flex : DisplayStyle.None;
-
+		SetElementBlockingMouse(_towerInfoMenuContainer, menuEnabled);
 		if (menuEnabled)
 		{
-			_towerInfoMenu.BindToTower((Tower) tile.Content);
+			_towerInfoMenu.BindToTower((Tower)tile.Content);
 		}
 	}
 
@@ -109,5 +116,22 @@ public class UIHandler : MonoBehaviour
 	public void OnLevelFinished()
 	{
 		_levelFinishedScreen.style.display = DisplayStyle.Flex;
+	}
+
+	public void SetElementBlockingMouse(VisualElement elem, bool block)
+	{
+		if (block)
+		{
+			_elementsBlockingMouse.Add(elem);
+		}
+		else
+		{
+			_elementsBlockingMouse.Remove(elem);
+		}
+	}
+
+	public bool IsMouseBlocked(Vector2 mousePos)
+	{
+		return _elementsBlockingMouse.Any(elem => elem.ContainsPoint(elem.WorldToLocal(mousePos)));
 	}
 }
