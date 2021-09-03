@@ -87,11 +87,11 @@ namespace DefaultNamespace.HexGridEditor
 					
 					if (bIsDeletingTile)
 					{
-						grid.DeleteTile(hex, true);
+						grid.DeleteTile(hex);
 					}
 					else
 					{
-						grid.AddTile(hex, tileSpawnInfo.tileType, true);
+						grid.AddTile(hex, tileSpawnInfo.tileType);
 					}
 				}
 			}
@@ -124,8 +124,6 @@ namespace DefaultNamespace.HexGridEditor
 			Debug.Log("Save level " + GetFilePath());
 
 			string data = JsonUtility.ToJson(GenerateJsonGrid());
-
-			Debug.Log(data);
 			System.IO.File.WriteAllText(GetFilePath(), data);
 		}
 
@@ -133,29 +131,17 @@ namespace DefaultNamespace.HexGridEditor
 		{
 			Debug.Log("Load level " + GetFilePath());
 
-			this.grid.DeleteAllTiles(true);
+			this.grid.DeleteAllTiles();
 
 			StreamReader reader = new StreamReader(GetFilePath());
 			string json = reader.ReadToEnd();
 			reader.Close();
-			Debug.Log(json);
-			
 			grid.LoadLevelFromJson(json);
-
-			// JsonHexGrid jsonGrid = JsonUtility.FromJson<JsonHexGrid>(json);
-			//
-			// foreach (JsonHex jsonHex in jsonGrid.hexData)
-			// {
-			// 	Hex hex = jsonHex.hex;
-			// 	HexTileType hexType = (HexTileType)jsonHex.type;
-			// 	grid.AddTile(hex, hexType);
-			// }
 		}
 
 		private void ResetLevel()
 		{
-			grid.InitSpawnData();
-			grid.DeleteAllTiles(true);
+			grid.DeleteAllTiles();
 		}
 	}
 }

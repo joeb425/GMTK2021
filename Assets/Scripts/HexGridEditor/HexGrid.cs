@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -19,34 +20,16 @@ namespace DefaultNamespace.HexGridEditor
 	[ExecuteInEditMode]
 	public class HexGrid : MonoBehaviour
 	{
-		public float width = 32.0f;
-		public float height = 32.0f;
-
-		[SerializeField]
-		public GameObject buildPrefab;
-
-		[SerializeField]
-		public GameObject pathPrefab;
-
-		[SerializeField]
-		public GameObject exitPrefab;
-
-		[SerializeField]
-		public GameObject startPrefab;
-
 		[SerializeField]
 		public HexTileSpawnData hexTileSpawnData;
 
 		[SerializeField]
 		TextAsset levelToLoad;
 
-		public Dictionary<HexTileType, HexTileSpawnInfo> spawnDataByType = new Dictionary<HexTileType, HexTileSpawnInfo>();
-
 		public Layout flat;
 
 		public Dictionary<Hex, HexGridTile> hexGrid = new Dictionary<Hex, HexGridTile>();
 
-		[SerializeField]
 		public Plane gridPlane = new Plane(Vector3.up, Vector3.zero);
 
 		public HexGrid()
@@ -54,19 +37,16 @@ namespace DefaultNamespace.HexGridEditor
 			flat = new Layout(Layout.flat, new Vector2(1.0f, 1.0f), Vector2.zero);
 		}
 
-		public void InitSpawnData()
+		public void Awake()
 		{
-			spawnDataByType = new Dictionary<HexTileType, HexTileSpawnInfo>();
-			foreach (HexTileSpawnInfo spawnInfo in hexTileSpawnData.spawnData)
+			if (Application.isPlaying)
 			{
-				spawnDataByType.Add(spawnInfo.tileType, spawnInfo);
+				LoadLevel();
 			}
 		}
 
 		private void Start()
 		{
-			InitSpawnData();
-			LoadLevel();
 		}
 
 		[CanBeNull]
@@ -75,11 +55,11 @@ namespace DefaultNamespace.HexGridEditor
 			return hexGrid.ContainsKey(hexCoord) ? hexGrid[hexCoord] : null;
 		}
 
-		public void AddTile(Hex hexCoord, HexTileType type, bool isInEditor = false)
+		public void AddTile(Hex hexCoord, HexTileType type)
 		{
-			DeleteTile(hexCoord, isInEditor);
+			DeleteTile(hexCoord);
 			
-			HexTileSpawnInfo tileSpawnInfo = spawnDataByType[type];
+			HexTileSpawnInfo tileSpawnInfo = GetSpawnInfoFromType(type);
 
 			GameObject spawnedHex = Instantiate(tileSpawnInfo.tilePrefab, transform, false);
 
@@ -93,48 +73,76 @@ namespace DefaultNamespace.HexGridEditor
 			hexGrid.Add(hexCoord, hexGridTile);
 		}
 
-		public void DeleteTile(Hex hexCoord, bool isInEditor = false)
+		public HexTileSpawnInfo GetSpawnInfoFromType(HexTileType tileType)
+		{
+			return hexTileSpawnData.spawnData.FirstOrDefault(spawnInfo => spawnInfo.tileType == tileType);
+		}
+
+		public void DeleteTile(Hex hexCoord)
 		{
 			if (!hexGrid.ContainsKey(hexCoord)) 
 				return;
 			
-			if (isInEditor)
+			if (Application.isPlaying)
 			{
-				DestroyImmediate(hexGrid[hexCoord].spawnedTile);
+				Destroy(hexGrid[hexCoord].spawnedTile);
 			}
 			else
 			{
-				Destroy(hexGrid[hexCoord].spawnedTile);
+				DestroyImmediate(hexGrid[hexCoord].spawnedTile);
 			}
 
 			hexGrid.Remove(hexCoord);
 		}
 
-		public void DeleteAllTiles(bool isInEditor = false)
+		public void DeleteAllTiles()
 		{
-			foreach (KeyValuePair<Hex,HexGridTile> kvp in hexGrid)
+			int numChildren = transform.childCount;
+			GameObject[] childrenToDestroy = new GameObject[numChildren];
+			for (int i = 0; i < numChildren; ++i)
 			{
-				if (isInEditor)
+				childrenToDestroy[i] = transform.GetChild(i).gameObject;
+			}
+			
+			foreach (GameObject child in childrenToDestroy)
+			{
+				if (Application.isPlaying)
 				{
-					DestroyImmediate(kvp.Value.spawnedTile);
+					Destroy(child);
 				}
 				else
 				{
-					Destroy(kvp.Value.spawnedTile);
+					DestroyImmediate(child);
+				}
+			}
+
+			if (hexGrid != null)
+			{
+				foreach (KeyValuePair<Hex, HexGridTile> kvp in hexGrid)
+				{
+					if (Application.isPlaying)
+					{
+						Destroy(kvp.Value.spawnedTile);
+					}
+					else
+					{
+						DestroyImmediate(kvp.Value.spawnedTile);
+					}
 				}
 			}
 
 			hexGrid = new Dictionary<Hex, HexGridTile>();
 		}
 
-		public void LoadLevel()
+		public void LoadLevel(bool isInEditor = false)
 		{
+			Debug.Log("Load level!");
 			LoadLevelFromJson(levelToLoad.text);
 		}
 
 		public void LoadLevelFromJson(string json)
 		{
-			DeleteAllTiles(true);
+			DeleteAllTiles();
 			JsonHexGrid jsonGrid = JsonUtility.FromJson<JsonHexGrid>(json);
 			foreach (JsonHex jsonHex in jsonGrid.hexData)
 			{
@@ -163,6 +171,7 @@ namespace DefaultNamespace.HexGridEditor
 
 		void OnDrawGizmos()
 		{
+			Gizmos.DrawSphere(Vector3.zero, 0.5f);
 			// TODO draw hex grid
 
 			// Vector3 pos = Camera.current.transform.position;
