@@ -1,8 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO.Compression;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace DefaultNamespace.HexGridEditor
 {
+	[Serializable]
+	public enum HexTileType
+	{
+		Build = 0,
+		Path = 1,
+		Start = 2,
+		End = 3,
+	}
+
 	[ExecuteInEditMode]
 	public class HexGrid : MonoBehaviour
 	{
@@ -21,35 +33,100 @@ namespace DefaultNamespace.HexGridEditor
 		[SerializeField]
 		public GameObject startPrefab;
 
+		[SerializeField]
+		public HexTileSpawnData hexTileSpawnData;
+
+		public Dictionary<HexTileType, HexTileSpawnInfo> spawnDataByType = new Dictionary<HexTileType, HexTileSpawnInfo>();
+
 		public Layout flat;
 
-		// public HexGridData _hexGridData = new HexGridData();
-		public Dictionary<Hex, int> hexGrid = new Dictionary<Hex, int>();
+		public Dictionary<Hex, HexGridTile> hexGrid = new Dictionary<Hex, HexGridTile>();
 
 		[SerializeField]
 		public Plane gridPlane = new Plane(Vector3.up, Vector3.zero);
-		
+
 		public HexGrid()
 		{
 			flat = new Layout(Layout.flat, new Point(1.0, 1.0), new Point(0.0, 0.0));
 		}
 
+		public void InitSpawnData()
+		{
+			spawnDataByType = new Dictionary<HexTileType, HexTileSpawnInfo>();
+			foreach (HexTileSpawnInfo spawnInfo in hexTileSpawnData.spawnData)
+			{
+				spawnDataByType.Add(spawnInfo.tileType, spawnInfo);
+			}
+		}
+
 		private void Start()
 		{
-			// List<Hex> hexes = new List<Hex>();
-			// hexes.Add(new Hex(0, 0, 0));
-			// hexes.Add(new Hex(1, -1, 0));
-			// // hexes.Add(new Hex(1, 0, -1));
-			// hexes.Add(new Hex(-1, 0, 1));
-			//
-			// foreach (Hex hex in hexes)
-			// {
-			// 	var prefab = Instantiate(hexPrefab, transform.parent, true);
-			// 	var world = flat.HexToPixel(hex);
-			// 	prefab.transform.position = new Vector3((float)world.x, 0, (float)world.y);
-			// 	Debug.Log("set hex pos");
-			// }
+			InitSpawnData();
 		}
+
+		[CanBeNull]
+		public HexGridTile GetTile(Hex hexCoord)
+		{
+			return hexGrid.ContainsKey(hexCoord) ? hexGrid[hexCoord] : null;
+		}
+
+		public void AddTile(Hex hexCoord, HexTileType type, bool isInEditor = false)
+		{
+			DeleteTile(hexCoord, isInEditor);
+			
+			HexTileSpawnInfo tileSpawnInfo = spawnDataByType[type];
+
+			GameObject spawnedHex = Instantiate(tileSpawnInfo.tilePrefab, transform, false);
+
+			Point hexToPixel = flat.HexToPixel(hexCoord);
+			Vector3 worldPos = new Vector3((float)hexToPixel.x, 0.0f, (float)hexToPixel.y);
+			spawnedHex.transform.position = worldPos;
+
+			HexGridTile hexGridTile = new HexGridTile();
+			hexGridTile.spawnedTile = spawnedHex;
+			hexGridTile.tileType = tileSpawnInfo.tileType;
+			hexGrid.Add(hexCoord, hexGridTile);
+		}
+
+		public void DeleteTile(Hex hexCoord, bool isInEditor = false)
+		{
+			if (!hexGrid.ContainsKey(hexCoord)) 
+				return;
+			
+			if (isInEditor)
+			{
+				DestroyImmediate(hexGrid[hexCoord].spawnedTile);
+			}
+			else
+			{
+				Destroy(hexGrid[hexCoord].spawnedTile);
+			}
+
+			hexGrid.Remove(hexCoord);
+		}
+
+		public void DeleteAllTiles(bool isInEditor = false)
+		{
+			foreach (KeyValuePair<Hex,HexGridTile> kvp in hexGrid)
+			{
+				if (isInEditor)
+				{
+					DestroyImmediate(kvp.Value.spawnedTile);
+				}
+				else
+				{
+					Destroy(kvp.Value.spawnedTile);
+				}
+			}
+
+			hexGrid = new Dictionary<Hex, HexGridTile>();
+		}
+
+		public void LoadLevel()
+		{
+			
+		}
+
 		private void Update()
 		{
 			// Debug.Log("updating");
@@ -70,7 +147,7 @@ namespace DefaultNamespace.HexGridEditor
 		void OnDrawGizmos()
 		{
 			// TODO draw hex grid
-			
+
 			// Vector3 pos = Camera.current.transform.position;
 			// for (float y = pos.y - 800.0f; y < pos.y + 800.0f; y += height)
 			// {
