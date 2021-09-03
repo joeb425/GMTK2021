@@ -24,6 +24,6 @@
         <ui:VisualElement name="GameOverScreenContainer" style="align-items: center; width: 100%; height: 100%; position: absolute; display: none;">
             <ui:Instance template="GameOverScreen" name="GameOverScreen" style="width: 30%; height: 100%;" />
         </ui:VisualElement>
-        <ui:Instance template="LevelFinishedScreen" name="LevelFinishedScreenContainer" class="Screens" />
+        <ui:Instance template="LevelFinishedScreen" name="LevelFinishedScreenContainer" class="Screens" style="display: none;" />
     </ui:VisualElement>
 </ui:UXML>
