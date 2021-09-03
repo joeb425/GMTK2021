@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Compression;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -36,6 +37,9 @@ namespace DefaultNamespace.HexGridEditor
 		[SerializeField]
 		public HexTileSpawnData hexTileSpawnData;
 
+		[SerializeField]
+		TextAsset levelToLoad;
+
 		public Dictionary<HexTileType, HexTileSpawnInfo> spawnDataByType = new Dictionary<HexTileType, HexTileSpawnInfo>();
 
 		public Layout flat;
@@ -47,7 +51,7 @@ namespace DefaultNamespace.HexGridEditor
 
 		public HexGrid()
 		{
-			flat = new Layout(Layout.flat, new Point(1.0, 1.0), new Point(0.0, 0.0));
+			flat = new Layout(Layout.flat, new Vector2(1.0f, 1.0f), Vector2.zero);
 		}
 
 		public void InitSpawnData()
@@ -62,6 +66,7 @@ namespace DefaultNamespace.HexGridEditor
 		private void Start()
 		{
 			InitSpawnData();
+			LoadLevel();
 		}
 
 		[CanBeNull]
@@ -78,8 +83,8 @@ namespace DefaultNamespace.HexGridEditor
 
 			GameObject spawnedHex = Instantiate(tileSpawnInfo.tilePrefab, transform, false);
 
-			Point hexToPixel = flat.HexToPixel(hexCoord);
-			Vector3 worldPos = new Vector3((float)hexToPixel.x, 0.0f, (float)hexToPixel.y);
+			Vector2 hexToPixel = flat.HexToPixel(hexCoord);
+			Vector3 worldPos = new Vector3(hexToPixel.x, 0.0f, hexToPixel.y);
 			spawnedHex.transform.position = worldPos;
 
 			HexGridTile hexGridTile = new HexGridTile();
@@ -124,7 +129,19 @@ namespace DefaultNamespace.HexGridEditor
 
 		public void LoadLevel()
 		{
-			
+			LoadLevelFromJson(levelToLoad.text);
+		}
+
+		public void LoadLevelFromJson(string json)
+		{
+			DeleteAllTiles(true);
+			JsonHexGrid jsonGrid = JsonUtility.FromJson<JsonHexGrid>(json);
+			foreach (JsonHex jsonHex in jsonGrid.hexData)
+			{
+				Hex hex = jsonHex.hex;
+				HexTileType hexType = (HexTileType)jsonHex.type;
+				AddTile(hex, hexType);
+			}
 		}
 
 		private void Update()

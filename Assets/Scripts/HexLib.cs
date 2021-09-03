@@ -5,19 +5,6 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public struct Point
-{
-	public Point(double x, double y)
-	{
-		this.x = x;
-		this.y = y;
-	}
-
-	public readonly double x;
-	public readonly double y;
-}
-
 [Serializable]
 public class Hex
 {
@@ -97,7 +84,7 @@ public class Hex
 
 	public int Length()
 	{
-		return (int)((Math.Abs(q) + Math.Abs(r) + Math.Abs(s)) / 2);
+		return (int)((Mathf.Abs(q) + Mathf.Abs(r) + Mathf.Abs(s)) / 2);
 	}
 
 
@@ -133,26 +120,26 @@ public class Hex
 
 public struct FractionalHex
 {
-	public FractionalHex(double q, double r, double s)
+	public FractionalHex(float q, float r, float s)
 	{
 		this.q = q;
 		this.r = r;
 		this.s = s;
-		if (Math.Round(q + r + s) != 0) throw new ArgumentException("q + r + s must be 0");
+		if (Mathf.Round(q + r + s) != 0) throw new ArgumentException("q + r + s must be 0");
 	}
 
-	public readonly double q;
-	public readonly double r;
-	public readonly double s;
+	public readonly float q;
+	public readonly float r;
+	public readonly float s;
 
 	public Hex HexRound()
 	{
-		int qi = (int)(Math.Round(q));
-		int ri = (int)(Math.Round(r));
-		int si = (int)(Math.Round(s));
-		double q_diff = Math.Abs(qi - q);
-		double r_diff = Math.Abs(ri - r);
-		double s_diff = Math.Abs(si - s);
+		int qi = (int)(Mathf.Round(q));
+		int ri = (int)(Mathf.Round(r));
+		int si = (int)(Mathf.Round(s));
+		float q_diff = Mathf.Abs(qi - q);
+		float r_diff = Mathf.Abs(ri - r);
+		float s_diff = Mathf.Abs(si - s);
 		if (q_diff > r_diff && q_diff > s_diff)
 		{
 			qi = -ri - si;
@@ -170,19 +157,19 @@ public struct FractionalHex
 	}
 
 
-	public FractionalHex HexLerp(FractionalHex b, double t)
+	public FractionalHex HexLerp(FractionalHex b, float t)
 	{
-		return new FractionalHex(q * (1.0 - t) + b.q * t, r * (1.0 - t) + b.r * t, s * (1.0 - t) + b.s * t);
+		return new FractionalHex(q * (1.0f - t) + b.q * t, r * (1.0f - t) + b.r * t, s * (1.0f - t) + b.s * t);
 	}
 
 
 	static public List<Hex> HexLinedraw(Hex a, Hex b)
 	{
 		int N = a.Distance(b);
-		FractionalHex a_nudge = new FractionalHex(a.q + 1e-06, a.r + 1e-06, a.s - 2e-06);
-		FractionalHex b_nudge = new FractionalHex(b.q + 1e-06, b.r + 1e-06, b.s - 2e-06);
+		FractionalHex a_nudge = new FractionalHex(a.q + 1e-06f, a.r + 1e-06f, a.s - 2e-06f);
+		FractionalHex b_nudge = new FractionalHex(b.q + 1e-06f, b.r + 1e-06f, b.s - 2e-06f);
 		List<Hex> results = new List<Hex> { };
-		double step = 1.0 / Math.Max(N, 1);
+		float step = 1.0f / Mathf.Max(N, 1);
 		for (int i = 0; i <= N; i++)
 		{
 			results.Add(a_nudge.HexLerp(b_nudge, step * i).HexRound());
@@ -259,9 +246,9 @@ public struct OffsetCoord
 	}
 }
 
-public struct DoubledCoord
+public struct floatdCoord
 {
-	public DoubledCoord(int col, int row)
+	public floatdCoord(int col, int row)
 	{
 		this.col = col;
 		this.row = row;
@@ -270,15 +257,15 @@ public struct DoubledCoord
 	public readonly int col;
 	public readonly int row;
 
-	static public DoubledCoord QdoubledFromCube(Hex h)
+	static public floatdCoord QfloatdFromCube(Hex h)
 	{
 		int col = h.q;
 		int row = 2 * h.r + h.q;
-		return new DoubledCoord(col, row);
+		return new floatdCoord(col, row);
 	}
 
 
-	public Hex QdoubledToCube()
+	public Hex QfloatdToCube()
 	{
 		int q = col;
 		int r = (int)((row - col) / 2);
@@ -287,15 +274,15 @@ public struct DoubledCoord
 	}
 
 
-	static public DoubledCoord RdoubledFromCube(Hex h)
+	static public floatdCoord RfloatdFromCube(Hex h)
 	{
 		int col = 2 * h.q + h.r;
 		int row = h.r;
-		return new DoubledCoord(col, row);
+		return new floatdCoord(col, row);
 	}
 
 
-	public Hex RdoubledToCube()
+	public Hex RfloatdToCube()
 	{
 		int q = (int)((col - row) / 2);
 		int r = row;
@@ -306,8 +293,8 @@ public struct DoubledCoord
 
 public struct Orientation
 {
-	public Orientation(double f0, double f1, double f2, double f3, double b0, double b1, double b2, double b3,
-		double start_angle)
+	public Orientation(float f0, float f1, float f2, float f3, float b0, float b1, float b2, float b3,
+		float start_angle)
 	{
 		this.f0 = f0;
 		this.f1 = f1;
@@ -320,20 +307,20 @@ public struct Orientation
 		this.start_angle = start_angle;
 	}
 
-	public readonly double f0;
-	public readonly double f1;
-	public readonly double f2;
-	public readonly double f3;
-	public readonly double b0;
-	public readonly double b1;
-	public readonly double b2;
-	public readonly double b3;
-	public readonly double start_angle;
+	public readonly float f0;
+	public readonly float f1;
+	public readonly float f2;
+	public readonly float f3;
+	public readonly float b0;
+	public readonly float b1;
+	public readonly float b2;
+	public readonly float b3;
+	public readonly float start_angle;
 }
 
 public struct Layout
 {
-	public Layout(Orientation orientation, Point size, Point origin)
+	public Layout(Orientation orientation, Vector2 size, Vector2 origin)
 	{
 		this.orientation = orientation;
 		this.size = size;
@@ -341,50 +328,50 @@ public struct Layout
 	}
 
 	public readonly Orientation orientation;
-	public readonly Point size;
-	public readonly Point origin;
+	public readonly Vector2 size;
+	public readonly Vector2 origin;
 
-	static public Orientation pointy = new Orientation(Math.Sqrt(3.0), Math.Sqrt(3.0) / 2.0, 0.0, 3.0 / 2.0,
-		Math.Sqrt(3.0) / 3.0, -1.0 / 3.0, 0.0, 2.0 / 3.0, 0.5);
+	static public Orientation Vector2y = new Orientation(Mathf.Sqrt(3.0f), Mathf.Sqrt(3.0f) / 2.0f, 0.0f, 3.0f / 2.0f,
+		Mathf.Sqrt(3.0f) / 3.0f, -1.0f / 3.0f, 0.0f, 2.0f / 3.0f, 0.5f);
 
-	static public Orientation flat = new Orientation(3.0 / 2.0, 0.0, Math.Sqrt(3.0) / 2.0, Math.Sqrt(3.0), 2.0 / 3.0,
-		0.0, -1.0 / 3.0, Math.Sqrt(3.0) / 3.0, 0.0);
+	static public Orientation flat = new Orientation(3.0f / 2.0f, 0.0f, Mathf.Sqrt(3.0f) / 2.0f, Mathf.Sqrt(3.0f), 2.0f / 3.0f,
+		0.0f, -1.0f / 3.0f, Mathf.Sqrt(3.0f) / 3.0f, 0.0f);
 
-	public Point HexToPixel(Hex h)
+	public Vector2 HexToPixel(Hex h)
 	{
 		Orientation M = orientation;
-		double x = (M.f0 * h.q + M.f1 * h.r) * size.x;
-		double y = (M.f2 * h.q + M.f3 * h.r) * size.y;
-		return new Point(x + origin.x, y + origin.y);
+		float x = (M.f0 * h.q + M.f1 * h.r) * size.x;
+		float y = (M.f2 * h.q + M.f3 * h.r) * size.y;
+		return new Vector2(x + origin.x, y + origin.y);
 	}
 
 
-	public FractionalHex PixelToHex(Point p)
+	public FractionalHex PixelToHex(Vector2 p)
 	{
 		Orientation M = orientation;
-		Point pt = new Point((p.x - origin.x) / size.x, (p.y - origin.y) / size.y);
-		double q = M.b0 * pt.x + M.b1 * pt.y;
-		double r = M.b2 * pt.x + M.b3 * pt.y;
+		Vector2 pt = new Vector2((p.x - origin.x) / size.x, (p.y - origin.y) / size.y);
+		float q = M.b0 * pt.x + M.b1 * pt.y;
+		float r = M.b2 * pt.x + M.b3 * pt.y;
 		return new FractionalHex(q, r, -q - r);
 	}
 
 
-	public Point HexCornerOffset(int corner)
+	public Vector2 HexCornerOffset(int corner)
 	{
 		Orientation M = orientation;
-		double angle = 2.0 * Math.PI * (M.start_angle - corner) / 6.0;
-		return new Point(size.x * Math.Cos(angle), size.y * Math.Sin(angle));
+		float angle = 2.0f * Mathf.PI * (M.start_angle - corner) / 6.0f;
+		return new Vector2(size.x * Mathf.Cos(angle), size.y * Mathf.Sin(angle));
 	}
 
 
-	public List<Point> PolygonCorners(Hex h)
+	public List<Vector2> PolygonCorners(Hex h)
 	{
-		List<Point> corners = new List<Point> { };
-		Point center = HexToPixel(h);
+		List<Vector2> corners = new List<Vector2> { };
+		Vector2 center = HexToPixel(h);
 		for (int i = 0; i < 6; i++)
 		{
-			Point offset = HexCornerOffset(i);
-			corners.Add(new Point(center.x + offset.x, center.y + offset.y));
+			Vector2 offset = HexCornerOffset(i);
+			corners.Add(new Vector2(center.x + offset.x, center.y + offset.y));
 		}
 
 		return corners;
@@ -415,7 +402,7 @@ struct Tests
 	}
 
 
-	static public void EqualDoubledcoord(String name, DoubledCoord a, DoubledCoord b)
+	static public void Equalfloatdcoord(String name, floatdCoord a, floatdCoord b)
 	{
 		if (!(a.col == b.col && a.row == b.row))
 		{
@@ -488,19 +475,19 @@ struct Tests
 
 	static public void TestHexRound()
 	{
-		FractionalHex a = new FractionalHex(0.0, 0.0, 0.0);
-		FractionalHex b = new FractionalHex(1.0, -1.0, 0.0);
-		FractionalHex c = new FractionalHex(0.0, -1.0, 1.0);
+		FractionalHex a = new FractionalHex(0.0f, 0.0f, 0.0f);
+		FractionalHex b = new FractionalHex(1.0f, -1.0f, 0.0f);
+		FractionalHex c = new FractionalHex(0.0f, -1.0f, 1.0f);
 		Tests.EqualHex("hex_round 1", new Hex(5, -10, 5),
-			new FractionalHex(0.0, 0.0, 0.0).HexLerp(new FractionalHex(10.0, -20.0, 10.0), 0.5).HexRound());
-		Tests.EqualHex("hex_round 2", a.HexRound(), a.HexLerp(b, 0.499).HexRound());
-		Tests.EqualHex("hex_round 3", b.HexRound(), a.HexLerp(b, 0.501).HexRound());
+			new FractionalHex(0.0f, 0.0f, 0.0f).HexLerp(new FractionalHex(10.0f, -20.0f, 10.0f), 0.5f).HexRound());
+		Tests.EqualHex("hex_round 2", a.HexRound(), a.HexLerp(b, 0.499f).HexRound());
+		Tests.EqualHex("hex_round 3", b.HexRound(), a.HexLerp(b, 0.501f).HexRound());
 		Tests.EqualHex("hex_round 4", a.HexRound(),
-			new FractionalHex(a.q * 0.4 + b.q * 0.3 + c.q * 0.3, a.r * 0.4 + b.r * 0.3 + c.r * 0.3,
-				a.s * 0.4 + b.s * 0.3 + c.s * 0.3).HexRound());
+			new FractionalHex(a.q * 0.4f + b.q * 0.3f + c.q * 0.3f, a.r * 0.4f + b.r * 0.3f + c.r * 0.3f,
+				a.s * 0.4f + b.s * 0.3f + c.s * 0.3f).HexRound());
 		Tests.EqualHex("hex_round 5", c.HexRound(),
-			new FractionalHex(a.q * 0.3 + b.q * 0.3 + c.q * 0.4, a.r * 0.3 + b.r * 0.3 + c.r * 0.4,
-				a.s * 0.3 + b.s * 0.3 + c.s * 0.4).HexRound());
+			new FractionalHex(a.q * 0.3f + b.q * 0.3f + c.q * 0.4f, a.r * 0.3f + b.r * 0.3f + c.r * 0.4f,
+				a.s * 0.3f + b.s * 0.3f + c.s * 0.4f).HexRound());
 	}
 
 
@@ -518,10 +505,10 @@ struct Tests
 	static public void TestLayout()
 	{
 		Hex h = new Hex(3, 4, -7);
-		Layout flat = new Layout(Layout.flat, new Point(10.0, 15.0), new Point(35.0, 71.0));
+		Layout flat = new Layout(Layout.flat, new Vector2(10.0f, 15.0f), new Vector2(35.0f, 71.0f));
 		Tests.EqualHex("layout", h, flat.PixelToHex(flat.HexToPixel(h)).HexRound());
-		Layout pointy = new Layout(Layout.pointy, new Point(10.0, 15.0), new Point(35.0, 71.0));
-		Tests.EqualHex("layout", h, pointy.PixelToHex(pointy.HexToPixel(h)).HexRound());
+		Layout Vector2y = new Layout(Layout.Vector2y, new Vector2(10.0f, 15.0f), new Vector2(35.0f, 71.0f));
+		Tests.EqualHex("layout", h, Vector2y.PixelToHex(Vector2y.HexToPixel(h)).HexRound());
 	}
 
 
@@ -566,30 +553,30 @@ struct Tests
 	}
 
 
-	static public void TestDoubledRoundtrip()
+	static public void TestfloatdRoundtrip()
 	{
 		Hex a = new Hex(3, 4, -7);
-		DoubledCoord b = new DoubledCoord(1, -3);
-		Tests.EqualHex("conversion_roundtrip doubled-q", a, DoubledCoord.QdoubledFromCube(a).QdoubledToCube());
-		Tests.EqualDoubledcoord("conversion_roundtrip doubled-q", b, DoubledCoord.QdoubledFromCube(b.QdoubledToCube()));
-		Tests.EqualHex("conversion_roundtrip doubled-r", a, DoubledCoord.RdoubledFromCube(a).RdoubledToCube());
-		Tests.EqualDoubledcoord("conversion_roundtrip doubled-r", b, DoubledCoord.RdoubledFromCube(b.RdoubledToCube()));
+		floatdCoord b = new floatdCoord(1, -3);
+		Tests.EqualHex("conversion_roundtrip floatd-q", a, floatdCoord.QfloatdFromCube(a).QfloatdToCube());
+		Tests.Equalfloatdcoord("conversion_roundtrip floatd-q", b, floatdCoord.QfloatdFromCube(b.QfloatdToCube()));
+		Tests.EqualHex("conversion_roundtrip floatd-r", a, floatdCoord.RfloatdFromCube(a).RfloatdToCube());
+		Tests.Equalfloatdcoord("conversion_roundtrip floatd-r", b, floatdCoord.RfloatdFromCube(b.RfloatdToCube()));
 	}
 
 
-	static public void TestDoubledFromCube()
+	static public void TestfloatdFromCube()
 	{
-		Tests.EqualDoubledcoord("doubled_from_cube doubled-q", new DoubledCoord(1, 5),
-			DoubledCoord.QdoubledFromCube(new Hex(1, 2, -3)));
-		Tests.EqualDoubledcoord("doubled_from_cube doubled-r", new DoubledCoord(4, 2),
-			DoubledCoord.RdoubledFromCube(new Hex(1, 2, -3)));
+		Tests.Equalfloatdcoord("floatd_from_cube floatd-q", new floatdCoord(1, 5),
+			floatdCoord.QfloatdFromCube(new Hex(1, 2, -3)));
+		Tests.Equalfloatdcoord("floatd_from_cube floatd-r", new floatdCoord(4, 2),
+			floatdCoord.RfloatdFromCube(new Hex(1, 2, -3)));
 	}
 
 
-	static public void TestDoubledToCube()
+	static public void TestfloatdToCube()
 	{
-		Tests.EqualHex("doubled_to_cube doubled-q", new Hex(1, 2, -3), new DoubledCoord(1, 5).QdoubledToCube());
-		Tests.EqualHex("doubled_to_cube doubled-r", new Hex(1, 2, -3), new DoubledCoord(4, 2).RdoubledToCube());
+		Tests.EqualHex("floatd_to_cube floatd-q", new Hex(1, 2, -3), new floatdCoord(1, 5).QfloatdToCube());
+		Tests.EqualHex("floatd_to_cube floatd-r", new Hex(1, 2, -3), new floatdCoord(4, 2).RfloatdToCube());
 	}
 
 
@@ -608,9 +595,9 @@ struct Tests
 		Tests.TestOffsetRoundtrip();
 		Tests.TestOffsetFromCube();
 		Tests.TestOffsetToCube();
-		Tests.TestDoubledRoundtrip();
-		Tests.TestDoubledFromCube();
-		Tests.TestDoubledToCube();
+		Tests.TestfloatdRoundtrip();
+		Tests.TestfloatdFromCube();
+		Tests.TestfloatdToCube();
 	}
 
 

@@ -82,7 +82,7 @@ namespace DefaultNamespace.HexGridEditor
 				if (grid.gridPlane.Raycast(ray, out float dist))
 				{
 					Vector3 hitPoint = ray.GetPoint(dist);
-					Point point = new Point(hitPoint.x, hitPoint.z);
+					Vector2 point = new Vector2(hitPoint.x, hitPoint.z);
 					Hex hex = grid.flat.PixelToHex(point).HexRound();
 					
 					if (bIsDeletingTile)
@@ -116,7 +116,7 @@ namespace DefaultNamespace.HexGridEditor
 
 		public string GetFilePath()
 		{
-			return Application.dataPath + "/Levels/" + _levelName;
+			return Application.dataPath + "/Levels/" + _levelName + ".txt";
 		}
 
 		private void SaveLevel()
@@ -137,18 +137,19 @@ namespace DefaultNamespace.HexGridEditor
 
 			StreamReader reader = new StreamReader(GetFilePath());
 			string json = reader.ReadToEnd();
-			Debug.Log(json);
-
-			JsonHexGrid jsonGrid = JsonUtility.FromJson<JsonHexGrid>(json);
-
 			reader.Close();
+			Debug.Log(json);
+			
+			grid.LoadLevelFromJson(json);
 
-			foreach (JsonHex jsonHex in jsonGrid.hexData)
-			{
-				Hex hex = jsonHex.hex;
-				HexTileType hexType = (HexTileType)jsonHex.type;
-				grid.AddTile(hex, hexType);
-			}
+			// JsonHexGrid jsonGrid = JsonUtility.FromJson<JsonHexGrid>(json);
+			//
+			// foreach (JsonHex jsonHex in jsonGrid.hexData)
+			// {
+			// 	Hex hex = jsonHex.hex;
+			// 	HexTileType hexType = (HexTileType)jsonHex.type;
+			// 	grid.AddTile(hex, hexType);
+			// }
 		}
 
 		private void ResetLevel()
