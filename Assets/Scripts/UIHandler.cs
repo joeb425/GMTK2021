@@ -28,6 +28,7 @@ public class UIHandler : MonoBehaviour
 	private VisualElement _towerBuildMenuContainer;
 	private VisualElement _towerInfoMenuContainer;
 	private VisualElement _gameOverScreen;
+	private VisualElement _levelFinishedScreen;
 	
 	public void Init()
 	{
@@ -39,6 +40,8 @@ public class UIHandler : MonoBehaviour
 		GameState.Get.Board.OnSelectedTileChanged += (oldTile, newTile) => OnSelectedTileChanged(newTile);
 
 		GameState.Get.OnGameOver += OnGameOver;
+
+		GameState.Get.OnLevelFinished += OnLevelFinished;
 
 		UpdateCashLabel(GameState.Get.CurrentCash);
 		UpdateLivesLabel(GameState.Get.CurrentLives);
@@ -57,6 +60,7 @@ public class UIHandler : MonoBehaviour
 		_towerInfoMenu = uiDocument.rootVisualElement.Q<TowerInfoMenu>();
 		_towerInfoMenuContainer = _rootVisualElement.Q<VisualElement>("TowerInfoMenuContainer");
 		_gameOverScreen = _rootVisualElement.Q<VisualElement>("GameOverScreenContainer");
+		_levelFinishedScreen = _rootVisualElement.Q<VisualElement>("LevelFinishedScreenContainer");
 		// Debug.Log(_towerInfoMenu);
 		// Debug.Log("define");
 	}
@@ -100,5 +104,10 @@ public class UIHandler : MonoBehaviour
 	{
 		// _rootVisualElement.Add(gameOverScreen.CloneTree());
 		_gameOverScreen.style.display = DisplayStyle.Flex;
+	}
+
+	public void OnLevelFinished()
+	{
+		_levelFinishedScreen.style.display = DisplayStyle.Flex;
 	}
 }

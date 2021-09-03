@@ -16,7 +16,7 @@ filters = {
 	settings = true
 }
 scopes = {
-	"last_search.AB59B443" = "gamelevel"
+	"last_search.AB59B443" = "hud"
 }
 providers = {
 	asset = {

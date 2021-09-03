@@ -12,6 +12,9 @@ public class GameState
 	public event System.Action<int, int> OnLivesChanged;
 	public event System.Action OnGameOver;
 
+	// TODO: this should also be an event, but need reference to spawner handler
+	public System.Action OnLevelFinished;
+
 	public int StartingCash;
 
 	public int MaxLives;

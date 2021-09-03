@@ -43,6 +43,27 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="AttributeDisplay" substitutionGroup="engine:VisualElement" xmlns:q2="UI.MainMenu" type="q2:AttributeDisplayType" />
+  <xs:complexType name="LevelFinishedScreenType">
+    <xs:complexContent mixed="false">
+      <xs:restriction base="engine:VisualElementType">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="engine:VisualElement" />
+        </xs:sequence>
+        <xs:attribute default="" name="name" type="xs:string" use="optional" />
+        <xs:attribute default="" name="view-data-key" type="xs:string" use="optional" />
+        <xs:attribute default="Position" name="picking-mode" type="engine:VisualElement_picking-mode_Type" use="optional" />
+        <xs:attribute default="" name="tooltip" type="xs:string" use="optional" />
+        <xs:attribute default="None" name="usage-hints" type="engine:VisualElement_usage-hints_Type" use="optional" />
+        <xs:attribute default="0" name="tabindex" type="xs:int" use="optional" />
+        <xs:attribute default="false" name="focusable" type="xs:boolean" use="optional" />
+        <xs:attribute default="" name="class" type="xs:string" use="optional" />
+        <xs:attribute default="" name="content-container" type="xs:string" use="optional" />
+        <xs:attribute default="" name="style" type="xs:string" use="optional" />
+        <xs:anyAttribute processContents="lax" />
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="LevelFinishedScreen" substitutionGroup="engine:VisualElement" xmlns:q3="UI.MainMenu" type="q3:LevelFinishedScreenType" />
   <xs:complexType name="LevelSelectionPanelType">
     <xs:complexContent mixed="false">
       <xs:restriction base="engine:VisualElementType">
@@ -63,7 +84,7 @@
       </xs:restriction>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="LevelSelectionPanel" substitutionGroup="engine:VisualElement" xmlns:q3="UI.MainMenu" type="q3:LevelSelectionPanelType" />
+  <xs:element name="LevelSelectionPanel" substitutionGroup="engine:VisualElement" xmlns:q4="UI.MainMenu" type="q4:LevelSelectionPanelType" />
   <xs:complexType name="GameOverScreenType">
     <xs:complexContent mixed="false">
       <xs:restriction base="engine:VisualElementType">
@@ -84,7 +105,7 @@
       </xs:restriction>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="GameOverScreen" substitutionGroup="engine:VisualElement" xmlns:q4="UI.MainMenu" type="q4:GameOverScreenType" />
+  <xs:element name="GameOverScreen" substitutionGroup="engine:VisualElement" xmlns:q5="UI.MainMenu" type="q5:GameOverScreenType" />
   <xs:complexType name="MainMenuManagerType">
     <xs:complexContent mixed="false">
       <xs:restriction base="engine:VisualElementType">
@@ -105,5 +126,5 @@
       </xs:restriction>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="MainMenuManager" substitutionGroup="engine:VisualElement" xmlns:q5="UI.MainMenu" type="q5:MainMenuManagerType" />
+  <xs:element name="MainMenuManager" substitutionGroup="engine:VisualElement" xmlns:q6="UI.MainMenu" type="q6:MainMenuManagerType" />
 </xs:schema>

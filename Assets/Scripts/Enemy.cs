@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
 	public Slider slider;
 
 	public event System.Action OnReachEnd;
+	public event System.Action OnKilled;
 
 	[SerializeField]
 	public GameObject healthBarTest;
@@ -83,6 +84,7 @@ public class Enemy : MonoBehaviour
 		{
 			_healthBarInstance.SetActive(false);
 			OriginFactory.Reclaim(this);
+			OnKilled?.Invoke();
 			return false;
 		}
 

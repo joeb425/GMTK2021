@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="/Assets/UI/StyleSheets/Screens.uss" />
+    <UI.MainMenu.LevelFinishedScreen class="Screens">
+        <ui:Button text="Next Level&#10;" display-tooltip-when-elided="true" name="NextLevelBtn" />
+        <ui:Button text="Main Menu&#10;" display-tooltip-when-elided="true" name="MainMenuBtn" />
+    </UI.MainMenu.LevelFinishedScreen>
+</ui:UXML>

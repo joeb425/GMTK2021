@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 
@@ -26,6 +27,8 @@ public class SpawnerHandler : MonoBehaviour
 	EnemyCollection enemies = new EnemyCollection();
 	int endFlag = 0;
 
+	private int _numAliveEnemies = 0;
+
 	public void Start()
 	{
 		Debug.Log("starter");
@@ -49,29 +52,52 @@ public class SpawnerHandler : MonoBehaviour
 			//enemies.Add(enemy);
 			Game.SharedGame.enemies.Add(enemy);
 			enemy.OnReachEnd += OnEnemyReachEnd;
-		}
-
-		if (enemiesRemainingToSpawn == 0 && Game.SharedGame.enemies.enemies.Count == 0)
-		{
-			NextWave();
+			enemy.OnKilled += OnEnemyKilled;
+			_numAliveEnemies += 1;
 		}
 	}
 
 	public void OnEnemyReachEnd()
 	{
 		GameState.Get.LoseLife();
+		OnEnemyDestroyed();
+	}
+
+	public void OnEnemyKilled()
+	{
+		OnEnemyDestroyed();
+	}
+
+	public void OnEnemyDestroyed()
+	{
+		_numAliveEnemies -= 1;
+
+		if (enemiesRemainingToSpawn == 0 && _numAliveEnemies == 0)// && Game.SharedGame.enemies.enemies.Count == 0)
+		{
+			NextWave();
+		}
+
+		if (_numAliveEnemies <= 0 && endFlag == 1)
+		{
+			Debug.Log("Level finished!");
+			GameState.Get.OnLevelFinished?.Invoke();
+		}
 	}
 
 	void NextWave()
 	{
-		if (currentWaveNumber > waves.Length)
+		Debug.Log("Next Wave! " + currentWaveNumber);
+
+		currentWaveNumber++;
+
+		int waveIndex = currentWaveNumber - 1;
+		if (waveIndex >= waves.Length)
 		{
 			endFlag = 1;
 			return;
 		}
 
-		currentWaveNumber++;
-		currentWave = waves[currentWaveNumber - 1];
+		currentWave = waves[waveIndex];
 		enemiesRemainingToSpawn = currentWave.enemyCount;
 	}
 }
