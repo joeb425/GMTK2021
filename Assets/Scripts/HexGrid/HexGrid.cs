@@ -17,7 +17,7 @@ namespace DefaultNamespace.HexGridEditor
 		End = 3,
 	}
 
-	[ExecuteInEditMode]
+	// [ExecuteInEditMode]
 	public class HexGrid : MonoBehaviour
 	{
 		[SerializeField]
@@ -43,10 +43,6 @@ namespace DefaultNamespace.HexGridEditor
 			{
 				LoadLevel();
 			}
-		}
-
-		private void Start()
-		{
 		}
 
 		[CanBeNull]

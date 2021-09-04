@@ -17,6 +17,6 @@ namespace DefaultNamespace.HexGridEditor
 		public Hex hex;
 
 		[SerializeField]
-		public int type;
+		public HexTileType type;
 	}
 }
