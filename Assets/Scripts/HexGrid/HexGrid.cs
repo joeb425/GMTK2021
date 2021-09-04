@@ -26,6 +26,8 @@ namespace DefaultNamespace.HexGridEditor
 		[SerializeField]
 		TextAsset levelToLoad;
 
+		public HexPathFinding PathFinder;
+
 		public Layout flat;
 
 		public Dictionary<Hex, HexGridTile> hexGrid = new Dictionary<Hex, HexGridTile>();
@@ -42,6 +44,7 @@ namespace DefaultNamespace.HexGridEditor
 			if (Application.isPlaying)
 			{
 				LoadLevel();
+				PathFinder.findPath(hexGrid, flat);
 			}
 		}
 
