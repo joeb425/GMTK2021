@@ -655,6 +655,7 @@ MonoBehaviour:
   grid: {fileID: 2022507405}
   groundLayer: {fileID: 0}
   towerLayer: {fileID: 0}
+  foliageLayer: {fileID: 0}
   enemyPath: []
   selectedTile:
     q: 0

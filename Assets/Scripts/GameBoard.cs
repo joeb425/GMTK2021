@@ -17,6 +17,7 @@ public class GameBoard : MonoBehaviour
 
 	public HexGridLayer groundLayer;
 	public HexGridLayer towerLayer;
+	public HexGridLayer foliageLayer;
 
 	List<Hex> spawnPoints = new List<Hex>();
 	
@@ -38,6 +39,9 @@ public class GameBoard : MonoBehaviour
 		}
 		Debug.Log(groundLayer.hexGrid.Count);
 		towerLayer = grid.GetLayer("Tower");
+
+		foliageLayer = grid.GetLayer("Foliage");
+
 
 		if (towerLayer == null)
 		{
@@ -100,6 +104,7 @@ public class GameBoard : MonoBehaviour
 	{
 		Tower tower = Instantiate(towerPrefab);
 		towerLayer.AddTile(tile, tower.gameObject);
+		foliageLayer.DeleteTile(tile);
 
 		// // tower.transform.position = grid.flat.HexToWorld(tile);
 		// towerLayer.AddTile(tile, tower.gameObject);

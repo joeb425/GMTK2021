@@ -38,6 +38,8 @@ namespace HexLibrary
 		[SerializeField]
 		private List<HexObjectPair> serializedGrid = new List<HexObjectPair>();
 
+		public System.Action<Hex, GameObject> OnTileAdded;
+
 		public void InitLayer(HexGrid grid, string layerName)
 		{
 			Debug.Log($"Init layer {layerName}");
@@ -84,6 +86,8 @@ namespace HexLibrary
 
 			hexGrid.Add(hexCoord, objectOnTile);
 			serializedGrid.Add(new HexObjectPair(hexCoord, objectOnTile));
+
+			OnTileAdded?.Invoke(hexCoord, objectOnTile);
 
 			return objectOnTile;
 		}
