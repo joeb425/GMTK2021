@@ -45,11 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 500
-  healthBarUI: {fileID: 0}
   slider: {fileID: 0}
-  healthBarTest: {fileID: 2143082155953639934, guid: a927b9a2336083a4ca0ca01e266cfee4,
+  healthBarPrefab: {fileID: 2143082155953639934, guid: a927b9a2336083a4ca0ca01e266cfee4,
     type: 3}
   _healthBarInstance: {fileID: 0}
+  desiredRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &4226526925664016134
 GameObject:
   m_ObjectHideFlags: 0
