@@ -52,7 +52,6 @@ public class Game : MonoBehaviour
 	{
 		Debug.Log("Game Awake");
 		board.Initialize(boardSize, tileContentFactory);
-		board.ShowGrid = true;
 
 		// spawnerHandler.board = board;
 

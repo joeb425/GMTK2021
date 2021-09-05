@@ -28,7 +28,7 @@ namespace HexLibrary
 		public string layerName;
 
 		[SerializeField]
-		public global::HexLibrary.HexGrid grid;
+		public HexGrid grid;
 
 		public Dictionary<Hex, GameObject> hexGrid = new Dictionary<Hex, GameObject>();
 
@@ -38,8 +38,9 @@ namespace HexLibrary
 		[SerializeField]
 		private List<HexObjectPair> serializedGrid = new List<HexObjectPair>();
 
-		public void InitGrid(global::HexLibrary.HexGrid grid, string layerName)
+		public void InitLayer(HexGrid grid, string layerName)
 		{
+			Debug.Log($"Init layer {layerName}");
 			this.grid = grid;
 			this.layerName = layerName;
 

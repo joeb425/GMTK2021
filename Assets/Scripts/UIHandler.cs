@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using HexLibrary;
 using JetBrains.Annotations;
 using UI;
 using UI.MainMenu;
@@ -38,6 +39,7 @@ public class UIHandler : MonoBehaviour
 
 	public void Init()
 	{
+		Debug.Log("UIHandler Init");
 		Get = this;
 
 		ReadUIDocument();
@@ -45,7 +47,7 @@ public class UIHandler : MonoBehaviour
 		GameState.Get.OnCashChanged += (oldValue, newValue) => UpdateCashLabel(newValue);
 		GameState.Get.OnLivesChanged += (oldValue, newValue) => UpdateLivesLabel(newValue);
 
-		// GameState.Get.Board.OnSelectedTileChanged += (oldTile, newTile) => OnSelectedTileChanged(newTile);
+		GameState.Get.Board.OnSelectedTileChanged += (oldTile, newTile) => OnSelectedTileChanged(newTile);
 
 		GameState.Get.OnGameOver += OnGameOver;
 
@@ -89,12 +91,27 @@ public class UIHandler : MonoBehaviour
 		}
 	}
 
-	void OnSelectedTileChanged(GameTile selectedTile)
+	void OnSelectedTileChanged(Hex selectedTile)
 	{
-		bool showBuildUI = selectedTile.Content.Type == GameTileContentType.Build;
+		Debug.Log("test");
+		if (!GameState.Get.Board.groundLayer.GetTile(selectedTile, out var gameObject))
+		{
+			return;
+		}
+
+		// bool showTowerUI = gameObject is Tower;
+		// SetTowerInfoEnabled(showTowerUI, selectedTile);
+
+		bool showBuildUI = false;
+		var hexComponent = gameObject.GetComponent<HexComponent>();
+		if (hexComponent != null)
+		{
+			showBuildUI = hexComponent.TileType == HexTileType.Build;
+		}
+
+		Debug.Log(showBuildUI);
+
 		SetBuildMenuEnabled(showBuildUI);
-		bool showTowerUI = selectedTile.Content.Type == GameTileContentType.Tower;
-		SetTowerInfoEnabled(showTowerUI, selectedTile);
 	}
 
 	public void UpdateCashLabel(int lives)

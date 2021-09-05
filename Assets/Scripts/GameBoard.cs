@@ -10,101 +10,19 @@ public class GameBoard : MonoBehaviour
 	Transform ground = default;
 
 	[SerializeField]
-	Hex tilePrefab = default;
-
-	[SerializeField]
-	Texture2D gridTexture = default;
-
-	[SerializeField]
 	TextAsset leveldesign;
 
-	Vector2Int size;
+	// [SerializeField]
+	public HexGrid grid;
 
-	// Hex[] tiles;
-
-	Queue<Hex> searchFrontier = new Queue<Hex>();
-
-	// GameTileContentFactory contentFactory;
-
-	bool showGrid, showPaths;
+	public HexGridLayer groundLayer;
+	public HexGridLayer towerLayer;
 
 	List<Hex> spawnPoints = new List<Hex>();
-
-	// List<HexContent> updatingContent = new List<HexContent>();
 	
-	private HexGridLayer _hexGridLayer;
-
 	public event System.Action<Hex, Hex> OnSelectedTileChanged;
 	public event System.Action<Hex, Hex> OnHoveredTileChanged;
 
-	public bool ShowGrid
-	{
-		get => showGrid;
-		set
-		{
-			showGrid = value;
-			// Material m = ground.GetComponent<MeshRenderer>().material;
-			// if (showGrid)
-			// {
-			// 	m.mainTexture = gridTexture;
-			// 	m.SetTextureScale("_MainTex", size);
-			// }
-			// else
-			// {
-			// 	m.mainTexture = null;
-			// }
-
-//			Material b = ground.GetComponent<MeshRenderer>().material;
-//			if (ShowGrid)
-//			{
-//				b.mainTexture = gridTexture;
-//				b.SetTextureScale("_MainTex", size);
-//			}
-//			else
-//			{
-//				b.mainTexture = null;
-//			}
-		}
-	}
-
-	// public bool ShowPaths
-	// {
-	// 	get => showPaths;
-	// 	set
-	// 	{
-	// 		showPaths = value;
-	// 		if (showPaths)
-	// 		{
-	// 			foreach (Hex tile in tiles)
-	// 			{
-	// 				tile.ShowPath();
-	// 			}
-	// 		}
-	// 		else
-	// 		{
-	// 			foreach (Hex tile in tiles)
-	// 			{
-	// 				tile.HidePath();
-	// 			}
-	// 		}
-	// 	}
-	// }
-	[System.Serializable]
-	public class LevelData
-	{
-		public int tier;
-		public List<LevelRow> layout;
-	}
-	[System.Serializable]
-	public class LevelRow
-	{
-		public List<int> row;
-	}
-	[System.Serializable]
-	public class Levels
-	{
-		public LevelData[] level;
-	}
 	public void Initialize(
 		Vector2Int size, GameTileContentFactory contentFactory
 	)
@@ -187,10 +105,22 @@ public class GameBoard : MonoBehaviour
 		// ToggleSpawnPoint(tiles[spawn_loc]);
 		// FindPaths();
 
-		HexGridLayer hexGridLayerPrefab = AssetDatabase.LoadAssetAtPath<HexGridLayer>("Assets/Prefabs/Hex/HexGrid.prefab");
-		_hexGridLayer = Instantiate(hexGridLayerPrefab);
-		
 		OnSelectedTileChanged += SelectedTileChanged;
+
+		grid.Init();
+
+		groundLayer = grid.GetLayer("Ground");
+		if (groundLayer == null)
+		{
+			Debug.Log("ground layer invalid");
+		}
+		Debug.Log(groundLayer.hexGrid.Count);
+		towerLayer = grid.GetLayer("Tower");
+
+		if (towerLayer == null)
+		{
+			Debug.Log("tower layer invalid");
+		}
 	}
 
 	public void ToggleSpawnPoint(Hex tile)
@@ -245,6 +175,7 @@ public class GameBoard : MonoBehaviour
 	public void ToggleTower(Hex tile, Tower towerPrefab)
 	{
 		Tower tower = Instantiate(towerPrefab);
+		tower.transform.position = grid.flat.HexToWorld(tile);
 		// tile.Content = tower.gameObject;
 
 		// if (tile.Content.Type == HexContentType.Tower)
@@ -290,19 +221,8 @@ public class GameBoard : MonoBehaviour
 
 	public Hex GetTile(Ray ray)
 	{
-		// return _hexGridLayer.GetTile(_hexGridLayer.GetHexUnderRay(ray));
-		
-		// if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, 1 << 7))
-		// {
-		// 	int x = (int) (hit.point.x + size.x * 0.5f);
-		// 	int y = (int) (hit.point.z + size.y * 0.5f);
-		// 	if (x >= 0 && x < size.x && y >= 0 && y < size.y)
-		// 	{
-		// 		return tiles[x + y * size.x];
-		// 	}
-		// }
-
-		return null;
+		grid.GetHexUnderRay(ray, out var hex);
+		return hex;
 	}
 
 	bool FindPaths()
@@ -373,12 +293,17 @@ public class GameBoard : MonoBehaviour
 		// 	updatingContent[i].GameUpdate();
 		// }
 
-		hoveredTile = GetTile(InputHandler.Get.touchRay);
+		grid.GetHexUnderRay(InputHandler.Get.touchRay, out hoveredTile);
 
 		// if (towerToBePlaced != null && hoveredTile != null)
 		// {
 		// 	towerToBePlaced.transform.position = hoveredTile.Content.transform.position;
 		// }
+	}
+
+	public void Update()
+	{
+		// hoveredTile = GetTile(InputHandler.Get.touchRay);
 	}
 
 	public void PlaceTowerAtTile(Hex tile, Tower tower)
@@ -431,8 +356,6 @@ public class GameBoard : MonoBehaviour
 		// {
 		// 	return;
 		// }
-		
-		Debug.Log("Select tile?");
 
 		Hex oldSelectedTile = selectedTile;
 		// HexContent oldSelectedContent = selectedTileContent;
@@ -509,9 +432,10 @@ public class GameBoard : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-		// if (selectedTile != null)
-		// {
-		// 	Gizmos.DrawSphere(selectedTile.spawnedTile.transform.position, 1);
-		// }
+		if (selectedTile != null)
+		{
+			Gizmos.color = new Color(1, 1, 0, 0.5f);
+			Gizmos.DrawSphere(grid.flat.HexToWorld(selectedTile), .1f);
+		}
 	}
 }

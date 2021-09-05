@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
 using UnityEngine;
+using UnityEngine.LowLevel;
 
 namespace HexLibrary
 {
@@ -16,9 +17,9 @@ namespace HexLibrary
 		public HexTilePalette tilePalette;
 
 		[SerializeField]
-		private List<HexGridLayer> serializedLayers;
+		private List<HexGridLayer> serializedLayers = new List<HexGridLayer>();
 
-		public HexPathFinding PathFinder;
+		public HexPathFinding PathFinder = new HexPathFinding();
 
 		public Layout flat;
 
@@ -48,7 +49,7 @@ namespace HexLibrary
 
 		public void Awake()
 		{
-			Init();
+			// Init();
 		}
 
 		public void Init()
@@ -57,10 +58,8 @@ namespace HexLibrary
 			if (Application.isPlaying)
 			{
 				LoadLevel();
-				PathFinder.findPath(this);
+				// PathFinder.FindPath(this);
 			}
-
-			InitLayers();
 		}
 
 		public void LoadLevel()
@@ -91,7 +90,7 @@ namespace HexLibrary
 			GameObject layerContainer = new GameObject(layerName);
 			layerContainer.transform.parent = transform;
 			HexGridLayer layer = layerContainer.AddComponent<HexGridLayer>();
-			layer.InitGrid(this, layerName);
+			layer.InitLayer(this, layerName);
 
 			layers.Add(layerName, layer);
 			serializedLayers.Add(layer);
@@ -99,7 +98,8 @@ namespace HexLibrary
 
 		public HexGridLayer GetLayer(string layerName)
 		{
-			return serializedLayers.FirstOrDefault(layer => layer.layerName == layerName);
+			return layers.ContainsKey(layerName) ? layers[layerName] : null;
+			//serializedLayers.FirstOrDefault(layer => layer.layerName == layerName);
 
 			// return layers[layerName];
 		}
@@ -176,15 +176,14 @@ namespace HexLibrary
 			serializedLayers.RemoveAll(layer => layer == null);
 
 			layers = new Dictionary<string, HexGridLayer>();
-			Debug.Log(serializedLayers.Count);
-			foreach (HexGridLayer layer in serializedLayers)
-			{
-				Debug.Log(layer.layerName + " aa" + (layer == null));
-			}
+			// foreach (HexGridLayer layer in serializedLayers)
+			// {
+			// 	Debug.Log(layer.layerName + " aa" + (layer == null));
+			// }
 
 			foreach (HexGridLayer layer in serializedLayers)
 			{
-				Debug.Log(layer.layerName + " aa" + (layer == null));
+				// Debug.Log(layer.layerName + " aa" + (layer == null));
 				layers.Add(layer.layerName, layer);
 			}
 		}

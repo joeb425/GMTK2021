@@ -6,7 +6,7 @@ namespace HexLibrary
 {
     public class HexPathFinding : MonoBehaviour
     {
-        private global::HexLibrary.HexGrid grid;
+        private HexGrid grid;
 
         private HexGridLayer groundLayer;
         
@@ -16,7 +16,7 @@ namespace HexLibrary
         Hex startTile, prevTile, curTile;
         List<Hex> surTile = new List<Hex>();
         bool searchPath = true;
-        public void findPath(global::HexLibrary.HexGrid grid)
+        public void FindPath(HexGrid grid)
         {
             this.grid = grid;
             groundLayer = grid.GetLayer("Ground");
