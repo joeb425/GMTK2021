@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -139,7 +139,7 @@ PrefabInstance:
         type: 3}
       propertyPath: levelToLoad
       value: 
-      objectReference: {fileID: 4900000, guid: e3cc86f25b27629419cebe756c55b88d, type: 3}
+      objectReference: {fileID: 4900000, guid: a7d490f489e649b43a49415b9e239b31, type: 3}
     - target: {fileID: 3564590276027609637, guid: f9770497678e36b4ab887afe2a9ac6cc,
         type: 3}
       propertyPath: m_Name
@@ -252,8 +252,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
+  far clip plane: 100000
+  field of view: 69.6
   orthographic: 1
   orthographic size: 5
   m_Depth: -1
@@ -314,6 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b7da0af925bfd429ab255fc47faf03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Path: []
 --- !u!4 &1380800712
 Transform:
   m_ObjectHideFlags: 0

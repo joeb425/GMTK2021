@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace DefaultNamespace.HexGrid
+namespace HexLibrary
 {
 	[Serializable]
 	public class HexTileSpawnData

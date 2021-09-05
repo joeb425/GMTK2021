@@ -1,8 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
-using DefaultNamespace.HexGrid;
-using HexGrid;
+using HexLibrary;
 using UnityEditor;
 
 public class GameBoard : MonoBehaviour

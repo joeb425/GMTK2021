@@ -1,5 +1,5 @@
 ﻿using System;
-using DefaultNamespace.HexGrid;
+using HexLibrary;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.EnhancedTouch;

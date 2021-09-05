@@ -35,8 +35,11 @@ MonoBehaviour:
     - tilePrefab: {fileID: 1896651012418842372, guid: 1038ec44c5e3c514485f69db945a9f65,
         type: 3}
       spawnKeyCode: 283
+    - tilePrefab: {fileID: 4072676126635458013, guid: 2add2897b33aaa44ca5482e243244e44,
+        type: 3}
+      spawnKeyCode: 284
   - layerName: Foliage
     spawnDatas:
-    - tilePrefab: {fileID: 919132149155446097, guid: 168c1269ab99ca541b0fae11e250601b,
+    - tilePrefab: {fileID: 33994638995381417, guid: eb9a1ee02176bb14b874a6f2ccfaeffc,
         type: 3}
       spawnKeyCode: 282

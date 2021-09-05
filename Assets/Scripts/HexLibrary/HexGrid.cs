@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
-using DefaultNamespace.HexGrid;
 using UnityEngine;
 
-namespace HexGrid
+namespace HexLibrary
 {
 	[Serializable]
 	public class HexGrid : MonoBehaviour, ISerializationCallbackReceiver
@@ -58,7 +57,7 @@ namespace HexGrid
 			if (Application.isPlaying)
 			{
 				LoadLevel();
-				PathFinder.findPath(hexGrid, flat);
+				PathFinder.findPath(this);
 			}
 
 			InitLayers();
@@ -131,7 +130,7 @@ namespace HexGrid
 					Guid guid = new Guid(jsonHex.guid);
 					if (hexGridLayer.AddTile(hex, guid))
 					{
-						Debug.Log($"Spawn tile {hex} : {jsonHex.guid}");
+						// Debug.Log($"Spawn tile {hex} : {jsonHex.guid}");
 					}
 				}
 			}
@@ -159,8 +158,6 @@ namespace HexGrid
 					}
 
 					string guid = guidComponent.GetGuidString();
-					Debug.Log("savedaaaa " + guid);
-
 					JsonHex jsonHex = new JsonHex(hex, guid);
 					hexLayer.hexData.Add(jsonHex);
 				}

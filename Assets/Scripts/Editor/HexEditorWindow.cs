@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using DefaultNamespace.HexGrid;
-using HexGrid;
+using HexLibrary;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,8 +11,8 @@ namespace Editor
 {
 	public class HexEditorWindow : EditorWindow
 	{
-		private HexGrid.HexGrid _gridPrefab;
-		private HexGrid.HexGrid _grid;
+		private HexLibrary.HexGrid _gridPrefab;
+		private HexLibrary.HexGrid _grid;
 
 		private HexTilePalette _tilePalette;
 		private string[] _layerNames;
@@ -35,7 +34,7 @@ namespace Editor
 		private void OnEnable()
 		{
 			EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
-			_gridPrefab = AssetDatabase.LoadAssetAtPath<HexGrid.HexGrid>("Assets/Prefabs/Hex/HexGrid.prefab");
+			_gridPrefab = AssetDatabase.LoadAssetAtPath<HexLibrary.HexGrid>("Assets/Prefabs/Hex/HexGrid.prefab");
 			LoadTilePalette();
 
 			if (_isEnabled)
@@ -88,7 +87,7 @@ namespace Editor
 				_selectedLayerIndex = newIndex;
 			}
 
-			_gridPrefab = (HexGrid.HexGrid)EditorGUILayout.ObjectField(_gridPrefab, typeof(HexGrid.HexGrid), false);
+			_gridPrefab = (HexLibrary.HexGrid)EditorGUILayout.ObjectField(_gridPrefab, typeof(HexLibrary.HexGrid), false);
 		}
 
 		private void Update()
@@ -108,7 +107,7 @@ namespace Editor
 
 		private void EnableEditMode()
 		{
-			if (_grid == null)
+			// if (_grid == null)
 			{
 				_grid = Instantiate(_gridPrefab);
 				_grid.Init();

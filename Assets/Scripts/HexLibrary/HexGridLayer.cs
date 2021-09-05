@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using DefaultNamespace;
-using DefaultNamespace.HexGrid;
 using UnityEngine;
 
-namespace HexGrid
+namespace HexLibrary
 {
 	[Serializable]
 	public struct HexObjectPair
@@ -29,7 +28,7 @@ namespace HexGrid
 		public string layerName;
 
 		[SerializeField]
-		public HexGrid grid;
+		public global::HexLibrary.HexGrid grid;
 
 		public Dictionary<Hex, GameObject> hexGrid = new Dictionary<Hex, GameObject>();
 
@@ -39,7 +38,7 @@ namespace HexGrid
 		[SerializeField]
 		private List<HexObjectPair> serializedGrid = new List<HexObjectPair>();
 
-		public void InitGrid(HexGrid grid, string layerName)
+		public void InitGrid(global::HexLibrary.HexGrid grid, string layerName)
 		{
 			this.grid = grid;
 			this.layerName = layerName;
@@ -171,6 +170,21 @@ namespace HexGrid
 					hexGrid[hexObject.hex] = hexObject.gameObject;
 				}
 			}
+		}
+
+		public bool GetHexComponent(Hex hex, out HexComponent hexComponent)
+		{
+			if (GetTile(hex, out var tile))
+			{
+				hexComponent = tile.GetComponent<HexComponent>();
+				if (hexComponent != null)
+				{
+					return true;
+				}
+			}
+
+			hexComponent = null;
+			return false;
 		}
 	}
 }

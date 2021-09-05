@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace DefaultNamespace.HexGrid
+namespace HexLibrary
 {
 	[System.Serializable]
 	public class JsonHexGrid
