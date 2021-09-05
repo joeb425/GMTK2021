@@ -38,23 +38,23 @@ public class SpawnerHandler : MonoBehaviour
 
 	public void GameUpdate()
 	{
-		if (endFlag == 1)
-		{
-			return;
-		}
-
-		if (enemiesRemainingToSpawn > 0 && Time.time > nextSpawnTime)
-		{
-			enemiesRemainingToSpawn--;
-			nextSpawnTime = Time.time + currentWave.spawnSpeed;
-			Enemy enemy = enemyFactory.Get(currentWave.enemyElementNo);
-			enemy.SpawnOn(board.GetSpawnPoint(Random.Range(0, board.SpawnPointCount)));
-			//enemies.Add(enemy);
-			Game.SharedGame.enemies.Add(enemy);
-			enemy.OnReachEnd += OnEnemyReachEnd;
-			enemy.OnKilled += OnEnemyKilled;
-			_numAliveEnemies += 1;
-		}
+		// if (endFlag == 1)
+		// {
+		// 	return;
+		// }
+		//
+		// if (enemiesRemainingToSpawn > 0 && Time.time > nextSpawnTime)
+		// {
+		// 	enemiesRemainingToSpawn--;
+		// 	nextSpawnTime = Time.time + currentWave.spawnSpeed;
+		// 	Enemy enemy = enemyFactory.Get(currentWave.enemyElementNo);
+		// 	enemy.SpawnOn(board.GetSpawnPoint(Random.Range(0, board.SpawnPointCount)));
+		// 	//enemies.Add(enemy);
+		// 	Game.SharedGame.enemies.Add(enemy);
+		// 	enemy.OnReachEnd += OnEnemyReachEnd;
+		// 	enemy.OnKilled += OnEnemyKilled;
+		// 	_numAliveEnemies += 1;
+		// }
 	}
 
 	public void OnEnemyReachEnd()

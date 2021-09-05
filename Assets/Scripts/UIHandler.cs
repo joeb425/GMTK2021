@@ -45,7 +45,7 @@ public class UIHandler : MonoBehaviour
 		GameState.Get.OnCashChanged += (oldValue, newValue) => UpdateCashLabel(newValue);
 		GameState.Get.OnLivesChanged += (oldValue, newValue) => UpdateLivesLabel(newValue);
 
-		GameState.Get.Board.OnSelectedTileChanged += (oldTile, newTile) => OnSelectedTileChanged(newTile);
+		// GameState.Get.Board.OnSelectedTileChanged += (oldTile, newTile) => OnSelectedTileChanged(newTile);
 
 		GameState.Get.OnGameOver += OnGameOver;
 

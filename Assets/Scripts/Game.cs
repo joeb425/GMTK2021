@@ -54,7 +54,7 @@ public class Game : MonoBehaviour
 		board.Initialize(boardSize, tileContentFactory);
 		board.ShowGrid = true;
 
-		spawnerHandler.board = board;
+		// spawnerHandler.board = board;
 
 		gameState = new GameState
 		{
@@ -65,7 +65,7 @@ public class Game : MonoBehaviour
 		
 		gameState.Init();
 
-		bulletPool.Initialize();
+		// bulletPool.Initialize();
 
 		SharedGame = this;
 		
@@ -89,8 +89,8 @@ public class Game : MonoBehaviour
 
 	void Update()
 	{
-		spawnerHandler.GameUpdate();
-		enemies.GameUpdate();
+		// spawnerHandler.GameUpdate();
+		// enemies.GameUpdate();
 		board.GameUpdate();
 		inputHandler.GameUpdate();
 

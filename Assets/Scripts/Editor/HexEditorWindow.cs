@@ -1,22 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using DefaultNamespace.HexGridEditor;
+using System.Linq;
+using DefaultNamespace.HexGrid;
+using HexGrid;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Editor
 {
 	public class HexEditorWindow : EditorWindow
 	{
-		private HexGrid _gridPrefab;
-		private HexGrid _grid;
+		private HexGrid.HexGrid _gridPrefab;
+		private HexGrid.HexGrid _grid;
+
+		private HexTilePalette _tilePalette;
+		private string[] _layerNames;
+		private int _selectedLayerIndex = 0;
 
 		private bool _hasGridBeenSpawned;
 		private bool _isEnabled;
 
 		private string _levelName = "level";
-
 
 		[MenuItem("Window/HexEditorWindow")]
 		private static void ShowWindow()
@@ -29,11 +35,20 @@ namespace Editor
 		private void OnEnable()
 		{
 			EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
-			_gridPrefab = AssetDatabase.LoadAssetAtPath<HexGrid>("Assets/Prefabs/Hex/HexGrid.prefab");
-			if (_gridPrefab == null)
+			_gridPrefab = AssetDatabase.LoadAssetAtPath<HexGrid.HexGrid>("Assets/Prefabs/Hex/HexGrid.prefab");
+			LoadTilePalette();
+
+			if (_isEnabled)
 			{
-				Debug.Log("failed to load prefab");
+				EnableEditMode();
 			}
+		}
+
+		private void LoadTilePalette()
+		{
+			_tilePalette = _gridPrefab.tilePalette;
+			_layerNames = _tilePalette.GetPaletteAsDictionary().Keys.ToArray();
+			_selectedLayerIndex = 0;
 		}
 
 		private void OnDestroy()
@@ -67,7 +82,13 @@ namespace Editor
 			_levelName = EditorGUILayout.TextField(_levelName);
 			EditorGUILayout.EndHorizontal();
 
-			_gridPrefab = (HexGrid)EditorGUILayout.ObjectField(_gridPrefab, typeof(HexGrid), false);
+			int newIndex = EditorGUILayout.Popup(_selectedLayerIndex, _layerNames);
+			if (newIndex != _selectedLayerIndex)
+			{
+				_selectedLayerIndex = newIndex;
+			}
+
+			_gridPrefab = (HexGrid.HexGrid)EditorGUILayout.ObjectField(_gridPrefab, typeof(HexGrid.HexGrid), false);
 		}
 
 		private void Update()
@@ -87,9 +108,13 @@ namespace Editor
 
 		private void EnableEditMode()
 		{
+			if (_grid == null)
+			{
+				_grid = Instantiate(_gridPrefab);
+				_grid.Init();
+			}
+
 			_isEnabled = true;
-			Debug.Log("Enable edit mode");
-			_grid = Instantiate(_gridPrefab);
 			SceneView.duringSceneGui += DuringSceneGui;
 		}
 
@@ -115,68 +140,51 @@ namespace Editor
 
 			Event e = Event.current;
 
+			// generate ray from mouse position
+			Vector2 mousePosition = Event.current.mousePosition;
+			mousePosition.y = SceneView.currentDrawingSceneView.camera.pixelHeight - mousePosition.y;
+			Camera cam = sceneView.camera;
+			var ray = cam.ScreenPointToRay(mousePosition);
+			if (!_grid.GetHexUnderRay(ray, out Hex hex))
+			{
+				return;
+			}
+
 			if (e.isKey && e.type == EventType.KeyDown)
 			{
-				// generate ray from mouse position
-				Vector2 mousePosition = Event.current.mousePosition;
-				mousePosition.y = SceneView.currentDrawingSceneView.camera.pixelHeight - mousePosition.y;
-				Camera cam = sceneView.camera;
-				var ray = cam.ScreenPointToRay(mousePosition);
-
-				HexTileSpawnInfo tileSpawnInfo = null;
-
-				foreach (var spawnInfo in _grid.hexTileSpawnData.spawnData)
+				if (GetPrefabFromKey(e.keyCode, out var prefab))
 				{
-					if (spawnInfo.spawnKeyCode == e.keyCode)
-					{
-						tileSpawnInfo = spawnInfo;
-						break;
-					}
+					GetCurrentGridLayer().AddTile(hex, prefab);
 				}
-
-				bool bIsDeletingTile = e.keyCode == KeyCode.Q;
-
-				if (tileSpawnInfo == null && !bIsDeletingTile)
+				else if (e.keyCode == KeyCode.Q) // delete tile when pressing Q
 				{
-					return;
-				}
-
-				if (_grid.gridPlane.Raycast(ray, out float dist))
-				{
-					Vector3 hitPoint = ray.GetPoint(dist);
-					Vector2 point = new Vector2(hitPoint.x, hitPoint.z);
-					Hex hex = _grid.flat.PixelToHex(point).HexRound();
-
-					if (bIsDeletingTile)
-					{
-						_grid.DeleteTile(hex);
-					}
-					else
-					{
-						_grid.AddTile(hex, tileSpawnInfo.tileType);
-					}
+					GetCurrentGridLayer().DeleteTile(hex);
 				}
 			}
 		}
 
-		private JsonHexGrid GenerateJsonGrid()
+		bool GetPrefabFromKey(KeyCode key, out GameObject prefab)
 		{
-			JsonHexGrid jsonGrid = new JsonHexGrid();
-
-			foreach (KeyValuePair<Hex, HexGridTile> kvp in _grid.hexGrid)
+			List<HexTileSpawnData> spawnDatas = GetLayerPalette().spawnDatas;
+			if (spawnDatas.Count == 0)
 			{
-				HexGridTile gridTile = kvp.Value;
-
-				JsonHex jsonHex = new JsonHex
-				{
-					hex = kvp.Key,
-					type = gridTile.tileType
-				};
-
-				jsonGrid.hexData.Add(jsonHex);
+				Debug.Log("spawn datas invaalid");
 			}
 
-			return jsonGrid;
+			HexTileSpawnData spawnData = spawnDatas.Find(data => data.spawnKeyCode == key);
+			if (spawnData != null)
+			{
+				prefab = spawnData.tilePrefab;
+				return true;
+			}
+
+			prefab = null;
+			return false;
+		}
+
+		private JsonHexGrid GenerateJsonGrid()
+		{
+			return _grid.GenerateJsonGrid();
 		}
 
 		private string GetFilePath()
@@ -196,7 +204,7 @@ namespace Editor
 		{
 			Debug.Log("Load level " + GetFilePath());
 
-			_grid.DeleteAllTiles();
+			_grid.ResetGrid();
 
 			StreamReader reader = new StreamReader(GetFilePath());
 			string json = reader.ReadToEnd();
@@ -206,7 +214,8 @@ namespace Editor
 
 		private void ResetLevel()
 		{
-			_grid.DeleteAllTiles();
+			_grid.ResetGrid();
+			LoadTilePalette();
 		}
 
 		private void OnPlayModeStateChanged(PlayModeStateChange state)
@@ -215,6 +224,21 @@ namespace Editor
 				return;
 
 			DisableEditMode();
+		}
+
+		public HexTileLayerPalette GetLayerPalette()
+		{
+			return _grid.tilePalette.GetLayerPalette(GetLayerName());
+		}
+
+		private string GetLayerName()
+		{
+			return _layerNames[_selectedLayerIndex];
+		}
+
+		private HexGridLayer GetCurrentGridLayer()
+		{
+			return _grid.GetLayer(_layerNames[_selectedLayerIndex]);
 		}
 	}
 }
