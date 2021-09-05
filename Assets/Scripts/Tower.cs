@@ -49,8 +49,8 @@ public class Tower : MonoBehaviour
 
 		UpdateAttributes();
 
-		Rotator rotator = gameObject.GetComponent<Rotator>();
-		hasRotator = rotator != null;
+		RotatorComponent rotatorComponent = gameObject.GetComponent<RotatorComponent>();
+		hasRotator = rotatorComponent != null;
 	}
 
 	public void InitLineRenderer()
