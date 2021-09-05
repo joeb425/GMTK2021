@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using HexLibrary;
-using UnityEditor.UIElements;
+﻿using HexLibrary;
 using UnityEngine;
 using UnityEngine.UI;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 public class Enemy : MonoBehaviour
 {
@@ -26,6 +24,8 @@ public class Enemy : MonoBehaviour
 	[SerializeField]
 	public GameObject healthBarTest;
 	public GameObject _healthBarInstance;
+
+	public Quaternion desiredRotation;
 
 
 	public EnemyFactory OriginFactory
@@ -108,11 +108,17 @@ public class Enemy : MonoBehaviour
 			Vector3 hexFrom = GameState.Get.Board.grid.flat.HexToWorld(hex);
 			Vector3 hexTo = GameState.Get.Board.grid.flat.HexToWorld(nextHex);
 			transform.position = Vector3.LerpUnclamped(hexFrom, hexTo, tileProgress);
+
+			Vector3 delta = hexTo - hexFrom;
+			desiredRotation = Quaternion.LookRotation(delta, Vector3.up);
+			transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, Time.deltaTime * 5.0f);
 		}
 		else
 		{
 			// reached end
 			OnReachEnd?.Invoke();
+			OriginFactory.Reclaim(this);
+			return false;
 		}
 
 		SetHealthbarPosition();

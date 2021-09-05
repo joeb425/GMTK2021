@@ -178,8 +178,12 @@ public class GameBoard : MonoBehaviour
 	}
 	public void ToggleTower(Hex tile, Tower towerPrefab)
 	{
-		Tower tower = Instantiate(towerPrefab);
-		tower.transform.position = grid.flat.HexToWorld(tile);
+		// Tower tower = Instantiate(towerPrefab);
+		// // tower.transform.position = grid.flat.HexToWorld(tile);
+		// towerLayer.AddTile(tile, tower.gameObject);
+		towerLayer.AddTile(tile, towerPrefab.gameObject);
+
+
 		// tile.Content = tower.gameObject;
 
 		// if (tile.Content.Type == HexContentType.Tower)
@@ -292,11 +296,17 @@ public class GameBoard : MonoBehaviour
 
 	public void GameUpdate()
 	{
+		// TODO optimize this
+		foreach (GameObject tower in towerLayer.hexGrid.Values)
+		{
+			tower.GetComponent<Tower>().GameUpdate();
+		}
+
 		// for (int i = 0; i < updatingContent.Count; i++)
 		// {
 		// 	updatingContent[i].GameUpdate();
 		// }
-
+		
 		grid.GetHexUnderRay(InputHandler.Get.touchRay, out hoveredTile);
 
 		// if (towerToBePlaced != null && hoveredTile != null)

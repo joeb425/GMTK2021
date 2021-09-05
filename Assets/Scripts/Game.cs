@@ -64,7 +64,7 @@ public class Game : MonoBehaviour
 		
 		gameState.Init();
 
-		// bulletPool.Initialize();
+		bulletPool.Initialize();
 
 		SharedGame = this;
 		
