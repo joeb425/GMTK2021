@@ -23,6 +23,8 @@ public class GameBoard : MonoBehaviour
 	public event System.Action<Hex, Hex> OnSelectedTileChanged;
 	public event System.Action<Hex, Hex> OnHoveredTileChanged;
 
+	public List<Hex> enemyPath = new List<Hex>();
+
 	public void Initialize(
 		Vector2Int size, GameTileContentFactory contentFactory
 	)
@@ -121,6 +123,8 @@ public class GameBoard : MonoBehaviour
 		{
 			Debug.Log("tower layer invalid");
 		}
+
+		enemyPath = new HexPathFinding().FindPath2(grid);
 	}
 
 	public void ToggleSpawnPoint(Hex tile)
@@ -436,6 +440,13 @@ public class GameBoard : MonoBehaviour
 		{
 			Gizmos.color = new Color(1, 1, 0, 0.5f);
 			Gizmos.DrawSphere(grid.flat.HexToWorld(selectedTile), .1f);
+		}
+
+		Gizmos.color = new Color(1, 0, 0, 0.5f);
+		foreach (Hex hex in enemyPath)
+		{
+			var worldPos = grid.flat.HexToWorld(hex);
+			Gizmos.DrawSphere(worldPos, 0.25f);
 		}
 	}
 }

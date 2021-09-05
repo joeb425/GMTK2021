@@ -4,94 +4,122 @@ using UnityEngine;
 
 namespace HexLibrary
 {
-    public class HexPathFinding : MonoBehaviour
-    {
-        private HexGrid grid;
+	public class HexPathFinding
+	{
+		private HexGrid grid;
 
-        private HexGridLayer groundLayer;
-        
-        // public Dictionary<Hex, HexGridTile> hexGrid;
-        // public Dictionary<Hex, HexGridTile> Path = new Dictionary<Hex, HexGridTile>();
-        public List<Hex> Path;
-        Hex startTile, prevTile, curTile;
-        List<Hex> surTile = new List<Hex>();
-        bool searchPath = true;
-        public void FindPath(HexGrid grid)
-        {
-            this.grid = grid;
-            groundLayer = grid.GetLayer("Ground");
+		private HexGridLayer groundLayer;
 
-            var hexGrid = groundLayer.hexGrid;
-            
-            startTile = FindStartPoint();
-            Path.Add(startTile);
+		List<Hex> surTile = new List<Hex>();
 
-            //keeping track
-            curTile = startTile;
-            prevTile = curTile;
+		public List<Hex> FindPath2(HexGrid grid)
+		{
+			this.grid = grid;
+			groundLayer = grid.GetLayer("Ground");
+			List<Hex> path = new List<Hex>();
+			FindPath_Rec(FindStartPoint(), path);
+			return path;
+		}
+		
+		public void FindPath_Rec(Hex current, List<Hex> path)
+		{
+			if (groundLayer.GetHexComponent(current, out var hexComponent))
+			{
+				bool isPath = hexComponent.TileType == HexTileType.Start ||
+				              hexComponent.TileType == HexTileType.Path ||
+				              hexComponent.TileType == HexTileType.End;
 
-            while (searchPath)
-            {
-                surTile.Clear();
-                for (int i = 0; i < 6; i++)
-                {
-                    if (hexGrid[curTile.Neighbor(i)] != null)
-                    {
-                       // Debug.Log(prev_tile.Item1 + " | " + cur_tile.Item1.Neighbor(i) + " - " + (prev_tile.Item1 == cur_tile.Item1.Neighbor(i)));
+				if (!isPath)
+					return;
 
-                        if (prevTile.Equals(curTile.Neighbor(i)))
-                        {
-                            continue;
-                        }
+				path.Add(current);
 
-                        surTile.Add(curTile.Neighbor(i));
-                    }
-                }
-                //Debug.Log(surTile.Count);
-                foreach (Hex tileCoord in surTile)
-                {
-                    if (!groundLayer.GetHexComponent(tileCoord, out var hexComponent))
-                    {
-                        continue;
-                    }
-                    
-                    if (hexComponent.TileType == HexTileType.End)
-                    {
-                        Path.Add(tileCoord);
-                        searchPath = false;
-                        // tile_loc2 = hexGrid[tileCoord].spawnedTile.transform.position;
-                        break;
-                    }
-                    if (hexComponent.TileType == HexTileType.Path)
-                    {
-                        Path.Add(tileCoord);
-                        prevTile = curTile;
-                        curTile = (tileCoord);
-                       // Debug.Log("Added a tile! : " + tile_coord + " - " + hexGrid[tile_coord].tileType);
-                       // Debug.Log("Prev tile : " + prevTile + "Cur_tile : " + curTile);
-                        break;
-                    }
-                }
-            }
+				for (int i = 0; i < 6; i++)
+				{
+					Hex neighbor = current.Neighbor(i);
+					if (path.Contains(neighbor))
+					{
+						continue;
+					}
 
-            //Debug.Log(Path.Count);
-            // return null;
-        }
+					FindPath_Rec(neighbor, path);
+				}
+			}
+		}
 
-        public Hex FindStartPoint()
-        {
-            var kvp = groundLayer.hexGrid.FirstOrDefault(x => x.Value.GetComponent<HexComponent>().TileType == HexTileType.Start);
-            return kvp.Key;
-        }
+		public List<Hex> FindPath(HexGrid grid)
+		{
+			List<Hex> path = new List<Hex>();
 
-        void OnDrawGizmos()
-        {
-            Gizmos.color = new Color(1, 1, 0, 0.5f);
-            foreach (Hex temp in Path)
-            {
-                var worldPos = grid.flat.HexToWorld(temp);
-                Gizmos.DrawSphere(worldPos, 1f);
-            }
-        }
-    }
+			this.grid = grid;
+			groundLayer = grid.GetLayer("Ground");
+
+			var hexGrid = groundLayer.hexGrid;
+
+			Hex startTile = FindStartPoint();
+			path.Add(startTile);
+
+			//keeping track
+			Hex curTile = startTile;
+			Hex prevTile = curTile;
+
+			bool searchPath = true;
+			while (searchPath)
+			{
+				surTile.Clear();
+				for (int i = 0; i < 6; i++)
+				{
+					if (hexGrid[curTile.Neighbor(i)] != null)
+					{
+						// Debug.Log(prev_tile.Item1 + " | " + cur_tile.Item1.Neighbor(i) + " - " + (prev_tile.Item1 == cur_tile.Item1.Neighbor(i)));
+
+						if (prevTile.Equals(curTile.Neighbor(i)))
+						{
+							continue;
+						}
+
+						surTile.Add(curTile.Neighbor(i));
+					}
+				}
+
+				//Debug.Log(surTile.Count);
+				foreach (Hex tileCoord in surTile)
+				{
+					if (!groundLayer.GetHexComponent(tileCoord, out var hexComponent))
+					{
+						continue;
+					}
+
+					if (hexComponent.TileType == HexTileType.End)
+					{
+						path.Add(tileCoord);
+						// tile_loc2 = hexGrid[tileCoord].spawnedTile.transform.position;
+						break;
+					}
+
+					if (hexComponent.TileType == HexTileType.Path)
+					{
+						path.Add(tileCoord);
+						prevTile = curTile;
+						curTile = (tileCoord);
+						// Debug.Log("Added a tile! : " + tile_coord + " - " + hexGrid[tile_coord].tileType);
+						// Debug.Log("Prev tile : " + prevTile + "Cur_tile : " + curTile);
+						break;
+					}
+				}
+			}
+
+			//Debug.Log(Path.Count);
+			// return null;
+
+			return path;
+		}
+
+		public Hex FindStartPoint()
+		{
+			var kvp = groundLayer.hexGrid.FirstOrDefault(x =>
+				x.Value.GetComponent<HexComponent>().TileType == HexTileType.Start);
+			return kvp.Key;
+		}
+	}
 }

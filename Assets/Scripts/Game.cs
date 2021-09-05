@@ -88,8 +88,8 @@ public class Game : MonoBehaviour
 
 	void Update()
 	{
-		// spawnerHandler.GameUpdate();
-		// enemies.GameUpdate();
+		spawnerHandler.GameUpdate();
+		enemies.GameUpdate();
 		board.GameUpdate();
 		inputHandler.GameUpdate();
 

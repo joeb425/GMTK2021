@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using HexLibrary;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,7 +29,6 @@ public class Enemy : MonoBehaviour
 
 
 	public EnemyFactory OriginFactory
-
 	{
 		get => originFactory;
 		set
@@ -37,18 +38,19 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
-	public void SpawnOn(GameTile tile)
+	public void SpawnOn(Vector3 worldPos)
 	{
-		transform.position = tile.transform.position;
-		Debug.Assert(tile.NextTileOnPath != null, "Nowhere to go!", this);
-		tileFrom = tile;
-		tileTo = tile.NextTileOnPath;
+		transform.position = worldPos;
+		// transform.position = tile.transform.position;
+		// Debug.Assert(tile.NextTileOnPath != null, "Nowhere to go!", this);
+		// tileFrom = tile;
+		// tileTo = tile.NextTileOnPath;
 		Health = maxHealth;
 		//positionFrom = tileFrom.transform.localPosition;
 		//positionTo = tileFrom.ExitPoint;
 		//transform.localRotation = tileFrom.PathDirection.GetRotation();
 		progress = 0f;
-		PrepareIntro();
+		// PrepareIntro();
 
 		if (!_healthBarInstance)
 		{
@@ -63,12 +65,12 @@ public class Enemy : MonoBehaviour
 
 	void PrepareIntro()
 	{
-		positionFrom = tileFrom.transform.localPosition;
-		positionTo = tileFrom.ExitPoint;
-		direction = tileFrom.PathDirection;
-		directionChange = DirectionChange.None;
-		directionAngleFrom = directionAngleTo = direction.GetAngle();
-		transform.localRotation = direction.GetRotation();
+		// positionFrom = tileFrom.transform.localPosition;
+		// positionTo = tileFrom.ExitPoint;
+		// direction = tileFrom.PathDirection;
+		// directionChange = DirectionChange.None;
+		// directionAngleFrom = directionAngleTo = direction.GetAngle();
+		// transform.localRotation = direction.GetRotation();
 	}
 
 	public void ApplyDamage(float damage)
@@ -93,30 +95,50 @@ public class Enemy : MonoBehaviour
 			_healthBarInstance.SetActive(true);
 		}
 
-		SetHealthbarPosition();
 
 		progress += Time.deltaTime;
-		while (progress >= 1f)
+		int index = (int) Mathf.Floor(progress);
+		var path = GameState.Get.Board.enemyPath;
+		if (index + 1 < path.Count)
 		{
-			tileFrom = tileTo;
-			tileTo = tileTo.NextTileOnPath;
-			// check for end tile
-			if (tileTo == null)
-			{
-				// Take damage here
-				OnReachEnd();
-				OriginFactory.Reclaim(this);
-				return false;
-			}
+			Hex hex = path[index];
+			Hex nextHex = path[index + 1];
 
-			//positionFrom = positionTo;
-			//positionTo = tileFrom.ExitPoint;
-			//transform.localRotation = tileFrom.PathDirection.GetRotation();
-			progress -= 1f;
-			PrepareNextState();
+			float tileProgress = progress - index;
+			Vector3 hexFrom = GameState.Get.Board.grid.flat.HexToWorld(hex);
+			Vector3 hexTo = GameState.Get.Board.grid.flat.HexToWorld(nextHex);
+			transform.position = Vector3.LerpUnclamped(hexFrom, hexTo, tileProgress);
+		}
+		else
+		{
+			// reached end
+			OnReachEnd?.Invoke();
 		}
 
-		transform.localPosition = Vector3.LerpUnclamped(positionFrom, positionTo, progress);
+		SetHealthbarPosition();
+
+		
+		// while (progress >= 1f)
+		// {
+		// 	tileFrom = tileTo;
+		// 	tileTo = tileTo.NextTileOnPath;
+		// 	// check for end tile
+		// 	if (tileTo == null)
+		// 	{
+		// 		// Take damage here
+		// 		OnReachEnd();
+		// 		OriginFactory.Reclaim(this);
+		// 		return false;
+		// 	}
+		//
+		// 	//positionFrom = positionTo;
+		// 	//positionTo = tileFrom.ExitPoint;
+		// 	//transform.localRotation = tileFrom.PathDirection.GetRotation();
+		// 	progress -= 1f;
+		// 	PrepareNextState();
+		// }
+
+		// transform.localPosition = Vector3.LerpUnclamped(positionFrom, positionTo, progress);
 		return true;
 	}
 

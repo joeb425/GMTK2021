@@ -238,7 +238,7 @@ MonoBehaviour:
   board: {fileID: 2022507406}
   tileContentFactory: {fileID: 0}
   enemyFactory: {fileID: 11400000, guid: 10853dab2c4eb754599ef45380c49ac5, type: 2}
-  spawnerHandler: {fileID: 0}
+  spawnerHandler: {fileID: 640835631}
   bulletPool: {fileID: 0}
   ObjectPools: []
 --- !u!4 &371505263
@@ -254,6 +254,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &640835630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 640835632}
+  - component: {fileID: 640835631}
+  m_Layer: 0
+  m_Name: SpawnerHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &640835631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640835630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 314dc94dbac1b234b8f23b9bc74420a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyFactory: {fileID: 11400000, guid: 10853dab2c4eb754599ef45380c49ac5, type: 2}
+  waves:
+  - enemyCount: 20
+    spawnSpeed: 1
+    enemyElementNo: 1
+  board: {fileID: 2022507406}
+--- !u!4 &640835632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640835630}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.6222284, y: -16.462784, z: -0.21526399}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &739550509
 GameObject:
@@ -560,6 +609,7 @@ MonoBehaviour:
   grid: {fileID: 2022507405}
   groundLayer: {fileID: 0}
   towerLayer: {fileID: 0}
+  enemyPath: []
   selectedTile:
     q: 0
     r: 0
@@ -580,7 +630,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89756bcd65684a8285f2e7d6a4575e1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: {fileID: 4900000, guid: a7d490f489e649b43a49415b9e239b31, type: 3}
+  levelToLoad: {fileID: 4900000, guid: 83ca3590de29f2948bb960d8b6be122c, type: 3}
   tilePalette: {fileID: 11400000, guid: 3c317e0a842eea94397cfe51c527338c, type: 2}
   serializedLayers: []
-  PathFinder: {fileID: 0}
