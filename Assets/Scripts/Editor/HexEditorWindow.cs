@@ -153,7 +153,7 @@ namespace Editor
 			{
 				if (GetPrefabFromKey(e.keyCode, out var prefab))
 				{
-					GetCurrentGridLayer().AddTile(hex, prefab);
+					GetCurrentGridLayer().AddTile(hex, Instantiate(prefab));
 				}
 				else if (e.keyCode == KeyCode.Q) // delete tile when pressing Q
 				{

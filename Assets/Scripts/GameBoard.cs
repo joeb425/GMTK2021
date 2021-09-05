@@ -25,88 +25,8 @@ public class GameBoard : MonoBehaviour
 
 	public List<Hex> enemyPath = new List<Hex>();
 
-	public void Initialize(
-		Vector2Int size, GameTileContentFactory contentFactory
-	)
+	public void Initialize()
 	{
-		// int spawn_loc = 1;
-		// int end_loc = 20;
-		//
-		// Debug.Log("Try load level " + GlobalData.CurrentLevel);
-		// TextAsset levelToLoad = GlobalData.CurrentLevel < 0 ? leveldesign : GlobalData.GetLevelData().levels[GlobalData.CurrentLevel];
-		//
-		// Levels levelsLoaded = JsonUtility.FromJson<Levels>(levelToLoad.text);
-		//
-		// foreach (LevelData level in levelsLoaded.level)
-		// {
-		// 	size.x = level.layout[0].row.Count;
-		// 	size.y = level.layout.Count;
-		// 	Debug.Log("Found Level: " + level.tier + " - " + level.layout.Count + "." + level.layout[1].row.Count + ".");
-		// }
-		//
-		// this.size = size;
-		// this.contentFactory = contentFactory;
-		// ground.localScale = new Vector3(size.x, size.y, 1f);
-		// //build.localScale = new Vector3(size.x, size.y, 1f);
-		//
-		// Vector2 offset = new Vector2(
-		// 	(size.x - 1) * 0.5f, (size.y - 1) * 0.5f
-		// );
-		// tiles = new Hex[size.x * size.y];
-		// for (int i = 0, y = 0; y < size.y; y++)
-		// {
-		// 	for (int x = 0; x < size.x; x++, i++)
-		// 	{
-		//
-		// 		Hex tile = tiles[i] = Instantiate(tilePrefab);
-		// 		tile.transform.SetParent(transform, false);
-		// 		tile.transform.localPosition = new Vector3(
-		// 			x - offset.x, 0f, y - offset.y
-		// 		);
-		//
-		// 		if (x > 0)
-		// 		{
-		// 			Hex.MakeEastWestNeighbors(tile, tiles[i - 1]);
-		// 		}
-		//
-		// 		if (y > 0)
-		// 		{
-		// 			Hex.MakeNorthSouthNeighbors(tile, tiles[i - size.x]);
-		// 		}
-		//
-		// 		tile.IsAlternative = (x & 1) == 0;
-		// 		if ((y & 1) == 0)
-		// 		{
-		// 			tile.IsAlternative = !tile.IsAlternative;
-		// 		}
-		//
-		// 		tile.Content = contentFactory.Get(HexContentType.Path);
-		//
-		// 		Debug.Log(x + ", " + y);
-		// 		int TileType = levelsLoaded.level[0].layout[y].row[x];
-		// 		switch (TileType)
-		// 		{
-		// 			case 0: //trees n shit, for looks
-		// 				break;
-		// 			case 1: //For building on no monsters
-		// 				ToggleBuildSpot(tiles[i]);
-		// 				break;
-		// 			case 2: //For monster track
-		// 				break;
-		// 			case 3: //For spawn
-		// 				spawn_loc = i;
-		// 				break;
-		// 			case 4: //For end
-		// 				end_loc = i;
-		// 				break;
-		// 		}
-		// 	}
-		// }
-		//
-		// ToggleDestination(tiles[end_loc]);
-		// ToggleSpawnPoint(tiles[spawn_loc]);
-		// FindPaths();
-
 		OnSelectedTileChanged += SelectedTileChanged;
 
 		grid.Init();
@@ -178,10 +98,11 @@ public class GameBoard : MonoBehaviour
 	}
 	public void ToggleTower(Hex tile, Tower towerPrefab)
 	{
-		// Tower tower = Instantiate(towerPrefab);
+		Tower tower = Instantiate(towerPrefab);
+		towerLayer.AddTile(tile, tower.gameObject);
+
 		// // tower.transform.position = grid.flat.HexToWorld(tile);
 		// towerLayer.AddTile(tile, tower.gameObject);
-		towerLayer.AddTile(tile, towerPrefab.gameObject);
 
 
 		// tile.Content = tower.gameObject;
@@ -231,67 +152,6 @@ public class GameBoard : MonoBehaviour
 	{
 		grid.GetHexUnderRay(ray, out var hex);
 		return hex;
-	}
-
-	bool FindPaths()
-	{
-		// foreach (Hex tile in tiles)
-		// {
-		// 	if (tile.Content.Type == HexContentType.Destination)
-		// 	{
-		// 		tile.BecomeDestination();
-		// 		searchFrontier.Enqueue(tile);
-		// 	}
-		// 	else
-		// 	{
-		// 		tile.ClearPath();
-		// 	}
-		// }
-		//
-		// if (searchFrontier.Count == 0)
-		// {
-		// 	return false;
-		// }
-		//
-		// while (searchFrontier.Count > 0)
-		// {
-		// 	Hex tile = searchFrontier.Dequeue();
-		// 	if (tile != null)
-		// 	{
-		// 		if (tile.IsAlternative)
-		// 		{
-		// 			searchFrontier.Enqueue(tile.GrowPathNorth());
-		// 			searchFrontier.Enqueue(tile.GrowPathSouth());
-		// 			searchFrontier.Enqueue(tile.GrowPathEast());
-		// 			searchFrontier.Enqueue(tile.GrowPathWest());
-		// 		}
-		// 		else
-		// 		{
-		// 			searchFrontier.Enqueue(tile.GrowPathWest());
-		// 			searchFrontier.Enqueue(tile.GrowPathEast());
-		// 			searchFrontier.Enqueue(tile.GrowPathSouth());
-		// 			searchFrontier.Enqueue(tile.GrowPathNorth());
-		// 		}
-		// 	}
-		// }
-		//
-		// foreach (Hex tile in tiles)
-		// {
-		// 	if (!tile.HasPath)
-		// 	{
-		// 		return false;
-		// 	}
-		// }
-		//
-		// if (showPaths)
-		// {
-		// 	foreach (Hex tile in tiles)
-		// 	{
-		// 		tile.ShowPath();
-		// 	}
-		// }
-
-		return true;
 	}
 
 	public void GameUpdate()

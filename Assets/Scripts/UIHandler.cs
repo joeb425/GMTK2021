@@ -57,7 +57,7 @@ public class UIHandler : MonoBehaviour
 		UpdateLivesLabel(GameState.Get.CurrentLives);
 
 		SetBuildMenuEnabled(false);
-		SetTowerInfoEnabled(false, null);
+		UpdateTowerInfoEnabled(null);
 	}
 
 	public void ReadUIDocument()
@@ -80,30 +80,40 @@ public class UIHandler : MonoBehaviour
 		// Debug.Log("open" + menuEnabled);
 	}
 
-	public void SetTowerInfoEnabled(bool menuEnabled, [CanBeNull] GameTile tile)
+	public bool UpdateTowerInfoEnabled(Hex hex)
 	{
-		// Debug.Log("pre ui" + menuEnabled);
+		bool menuEnabled = false;
+
+		if (GameState.Get.Board.towerLayer.GetTile(hex, out var content))
+		{
+			Tower tower = content.GetComponent<Tower>();
+			if (tower != null)
+			{
+				_towerInfoMenu.BindToTower(tower);
+				menuEnabled = true;
+			}
+		}
+
 		_towerInfoMenuContainer.style.display = menuEnabled ? DisplayStyle.Flex : DisplayStyle.None;
 		SetElementBlockingMouse(_towerInfoMenuContainer, menuEnabled);
-		if (menuEnabled)
-		{
-			_towerInfoMenu.BindToTower((Tower)tile.Content);
-		}
+
+		return menuEnabled;
 	}
 
 	void OnSelectedTileChanged(Hex selectedTile)
 	{
-		Debug.Log("test");
-		if (!GameState.Get.Board.groundLayer.GetTile(selectedTile, out var gameObject))
+		if (!GameState.Get.Board.groundLayer.GetTile(selectedTile, out var tileContent))
 		{
 			return;
 		}
 
-		// bool showTowerUI = gameObject is Tower;
-		// SetTowerInfoEnabled(showTowerUI, selectedTile);
-
+		if (UpdateTowerInfoEnabled(selectedTile))
+		{
+			return;
+		}
+		
 		bool showBuildUI = false;
-		var hexComponent = gameObject.GetComponent<HexComponent>();
+		var hexComponent = tileContent.GetComponent<HexComponent>();
 		if (hexComponent != null)
 		{
 			showBuildUI = hexComponent.TileType == HexTileType.Build;

@@ -25,9 +25,6 @@ public class Game : MonoBehaviour
 	GameBoard board = default;
 
 	[SerializeField]
-	GameTileContentFactory tileContentFactory = default;
-
-	[SerializeField]
 	EnemyFactory enemyFactory = default;
 
 	[SerializeField]
@@ -51,7 +48,7 @@ public class Game : MonoBehaviour
 	void Awake()
 	{
 		Debug.Log("Game Awake");
-		board.Initialize(boardSize, tileContentFactory);
+		board.Initialize();
 
 		// spawnerHandler.board = board;
 

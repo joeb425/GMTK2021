@@ -53,7 +53,11 @@ namespace HexLibrary
 
 		public bool GetTile(Hex hexCoord, out GameObject tile)
 		{
-			return hexGrid.TryGetValue(hexCoord, out tile);
+			if (hexCoord != null)
+				return hexGrid.TryGetValue(hexCoord, out tile);
+
+			tile = null;
+			return false;
 		}
 
 		public GameObject AddTile(Hex hexCoord, Guid guid)
@@ -62,27 +66,26 @@ namespace HexLibrary
 			{
 				if (prefab.GetComponent<GuidComponent>().GetGuid() == guid)
 				{
-					return AddTile(hexCoord, prefab);
+					return AddTile(hexCoord, Instantiate(prefab));
 				}
 			}
 
 			return null;
 		}
 
-		public GameObject AddTile(Hex hexCoord, GameObject tilePrefab)
+		public GameObject AddTile(Hex hexCoord, GameObject objectOnTile)
 		{
 			DeleteTile(hexCoord);
 
 			Vector3 worldPos = grid.flat.HexToWorld(hexCoord);
 
-			var tileContent = Instantiate(tilePrefab, gameObject.transform, true);
+			objectOnTile.transform.parent = gameObject.transform;
+			objectOnTile.transform.position = worldPos;
 
-			tileContent.transform.position = worldPos;
+			hexGrid.Add(hexCoord, objectOnTile);
+			serializedGrid.Add(new HexObjectPair(hexCoord, objectOnTile));
 
-			hexGrid.Add(hexCoord, tileContent);
-			serializedGrid.Add(new HexObjectPair(hexCoord, tileContent));
-
-			return tileContent;
+			return objectOnTile;
 		}
 
 		public bool RemoveTile(Hex hexCoord, out GameObject objectOnTile)

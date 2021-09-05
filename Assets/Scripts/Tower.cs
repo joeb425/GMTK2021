@@ -4,7 +4,7 @@ using Attributes;
 using UnityEngine;
 
 [Serializable]
-public class Tower : GameTileContent
+public class Tower : MonoBehaviour
 {
 	[SerializeField]
 	public TowerData towerData;
@@ -66,7 +66,7 @@ public class Tower : GameTileContent
 		radiusLineRenderer.enabled = false;
 	}
 
-	public override void GameUpdate()
+	public void GameUpdate()
 	{
 		if (TrackTarget() || AcquireTarget())
 		{
