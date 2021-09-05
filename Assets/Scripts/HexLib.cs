@@ -345,6 +345,12 @@ public struct Layout
 		return new Vector2(x + origin.x, y + origin.y);
 	}
 
+	public Vector3 HexToWorld(Hex h)
+	{
+		Vector2 pixel = HexToPixel(h);
+		return new Vector3(pixel.x, 0, pixel.y);
+	}
+
 
 	public FractionalHex PixelToHex(Vector2 p)
 	{

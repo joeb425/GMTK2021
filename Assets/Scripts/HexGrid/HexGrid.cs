@@ -1,189 +1,192 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
 using System.Linq;
-using JetBrains.Annotations;
+using DefaultNamespace;
+using DefaultNamespace.HexGrid;
 using UnityEngine;
 
-namespace DefaultNamespace.HexGridEditor
+namespace HexGrid
 {
 	[Serializable]
-	public enum HexTileType
-	{
-		Build = 0,
-		Path = 1,
-		Start = 2,
-		End = 3,
-	}
-
-	// [ExecuteInEditMode]
-	public class HexGrid : MonoBehaviour
+	public class HexGrid : MonoBehaviour, ISerializationCallbackReceiver
 	{
 		[SerializeField]
-		public HexTileSpawnData hexTileSpawnData;
+		public TextAsset levelToLoad;
 
 		[SerializeField]
-		TextAsset levelToLoad;
+		public HexTilePalette tilePalette;
+
+		[SerializeField]
+		private List<HexGridLayer> serializedLayers;
 
 		public Layout flat;
 
-		public Dictionary<Hex, HexGridTile> hexGrid = new Dictionary<Hex, HexGridTile>();
-
 		public Plane gridPlane = new Plane(Vector3.up, Vector3.zero);
+
+		// stores a reference to the layer 
+		public Dictionary<string, HexGridLayer> layers = new Dictionary<string, HexGridLayer>();
 
 		public HexGrid()
 		{
 			flat = new Layout(Layout.flat, new Vector2(1.0f, 1.0f), Vector2.zero);
 		}
 
+		public bool GetHexUnderRay(Ray ray, out Hex hex)
+		{
+			if (gridPlane.Raycast(ray, out float dist))
+			{
+				Vector3 hitPoint = ray.GetPoint(dist);
+				Vector2 point = new Vector2(hitPoint.x, hitPoint.z);
+				hex = flat.PixelToHex(point).HexRound();
+				return true;
+			}
+
+			hex = null;
+			return false;
+		}
+
 		public void Awake()
 		{
+			Init();
+		}
+
+		public void Init()
+		{
+			Debug.Log("Init hex grid?");
 			if (Application.isPlaying)
 			{
 				LoadLevel();
 			}
+
+			InitLayers();
 		}
 
-		[CanBeNull]
-		public HexGridTile GetTile(Hex hexCoord)
+		public void LoadLevel()
 		{
-			return hexGrid.ContainsKey(hexCoord) ? hexGrid[hexCoord] : null;
-		}
+			// TODO load level selected from menu screen
 
-		public void AddTile(Hex hexCoord, HexTileType type)
-		{
-			DeleteTile(hexCoord);
-			
-			HexTileSpawnInfo tileSpawnInfo = GetSpawnInfoFromType(type);
-
-			GameObject spawnedHex = Instantiate(tileSpawnInfo.tilePrefab, transform, false);
-
-			Vector2 hexToPixel = flat.HexToPixel(hexCoord);
-			Vector3 worldPos = new Vector3(hexToPixel.x, 0.0f, hexToPixel.y);
-			spawnedHex.transform.position = worldPos;
-
-			HexGridTile hexGridTile = new HexGridTile();
-			hexGridTile.spawnedTile = spawnedHex;
-			hexGridTile.tileType = tileSpawnInfo.tileType;
-			hexGrid.Add(hexCoord, hexGridTile);
-		}
-
-		public HexTileSpawnInfo GetSpawnInfoFromType(HexTileType tileType)
-		{
-			return hexTileSpawnData.spawnData.FirstOrDefault(spawnInfo => spawnInfo.tileType == tileType);
-		}
-
-		public void DeleteTile(Hex hexCoord)
-		{
-			if (!hexGrid.ContainsKey(hexCoord)) 
-				return;
-			
-			if (Application.isPlaying)
-			{
-				Destroy(hexGrid[hexCoord].spawnedTile);
-			}
-			else
-			{
-				DestroyImmediate(hexGrid[hexCoord].spawnedTile);
-			}
-
-			hexGrid.Remove(hexCoord);
-		}
-
-		public void DeleteAllTiles()
-		{
-			int numChildren = transform.childCount;
-			GameObject[] childrenToDestroy = new GameObject[numChildren];
-			for (int i = 0; i < numChildren; ++i)
-			{
-				childrenToDestroy[i] = transform.GetChild(i).gameObject;
-			}
-			
-			foreach (GameObject child in childrenToDestroy)
-			{
-				if (Application.isPlaying)
-				{
-					Destroy(child);
-				}
-				else
-				{
-					DestroyImmediate(child);
-				}
-			}
-
-			if (hexGrid != null)
-			{
-				foreach (KeyValuePair<Hex, HexGridTile> kvp in hexGrid)
-				{
-					if (Application.isPlaying)
-					{
-						Destroy(kvp.Value.spawnedTile);
-					}
-					else
-					{
-						DestroyImmediate(kvp.Value.spawnedTile);
-					}
-				}
-			}
-
-			hexGrid = new Dictionary<Hex, HexGridTile>();
-		}
-
-		public void LoadLevel(bool isInEditor = false)
-		{
-			Debug.Log("Load level!");
 			LoadLevelFromJson(levelToLoad.text);
+		}
+
+		public void InitLayers()
+		{
+			layers = new Dictionary<string, HexGridLayer>();
+			serializedLayers = new List<HexGridLayer>();
+
+			foreach (HexTileLayerPalette tile in tilePalette.tilePalette)
+			{
+				AddLayer(tile.layerName);
+			}
+		}
+
+		public void AddLayer(string layerName)
+		{
+			if (layers.ContainsKey(layerName))
+			{
+				return;
+			}
+
+			GameObject layerContainer = new GameObject(layerName);
+			layerContainer.transform.parent = transform;
+			HexGridLayer layer = layerContainer.AddComponent<HexGridLayer>();
+			layer.InitGrid(this, layerName);
+
+			layers.Add(layerName, layer);
+			serializedLayers.Add(layer);
+		}
+
+		public HexGridLayer GetLayer(string layerName)
+		{
+			return serializedLayers.FirstOrDefault(layer => layer.layerName == layerName);
+
+			// return layers[layerName];
+		}
+
+		public void ResetGrid()
+		{
+			// foreach (HexGridLayer layer in layers.Values)
+			// {
+			// 	layer.ResetLayer();
+			// }
+
+			GlobalHelpers.DeleteAllChildren(gameObject);
+
+			InitLayers();
 		}
 
 		public void LoadLevelFromJson(string json)
 		{
-			DeleteAllTiles();
-			JsonHexGrid jsonGrid = JsonUtility.FromJson<JsonHexGrid>(json);
-			foreach (JsonHex jsonHex in jsonGrid.hexData)
+			ResetGrid();
+			JsonHexGrid jsonHexGrid = JsonUtility.FromJson<JsonHexGrid>(json);
+			foreach (JsonHexLayer jsonHexLayer in jsonHexGrid.hexLayer)
 			{
-				Hex hex = jsonHex.hex;
-				HexTileType hexType = (HexTileType)jsonHex.type;
-				AddTile(hex, hexType);
+				HexGridLayer hexGridLayer = GetLayer(jsonHexLayer.layerName);
+
+				foreach (JsonHex jsonHex in jsonHexLayer.hexData)
+				{
+					Hex hex = jsonHex.hex;
+					Guid guid = new Guid(jsonHex.guid);
+					if (hexGridLayer.AddTile(hex, guid))
+					{
+						Debug.Log($"Spawn tile {hex} : {jsonHex.guid}");
+					}
+				}
 			}
 		}
 
-		private void Update()
+		public JsonHexGrid GenerateJsonGrid()
 		{
-			// Debug.Log("updating");
-			//
-			// var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			//
-			// if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue))
-			// {
-			// 	Debug.Log(hit.point);
-			// 	Point point = new Point(hit.point.x, hit.point.z);
-			// 	Hex hex = flat.PixelToHex(point).HexRound();
-			// 	Debug.Log(hex);
-			// 	Point roundedWorld = flat.HexToPixel(hex);
-			// 	_spawneHex.transform.position = new Vector3((float)roundedWorld.x, 0, (float)roundedWorld.y);
-			// }
+			JsonHexGrid jsonHexGrid = new JsonHexGrid();
+
+			foreach (var layerKvp in layers)
+			{
+				string layerName = layerKvp.Key;
+				JsonHexLayer hexLayer = new JsonHexLayer(layerName);
+				jsonHexGrid.hexLayer.Add(hexLayer);
+
+				HexGridLayer hexGridLayer = layerKvp.Value;
+				foreach (var hexKvp in hexGridLayer.hexGrid)
+				{
+					Hex hex = hexKvp.Key;
+					GameObject hexContent = hexKvp.Value;
+
+					if (!hexContent.TryGetComponent<GuidComponent>(out var guidComponent))
+					{
+						continue;
+					}
+
+					string guid = guidComponent.GetGuidString();
+					Debug.Log("savedaaaa " + guid);
+
+					JsonHex jsonHex = new JsonHex(hex, guid);
+					hexLayer.hexData.Add(jsonHex);
+				}
+			}
+
+			return jsonHexGrid;
 		}
 
-		void OnDrawGizmos()
+		public void OnBeforeSerialize()
 		{
-			Gizmos.DrawSphere(Vector3.zero, 0.5f);
-			// TODO draw hex grid
+			serializedLayers.RemoveAll(layer => layer == null);
+		}
 
-			// Vector3 pos = Camera.current.transform.position;
-			// for (float y = pos.y - 800.0f; y < pos.y + 800.0f; y += height)
-			// {
-			// 	Gizmos.DrawLine(
-			// 		new Vector3(-1000000.0f, 0.0f, Mathf.Floor(y / height) * height),
-			// 		new Vector3(1000000.0f, 0.0f, Mathf.Floor(y / height) * height));
-			// }
-			//
-			// for (float x = pos.x - 1200.0f; x < pos.x + 1200.0f; x += width)
-			// {
-			// 	Gizmos.DrawLine(
-			// 		new Vector3(Mathf.Floor(x / width) * width, 0.0f, -1000000.0f),
-			// 		new Vector3(Mathf.Floor(x / width) * width, 0.0f, 1000000.0f));
-			// }
+		public void OnAfterDeserialize()
+		{
+			serializedLayers.RemoveAll(layer => layer == null);
+
+			layers = new Dictionary<string, HexGridLayer>();
+			Debug.Log(serializedLayers.Count);
+			foreach (HexGridLayer layer in serializedLayers)
+			{
+				Debug.Log(layer.layerName + " aa" + (layer == null));
+			}
+
+			foreach (HexGridLayer layer in serializedLayers)
+			{
+				Debug.Log(layer.layerName + " aa" + (layer == null));
+				layers.Add(layer.layerName, layer);
+			}
 		}
 	}
 }

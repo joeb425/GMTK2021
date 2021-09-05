@@ -1,4 +1,5 @@
 ﻿using System;
+using DefaultNamespace.HexGrid;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.EnhancedTouch;
@@ -52,7 +53,7 @@ public class InputHandler
 		}
 		
 		GameBoard board = GameState.Get.Board;
-		GameTile tile = board.GetTile(touchRay);
+		Hex tile = board.GetTile(touchRay);
 		if (tile != null)
 		{
 			board.SelectTile(board.hoveredTile);

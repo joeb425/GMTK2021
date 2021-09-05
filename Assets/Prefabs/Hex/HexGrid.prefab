@@ -43,5 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89756bcd65684a8285f2e7d6a4575e1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hexTileSpawnData: {fileID: 11400000, guid: 14241e6dcbd3cc44f9be197818e46921, type: 2}
-  levelToLoad: {fileID: 4900000, guid: a7d490f489e649b43a49415b9e239b31, type: 3}
+  tilePalette: {fileID: 11400000, guid: 3c317e0a842eea94397cfe51c527338c, type: 2}
