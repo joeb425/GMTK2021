@@ -21,7 +21,7 @@ namespace HexLibrary
 			return path;
 		}
 		
-		public void FindPath_Rec(Hex current, List<Hex> path)
+		public bool FindPath_Rec(Hex current, List<Hex> path)
 		{
 			if (groundLayer.GetHexComponent(current, out var hexComponent))
 			{
@@ -30,9 +30,14 @@ namespace HexLibrary
 				              hexComponent.TileType == HexTileType.End;
 
 				if (!isPath)
-					return;
+					return false;
 
 				path.Add(current);
+
+				if (hexComponent.TileType == HexTileType.End)
+				{
+					return true;
+				}
 
 				for (int i = 0; i < 6; i++)
 				{
@@ -42,9 +47,14 @@ namespace HexLibrary
 						continue;
 					}
 
-					FindPath_Rec(neighbor, path);
+					if (FindPath_Rec(neighbor, path))
+					{
+						return true;
+					}
 				}
 			}
+
+			return false;
 		}
 
 		public List<Hex> FindPath(HexGrid grid)
