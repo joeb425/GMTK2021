@@ -7,37 +7,58 @@ public class BulletPool : MonoBehaviour
 {
 	public static BulletPool Get;
 
-	public List<GameObject> pooledObjects;
+	// public List<GameObject> inactiveBullets;
+	public Stack<GameObject> inactiveBullets;
 
 	[SerializeField]
 	public GameObject objectToPool;
 
 	[SerializeField]
-	public int amountToPool = 1000;
+	public int amountToPool = 150;
+
+	[SerializeField]
+	public int increments = 50;
 
 	public void Initialize()
 	{
 		Get = this;
 
-		pooledObjects = new List<GameObject>();
-		for (int i = 0; i < amountToPool; i++)
+		inactiveBullets = new Stack<GameObject>();
+
+		AddBullets(amountToPool);
+	}
+
+	private void AddBullets(int amount)
+	{
+		for (int i = 0; i < amount; i++)
 		{
-			GameObject obj = (GameObject) Instantiate(objectToPool);
-			obj.SetActive(false);
-			pooledObjects.Add(obj);
+			GameObject obj = Instantiate(objectToPool);
+			AddBulletToPool(obj);
 		}
+	}
+
+	public void AddBulletToPool(GameObject obj)
+	{
+		obj.SetActive(false);
+		inactiveBullets.Push(obj);
 	}
 
 	public GameObject GetPooledObject()
 	{
-		for (int i = 0; i < pooledObjects.Count; i++)
+		if (inactiveBullets.Count <= 0)
 		{
-			if (!pooledObjects[i].activeInHierarchy)
-			{
-				return pooledObjects[i];
-			}
+			AddBullets(increments);
 		}
 
-		return null;
+		var bullet = inactiveBullets.Pop();
+		// bullet.SetActive(true);
+		return bullet;
+		// for (int i = 0; i < inactiveBullets.Count; i++)
+		// {
+		// 	if (!inactiveBullets[i].activeInHierarchy)
+		// 	{
+		// 		return inactiveBullets[i];
+		// 	}
+		// }
 	}
 }

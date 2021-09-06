@@ -13,7 +13,7 @@ public class Tower : MonoBehaviour
 	Transform turret;
 
 	[SerializeField]
-	Transform bulletSpawnPoint;
+	public Transform bulletSpawnPoint;
 
 	[SerializeField]
 	public LineRenderer linePrefab;
@@ -171,7 +171,6 @@ public class Tower : MonoBehaviour
 				{
 					bulletObject.transform.position = bulletSpawnPoint.position;
 					bulletObject.transform.rotation = bulletSpawnPoint.rotation;
-					bulletObject.SetActive(true);
 
 					Bullet bullet = bulletObject.GetComponent<Bullet>();
 					bullet.target = targetToAttack;
@@ -179,6 +178,8 @@ public class Tower : MonoBehaviour
 					bullet.bulletMesh.mesh = towerData.bulletMesh;
 					bullet.bulletSpeed = towerData.bulletSpeed;
 					bullet.bulletMeshRenderer.materials[0] = towerData.bulletMaterial;
+
+					bulletObject.SetActive(true);
 				}
 			}
 		}
