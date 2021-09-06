@@ -28,9 +28,6 @@ public class Tower : MonoBehaviour
 
 	private TargetPoint target = null;
 
-	[SerializeField]
-	public List<Perk> towerPerks;
-
 	private bool hasRotator;
 
 	public GameplayAttributeContainer Attributes = new GameplayAttributeContainer();
