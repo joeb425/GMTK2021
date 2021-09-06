@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: SlowEffect
   m_EditorClassIdentifier: 
   Modifiers:
-  - attribute: 6
+  - attribute: 7
     value: 0.5
     valueOperator: 2
-  duration: 0.25
+  duration: 5
   interval: 0
   serializedGuid: 5fff3eb7ac19ab48b75285dfe5c86b76

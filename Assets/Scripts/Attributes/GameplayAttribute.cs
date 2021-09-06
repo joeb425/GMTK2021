@@ -10,6 +10,7 @@ namespace Attributes
 	public enum AttributeType
 	{
 		Health,
+		MaxHealth,
 		Range,
 		Damage,
 		AttackSpeed,

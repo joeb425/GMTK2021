@@ -24,3 +24,6 @@ MonoBehaviour:
   bulletSpeed: 10
   bulletMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   bulletMaterial: {fileID: 2100000, guid: 944e475609224534786f4ae57d5381f2, type: 2}
+  upgradeInfos: []
+  onHitEffects:
+  - {fileID: 11400000, guid: 98097641af988c14bb6bb71566ec298b, type: 2}

@@ -10,9 +10,12 @@ using Vector3 = UnityEngine.Vector3;
 public class Enemy : MonoBehaviour
 {
 	EnemyFactory _originFactory;
+
 	private float _progress;
-	public float Health { get; set; } = 500.0f;
+
+	[SerializeField]
 	public float maxHealth;
+
 	public Slider slider;
 
 	public event System.Action OnReachEnd;
@@ -40,7 +43,6 @@ public class Enemy : MonoBehaviour
 	public void SpawnOn(Vector3 worldPos)
 	{
 		transform.position = worldPos;
-		Health = maxHealth;
 
 		if (!_healthBarInstance)
 		{
@@ -52,22 +54,23 @@ public class Enemy : MonoBehaviour
 
 		slider = _healthBarInstance.GetComponentInChildren<Slider>();
 
-		Attributes.InitAttribute(AttributeType.Health, 100);
+		Attributes.InitAttribute(AttributeType.Health, maxHealth);
+		Attributes.InitAttribute(AttributeType.MaxHealth, maxHealth);
 		Attributes.InitAttribute(AttributeType.Speed, 1.0f);
 	}
 
 	public void ApplyDamage(float damage)
 	{
 		Debug.Assert(damage >= 0f, "Negative damage applied.");
-		Health -= damage;
+		Attributes.ApplyModifierDirectly(new GameplayAttributeModifier(AttributeType.Health, -1 * damage, AttributeOperator.Add));
 	}
 
 	public bool GameUpdate()
 	{
 		Attributes.Update(Time.deltaTime);
-		
+
 		slider.value = CalculateHealth();
-		if (Health <= 0f)
+		if (GetHealth() <= 0f)
 		{
 			_healthBarInstance.SetActive(false);
 			OriginFactory.Reclaim(this);
@@ -75,7 +78,7 @@ public class Enemy : MonoBehaviour
 			return false;
 		}
 
-		if (Health < maxHealth)
+		if (GetHealth() < GetMaxHealth())
 		{
 			_healthBarInstance.SetActive(true);
 		}
@@ -84,6 +87,7 @@ public class Enemy : MonoBehaviour
 
 		_progress += Mathf.Clamp(Time.deltaTime * Attributes.GetCurrentValue(AttributeType.Speed), 0.0f, path.Count);
 		int index = (int)Mathf.Floor(_progress);
+
 		if (index + 1 < path.Count)
 		{
 			Hex hex = path[index];
@@ -116,9 +120,19 @@ public class Enemy : MonoBehaviour
 		_healthBarInstance.transform.position = transform.position + Vector3.up * 2.0f + Vector3.forward * 0.5f;
 	}
 
+	float GetHealth()
+	{
+		return Attributes.GetCurrentValue(AttributeType.Health);
+	}
+
+	float GetMaxHealth()
+	{
+		return Attributes.GetCurrentValue(AttributeType.MaxHealth);
+	}
+
 	float CalculateHealth()
 	{
-		return Health / maxHealth;
+		return GetHealth() / GetMaxHealth();
 	}
 
 	private void OnDestroy()

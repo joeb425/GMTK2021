@@ -37,6 +37,13 @@ namespace Attributes
 		[SerializeField]
 		public AttributeOperator valueOperator;
 
+		public GameplayAttributeModifier(AttributeType attribute, float value, AttributeOperator valueOperator)
+		{
+			this.attribute = attribute;
+			this.value = value;
+			this.valueOperator = valueOperator;
+		}
+
 		public override string ToString()
 		{
 			return $"{attribute} {valueOperator} {value}";

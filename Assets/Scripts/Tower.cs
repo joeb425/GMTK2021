@@ -34,7 +34,7 @@ public class Tower : MonoBehaviour
 
 	private int _towerLevel = 0;
 
-	public List<GameplayEffect> onHitEffects;
+	public List<GameplayEffect> onHitEffects = new List<GameplayEffect>();
 
 	private void Awake()
 	{
@@ -235,10 +235,14 @@ public class Tower : MonoBehaviour
 
 	public void ApplyHit(TargetPoint targetPoint)
 	{
-		Collider[] splashedTargets = Physics.OverlapSphere(targetPoint.Position, 2.0f, 1 << 9);
+		foreach (GameplayEffect effect in onHitEffects)
+		{
+			targetPoint.Enemy.Attributes.ApplyEffect(effect);
+		}
 
 		float damage = Attributes.GetCurrentValue(AttributeType.Damage);
 
+		Collider[] splashedTargets = Physics.OverlapSphere(targetPoint.Position, 2.0f, 1 << 9);
 		foreach (Collider collider in splashedTargets)
 		{
 			TargetPoint aoeTarget = collider.GetComponent<TargetPoint>();
@@ -247,11 +251,6 @@ public class Tower : MonoBehaviour
 		}
 
 		targetPoint.Enemy.ApplyDamage(damage);
-
-		foreach (GameplayEffect effect in onHitEffects)
-		{
-			targetPoint.Enemy.Attributes.ApplyEffect(effect);
-		}
 	}
 
 	public void OnSelected(bool selected)

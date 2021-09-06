@@ -27,3 +27,5 @@ MonoBehaviour:
   upgradeInfos:
   - upgradeCost: 5
     upgradeEffect: {fileID: 11400000, guid: 5875d55ef89a56a45945586af535f14e, type: 2}
+  onHitEffects:
+  - {fileID: 11400000, guid: bcfde1c32728cc7408ce45295d3c1896, type: 2}
