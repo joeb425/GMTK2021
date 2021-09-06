@@ -55,4 +55,7 @@ public class TowerData : ScriptableObject
 
 	[SerializeField]
 	public UpgradeInfo[] upgradeInfos;
+
+	[SerializeField]
+	public List<GameplayEffect> onHitEffects;
 }

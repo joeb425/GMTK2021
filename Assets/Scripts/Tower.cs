@@ -37,20 +37,13 @@ public class Tower : MonoBehaviour
 
 	private int _towerLevel = 0;
 
-	[SerializeField]
-	public GameplayEffect testEffect;
+	public List<GameplayEffect> onHitEffects;
 
 	private void Awake()
 	{
 		InitLineRenderer();
 
-		Attributes.InitAttribute(AttributeType.Damage, towerData.damage);
-		Attributes.InitAttribute(AttributeType.SplashPercent, towerData.splash);
-		Attributes.InitAttribute(AttributeType.Range, towerData.attackRange);
-		Attributes.InitAttribute(AttributeType.AttackSpeed, towerData.attackSpeed);
-		Attributes.InitAttribute(AttributeType.Split, towerData.split);
-
-		UpdateAttributes();
+		InitAttributes();
 
 		RotatorComponent rotatorComponent = gameObject.GetComponent<RotatorComponent>();
 		hasRotator = rotatorComponent != null;
@@ -220,8 +213,15 @@ public class Tower : MonoBehaviour
 		//	Gizmos.DrawLine(turret.localPosition, target.Position);
 	}
 
-	public void UpdateAttributes()
+	public void InitAttributes()
 	{
+		Attributes.InitAttribute(AttributeType.Damage, towerData.damage);
+		Attributes.InitAttribute(AttributeType.SplashPercent, towerData.splash);
+		Attributes.InitAttribute(AttributeType.Range, towerData.attackRange);
+		Attributes.InitAttribute(AttributeType.AttackSpeed, towerData.attackSpeed);
+		Attributes.InitAttribute(AttributeType.Split, towerData.split);
+		onHitEffects = towerData.onHitEffects;
+		
 		// TODO bind to callbacks when attributes change
 		Attributes.GetAttribute(AttributeType.Range).OnAttributeChanged += (attribute, oldValue) =>
 		{
@@ -250,7 +250,11 @@ public class Tower : MonoBehaviour
 		}
 
 		targetPoint.Enemy.ApplyDamage(damage);
-		targetPoint.Enemy.Attributes.ApplyEffect(testEffect);
+
+		foreach (GameplayEffect effect in onHitEffects)
+		{
+			targetPoint.Enemy.Attributes.ApplyEffect(effect);
+		}
 	}
 
 	public void OnSelected(bool selected)
