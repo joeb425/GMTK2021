@@ -1,4 +1,7 @@
-﻿using HexLibrary;
+﻿using System;
+using System.IO;
+using Attributes;
+using HexLibrary;
 using UnityEngine;
 using UnityEngine.UI;
 using Quaternion = UnityEngine.Quaternion;
@@ -22,6 +25,7 @@ public class Enemy : MonoBehaviour
 
 	public Quaternion desiredRotation;
 
+	public GameplayAttributeContainer Attributes;
 
 	public EnemyFactory OriginFactory
 	{
@@ -47,6 +51,9 @@ public class Enemy : MonoBehaviour
 		SetHealthbarPosition();
 
 		slider = _healthBarInstance.GetComponentInChildren<Slider>();
+
+		Attributes.InitAttribute(AttributeType.Health, 100);
+		Attributes.InitAttribute(AttributeType.Speed, 1.0f);
 	}
 
 	public void ApplyDamage(float damage)
@@ -57,6 +64,8 @@ public class Enemy : MonoBehaviour
 
 	public bool GameUpdate()
 	{
+		Attributes.Update(Time.deltaTime);
+		
 		slider.value = CalculateHealth();
 		if (Health <= 0f)
 		{
@@ -71,9 +80,10 @@ public class Enemy : MonoBehaviour
 			_healthBarInstance.SetActive(true);
 		}
 
-		_progress += Time.deltaTime;
-		int index = (int)Mathf.Floor(_progress);
 		var path = GameState.Get.Board.enemyPath;
+
+		_progress += Mathf.Clamp(Time.deltaTime * Attributes.GetCurrentValue(AttributeType.Speed), 0.0f, path.Count);
+		int index = (int)Mathf.Floor(_progress);
 		if (index + 1 < path.Count)
 		{
 			Hex hex = path[index];

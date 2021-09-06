@@ -119,8 +119,6 @@ public class UIHandler : MonoBehaviour
 			showBuildUI = hexComponent.TileType == HexTileType.Build;
 		}
 
-		Debug.Log(showBuildUI);
-
 		SetBuildMenuEnabled(showBuildUI);
 	}
 

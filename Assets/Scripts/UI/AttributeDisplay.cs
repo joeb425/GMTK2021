@@ -36,7 +36,7 @@ namespace UI.MainMenu
 		public void BindToGameplayAttribute(GameplayAttribute attribute)
 		{
 			_attributeName.text = attribute.attributeType.ToString();
-			_attributeValue.text = "" + attribute.currentValue;
+			_attributeValue.text = "" + attribute.GetValue();
 		}
 	}
 }

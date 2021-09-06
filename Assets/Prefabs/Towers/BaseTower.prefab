@@ -168,8 +168,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7822758320480785569}
   - component: {fileID: 7289787119796724084}
-  - component: {fileID: 1588644127480943304}
   - component: {fileID: -8397094983990540312}
+  - component: {fileID: 4075005451639140559}
   m_Layer: 11
   m_Name: BaseTower
   m_TagString: Untagged
@@ -212,19 +212,10 @@ MonoBehaviour:
   numSegments: 128
   radiusLineRenderer: {fileID: 0}
   towerPerks: []
---- !u!135 &1588644127480943304
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3242984198978901850}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 3
-  m_Center: {x: 0, y: 0, z: 0}
+  Attributes:
+    attributeDefaults: []
+    modifiers: []
+  testEffect: {fileID: 11400000, guid: 98097641af988c14bb6bb71566ec298b, type: 2}
 --- !u!114 &-8397094983990540312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,6 +229,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedGuid: c50441db30953c4985361e293cb1066c
+--- !u!135 &4075005451639140559
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3242984198978901850}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8286558232567512454
 GameObject:
   m_ObjectHideFlags: 0

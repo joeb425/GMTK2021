@@ -37,6 +37,9 @@ public class Tower : MonoBehaviour
 
 	private int _towerLevel = 0;
 
+	[SerializeField]
+	public GameplayEffect testEffect;
+
 	private void Awake()
 	{
 		InitLineRenderer();
@@ -79,6 +82,8 @@ public class Tower : MonoBehaviour
 
 			UpdateAttacking();
 		}
+
+		Attributes.Update(Time.deltaTime);
 	}
 
 	private void UpdateTowerRangeCollider()
@@ -245,6 +250,7 @@ public class Tower : MonoBehaviour
 		}
 
 		targetPoint.Enemy.ApplyDamage(damage);
+		targetPoint.Enemy.Attributes.ApplyEffect(testEffect);
 	}
 
 	public void OnSelected(bool selected)

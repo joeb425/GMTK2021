@@ -34,7 +34,7 @@ namespace UI.MainMenu
 		{
 			_attributeContainer.Clear();
 
-			foreach (KeyValuePair<AttributeType, GameplayAttribute> kvp in container.finalAttributes)
+			foreach (KeyValuePair<AttributeType, GameplayAttribute> kvp in container.attributes)
 			{
 				VisualElement attributeDisplayInstance = _attributeDisplay.CloneTree();
 				_attributeContainer.Add(attributeDisplayInstance);

@@ -10,6 +10,21 @@ namespace Attributes
 		Override,
 	}
 
+	public class ActiveAttributeModifier
+	{
+		public GameplayAttributeModifier modifier;
+
+		public ActiveAttributeModifier(GameplayAttributeModifier modifier)
+		{
+			this.modifier = modifier;
+		}
+
+		public override string ToString()
+		{
+			return $"{modifier} (i)";
+		}
+	}
+
 	[Serializable]
 	public class GameplayAttributeModifier
 	{
@@ -21,5 +36,10 @@ namespace Attributes
 		
 		[SerializeField]
 		public AttributeOperator valueOperator;
+
+		public override string ToString()
+		{
+			return $"{attribute} {valueOperator} {value}";
+		}
 	}
 }

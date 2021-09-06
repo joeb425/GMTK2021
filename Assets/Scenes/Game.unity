@@ -286,7 +286,7 @@ MonoBehaviour:
   enemyFactory: {fileID: 11400000, guid: 10853dab2c4eb754599ef45380c49ac5, type: 2}
   waves:
   - enemyCount: 20
-    spawnSpeed: 1
+    spawnSpeed: 10
     enemyElementNo: 1
   board: {fileID: 2022507406}
 --- !u!4 &640835632
@@ -597,10 +597,10 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.5
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
