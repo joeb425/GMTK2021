@@ -25,5 +25,5 @@ public class GlobalData
 		return _levelData;
 	}
 
-	public static int CurrentLevel { get; set; } = -1;
+	public static int CurrentLevel { get; set; } = 0;
 }

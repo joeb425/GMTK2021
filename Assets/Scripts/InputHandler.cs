@@ -41,6 +41,11 @@ public class InputHandler
 		_desiredCameraLocation = camera.transform.position;
 	}
 
+	public void Disable()
+	{
+		_gameInputs.Disable();
+	}
+
 	public void MouseClick()
 	{
 		if (Game.Get.uiHandler.IsMouseBlocked(mousePos))

@@ -71,11 +71,11 @@ public class GameState
 
 	public void RestartGame()
 	{
-		SceneManager.LoadScene("Assets/Scenes/Game.unity");
+		SceneManager.LoadScene("Assets/Scenes/Game.unity", LoadSceneMode.Single);
 	}
 
 	public void GoToMainMenu()
 	{
-		SceneManager.LoadScene("Assets/Scenes/MainMenu.unity");
+		SceneManager.LoadScene("Assets/Scenes/MainMenu.unity", LoadSceneMode.Single);
 	}
 }

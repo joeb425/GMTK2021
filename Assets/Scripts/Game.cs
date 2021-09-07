@@ -141,6 +141,8 @@ public class Game : MonoBehaviour
 
 	private void OnDestroy()
 	{
+		Debug.Log("Game On Destroy");
+		input.Disable();
 		Get = null;
 	}
 }

@@ -115,6 +115,7 @@ public class GameBoard : MonoBehaviour
 		Tower tower = Instantiate(towerPrefab);
 		towerLayer.AddTile(tile, tower.gameObject);
 		foliageLayer.DeleteTile(tile);
+		Debug.Log(tile  + ", " + towerPrefab);
 
 		OnTowerPlaced?.Invoke(tile, tower);
 
@@ -203,17 +204,13 @@ public class GameBoard : MonoBehaviour
 			return;
 
 		ToggleTower(tile, tower);
+
+		Debug.Log("place tower?");
 	}
 
 	public void PlaceTower(Tower tower)
 	{
-		if (selectedTile == null)
-			return;
-
-		ToggleTower(selectedTile, tower);
-		
-		// TODO: this stupid
-		// Game.Get.uiHandler.SetBuildMenuEnabled(false);
+		PlaceTowerAtTile(selectedTile, tower);
 	}
 
 	public bool BuyTower(Tower tower)
