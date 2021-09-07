@@ -30,7 +30,11 @@ public class UIHandler
 		GameState.Get.OnLivesChanged += (oldValue, newValue) => UpdateLivesLabel(newValue);
 
 		GameState.Get.Board.OnSelectedTileChanged += (oldTile, newTile) => OnSelectedTileChanged(newTile);
-		GameState.Get.Board.OnTowerPlaced += (hex, tower) => SetTowerInfoEnabled(true);
+		GameState.Get.Board.OnTowerPlaced += (hex, tower) =>
+		{
+			SetBuildMenuEnabled(false);
+			SetTowerInfoEnabled(true);
+		};
 
 		GameState.Get.OnGameOver += OnGameOver;
 
@@ -60,13 +64,22 @@ public class UIHandler
 	{
 		_towerBuildMenuContainer.style.display = menuEnabled ? DisplayStyle.Flex : DisplayStyle.None;
 		SetElementBlockingMouse(_towerBuildMenuContainer, menuEnabled);
-		// Debug.Log("open" + menuEnabled);
+
+		if (menuEnabled)
+		{
+			SetTowerInfoEnabled(false);
+		}
 	}
 
 	public void SetTowerInfoEnabled(bool menuEnabled)
 	{
 		_towerInfoMenuContainer.style.display = menuEnabled ? DisplayStyle.Flex : DisplayStyle.None;
 		SetElementBlockingMouse(_towerInfoMenuContainer, menuEnabled);
+
+		if (menuEnabled)
+		{
+			SetBuildMenuEnabled(false);
+		}
 	}
 
 	public bool UpdateTowerInfoEnabled(Hex hex)
