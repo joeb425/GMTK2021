@@ -9,6 +9,8 @@ public class Bullet : MonoBehaviour
 	public Tower tower;
 	
 	public TargetPoint target;
+
+	public Vector3 spawnPoint;
 	public Vector3 lastKnownPos;
 
 	public float bulletSpeed = 3.0f;
@@ -22,14 +24,18 @@ public class Bullet : MonoBehaviour
 	private float progress = 0.0f;
 	private float progressSpeed = 1.0f;
 
-	private void OnEnable()
+	public void Init()
 	{
 		progress = 0.0f;
+
+		lastKnownPos = target.Position;
+		spawnPoint = tower.bulletSpawnPoint.position;
+
 		if (tower)
 		{
-			float distance = (tower.bulletSpawnPoint.position - target.Position).magnitude;
+			float distance = (lastKnownPos - spawnPoint).magnitude;
 			progressSpeed = (1.0f / distance) * bulletSpeed;
-		}
+		}	
 	}
 
 	private void Update()
@@ -41,12 +47,12 @@ public class Bullet : MonoBehaviour
 
 		progress += Time.deltaTime * progressSpeed;
 		transform.LookAt(lastKnownPos);
-		transform.position = Vector3.Lerp(tower.bulletSpawnPoint.position, lastKnownPos, progress);
+		transform.position = Vector3.Lerp(spawnPoint, lastKnownPos, progress);
 
 		if (progress >= 1.0f)
 		{
 			Explode();
-			BulletPool.Get.AddBulletToPool(gameObject);
+			BulletPool.Get.ReclaimToPool(gameObject);
 		}
 	}
 

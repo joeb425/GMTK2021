@@ -166,7 +166,7 @@ public class Tower : MonoBehaviour
 			}
 			else
 			{
-				GameObject bulletObject = BulletPool.Get.GetPooledObject();
+				GameObject bulletObject = BulletPool.Get.GetInstance();
 				if (bulletObject != null)
 				{
 					bulletObject.transform.position = bulletSpawnPoint.position;
@@ -178,8 +178,7 @@ public class Tower : MonoBehaviour
 					bullet.bulletMesh.mesh = towerData.bulletMesh;
 					bullet.bulletSpeed = towerData.bulletSpeed;
 					bullet.bulletMeshRenderer.materials[0] = towerData.bulletMaterial;
-
-					bulletObject.SetActive(true);
+					bullet.Init();
 				}
 			}
 		}

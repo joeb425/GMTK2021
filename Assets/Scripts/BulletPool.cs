@@ -33,17 +33,17 @@ public class BulletPool : MonoBehaviour
 		for (int i = 0; i < amount; i++)
 		{
 			GameObject obj = Instantiate(objectToPool);
-			AddBulletToPool(obj);
+			ReclaimToPool(obj);
 		}
 	}
 
-	public void AddBulletToPool(GameObject obj)
+	public void ReclaimToPool(GameObject obj)
 	{
 		obj.SetActive(false);
 		inactiveBullets.Push(obj);
 	}
 
-	public GameObject GetPooledObject()
+	public GameObject GetInstance()
 	{
 		if (inactiveBullets.Count <= 0)
 		{
@@ -51,14 +51,12 @@ public class BulletPool : MonoBehaviour
 		}
 
 		var bullet = inactiveBullets.Pop();
-		// bullet.SetActive(true);
+		bullet.SetActive(true);
 		return bullet;
-		// for (int i = 0; i < inactiveBullets.Count; i++)
-		// {
-		// 	if (!inactiveBullets[i].activeInHierarchy)
-		// 	{
-		// 		return inactiveBullets[i];
-		// 	}
-		// }
+	}
+
+	private void OnDestroy()
+	{
+		Get = null;
 	}
 }
