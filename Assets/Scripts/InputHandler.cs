@@ -19,8 +19,6 @@ public class InputHandler
 	
 	private bool _isFastForwardEnabled = false;
 
-	public static InputHandler Get;
-
 	private readonly float _cameraSpeed = 0.025f;
 	private readonly float _cameraLerpSpeed = 15.0f;
 	private readonly float _cameraZoomSpeed = 10.0f;
@@ -30,8 +28,6 @@ public class InputHandler
 
 	public void Init()
 	{
-		Get = this;
-
 		TouchSimulation.Enable();
 
 		_gameInputs = new GameInputs();
@@ -47,7 +43,7 @@ public class InputHandler
 
 	public void MouseClick()
 	{
-		if (UIHandler.Get.IsMouseBlocked(mousePos))
+		if (Game.Get.uiHandler.IsMouseBlocked(mousePos))
 		{
 			return;
 		}
@@ -83,7 +79,7 @@ public class InputHandler
 		Camera camera = Camera.main;
 		
 		// Update camera position
-		if (!UIHandler.Get.IsMouseBlocked(mousePos))
+		if (!Game.Get.uiHandler.IsMouseBlocked(mousePos))
 		{
 			Vector2 cameraDelta = _gameInputs.Mouse.TouchDelta.ReadValue<Vector2>();
 			_desiredCameraLocation -= new Vector3(cameraDelta.x, 0, cameraDelta.y) * _cameraSpeed;

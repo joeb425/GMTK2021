@@ -53,7 +53,7 @@ public class SpawnerHandler : MonoBehaviour
 			var spawnPoint = board.grid.flat.HexToWorld(board.enemyPath[0]);
 			enemy.SpawnOn(spawnPoint);
 			
-			Game.SharedGame.enemies.Add(enemy);
+			Game.Get.enemies.Add(enemy);
 			enemy.OnReachEnd += OnEnemyReachEnd;
 			enemy.OnKilled += OnEnemyKilled;
 			_numAliveEnemies += 1;

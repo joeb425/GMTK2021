@@ -1,15 +1,19 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UIElements;
+
 public class Game : MonoBehaviour
 {
-	public static Game SharedGame;
+	public static Game Get;
 
-	[SerializeField]
 	public GameState gameState;
 
 	public UIHandler uiHandler;
 
-	public InputHandler inputHandler;
+	public InputHandler input;
+
+	[SerializeField]
+	public UIDocument hud;
 
 	[SerializeField]
 	public int StartingCash = 10;
@@ -20,18 +24,14 @@ public class Game : MonoBehaviour
 	[SerializeField]
 	Vector2Int boardSize = new Vector2Int(11, 11);
 
-	// Make these all singletons?
 	[SerializeField]
-	GameBoard board = default;
-
-	[SerializeField]
-	EnemyFactory enemyFactory = default;
+	GameBoard board;
 
 	[SerializeField]
 	SpawnerHandler spawnerHandler;
 
 	[SerializeField]
-	BulletPool bulletPool = default;
+	BulletPool bulletPool;
 
 	public EnemyCollection enemies = new EnemyCollection();
 
@@ -63,12 +63,13 @@ public class Game : MonoBehaviour
 
 		bulletPool.Initialize();
 
-		SharedGame = this;
-		
-		uiHandler.Init();
+		Get = this;
 
-		inputHandler = new InputHandler();
-		inputHandler.Init();
+		uiHandler = new UIHandler();
+		uiHandler.Init(hud);
+
+		input = new InputHandler();
+		input.Init();
 	}
 	void OnValidate()
 	{
@@ -88,9 +89,9 @@ public class Game : MonoBehaviour
 		spawnerHandler.GameUpdate();
 		enemies.GameUpdate();
 		board.GameUpdate();
-		inputHandler.GameUpdate();
+		input.GameUpdate();
 
-		if (Input.GetKeyDown(KeyCode.Z))
+		if (UnityEngine.Input.GetKeyDown(KeyCode.Z))
 		{
 			GameState.Get.LoseLife();
 		}
@@ -137,4 +138,9 @@ public class Game : MonoBehaviour
 	// 		}
 	// 	}
 	// }
+
+	private void OnDestroy()
+	{
+		Get = null;
+	}
 }

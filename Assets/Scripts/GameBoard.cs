@@ -7,24 +7,34 @@ using UnityEditor;
 public class GameBoard : MonoBehaviour
 {
 	[SerializeField]
-	Transform ground = default;
-
-	[SerializeField]
-	TextAsset leveldesign;
-
-	// [SerializeField]
 	public HexGrid grid;
 
+	[HideInInspector]
 	public HexGridLayer groundLayer;
+
+	[HideInInspector]
 	public HexGridLayer towerLayer;
+
+	[HideInInspector]
 	public HexGridLayer foliageLayer;
 
 	List<Hex> spawnPoints = new List<Hex>();
 	
 	public event System.Action<Hex, Hex> OnSelectedTileChanged;
 	public event System.Action<Hex, Hex> OnHoveredTileChanged;
+	
+	public event System.Action<Hex, Tower> OnTowerPlaced;
 
 	public List<Hex> enemyPath = new List<Hex>();
+
+	[HideInInspector]
+	public Hex selectedTile;
+
+	[HideInInspector]
+	public Hex hoveredTile;
+
+	private Tower towerToBePlaced;
+	private Tower towerToBePlacedPrefab;
 
 	public void Initialize()
 	{
@@ -106,6 +116,8 @@ public class GameBoard : MonoBehaviour
 		towerLayer.AddTile(tile, tower.gameObject);
 		foliageLayer.DeleteTile(tile);
 
+		OnTowerPlaced?.Invoke(tile, tower);
+
 		// // tower.transform.position = grid.flat.HexToWorld(tile);
 		// towerLayer.AddTile(tile, tower.gameObject);
 
@@ -172,7 +184,7 @@ public class GameBoard : MonoBehaviour
 		// 	updatingContent[i].GameUpdate();
 		// }
 		
-		grid.GetHexUnderRay(InputHandler.Get.touchRay, out hoveredTile);
+		grid.GetHexUnderRay(Game.Get.input.touchRay, out hoveredTile);
 
 		// if (towerToBePlaced != null && hoveredTile != null)
 		// {
@@ -182,7 +194,7 @@ public class GameBoard : MonoBehaviour
 
 	public void Update()
 	{
-		// hoveredTile = GetTile(InputHandler.Get.touchRay);
+		// hoveredTile = GetTile(Game.Get.Input.touchRay);
 	}
 
 	public void PlaceTowerAtTile(Hex tile, Tower tower)
@@ -201,7 +213,7 @@ public class GameBoard : MonoBehaviour
 		ToggleTower(selectedTile, tower);
 		
 		// TODO: this stupid
-		Game.SharedGame.uiHandler.SetBuildMenuEnabled(false);
+		// Game.Get.uiHandler.SetBuildMenuEnabled(false);
 	}
 
 	public bool BuyTower(Tower tower)
@@ -215,14 +227,7 @@ public class GameBoard : MonoBehaviour
 
 		return false;
 	}
-
-	public Hex selectedTile;
-	// public HexContent selectedTileContent;
-	public Hex hoveredTile;
-
-	private Tower towerToBePlaced;
-	private Tower towerToBePlacedPrefab;
-
+	
 	private void SelectedTileChanged(Hex oldTile, Hex newTile)
 	{
 		SetTileSelected(oldTile, false);

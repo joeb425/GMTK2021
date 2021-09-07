@@ -1,30 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using HexLibrary;
-using JetBrains.Annotations;
-using UI;
-using UI.MainMenu;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class UIHandler : MonoBehaviour
+public class UIHandler
 {
-	// [SerializeField]
-	// public Canvas buildMenu = default;
-
-	// [SerializeField]
-	// public Canvas towerUI = default;
-
-	public static UIHandler Get { get; private set; }
-
-	[SerializeField]
-	public UIDocument uiDocument;
-
-	[SerializeField]
-	public VisualTreeAsset gameOverScreen;
-
+	private UIDocument hud;
 	private VisualElement _rootVisualElement;
 	private Label _cashLabel;
 	private Label _livesLabel;
@@ -37,10 +19,10 @@ public class UIHandler : MonoBehaviour
 
 	private List<VisualElement> _elementsBlockingMouse = new List<VisualElement>();
 
-	public void Init()
+	public void Init(UIDocument hud)
 	{
+		this.hud = hud;
 		Debug.Log("UIHandler Init");
-		Get = this;
 
 		ReadUIDocument();
 
@@ -48,6 +30,7 @@ public class UIHandler : MonoBehaviour
 		GameState.Get.OnLivesChanged += (oldValue, newValue) => UpdateLivesLabel(newValue);
 
 		GameState.Get.Board.OnSelectedTileChanged += (oldTile, newTile) => OnSelectedTileChanged(newTile);
+		GameState.Get.Board.OnTowerPlaced += (hex, tower) => SetTowerInfoEnabled(true);
 
 		GameState.Get.OnGameOver += OnGameOver;
 
@@ -62,12 +45,12 @@ public class UIHandler : MonoBehaviour
 
 	public void ReadUIDocument()
 	{
-		_rootVisualElement = uiDocument.rootVisualElement;
+		_rootVisualElement = hud.rootVisualElement;
 		_cashLabel = _rootVisualElement.Q<Label>("Cash");
 		_livesLabel = _rootVisualElement.Q<Label>("Lives");
-		_towerBuildMenu = uiDocument.rootVisualElement.Q<TowerBuildMenu>();
+		_towerBuildMenu = hud.rootVisualElement.Q<TowerBuildMenu>();
 		_towerBuildMenuContainer = _rootVisualElement.Q<VisualElement>("TowerBuildMenuContainer");
-		_towerInfoMenu = uiDocument.rootVisualElement.Q<TowerInfoMenu>();
+		_towerInfoMenu = hud.rootVisualElement.Q<TowerInfoMenu>();
 		_towerInfoMenuContainer = _rootVisualElement.Q<VisualElement>("TowerInfoMenuContainer");
 		_gameOverScreen = _rootVisualElement.Q<VisualElement>("GameOverScreenContainer");
 		_levelFinishedScreen = _rootVisualElement.Q<VisualElement>("LevelFinishedScreenContainer");
@@ -78,6 +61,12 @@ public class UIHandler : MonoBehaviour
 		_towerBuildMenuContainer.style.display = menuEnabled ? DisplayStyle.Flex : DisplayStyle.None;
 		SetElementBlockingMouse(_towerBuildMenuContainer, menuEnabled);
 		// Debug.Log("open" + menuEnabled);
+	}
+
+	public void SetTowerInfoEnabled(bool menuEnabled)
+	{
+		_towerInfoMenuContainer.style.display = menuEnabled ? DisplayStyle.Flex : DisplayStyle.None;
+		SetElementBlockingMouse(_towerInfoMenuContainer, menuEnabled);
 	}
 
 	public bool UpdateTowerInfoEnabled(Hex hex)
