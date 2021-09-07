@@ -16,7 +16,7 @@ MonoBehaviour:
   towerIcon: {fileID: 2800000, guid: 5297040d9a8ed9045a54d6823e7f1d31, type: 3}
   towerCost: 4
   towerSell: 4
-  attackRange: 5
+  attackRange: 7
   damage: 5
   attackSpeed: 1
   split: 0

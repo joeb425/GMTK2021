@@ -16,12 +16,14 @@ MonoBehaviour:
   towerIcon: {fileID: 2800000, guid: 5297040d9a8ed9045a54d6823e7f1d31, type: 3}
   towerCost: 3
   towerSell: 4
-  attackRange: 2
-  damage: 3
-  attackSpeed: 0.2
-  split: 0
+  attackRange: 20
+  damage: 0.001
+  attackSpeed: 0.01
+  split: 10
   splash: 0
   bulletSpeed: 5
   bulletMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   bulletMaterial: {fileID: 2100000, guid: 60e9d42099cf8ec40897d6903f7e6c6e, type: 2}
   upgradeInfos: []
+  onHitEffects:
+  - {fileID: 11400000, guid: 98097641af988c14bb6bb71566ec298b, type: 2}
