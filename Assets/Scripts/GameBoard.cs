@@ -238,12 +238,19 @@ public class GameBoard : MonoBehaviour
 		// 	return;
 		// }
 
+		// make sure that the tile exists
+		if (!groundLayer.GetTile(newSelectedTile, out var content))
+		{
+
+		}
+
+
+
 		Hex oldSelectedTile = selectedTile;
 		// HexContent oldSelectedContent = selectedTileContent;
 
 		selectedTile = newSelectedTile; //GetTile(touchRay);
-		// selectedTileContent = selectedTile.Content;
-
+		// selectedTileContent = selectedTile.Content
 		if (oldSelectedTile != selectedTile)
 		{
 			OnSelectedTileChanged?.Invoke(oldSelectedTile, selectedTile);
@@ -255,6 +262,8 @@ public class GameBoard : MonoBehaviour
 		{
 			OnSelectedTileChanged?.Invoke(oldSelectedTile, selectedTile);
 		}
+
+
 
 		// bool showBuildMenu = selectedTile.Content.Type == HexContentType.Build;
 		// SetBuildMenuEnabled(showBuildMenu);

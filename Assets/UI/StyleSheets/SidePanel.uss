@@ -1,4 +1,4 @@
 .SidePanel {
     flex-grow: 1;
-    background-color: rgb(58, 58, 58);
+    background-color: rgb(5, 5, 5);
 }

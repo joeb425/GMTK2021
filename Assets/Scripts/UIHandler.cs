@@ -106,6 +106,9 @@ public class UIHandler
 	{
 		if (!GameState.Get.Board.groundLayer.GetTile(selectedTile, out var tileContent))
 		{
+			// Disable all uis here for click offboard
+			SetBuildMenuEnabled(false);
+			SetTowerInfoEnabled(false);
 			return;
 		}
 

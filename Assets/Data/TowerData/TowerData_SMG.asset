@@ -17,8 +17,8 @@ MonoBehaviour:
   towerCost: 3
   towerSell: 4
   attackRange: 20
-  damage: 0.001
-  attackSpeed: 0.01
+  damage: 1
+  attackSpeed: 0.1
   split: 10
   splash: 0
   bulletSpeed: 5
