@@ -115,8 +115,6 @@ public class GameBoard : MonoBehaviour
 		Tower tower = Instantiate(towerPrefab);
 		towerLayer.AddTile(tile, tower.gameObject);
 		foliageLayer.DeleteTile(tile);
-		Debug.Log(tile  + ", " + towerPrefab);
-
 		OnTowerPlaced?.Invoke(tile, tower);
 
 		// // tower.transform.position = grid.flat.HexToWorld(tile);

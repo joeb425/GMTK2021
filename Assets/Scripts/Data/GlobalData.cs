@@ -26,4 +26,6 @@ public class GlobalData
 	}
 
 	public static int CurrentLevel { get; set; } = 0;
+
+	public static System.Action OnGameInit;
 }

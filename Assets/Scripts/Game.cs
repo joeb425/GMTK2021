@@ -70,6 +70,8 @@ public class Game : MonoBehaviour
 
 		input = new InputHandler();
 		input.Init();
+
+		GlobalData.OnGameInit?.Invoke();
 	}
 	void OnValidate()
 	{

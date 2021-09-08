@@ -5,7 +5,7 @@ using UnityEditor;
 // This component gives a GameObject a stable, non-replicatable Globally Unique IDentifier.
 // It can be used to reference a specific instance of an object no matter where it is.
 // This can also be used for other systems, such as Save/Load game
-[Serializable, ExecuteInEditMode, DisallowMultipleComponent]
+[Serializable, DisallowMultipleComponent] //ExecuteInEditMode
 public class GuidComponent : MonoBehaviour
 {
 	// Unity's serialization system doesn't know about System.Guid, so we convert to a byte array
