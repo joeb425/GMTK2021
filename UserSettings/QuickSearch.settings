@@ -16,7 +16,7 @@ filters = {
 	settings = true
 }
 scopes = {
-	"last_search.AB59B443" = "hud"
+	"last_search.AB59B443" = "gameprefabs"
 }
 providers = {
 	asset = {

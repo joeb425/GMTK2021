@@ -82,8 +82,7 @@ public class SpawnerHandler : MonoBehaviour
 
 		if (_numAliveEnemies <= 0 && endFlag == 1)
 		{
-			Debug.Log("Level finished!");
-			GameState.Get.OnLevelFinished?.Invoke();
+			GameState.Get.FinishLevel();
 		}
 	}
 

@@ -1,28 +1,19 @@
-﻿using JetBrains.Annotations;
+﻿using DefaultNamespace.Data;
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 
 public class GlobalData
 {
-	private static GamePrefabs _globalPrefabs;
-	public static GamePrefabs GetGamePrefabs()
+	private static AssetBindings _assetBindings;
+	public static AssetBindings GetAssetBindings()
 	{
-		if (_globalPrefabs == null)
+		if (_assetBindings is null)
 		{
-			_globalPrefabs = AssetDatabase.LoadAssetAtPath<GamePrefabs>("Assets/Data/GamePrefabs.asset");
+			_assetBindings = AssetDatabase.LoadAssetAtPath<AssetBindings>("Assets/Data/AssetBindings.asset");
 		}
-		
-		return _globalPrefabs;
-	}
 
-	private static LevelData _levelData;
-	public static LevelData GetLevelData()
-	{
-		if (_levelData == null)
-		{
-			_levelData = AssetDatabase.LoadAssetAtPath<LevelData>("Assets/Data/LevelData.asset");
-		}
-		return _levelData;
+		return _assetBindings;
 	}
 
 	public static int CurrentLevel { get; set; } = 0;

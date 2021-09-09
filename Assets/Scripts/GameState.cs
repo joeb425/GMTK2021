@@ -11,8 +11,6 @@ public class GameState
 	public event System.Action<int, int> OnCashChanged;
 	public event System.Action<int, int> OnLivesChanged;
 	public event System.Action OnGameOver;
-
-	// TODO: this should also be an event, but need reference to spawner handler
 	public System.Action OnLevelFinished;
 
 	public int StartingCash;
@@ -22,6 +20,8 @@ public class GameState
 	public int CurrentCash { get; private set; }
 
 	public int CurrentLives { get; private set; }
+
+	public bool IsGameOver = false;
 
 	public bool SpendCash(int Cost)
 	{
@@ -58,6 +58,7 @@ public class GameState
 		if (newLives <= 0)
 		{
 			OnGameOver?.Invoke();
+			IsGameOver = true;
 		}
 	}
 
@@ -71,11 +72,21 @@ public class GameState
 
 	public void RestartGame()
 	{
+		Debug.Log("Restart game");
 		SceneManager.LoadScene("Assets/Scenes/Game.unity", LoadSceneMode.Single);
 	}
 
 	public void GoToMainMenu()
 	{
 		SceneManager.LoadScene("Assets/Scenes/MainMenu.unity", LoadSceneMode.Single);
+	}
+
+	public void FinishLevel()
+	{
+		if (IsGameOver) 
+			return;
+
+		Debug.Log("Level finished!");
+		OnLevelFinished?.Invoke();
 	}
 }

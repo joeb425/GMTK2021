@@ -1,10 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="gameSidePanel" src="GameSidePanel.uxml" />
-    <ui:Template name="GameOverScreen" src="Screens/GameOverScreen.uxml" />
-    <ui:Template name="LevelFinishedScreen" src="Screens/LevelFinishedScreen.uxml" />
-    <Style src="StyleSheets/SidePanel.uss" />
-    <Style src="StyleSheets/FontStyleSheet.uss" />
-    <Style src="StyleSheets/Screens.uss" />
+    <ui:Template name="GameOverScreen" src="GameOverScreen.uxml" />
+    <ui:Template name="LevelFinishedScreen" src="LevelFinishedScreen.uxml" />
+    <ui:Template name="GameSidePanel" src="GameSidePanel.uxml" />
+    <Style src="/Assets/UI/StyleSheets/GameStyleSheet.uss" />
     <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
         <ui:VisualElement name="LeftPanel" style="flex-grow: 0; flex-direction: row;">
             <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
@@ -20,10 +18,9 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Instance template="gameSidePanel" name="GameSidePanel" style="width: 30%; height: 100%; flex-grow: 0; flex-basis: auto; min-width: 256px; position: absolute; right: 0;" />
-        <ui:VisualElement name="GameOverScreenContainer" style="align-items: center; width: 100%; height: 100%; position: absolute; display: none;">
-            <ui:Instance template="GameOverScreen" name="GameOverScreen" style="width: 30%; height: 100%;" />
-        </ui:VisualElement>
-        <ui:Instance template="LevelFinishedScreen" name="LevelFinishedScreenContainer" class="Screens" style="display: none;" />
+        <ui:Instance template="GameOverScreen" name="GameOverScreen" class="FullScreenPanel" style="display: none;" />
+        <ui:Instance template="LevelFinishedScreen" name="LevelFinishedScreen" class="FullScreenPanel" style="display: none;" />
+        <ui:VisualElement style="flex-grow: 1;" />
+        <ui:Instance template="GameSidePanel" name="GameSidePanel" style="width: 30%;" />
     </ui:VisualElement>
 </ui:UXML>

@@ -25,6 +25,7 @@ namespace UI.MainMenu
 
 		private void OnAttach(AttachToPanelEvent evt)
 		{
+			Debug.Log("Bind to buttons?");
 			Button restartBtn = this.Q<Button>("RestartBtn");
 			restartBtn?.RegisterCallback<ClickEvent>(ev => RestartGame());
 

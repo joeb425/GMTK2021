@@ -1,7 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="StyleSheets/FontStyleSheet.uss" />
-    <ui:Button text="Button" display-tooltip-when-elided="true" name="Button" class="BoldText" style="margin-left: 4px; margin-right: 4px; margin-top: 4px; margin-bottom: 4px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; flex-grow: 0; width: 64px; height: 64px; background-image: url(&apos;/Assets/Icons/sinagot.png&apos;); justify-content: flex-start; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: 8px; border-bottom-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; -unity-background-image-tint-color: rgba(89, 106, 132, 255);">
-        <ui:VisualElement style="flex-grow: 1; align-items: stretch;" />
-        <ui:Label text="10&#10;" display-tooltip-when-elided="true" name="Cost" class="BoldText" style="position: relative; top: auto; left: auto; bottom: auto; justify-content: flex-start; flex-grow: 0; align-items: flex-end; flex-direction: column; -unity-text-align: middle-right;" />
-    </ui:Button>
-</ui:UXML>

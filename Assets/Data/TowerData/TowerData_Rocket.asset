@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TowerData_Rocket
   m_EditorClassIdentifier: 
   towerName: Rocket
-  towerIcon: {fileID: 2800000, guid: 5297040d9a8ed9045a54d6823e7f1d31, type: 3}
+  towerIcon: {fileID: 2800000, guid: 2fe36d1c5aac1eb4a9844bb7ad9debec, type: 3}
   towerCost: 6
   towerSell: 4
   attackRange: 3
@@ -24,3 +24,5 @@ MonoBehaviour:
   bulletSpeed: 5
   bulletMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   bulletMaterial: {fileID: 2100000, guid: 60e9d42099cf8ec40897d6903f7e6c6e, type: 2}
+  upgradeInfos: []
+  onHitEffects: []

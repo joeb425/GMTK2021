@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="AttributeContainerDisplay" src="/Assets/UI/Attributes/AttributeContainerDisplay.uxml" />
+    <Style src="/Assets/UI/StyleSheets/GameStyleSheet.uss" />
+    <TowerInfoMenu name="TowerInfoMenu" class="FullScreenPanel" style="flex-direction: column; justify-content: flex-end;">
+        <ui:Instance template="AttributeContainerDisplay" name="AttributeContainerDisplay" class="HUDSidePanel" style="flex-grow: 0; flex-direction: column; margin-bottom: 12px;" />
+        <ui:VisualElement class="HUDSidePanel" style="flex-grow: 0; flex-direction: row;">
+            <ui:Button text="Upgrade " display-tooltip-when-elided="true" name="UpgradeBtn" enable-rich-text="false" class="RegularButton" />
+            <ui:VisualElement style="flex-grow: 1;" />
+            <ui:Button text="Sell" name="SellBtn" class="RegularButton" />
+            <ui:VisualElement style="flex-grow: 1;" />
+            <ui:Button text="Link" display-tooltip-when-elided="true" name="LinkBtn" class="RegularButton" />
+        </ui:VisualElement>
+    </TowerInfoMenu>
+</ui:UXML>

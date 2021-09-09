@@ -33,7 +33,7 @@ namespace UI.MainMenu
 
 		private void OnAttach(AttachToPanelEvent evt)
 		{
-			LevelData levelData = GlobalData.GetLevelData();
+			LevelData levelData = GlobalData.GetAssetBindings().levelData;
 			for (var i = 0; i < levelData.levels.Count; i++)
 			{
 				TextAsset level = levelData.levels[i];

@@ -12,6 +12,109 @@
 
 .HUDSidePanel {
     flex-grow: 1;
-    background-color: rgb(5, 5, 5);
+    background-color: rgba(99, 99, 99, 0.78);
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    flex-direction: column;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
+.FullScreenPanel {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    align-items: stretch;
+}
+
+.CenteredPanel {
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    flex-direction: column;
+    width: 32%;
+    background-color: rgba(29, 29, 29, 0.98);
+}
+
+.BoldText {
+    -unity-font-definition: resource('Fonts & Materials/LiberationSans SDF');
+    color: rgb(255, 146, 146);
+    -unity-font-style: bold;
+}
+
+.ValueText {
+    -unity-font-style: bold;
+    -unity-font-definition: resource('Fonts & Materials/LiberationSans SDF');
+    font-size: 12px;
+    color: rgb(255, 255, 255);
+}
+
+.RegularText {
+    -unity-font-definition: resource('Fonts & Materials/LiberationSans SDF');
+    color: rgb(255, 146, 146);
+    -unity-font-style: bold;
+}
+
+.GameButton {
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    flex-grow: 0;
+    width: 64px;
+    height: 64px;
+    background-image: url('/Assets/Icons/hades-symbol.png');
+    justify-content: flex-start;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    -unity-background-image-tint-color: rgb(18, 34, 58);
+    -unity-background-scale-mode: stretch-to-fill;
+    background-color: rgba(59, 60, 60, 255);
+}
+
+.RegularButton {
+    position: relative;
+    flex-grow: 0;
+    font-size: 11px;
+    -unity-font-style: bold;
+    -unity-font-definition: resource('Fonts & Materials/LiberationSans SDF');
+    -unity-text-align: middle-center;
+    background-color: rgba(43, 43, 43, 255);
+    color: rgba(135, 135, 135, 255);
+    border-left-color: rgba(75, 75, 74, 255);
+    border-right-color: rgba(75, 75, 74, 255);
+    border-top-color: rgba(75, 75, 74, 255);
+    border-bottom-color: rgba(75, 75, 74, 255);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    width: 80px;
+    height: 48px;
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}

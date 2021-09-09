@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TowerData_Double
   m_EditorClassIdentifier: 
   towerName: Double
-  towerIcon: {fileID: 2800000, guid: 357e1cc2a004b9642bc4c60f0688314d, type: 3}
+  towerIcon: {fileID: 2800000, guid: 2fe36d1c5aac1eb4a9844bb7ad9debec, type: 3}
   towerCost: 3
   towerSell: 4
   attackRange: 3
@@ -24,3 +24,5 @@ MonoBehaviour:
   bulletSpeed: 5
   bulletMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   bulletMaterial: {fileID: 2100000, guid: fe87a267a154b2a47a06e01d9854c7b4, type: 2}
+  upgradeInfos: []
+  onHitEffects: []

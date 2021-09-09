@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="/Assets/UI/StyleSheets/GameStyleSheet.uss" />
+    <ui:Button text="Button" display-tooltip-when-elided="true" name="Button" class="BoldText GameButton" style="border-left-width: 4px; border-right-width: 4px; border-top-width: 4px; border-bottom-width: 4px; border-left-color: rgb(77, 77, 77); border-right-color: rgb(77, 77, 77); border-top-color: rgb(77, 77, 77); border-bottom-color: rgb(77, 77, 77);">
+        <ui:VisualElement style="flex-grow: 1; align-items: stretch;" />
+        <ui:Label text="10&#10;" display-tooltip-when-elided="true" name="Cost" class="BoldText" style="position: relative; top: auto; left: auto; bottom: auto; justify-content: flex-start; flex-grow: 0; align-items: flex-end; flex-direction: column; -unity-text-align: middle-right;" />
+    </ui:Button>
+</ui:UXML>

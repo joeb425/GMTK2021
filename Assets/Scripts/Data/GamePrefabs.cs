@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [CreateAssetMenu(menuName = "Data/GamePrefabs")]
 public class GamePrefabs : ScriptableObject
@@ -18,4 +19,10 @@ public class GamePrefabs : ScriptableObject
 
 	[SerializeField]
 	public Tower rocketTowerPrefab = default;
+
+	[SerializeField]
+	public VisualTreeAsset towerBuildButton;
+
+	[SerializeField]
+	public VisualTreeAsset attributeDisplayItem;
 }

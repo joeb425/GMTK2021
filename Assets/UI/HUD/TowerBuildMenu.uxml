@@ -1,8 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="StyleSheets/SidePanel.uss" />
-    <TowerBuildMenu name="TowerBuildMenu" class="SidePanel">
+    <Style src="/Assets/UI/StyleSheets/GameStyleSheet.uss" />
+    <TowerBuildMenu name="TowerBuildMenu" class="FullScreenPanel" style="align-items: center; justify-content: flex-end; flex-direction: column;">
         <ui:VisualElement style="flex-grow: 1;" />
-        <ui:Label text="Build Menu&#10;" display-tooltip-when-elided="true" />
-        <ui:VisualElement name="Buttons" style="flex-grow: 0; flex-direction: row; flex-wrap: wrap; width: auto; justify-content: center; align-items: center;" />
+        <ui:VisualElement name="Buttons" class="HUDSidePanel" style="flex-direction: row; flex-grow: 0; justify-content: center;" />
     </TowerBuildMenu>
 </ui:UXML>

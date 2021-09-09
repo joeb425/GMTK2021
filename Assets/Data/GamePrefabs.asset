@@ -22,3 +22,7 @@ MonoBehaviour:
     type: 3}
   rocketTowerPrefab: {fileID: 8119690419672304627, guid: 2add2897b33aaa44ca5482e243244e44,
     type: 3}
+  towerBuildButton: {fileID: 9197481963319205126, guid: 1e385f200928b6848a91c9d4c40d7be8,
+    type: 3}
+  attributeDisplayItem: {fileID: 9197481963319205126, guid: 08e06cb30ce70cc4bba44186db502f17,
+    type: 3}

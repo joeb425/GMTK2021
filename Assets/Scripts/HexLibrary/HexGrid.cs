@@ -65,9 +65,10 @@ namespace HexLibrary
 		public void LoadLevel()
 		{
 			// TODO load level selected from menu screen
-			if (!GlobalData.GetLevelData().IsLastLevel(GlobalData.CurrentLevel))
+			LevelData levelData = GlobalData.GetAssetBindings().levelData;
+			if (!levelData .IsLastLevel(GlobalData.CurrentLevel))
 			{
-				levelToLoad = GlobalData.GetLevelData().levels[GlobalData.CurrentLevel];
+				levelToLoad = levelData.levels[GlobalData.CurrentLevel];
 			}
 
 			LoadLevelFromJson(levelToLoad.text);

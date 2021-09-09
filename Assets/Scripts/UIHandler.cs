@@ -36,8 +36,8 @@ public class UIHandler
 		_rootVisualElement = hud.rootVisualElement;
 		_cashLabel = _rootVisualElement.Q<Label>("Cash");
 		_livesLabel = _rootVisualElement.Q<Label>("Lives");
-		_gameOverScreen = _rootVisualElement.Q<VisualElement>("GameOverScreenContainer");
-		_levelFinishedScreen = _rootVisualElement.Q<VisualElement>("LevelFinishedScreenContainer");
+		_gameOverScreen = _rootVisualElement.Q<VisualElement>("GameOverScreen");
+		_levelFinishedScreen = _rootVisualElement.Q<VisualElement>("LevelFinishedScreen");
 	}
 
 	public void UpdateCashLabel(int lives)

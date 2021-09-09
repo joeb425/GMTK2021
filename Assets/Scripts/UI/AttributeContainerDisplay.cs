@@ -26,7 +26,7 @@ namespace UI.MainMenu
 
 		private void OnAttach(AttachToPanelEvent evt)
 		{
-			_attributeDisplay = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI/AttributeDisplay.uxml");
+			_attributeDisplay = GlobalData.GetAssetBindings().gamePrefabs.attributeDisplayItem;
 			_attributeContainer = this.Q<VisualElement>("Container");
 		}
 

@@ -21,8 +21,8 @@ public class TowerBuildMenu : VisualElement
 
 	private void OnAttach(AttachToPanelEvent evt)
 	{
-		_iconButton = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI/SpawnTowerBtn.uxml");
-		GamePrefabs gamePrefabs = GlobalData.GetGamePrefabs();
+		_iconButton = GlobalData.GetAssetBindings().gamePrefabs.towerBuildButton;
+		GamePrefabs gamePrefabs = GlobalData.GetAssetBindings().gamePrefabs;
 
 		VisualElement buttons = this.Q<VisualElement>("Buttons");
 		if (buttons != null)

@@ -23,7 +23,7 @@ namespace UI.MainMenu
 		private void OnAttach(AttachToPanelEvent evt)
 		{
 			Button restartBtn = this.Q<Button>("NextLevelBtn");
-			if (GlobalData.GetLevelData().IsLastLevel(GlobalData.CurrentLevel))
+			if (GlobalData.GetAssetBindings().levelData.IsLastLevel(GlobalData.CurrentLevel))
 			{
 				restartBtn.style.display = DisplayStyle.None;
 			}
