@@ -1,11 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <ui:Template name="MenuScreen" src="MenuScreen.uxml" />
-    <ui:Template name="SettingsScreen" src="SettingsScreen.uxml" />
     <ui:Template name="LevelSelectScreen" src="LevelSelectScreen.uxml" />
+    <ui:Template name="SettingsScreen" src="SettingsScreen.uxml" />
     <Style src="/Assets/UI/StyleSheets/MainMenuStyleSheet.uss" />
-    <UI.MainMenu.MainMenuManager style="flex-grow: 1; align-items: stretch; justify-content: flex-start;">
-        <ui:Instance template="MenuScreen" name="MenuScreen" class="Screen" />
-        <ui:Instance template="SettingsScreen" name="SettingsScreen" class="Screen" style="display: none;" />
-        <ui:Instance template="LevelSelectScreen" name="LevelSelectScreen" class="Screen" style="display: flex;" />
+    <UI.MainMenu.MainMenuManager style="flex-grow: 1;">
+        <UI.MainMenu.ScreenSwitcher style="flex-grow: 1;">
+            <ui:Instance template="SettingsScreen" name="SettingsScreen" class="Screen" style="display: none;" />
+            <ui:Instance template="LevelSelectScreen" name="LevelSelectScreen" class="Screen" style="display: none;" />
+            <ui:Instance template="MenuScreen" name="MenuScreen" class="Screen" />
+        </UI.MainMenu.ScreenSwitcher>
     </UI.MainMenu.MainMenuManager>
 </ui:UXML>

@@ -44,6 +44,7 @@ namespace UI.MainMenu.HUD
 				return;
 			}
 
+			_screenSwitcher.ReadScreens();
 			_screenSwitcher.HideAll();
 			_screenSwitcher.OnScreenStateChanged += OnScreenStateChanged;
 			

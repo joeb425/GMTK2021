@@ -28,6 +28,11 @@ namespace UI.MainMenu
 
 		private void OnAttach(AttachToPanelEvent evt)
 		{
+			ReadScreens();
+		}
+
+		public void ReadScreens()
+		{
 			ClearScreens();
 			foreach (VisualElement child in Children())
 			{

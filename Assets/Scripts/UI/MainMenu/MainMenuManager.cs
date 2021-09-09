@@ -30,12 +30,18 @@ namespace UI.MainMenu
 		private void OnAttach(AttachToPanelEvent evt)
 		{
 			_screenSwitcher = this.Q<ScreenSwitcher>();
+			if (_screenSwitcher == null)
+			{
+				return;
+			}
+
+			_screenSwitcher.ReadScreens();
 			_screenSwitcher.EnableScreen(MENU_SCREEN_NAME);
 
 			VisualElement mainMenuScreen = _screenSwitcher.GetScreen(MENU_SCREEN_NAME);
-			mainMenuScreen?.Q("StartBtn")?.RegisterCallback<ClickEvent>(ev => _screenSwitcher.EnableScreen(LEVELSELECT_SCREEN_NAME));
-			mainMenuScreen?.Q("SettingsBtn")?.RegisterCallback<ClickEvent>(ev => _screenSwitcher.EnableScreen(SETTINGS_SCREEN_NAME));
-			mainMenuScreen?.Q("ExitBtn")?.RegisterCallback<ClickEvent>(ev => ExitGame());
+			mainMenuScreen?.Q("StartBtn").RegisterCallback<ClickEvent>(ev => _screenSwitcher.EnableScreen(LEVELSELECT_SCREEN_NAME));
+			mainMenuScreen?.Q("SettingsBtn").RegisterCallback<ClickEvent>(ev => _screenSwitcher.EnableScreen(SETTINGS_SCREEN_NAME));
+			mainMenuScreen?.Q("ExitBtn").RegisterCallback<ClickEvent>(ev => ExitGame());
 			
 			VisualElement settingsScreen = _screenSwitcher.GetScreen(SETTINGS_SCREEN_NAME);
 			settingsScreen?.Q("BackBtn")?.RegisterCallback<ClickEvent>(ev => _screenSwitcher.EnableScreen(MENU_SCREEN_NAME));

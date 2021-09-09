@@ -18,9 +18,9 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Instance template="GameOverScreen" name="GameOverScreen" class="FullScreenPanel" style="display: none;" />
-        <ui:Instance template="LevelFinishedScreen" name="LevelFinishedScreen" class="FullScreenPanel" style="display: none;" />
         <ui:VisualElement style="flex-grow: 1;" />
         <ui:Instance template="GameSidePanel" name="GameSidePanel" style="width: 30%;" />
     </ui:VisualElement>
+    <ui:Instance template="LevelFinishedScreen" name="LevelFinishedScreen" class="FullScreenPanel" style="display: none;" />
+    <ui:Instance template="GameOverScreen" name="GameOverScreen" class="FullScreenPanel" style="display: none;" />
 </ui:UXML>

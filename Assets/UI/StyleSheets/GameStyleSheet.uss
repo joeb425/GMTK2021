@@ -87,7 +87,7 @@
     border-bottom-right-radius: 8px;
     -unity-background-image-tint-color: rgb(18, 34, 58);
     -unity-background-scale-mode: stretch-to-fill;
-    background-color: rgba(59, 60, 60, 255);
+    background-color: rgb(59, 60, 60);
 }
 
 .RegularButton {
@@ -97,12 +97,12 @@
     -unity-font-style: bold;
     -unity-font-definition: resource('Fonts & Materials/LiberationSans SDF');
     -unity-text-align: middle-center;
-    background-color: rgba(43, 43, 43, 255);
-    color: rgba(135, 135, 135, 255);
-    border-left-color: rgba(75, 75, 74, 255);
-    border-right-color: rgba(75, 75, 74, 255);
-    border-top-color: rgba(75, 75, 74, 255);
-    border-bottom-color: rgba(75, 75, 74, 255);
+    background-color: rgb(43, 43, 43);
+    color: rgb(135, 135, 135);
+    border-left-color: rgb(75, 75, 74);
+    border-right-color: rgb(75, 75, 74);
+    border-top-color: rgb(75, 75, 74);
+    border-bottom-color: rgb(75, 75, 74);
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     border-top-right-radius: 8px;

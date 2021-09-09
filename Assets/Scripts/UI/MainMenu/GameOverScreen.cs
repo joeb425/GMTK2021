@@ -25,7 +25,6 @@ namespace UI.MainMenu
 
 		private void OnAttach(AttachToPanelEvent evt)
 		{
-			Debug.Log("Bind to buttons?");
 			Button restartBtn = this.Q<Button>("RestartBtn");
 			restartBtn?.RegisterCallback<ClickEvent>(ev => RestartGame());
 
@@ -40,7 +39,7 @@ namespace UI.MainMenu
 
 		private void GoToMainMenu()
 		{
-			SceneManager.LoadScene("Assets/Scenes/MainMenu.unity");
+			SceneManager.LoadScene("Assets/Scenes/MainMenu.unity", LoadSceneMode.Single);
 		}
 	}
 }
