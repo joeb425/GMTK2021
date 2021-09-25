@@ -24,6 +24,13 @@ public class Bullet : MonoBehaviour
 	private float progress = 0.0f;
 	private float progressSpeed = 1.0f;
 
+	private TrailRenderer _trailRenderer;
+
+	public void Awake()
+	{
+		_trailRenderer = GetComponent<TrailRenderer>();
+	}
+
 	public void Init()
 	{
 		progress = 0.0f;
@@ -50,6 +57,7 @@ public class Bullet : MonoBehaviour
 		{
 			Explode();
 			BulletPool.Get.ReclaimToPool(gameObject);
+			_trailRenderer.Clear();
 		}
 	}
 
