@@ -13,6 +13,9 @@ public class Game : MonoBehaviour
 	public InputHandler input;
 
 	[SerializeField]
+	public AudioHandler audio;
+
+	[SerializeField]
 	public UIDocument hud;
 
 	[SerializeField]

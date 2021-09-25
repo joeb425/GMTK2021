@@ -26,3 +26,4 @@ MonoBehaviour:
   bulletMaterial: {fileID: 2100000, guid: fe87a267a154b2a47a06e01d9854c7b4, type: 2}
   upgradeInfos: []
   onHitEffects: []
+  shootSfx: {fileID: 8300000, guid: 98f961f4df47f854cb30e775e49e23bf, type: 3}

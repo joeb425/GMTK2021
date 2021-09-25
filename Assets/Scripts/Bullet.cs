@@ -30,12 +30,6 @@ public class Bullet : MonoBehaviour
 
 		lastKnownPos = target.Position;
 		spawnPoint = tower.bulletSpawnPoint.position;
-
-		if (tower)
-		{
-			float distance = (lastKnownPos - spawnPoint).magnitude;
-			progressSpeed = (1.0f / distance) * bulletSpeed;
-		}	
 	}
 
 	private void Update()
@@ -43,8 +37,11 @@ public class Bullet : MonoBehaviour
 		if (target != null)
 		{
 			lastKnownPos = target.Position;
+			float distance = (lastKnownPos - spawnPoint).magnitude;
+			progressSpeed = (1.0f / distance) * bulletSpeed;
 		}
 
+		
 		progress += Time.deltaTime * progressSpeed;
 		transform.LookAt(lastKnownPos);
 		transform.position = Vector3.Lerp(spawnPoint, lastKnownPos, progress);
@@ -61,6 +58,18 @@ public class Bullet : MonoBehaviour
 		if (target != null && tower != null)
 		{
 			tower.ApplyHit(target);
+			PlaySound();
+			PlayParticleEffect();
 		}
+	}
+
+	private void PlaySound()
+	{
+		
+	}
+
+	private void PlayParticleEffect()
+	{
+		
 	}
 }

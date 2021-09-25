@@ -28,3 +28,4 @@ MonoBehaviour:
   - upgradeCost: 5
     upgradeEffect: {fileID: 11400000, guid: 5875d55ef89a56a45945586af535f14e, type: 2}
   onHitEffects: []
+  shootSfx: {fileID: 8300000, guid: 4552758ee0437044eb0460214f880917, type: 3}

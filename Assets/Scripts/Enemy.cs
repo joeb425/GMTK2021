@@ -9,12 +9,15 @@ using Vector3 = UnityEngine.Vector3;
 
 public class Enemy : MonoBehaviour
 {
+	[SerializeField]
+	public float maxHealth;
+
+	[SerializeField]
+	public AudioClip deathSfx;
+
 	EnemyFactory _originFactory;
 
 	private float _progress;
-
-	[SerializeField]
-	public float maxHealth;
 
 	public Slider slider;
 
@@ -29,6 +32,7 @@ public class Enemy : MonoBehaviour
 	public Quaternion desiredRotation;
 
 	public GameplayAttributeContainer Attributes;
+
 
 	public EnemyFactory OriginFactory
 	{
@@ -75,6 +79,7 @@ public class Enemy : MonoBehaviour
 			_healthBarInstance.SetActive(false);
 			OriginFactory.Reclaim(this);
 			OnKilled?.Invoke();
+			PlayDeathSfx();
 			return false;
 		}
 
@@ -138,5 +143,10 @@ public class Enemy : MonoBehaviour
 	private void OnDestroy()
 	{
 		Destroy(_healthBarInstance);
+	}
+
+	private void PlayDeathSfx()
+	{
+		Game.Get.audio.PlaySfx(deathSfx);
 	}
 }
