@@ -27,3 +27,4 @@ MonoBehaviour:
   upgradeInfos: []
   onHitEffects:
   - {fileID: 11400000, guid: 98097641af988c14bb6bb71566ec298b, type: 2}
+  shootSfx: {fileID: 8300000, guid: ef083d5dbc204c04ba079c7b37bfd570, type: 3}

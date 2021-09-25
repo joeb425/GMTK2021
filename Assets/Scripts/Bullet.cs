@@ -24,18 +24,19 @@ public class Bullet : MonoBehaviour
 	private float progress = 0.0f;
 	private float progressSpeed = 1.0f;
 
+	private TrailRenderer _trailRenderer;
+
+	public void Awake()
+	{
+		_trailRenderer = GetComponent<TrailRenderer>();
+	}
+
 	public void Init()
 	{
 		progress = 0.0f;
 
 		lastKnownPos = target.Position;
 		spawnPoint = tower.bulletSpawnPoint.position;
-
-		if (tower)
-		{
-			float distance = (lastKnownPos - spawnPoint).magnitude;
-			progressSpeed = (1.0f / distance) * bulletSpeed;
-		}	
 	}
 
 	private void Update()
@@ -43,8 +44,11 @@ public class Bullet : MonoBehaviour
 		if (target != null)
 		{
 			lastKnownPos = target.Position;
+			float distance = (lastKnownPos - spawnPoint).magnitude;
+			progressSpeed = (1.0f / distance) * bulletSpeed;
 		}
 
+		
 		progress += Time.deltaTime * progressSpeed;
 		transform.LookAt(lastKnownPos);
 		transform.position = Vector3.Lerp(spawnPoint, lastKnownPos, progress);
@@ -53,6 +57,7 @@ public class Bullet : MonoBehaviour
 		{
 			Explode();
 			BulletPool.Get.ReclaimToPool(gameObject);
+			_trailRenderer.Clear();
 		}
 	}
 
@@ -61,6 +66,18 @@ public class Bullet : MonoBehaviour
 		if (target != null && tower != null)
 		{
 			tower.ApplyHit(target);
+			PlaySound();
+			PlayParticleEffect();
 		}
+	}
+
+	private void PlaySound()
+	{
+		
+	}
+
+	private void PlayParticleEffect()
+	{
+		
 	}
 }

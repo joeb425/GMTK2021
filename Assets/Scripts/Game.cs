@@ -13,6 +13,9 @@ public class Game : MonoBehaviour
 	public InputHandler input;
 
 	[SerializeField]
+	public AudioHandler audio;
+
+	[SerializeField]
 	public UIDocument hud;
 
 	[SerializeField]
@@ -73,6 +76,7 @@ public class Game : MonoBehaviour
 
 		GlobalData.OnGameInit?.Invoke();
 	}
+
 	void OnValidate()
 	{
 		if (boardSize.x < 2)
@@ -146,5 +150,7 @@ public class Game : MonoBehaviour
 		Debug.Log("Game On Destroy");
 		input.Disable();
 		Get = null;
+
+		GlobalData.Clear();
 	}
 }

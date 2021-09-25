@@ -9,14 +9,20 @@ using Vector3 = UnityEngine.Vector3;
 
 public class Enemy : MonoBehaviour
 {
+	[SerializeField]
+	public float maxHealth;
+
+	[SerializeField]
+	public AudioClip deathSfx;
+
+	[SerializeField]
+	public ParticleSystem deathParticleSystem;
+
 	EnemyFactory _originFactory;
 
 	private float _progress;
 
-	[SerializeField]
-	public float maxHealth;
-
-	public Slider slider;
+	private Slider slider;
 
 	public event System.Action OnReachEnd;
 	public event System.Action OnKilled;
@@ -24,7 +30,7 @@ public class Enemy : MonoBehaviour
 	[SerializeField]
 	public GameObject healthBarPrefab;
 
-	public GameObject _healthBarInstance;
+	private GameObject _healthBarInstance;
 
 	public Quaternion desiredRotation;
 
@@ -75,6 +81,7 @@ public class Enemy : MonoBehaviour
 			_healthBarInstance.SetActive(false);
 			OriginFactory.Reclaim(this);
 			OnKilled?.Invoke();
+			PlayDeathSfx();
 			return false;
 		}
 
@@ -138,5 +145,14 @@ public class Enemy : MonoBehaviour
 	private void OnDestroy()
 	{
 		Destroy(_healthBarInstance);
+	}
+
+	private void PlayDeathSfx()
+	{
+		Game.Get.audio.PlaySfx(deathSfx);
+		ParticleSystem ps = Instantiate(deathParticleSystem);
+		ps.transform.position = transform.position;
+		ps.Play();
+		// particleSystem.Play();
 	}
 }

@@ -58,4 +58,7 @@ public class TowerData : ScriptableObject
 
 	[SerializeField]
 	public List<GameplayEffect> onHitEffects;
+
+	[SerializeField]
+	public AudioClip shootSfx;
 }

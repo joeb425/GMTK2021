@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 500
+  deathSfx: {fileID: 8300000, guid: 0e1bcc82f1749544495b2a765be9f828, type: 3}
+  deathParticleSystem: {fileID: 7732684545211868803, guid: 3bec3748d70383b4180db380046303ca,
+    type: 3}
   slider: {fileID: 0}
   healthBarPrefab: {fileID: 2143082155953639934, guid: a927b9a2336083a4ca0ca01e266cfee4,
     type: 3}

@@ -182,6 +182,8 @@ public class Tower : MonoBehaviour
 				}
 			}
 		}
+
+		Game.Get.audio.PlaySfx(towerData.shootSfx);
 	}
 
 	private void UpdateRangeDisplay()
