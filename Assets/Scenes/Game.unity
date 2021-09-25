@@ -839,6 +839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8b825bf629494cbf8359bf8e1904c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxFrequency: 0.1
 --- !u!82 &1669458722
 AudioSource:
   m_ObjectHideFlags: 0

@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
 
 	private float _progress;
 
-	public Slider slider;
+	private Slider slider;
 
 	public event System.Action OnReachEnd;
 	public event System.Action OnKilled;
@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
 	[SerializeField]
 	public GameObject healthBarPrefab;
 
-	public GameObject _healthBarInstance;
+	private GameObject _healthBarInstance;
 
 	public Quaternion desiredRotation;
 
