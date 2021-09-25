@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 951984faa4d849e48034aebbeed2f6b5, type: 3}
-  m_Name: TestEffect
+  m_Name: RangeEffect
   m_EditorClassIdentifier: 
   Modifiers:
-  - attribute: 4
-    value: 0.1
-    valueOperator: 2
+  - attribute: 2
+    value: 3
+    valueOperator: 0
   duration: 0
   interval: 0
-  serializedGuid: 5a63f6dc6f9a0f43a65566a7a052ca26
+  serializedGuid: 9371ed8344537f439b091ce411ddedc6

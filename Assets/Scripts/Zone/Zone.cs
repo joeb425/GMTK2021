@@ -20,11 +20,12 @@ public class Zone
 
 		MeshRenderer[] temp = tile.transform.GetComponentsInChildren<MeshRenderer>();
 		foreach (MeshRenderer t in temp)
-			if (t.gameObject.name == "Outline")
-				t.material = GlobalData.GetAssetBindings().gameAssets.spreadMaterials[0];
-
-		// Probably will make something else to indicate but for now any mesh renderer
-		//tileMaterial.material = zoneHandler.GetSpreadMat(tempSpread);
+		{
+			if (t.gameObject.name == "Base")
+			{
+				t.material.color = zoneData.zoneColor;
+			}
+		}
 
 		foreach (GameplayEffect effect in zoneData.zoneEffects)
 		{

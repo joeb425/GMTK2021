@@ -9,9 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec150eab804a47649b5ebf6027d2bed2, type: 3}
-  m_Name: RedZone
+  m_Script: {fileID: 11500000, guid: 951984faa4d849e48034aebbeed2f6b5, type: 3}
+  m_Name: SplitEffect
   m_EditorClassIdentifier: 
-  zoneColor: {r: 0.31132078, g: 0.10958998, b: 0.083704166, a: 1}
-  zoneEffects:
-  - {fileID: 11400000, guid: 58d88f852342c9d409f30b39dcd336d4, type: 2}
+  Modifiers:
+  - attribute: 5
+    value: 2
+    valueOperator: 0
+  duration: 0
+  interval: 0
+  serializedGuid: 5a63f6dc6f9a0f43a65566a7a052ca26

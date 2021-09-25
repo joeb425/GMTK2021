@@ -25,7 +25,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4779fa9877934c0c8446d0fb42e5047d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hex:
+    q: 0
+    r: 0
+    s: 0
   IsObstacle: 0
+  SpreadType: 
   TileType: 0
 --- !u!1 &5014410660391200318
 GameObject:
@@ -119,6 +124,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0d68c412686f7774096c6ac3c0894a36,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0d68c412686f7774096c6ac3c0894a36,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0d68c412686f7774096c6ac3c0894a36,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0d68c412686f7774096c6ac3c0894a36,
         type: 3}

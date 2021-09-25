@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec150eab804a47649b5ebf6027d2bed2, type: 3}
   m_Name: YellowZone
   m_EditorClassIdentifier: 
-  zoneColor: {r: 1, g: 1, b: 0, a: 1}
+  zoneColor: {r: 0.6132076, g: 0.6132076, b: 0.020247431, a: 1}
   zoneEffects:
-  - {fileID: 11400000, guid: 58d88f852342c9d409f30b39dcd336d4, type: 2}
+  - {fileID: 11400000, guid: fd2e302fe49d65045af7aa9274bcd721, type: 2}
