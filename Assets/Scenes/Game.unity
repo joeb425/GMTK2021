@@ -979,17 +979,3 @@ MonoBehaviour:
     q: 0
     r: 0
     s: 0
-  spreadHandler: {fileID: 0}
---- !u!114 &2022507408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2022507404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b138d81a0614243448a13e6336125c15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  zoneMaterials: []

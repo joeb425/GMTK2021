@@ -9,4 +9,6 @@ public class GameAssets : ScriptableObject
 	[SerializeField]
 	public List<Material> spreadMaterials;
 
+	[SerializeField]
+	public AudioClip placeTowerSfx;
 }

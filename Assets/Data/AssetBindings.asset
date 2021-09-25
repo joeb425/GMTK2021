@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gamePrefabs: {fileID: 11400000, guid: 628bff90698edc646b398b251fd85d71, type: 2}
   levelData: {fileID: 11400000, guid: 0aaf009447a0a124bbb46fb18065666c, type: 2}
-  towerBuildButton: {fileID: 9197481963319205126, guid: 1e385f200928b6848a91c9d4c40d7be8,
-    type: 3}
+  gameAssets: {fileID: 11400000, guid: 42af6bf33bb700b4e965560d34d30cc9, type: 2}

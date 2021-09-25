@@ -18,3 +18,4 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 7cd5b77e0a51c564b8929587dc63aae1, type: 2}
   - {fileID: 2100000, guid: 660e16a619a987d45aa79905721089ef, type: 2}
   - {fileID: 2100000, guid: 954281099003b9449820984d80a8407b, type: 2}
+  placeTowerSfx: {fileID: 8300000, guid: 589966eae13439d4899331b61f1a8a92, type: 3}

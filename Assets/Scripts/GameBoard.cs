@@ -119,6 +119,8 @@ public class GameBoard : MonoBehaviour
 		foliageLayer.DeleteTile(tile);
 		OnTowerPlaced?.Invoke(tile, tower);
 
+		Game.Get.audio.PlaySfx(GlobalData.GetAssetBindings().gameAssets.placeTowerSfx);
+
 		// // tower.transform.position = grid.flat.HexToWorld(tile);
 		// towerLayer.AddTile(tile, tower.gameObject);
 

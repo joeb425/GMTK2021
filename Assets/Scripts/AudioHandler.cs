@@ -21,6 +21,11 @@ public class AudioHandler : MonoBehaviour
 
 	public void PlaySfx(AudioClip sfx)
 	{
+		if (sfx == null)
+		{
+			return;
+		}
+
 		if (lastPlayed.TryGetValue(sfx, out float lastTime))
 		{
 			if (Time.time - lastTime < maxFrequency)
