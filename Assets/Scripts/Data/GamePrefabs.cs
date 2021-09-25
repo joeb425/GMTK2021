@@ -23,6 +23,6 @@ public class GamePrefabs : ScriptableObject
 	[SerializeField]
 	public VisualTreeAsset towerBuildButton;
 
-	[SerializeField]
+	[SerializeField] 
 	public VisualTreeAsset attributeDisplayItem;
 }

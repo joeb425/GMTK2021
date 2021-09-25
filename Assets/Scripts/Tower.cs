@@ -276,4 +276,22 @@ public class Tower : MonoBehaviour
 			Attributes.ApplyEffect(upgradeInfo.upgradeEffect);
 		}
 	}
+
+	public void LinkTower()
+	{
+		// Link tower -> need to tell board link has occured and probably pass in coord of linking tile
+		var link = 1;
+		GameState.Get.Board.CreateLink(this);
+
+		// 
+
+
+
+
+	}
+
+	public void UpdateAttributes()
+	{
+
+	}
 }

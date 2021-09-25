@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2040721839946958363}
   - component: {fileID: 7740528760849066767}
   m_Layer: 0
-  m_Name: HexMesh (1)
+  m_Name: Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,6 +149,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4457779302516862804, guid: a90b1eaabc1350845929a4f9e92d5e6b,
+        type: 3}
+      propertyPath: m_Name
+      value: Spawn
+      objectReference: {fileID: 0}
+    - target: {fileID: 5014410660391200318, guid: a90b1eaabc1350845929a4f9e92d5e6b,
         type: 3}
       propertyPath: m_Name
       value: Spawn

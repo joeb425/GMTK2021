@@ -11,5 +11,8 @@ namespace DefaultNamespace.Data
 
 		[SerializeField]
 		public LevelData levelData;
+
+		[SerializeField]
+		public GameAssets gameAssets;
 	}
 }

@@ -18,6 +18,9 @@ namespace HexLibrary
 		public bool IsObstacle;
 
 		[SerializeField]
+		public string SpreadType;
+
+		[SerializeField]
 		public HexTileType TileType;
 	}
 }

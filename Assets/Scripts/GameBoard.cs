@@ -20,9 +20,9 @@ public class GameBoard : MonoBehaviour
 
 	List<Hex> spawnPoints = new List<Hex>();
 	
-	public event System.Action<Hex, Hex> OnSelectedTileChanged;
+	public event System.Action<Hex, Hex> OnSelectedTileChanged;	
 	public event System.Action<Hex, Hex> OnHoveredTileChanged;
-	
+
 	public event System.Action<Hex, Tower> OnTowerPlaced;
 
 	public List<Hex> enemyPath = new List<Hex>();
@@ -35,6 +35,8 @@ public class GameBoard : MonoBehaviour
 
 	private Tower towerToBePlaced;
 	private Tower towerToBePlacedPrefab;
+
+	public ZoneHandler zoneHandler = new ZoneHandler();
 
 	public void Initialize()
 	{
@@ -241,7 +243,7 @@ public class GameBoard : MonoBehaviour
 		{
 
 		}
-
+			
 
 
 		Hex oldSelectedTile = selectedTile;
@@ -333,4 +335,59 @@ public class GameBoard : MonoBehaviour
 			Gizmos.DrawSphere(worldPos, 0.25f);
 		}
 	}
+
+	public void CreateLink(Tower tower)
+	{
+		// this will need to move to where spread begins in board initialize
+		string tempSpread = "red";
+		zoneHandler.InitializeSpread(tempSpread);
+
+
+
+		List<string> spreadType = new List<string>();
+		var CentreHex = selectedTile;
+		for (int i = 0; i < 6; i++)
+		{
+			Hex neighbor = selectedTile.Neighbor(i);
+			groundLayer.GetTile(neighbor, out GameObject tile);
+
+			HexComponent hexcomp = tile.GetComponent<HexComponent>();
+
+			if (hexcomp != null)
+			{
+				if (hexcomp.SpreadType != null)
+				{
+					//Debug.Log("Spreadtype Found");
+					spreadType.Add(hexcomp.SpreadType);
+					// may need to pass this back for menu options
+				}
+			}
+		}
+		//Simulate spread on ajoining hex
+		spreadType.Add(tempSpread);
+		//
+
+		string toSpread;
+		Debug.Log("HERE :" + spreadType);
+		if (spreadType.Count > 0)
+		{
+			toSpread = spreadType[0];
+			groundLayer.GetTile(selectedTile, out GameObject curTile);
+			HexComponent hexcomp = curTile.GetComponent<HexComponent>();
+			MeshRenderer[] temp = curTile.transform.GetComponentsInChildren<MeshRenderer>();
+			foreach (MeshRenderer t in temp) if (t.gameObject.name == "Outline") t.material = zoneHandler.GetSpreadMat(tempSpread);
+			MeshRenderer tileMaterial = curTile.GetComponentInChildren<MeshRenderer>();
+			// Probably will make something else to indicate but for now any mesh renderer
+			//tileMaterial.material = zoneHandler.GetSpreadMat(tempSpread);
+			// We can set the material to a colour
+		}
+
+
+	}
+
+	public void SpreadLink(Hex tile, Tower tower)
+	{
+
+	}
+
 }

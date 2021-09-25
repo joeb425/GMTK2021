@@ -46,6 +46,11 @@ public class TowerInfoMenu : VisualElement
 	{
 		// The linking stuff
 		Debug.Log("link a tower");
+		// Need to select a tile that has a spread on it without wrecking the interfaces and messing everything up
+		// need to store the current selected tile and pass the next selected tile as well
+		// Grab the position of the tower and query the board for the ground tile can change the colour from there
+		// can cheat and use selectedtile and oldselectedtile
+		_currentTower.LinkTower();
 	}
 
 	void SellTower()
