@@ -15,6 +15,9 @@ public class Enemy : MonoBehaviour
 	[SerializeField]
 	public AudioClip deathSfx;
 
+	[SerializeField]
+	public ParticleSystem deathParticleSystem;
+
 	EnemyFactory _originFactory;
 
 	private float _progress;
@@ -32,7 +35,6 @@ public class Enemy : MonoBehaviour
 	public Quaternion desiredRotation;
 
 	public GameplayAttributeContainer Attributes;
-
 
 	public EnemyFactory OriginFactory
 	{
@@ -148,5 +150,9 @@ public class Enemy : MonoBehaviour
 	private void PlayDeathSfx()
 	{
 		Game.Get.audio.PlaySfx(deathSfx);
+		ParticleSystem ps = Instantiate(deathParticleSystem);
+		ps.transform.position = transform.position;
+		ps.Play();
+		// particleSystem.Play();
 	}
 }
