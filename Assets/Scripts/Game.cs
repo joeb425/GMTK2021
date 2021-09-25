@@ -76,6 +76,7 @@ public class Game : MonoBehaviour
 
 		GlobalData.OnGameInit?.Invoke();
 	}
+
 	void OnValidate()
 	{
 		if (boardSize.x < 2)
@@ -149,5 +150,7 @@ public class Game : MonoBehaviour
 		Debug.Log("Game On Destroy");
 		input.Disable();
 		Get = null;
+
+		GlobalData.Clear();
 	}
 }
