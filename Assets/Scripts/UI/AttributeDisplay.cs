@@ -37,6 +37,7 @@ namespace UI.MainMenu
 		{
 			_attributeName.text = attribute.attributeType.ToString();
 			_attributeValue.text = "" + attribute.GetValue();
+			attribute.OnAttributeChanged += gameplayAttribute => _attributeValue.text = "" + attribute.GetValue();
 		}
 	}
 }

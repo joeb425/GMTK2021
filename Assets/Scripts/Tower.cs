@@ -45,6 +45,31 @@ public class Tower : MonoBehaviour
 
 		RotatorComponent rotatorComponent = gameObject.GetComponent<RotatorComponent>();
 		hasRotator = rotatorComponent != null;
+
+		Game.Get.gameState.Board.towerLayer.OnSelectedObjectChanged += (oldTower, newTower) =>
+		{
+			bool selectedThis = newTower == gameObject;
+			OnSelected(selectedThis);
+		};
+	}
+
+	public void OnTowerPlaced(GroundTileComponent groundTile)
+	{
+		for (int i = 0; i < 6; i++)
+		{
+			Hex neighborHex = groundTile.hex.Neighbor(i);
+			if (Game.Get.gameState.Board.groundLayer.GetTile(neighborHex, out var neighborTile))
+			{
+				var neighbor = neighborTile.GetComponent<GroundTileComponent>();
+				if (neighbor != null)
+				{
+					foreach (GameplayEffect effect in towerData.supportEffects)
+					{
+						neighbor.AddTowerEffect(effect);
+					}
+				}
+			}
+		}
 	}
 
 	public void InitLineRenderer()
@@ -223,16 +248,13 @@ public class Tower : MonoBehaviour
 		onHitEffects = towerData.onHitEffects;
 		
 		// TODO bind to callbacks when attributes change
-		Attributes.GetAttribute(AttributeType.Range).OnAttributeChanged += (attribute, oldValue) =>
+		Attributes.GetAttribute(AttributeType.Range).OnAttributeChanged += (attribute) =>
 		{
-			if (attribute.attributeType == AttributeType.Range)
-			{
-				UpdateRangeDisplay();
-			}
+			UpdateRangeDisplay();
+			UpdateTowerRangeCollider();
 		};
-		
-		UpdateTowerRangeCollider();
 
+		UpdateTowerRangeCollider();
 		UpdateRangeDisplay();
 	}
 

@@ -127,6 +127,8 @@ public class GameBoard : MonoBehaviour
 			var groundTile = groundObject.GetComponent<GroundTileComponent>();
 			if (groundTile)
 			{
+				tower.OnTowerPlaced(groundTile);
+
 				groundTile.OnTowerEffectAdded += (hex, effect) => tower.Attributes.ApplyEffect(effect);
 				groundTile.ApplyEffectsToTower(tower);
 			}

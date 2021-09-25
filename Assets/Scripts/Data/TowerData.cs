@@ -24,10 +24,10 @@ public class TowerData : ScriptableObject
 	public Texture2D towerIcon;
 
 	[SerializeField]
-	public int towerCost;
+	public int towerCost = 5;
 
 	[SerializeField]
-	public int towerSell;
+	public int towerSell = 5;
 
 	[SerializeField, Range(0.0f, 50.0f)]
 	public float attackRange = 1;
@@ -45,7 +45,7 @@ public class TowerData : ScriptableObject
 	public float splash = 0;
 
 	[SerializeField]
-	public float bulletSpeed;
+	public float bulletSpeed = 1.0f;
 
 	[SerializeField]
 	public Mesh bulletMesh;
@@ -61,4 +61,10 @@ public class TowerData : ScriptableObject
 
 	[SerializeField]
 	public AudioClip shootSfx;
+
+	[SerializeField]
+	public List<GameplayEffect> supportEffects = new List<GameplayEffect>();
+
+	[SerializeField]
+	public int supportRadius = 0;
 }

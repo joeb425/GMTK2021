@@ -32,7 +32,7 @@ namespace Attributes
 		[HideInInspector]
 		private float currentValue;
 
-		public event System.Action<GameplayAttribute, float> OnAttributeChanged;
+		public event System.Action<GameplayAttribute> OnAttributeChanged;
 
 		public List<ActiveAttributeModifier> additiveModifiers = new List<ActiveAttributeModifier>();
 		public List<ActiveAttributeModifier> multiplicativeModifiers = new List<ActiveAttributeModifier>();
@@ -73,11 +73,12 @@ namespace Attributes
 		{
 			float oldValue = currentValue;
 			currentValue = newValue;
-			OnAttributeChanged?.Invoke(this, oldValue);
+			OnAttributeChanged?.Invoke(this);
 		}
 
 		public void ApplyModifierDirectly(GameplayAttributeModifier modifier)
 		{
+			float oldValue = currentValue;
 			switch (modifier.valueOperator)
 			{
 				case AttributeOperator.Add:
@@ -92,6 +93,8 @@ namespace Attributes
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+
+			OnAttributeChanged?.Invoke(this);
 		}
 		
 		public ActiveAttributeModifier ApplyModifier(GameplayAttributeModifier modifier)
@@ -102,17 +105,20 @@ namespace Attributes
 				{
 					ActiveAttributeModifier activeAdd = new ActiveAttributeModifier(modifier);
 					additiveModifiers.Add(activeAdd);
+					OnAttributeChanged?.Invoke(this);
 					return activeAdd;
 				}
 				case AttributeOperator.Multiply:
 				{
 					ActiveAttributeModifier activeMult = new ActiveAttributeModifier(modifier);
 					multiplicativeModifiers.Add(activeMult);
+					OnAttributeChanged?.Invoke(this);
 					return activeMult;
 				}
 				case AttributeOperator.Override:
 					ActiveAttributeModifier activeOverride = new ActiveAttributeModifier(modifier);
 					overrideModifiers.Add(activeOverride);
+					OnAttributeChanged?.Invoke(this);
 					return activeOverride;
 				default:
 					throw new ArgumentOutOfRangeException();

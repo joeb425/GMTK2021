@@ -39,6 +39,8 @@ namespace HexLibrary
 		private List<HexObjectPair> serializedGrid = new List<HexObjectPair>();
 
 		public System.Action<Hex, GameObject> OnTileAdded;
+		public System.Action<GameObject, GameObject> OnSelectedObjectChanged;
+		public GameObject selectedObject;
 
 		public void InitLayer(HexGrid grid, string layerName)
 		{
@@ -51,6 +53,16 @@ namespace HexLibrary
 			{
 				tilePrefabs.Add(spawnData.tilePrefab);
 			}
+
+			Game.Get.gameState.Board.OnSelectedTileChanged += (_, newHex) =>
+			{
+				GetTile(newHex, out var newSelection);
+				if (selectedObject != newSelection)
+				{
+					OnSelectedObjectChanged?.Invoke(selectedObject, newSelection);
+					selectedObject = newSelection;
+				}
+			};
 		}
 
 		public bool GetTile(Hex hexCoord, out GameObject tile)

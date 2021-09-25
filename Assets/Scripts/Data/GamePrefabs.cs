@@ -21,6 +21,9 @@ public class GamePrefabs : ScriptableObject
 	public Tower rocketTowerPrefab = default;
 
 	[SerializeField]
+	public Tower supportTowerPrefab = default;
+
+	[SerializeField]
 	public VisualTreeAsset towerBuildButton;
 
 	[SerializeField] 
