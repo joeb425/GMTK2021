@@ -50,8 +50,9 @@ public class Game : MonoBehaviour
 
 	void Awake()
 	{
+		Get = this;
+
 		Debug.Log("Game Awake");
-		board.Initialize();
 
 		// spawnerHandler.board = board;
 
@@ -61,12 +62,12 @@ public class Game : MonoBehaviour
 			MaxLives = MaxLives, 
 			Board = board
 		};
-		
+
+		board.Initialize();
+
 		gameState.Init();
 
 		bulletPool.Initialize();
-
-		Get = this;
 
 		uiHandler = new UIHandler();
 		uiHandler.Init(hud);

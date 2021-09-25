@@ -72,7 +72,7 @@ namespace UI.MainMenu.HUD
 				return;
 			}
 
-			var hexComponent = tileContent.GetComponent<HexComponent>();
+			var hexComponent = tileContent.GetComponent<GroundTileComponent>();
 			if (hexComponent == null)
 			{
 				_screenSwitcher.HideAll();

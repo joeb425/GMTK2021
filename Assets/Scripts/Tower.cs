@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Attributes;
+using HexLibrary;
 using UnityEngine;
 
 [Serializable]

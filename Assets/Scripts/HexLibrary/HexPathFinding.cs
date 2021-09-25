@@ -127,8 +127,7 @@ namespace HexLibrary
 
 		public Hex FindStartPoint()
 		{
-			var kvp = groundLayer.hexGrid.FirstOrDefault(x =>
-				x.Value.GetComponent<HexComponent>().TileType == HexTileType.Start);
+			var kvp = groundLayer.hexGrid.FirstOrDefault(x => x.Value.GetComponent<GroundTileComponent>().TileType == HexTileType.Start);
 			return kvp.Key;
 		}
 	}

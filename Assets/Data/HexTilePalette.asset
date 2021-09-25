@@ -45,6 +45,9 @@ MonoBehaviour:
       spawnKeyCode: 282
   - layerName: Zone
     spawnDatas:
-    - tilePrefab: {fileID: 1230147210678802240, guid: 2bb7a905db3adee4d99512067e1e31aa,
+    - tilePrefab: {fileID: 831816239544940775, guid: a027e31e1d57d6043837367dd6e513bc,
+        type: 3}
+      spawnKeyCode: 282
+    - tilePrefab: {fileID: 7034241482235270821, guid: 7a2c477dab2f823468ca1327e12036c5,
         type: 3}
       spawnKeyCode: 283

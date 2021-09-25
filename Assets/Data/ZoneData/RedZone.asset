@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec150eab804a47649b5ebf6027d2bed2, type: 3}
+  m_Name: RedZone
+  m_EditorClassIdentifier: 
+  zoneColor: {r: 1, g: 0.11461386, b: 0, a: 1}
+  zoneEffects:
+  - {fileID: 11400000, guid: 58d88f852342c9d409f30b39dcd336d4, type: 2}

@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
+using DefaultNamespace.Zone;
 using HexLibrary;
 using UnityEditor;
 
@@ -61,6 +62,8 @@ public class GameBoard : MonoBehaviour
 		}
 
 		enemyPath = new HexPathFinding().FindPath2(grid);
+
+		InitZones();
 	}
 
 	public void ToggleSpawnPoint(Hex tile)
@@ -118,6 +121,16 @@ public class GameBoard : MonoBehaviour
 		towerLayer.AddTile(tile, tower.gameObject);
 		foliageLayer.DeleteTile(tile);
 		OnTowerPlaced?.Invoke(tile, tower);
+
+		if (groundLayer.GetTile(tile, out var groundObject))
+		{
+			var groundTile = groundObject.GetComponent<GroundTileComponent>();
+			if (groundTile)
+			{
+				groundTile.OnTowerEffectAdded += (hex, effect) => tower.Attributes.ApplyEffect(effect);
+				groundTile.ApplyEffectsToTower(tower);
+			}
+		}
 
 		Game.Get.audio.PlaySfx(GlobalData.GetAssetBindings().gameAssets.placeTowerSfx);
 
@@ -336,24 +349,42 @@ public class GameBoard : MonoBehaviour
 			var worldPos = grid.flat.HexToWorld(hex);
 			Gizmos.DrawSphere(worldPos, 0.25f);
 		}
+		
+		foreach (Zone zone in zoneHandler.zones)
+		{
+			Gizmos.color = zone.zoneData.zoneColor;
+			Debug.Log(zone.groundTiles.Count);
+
+			foreach (GroundTileComponent groundTile in zone.groundTiles)
+			{
+				Gizmos.DrawSphere(grid.flat.HexToWorld(groundTile.hex), 0.5f);
+			}
+		}
 	}
 
 	public void CreateLink(Tower tower)
 	{
+		if (groundLayer.GetTile(selectedTile, out var tileObject))
+		{
+			var groundTile = tileObject.GetComponent<GroundTileComponent>();
+			zoneHandler.AddOrCreateZone(groundTile, GlobalData.GetAssetBindings().gameAssets.testZoneData);
+		}
+
+		return;
+
+
 		// this will need to move to where spread begins in board initialize
 		string tempSpread = "red";
 		zoneHandler.InitializeSpread(tempSpread);
 
-
-
 		List<string> spreadType = new List<string>();
-		var CentreHex = selectedTile;
+		var centreHex = selectedTile;
 		for (int i = 0; i < 6; i++)
 		{
 			Hex neighbor = selectedTile.Neighbor(i);
 			groundLayer.GetTile(neighbor, out GameObject tile);
 
-			HexComponent hexcomp = tile.GetComponent<HexComponent>();
+			GroundTileComponent hexcomp = tile.GetComponent<GroundTileComponent>();
 
 			if (hexcomp != null)
 			{
@@ -365,7 +396,7 @@ public class GameBoard : MonoBehaviour
 				}
 			}
 		}
-		//Simulate spread on ajoining hex
+		//Simulate spread on rejoining hex
 		spreadType.Add(tempSpread);
 		//
 
@@ -375,9 +406,11 @@ public class GameBoard : MonoBehaviour
 		{
 			toSpread = spreadType[0];
 			groundLayer.GetTile(selectedTile, out GameObject curTile);
-			HexComponent hexcomp = curTile.GetComponent<HexComponent>();
+			GroundTileComponent hexcomp = curTile.GetComponent<GroundTileComponent>();
 			MeshRenderer[] temp = curTile.transform.GetComponentsInChildren<MeshRenderer>();
-			foreach (MeshRenderer t in temp) if (t.gameObject.name == "Outline") t.material = zoneHandler.GetSpreadMat(tempSpread);
+			foreach (MeshRenderer t in temp)
+				if (t.gameObject.name == "Outline")
+					t.material = zoneHandler.GetSpreadMat(tempSpread);
 			MeshRenderer tileMaterial = curTile.GetComponentInChildren<MeshRenderer>();
 			// Probably will make something else to indicate but for now any mesh renderer
 			//tileMaterial.material = zoneHandler.GetSpreadMat(tempSpread);
@@ -390,6 +423,21 @@ public class GameBoard : MonoBehaviour
 	public void SpreadLink(Hex tile, Tower tower)
 	{
 
+	}
+
+	public void InitZones()
+	{
+		HexGridLayer zoneLayer = grid.GetLayer("Zone");
+		foreach (KeyValuePair<Hex,GameObject> kvp in zoneLayer.hexGrid)
+		{
+			ZonePrefabComponent zonePrefabComponent = kvp.Value.GetComponent<ZonePrefabComponent>();
+			Debug.Log(kvp.Key);
+			if (groundLayer.GetTile(kvp.Key, out var groundObject))
+			{
+				GroundTileComponent groundTile = groundObject.GetComponent<GroundTileComponent>();
+				zoneHandler.AddOrCreateZone(groundTile, zonePrefabComponent.zoneData);
+			}
+		}
 	}
 
 }

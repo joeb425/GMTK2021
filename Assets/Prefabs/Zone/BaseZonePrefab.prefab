@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 7247110890907104518}
   - component: {fileID: -7270596217385348190}
   - component: {fileID: -1216331927607952043}
+  - component: {fileID: -8669709156246249371}
   m_Layer: 0
-  m_Name: Zone
+  m_Name: BaseZonePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,3 +58,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b9eaf53ea57d4744b573e5d05e3743c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8669709156246249371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230147210678802240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec82c7c144e04d4e96f8ce4f1bcd9d8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneData: {fileID: 11400000, guid: 937c5c3b53e6e264ca7b78bdde985463, type: 2}

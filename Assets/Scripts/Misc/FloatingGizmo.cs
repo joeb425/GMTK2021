@@ -6,8 +6,8 @@ public class FloatingGizmo : MonoBehaviour
 {
 	void OnDrawGizmos()
 	{
-		Gizmos.color = Color.cyan;
-		Gizmos.DrawSphere(transform.position,1);
+		// Gizmos.color = Color.cyan;
+		// Gizmos.DrawSphere(transform.position,1);
 
 		// TODO draw hex grid
 

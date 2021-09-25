@@ -87,6 +87,11 @@ namespace HexLibrary
 			hexGrid.Add(hexCoord, objectOnTile);
 			serializedGrid.Add(new HexObjectPair(hexCoord, objectOnTile));
 
+			if (objectOnTile.TryGetComponent(out HexTileComponent hexTileComponent))
+			{
+				hexTileComponent.hex = hexCoord;
+			}
+
 			OnTileAdded?.Invoke(hexCoord, objectOnTile);
 
 			return objectOnTile;
@@ -180,18 +185,18 @@ namespace HexLibrary
 			}
 		}
 
-		public bool GetHexComponent(Hex hex, out HexComponent hexComponent)
+		public bool GetHexComponent(Hex hex, out GroundTileComponent groundTileComponent)
 		{
 			if (GetTile(hex, out var tile))
 			{
-				hexComponent = tile.GetComponent<HexComponent>();
-				if (hexComponent != null)
+				groundTileComponent = tile.GetComponent<GroundTileComponent>();
+				if (groundTileComponent != null)
 				{
 					return true;
 				}
 			}
 
-			hexComponent = null;
+			groundTileComponent = null;
 			return false;
 		}
 	}
