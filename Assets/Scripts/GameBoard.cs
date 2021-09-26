@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace.Zone;
 using HexLibrary;
+using Misc;
 using UnityEditor;
 
 public class GameBoard : MonoBehaviour
@@ -245,8 +246,9 @@ public class GameBoard : MonoBehaviour
 
 	public void SelectTile(Hex newSelectedTile)
 	{
-		if (zoneHandler.TrySpreadZoneToLocation(newSelectedTile))
+		if (zoneHandler.isSpreadingZone)
 		{
+			zoneHandler.TrySpreadZoneToLocation(newSelectedTile);
 			return;
 		}
 		

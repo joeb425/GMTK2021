@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using HexLibrary;
+using Misc;
 using Random = UnityEngine.Random;
 
 public class ZoneHandler
 {
 	public List<Zone> zones = new List<Zone>();
 
-	private bool IsSpreadingZone = false;
+	public bool isSpreadingZone = false;
 	private GroundTileComponent sourceTile = null;
 
 	public void CreateZone(GroundTileComponent groundTile, ZoneData zoneData)
@@ -25,16 +26,22 @@ public class ZoneHandler
 		var buildNeighbors = sourceTile.zone.GetZoneNeighbors().Where(neighbor => neighbor.TileType == HexTileType.Build);
 		foreach (var neighbor in buildNeighbors)
 		{
-			Game.Get.tileHighlighter.SetHexHighlighted(neighbor.hex, true, new Color(1.0f, 1.0f, 1.0f, 0.5f));
+			var highlight = Game.Get.tileHighlighter.SetHexHighlighted(neighbor.hex, true, new Color(.5f, .5f, 0.0f, 0.75f));
+			// if (highlight != null)
+			// {
+			// 	var pulse = highlight.AddComponent<MaterialPulse>();
+			// 	pulse.minAlpha = 0.0f;
+			// 	pulse.maxAlpha = 0.3f;
+			// }
 		}
 
 		this.sourceTile = sourceTile;
-		IsSpreadingZone = true;
+		isSpreadingZone = true;
 	}
 
 	public bool TrySpreadZoneToLocation(Hex targetHex)
 	{
-		if (!IsSpreadingZone)
+		if (!isSpreadingZone)
 		{
 			return false;
 		}
@@ -44,13 +51,19 @@ public class ZoneHandler
 		if (!groundLayer.GetHexComponent(targetHex, out GroundTileComponent targetTile))
 		{
 			CancelZoneSpread();
-			return true;
+			return false;
+		}
+
+		if (targetTile.TileType != HexTileType.Build)
+		{
+			CancelZoneSpread();
+			return false;
 		}
 
 		if (!sourceTile.zone.GetZoneNeighbors().Contains(targetTile))
 		{
 			CancelZoneSpread();
-			return true;
+			return false;
 		}
 
 		CancelZoneSpread();
@@ -61,7 +74,7 @@ public class ZoneHandler
 
 	private void CancelZoneSpread()
 	{
-		IsSpreadingZone = false;
+		isSpreadingZone = false;
 
 		foreach (Hex neighbor in sourceTile.zone.GetZoneNeighbors().Select(tile => tile.hex))
 		{

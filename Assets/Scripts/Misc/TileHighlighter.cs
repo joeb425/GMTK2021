@@ -12,7 +12,7 @@ namespace Misc
 
 		private Dictionary<Hex, GameObject> highlightedTiles = new Dictionary<Hex, GameObject>();
 
-		public void SetHexHighlighted(Hex hex, bool isHighlighted, Color color = new Color())
+		public GameObject SetHexHighlighted(Hex hex, bool isHighlighted, Color color = new Color())
 		{
 			if (isHighlighted)
 			{
@@ -36,6 +36,7 @@ namespace Misc
 
 					gameObject.transform.position = worldPos;
 					highlightedTiles.Add(hex, gameObject);
+					return gameObject;
 				}
 			}
 			else
@@ -46,6 +47,8 @@ namespace Misc
 					highlightedTiles.Remove(hex);
 				}
 			}
+
+			return null;
 		}
 	}
 }
