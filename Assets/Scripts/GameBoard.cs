@@ -130,7 +130,7 @@ public class GameBoard : MonoBehaviour
 			groundTile.ApplyEffectsToTower(tower);
 		}
 
-		Game.Get.audio.PlaySfx(GlobalData.GetAssetBindings().gameAssets.placeTowerSfx);
+		Game.Get.audioHandler.PlaySfx(GlobalData.GetAssetBindings().gameAssets.placeTowerSfx);
 
 		// // tower.transform.position = grid.flat.HexToWorld(tile);
 		// towerLayer.AddTile(tile, tower.gameObject);
@@ -217,8 +217,6 @@ public class GameBoard : MonoBehaviour
 			return;
 
 		ToggleTower(tile, tower);
-
-		Debug.Log("place tower?");
 	}
 
 	public void PlaceTower(Tower tower)

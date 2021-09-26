@@ -231,11 +231,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4a8c46f22f8c47a1a14e9657bbb981b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audio: {fileID: 1669458721}
+  audioHandler: {fileID: 1669458721}
   hud: {fileID: 739550510}
   StartingCash: 10
   MaxLives: 25
-  boardSize: {x: 11, y: 11}
   board: {fileID: 2022507406}
   spawnerHandler: {fileID: 640835631}
   bulletPool: {fileID: 1129846771}

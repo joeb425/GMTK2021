@@ -46,7 +46,7 @@ public class Tower : MonoBehaviour
 		RotatorComponent rotatorComponent = gameObject.GetComponent<RotatorComponent>();
 		hasRotator = rotatorComponent != null;
 
-		Game.Get.gameState.Board.towerLayer.OnSelectedObjectChanged += (oldTower, newTower) =>
+		GameState.Get.Board.towerLayer.OnSelectedObjectChanged += (oldTower, newTower) =>
 		{
 			bool selectedThis = newTower == gameObject;
 			OnSelected(selectedThis);
@@ -59,7 +59,7 @@ public class Tower : MonoBehaviour
 		{
 			Hex neighborHex = groundTile.hex.Neighbor(i);
 
-			if (Game.Get.gameState.Board.groundLayer.GetComponentAtHex(neighborHex, out GroundTileComponent neighbor))
+			if (GameState.Get.Board.groundLayer.GetComponentAtHex(neighborHex, out GroundTileComponent neighbor))
 			{
 				foreach (GameplayEffect effect in towerData.supportEffects)
 				{
@@ -206,7 +206,7 @@ public class Tower : MonoBehaviour
 			}
 		}
 
-		Game.Get.audio.PlaySfx(towerData.shootSfx);
+		Game.Get.audioHandler.PlaySfx(towerData.shootSfx);
 	}
 
 	private void UpdateRangeDisplay()

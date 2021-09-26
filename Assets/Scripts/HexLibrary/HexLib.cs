@@ -116,7 +116,7 @@ namespace HexLibrary
 
 		public bool Equals(Hex obj)
 		{
-			if (obj == null)
+			if (obj is null)
 			{
 				return false;
 			}
@@ -126,7 +126,12 @@ namespace HexLibrary
 
 		public static bool operator ==(Hex a, Hex b)
 		{
-			return a != null && a.Equals(b);
+			if (a is null || b is null)
+			{
+				return false;
+			}
+
+			return a.Equals(b);
 		}
 
 		public static bool operator !=(Hex a, Hex b)

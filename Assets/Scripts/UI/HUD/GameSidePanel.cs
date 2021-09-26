@@ -48,8 +48,8 @@ namespace UI.MainMenu.HUD
 			_screenSwitcher.HideAll();
 			_screenSwitcher.OnScreenStateChanged += OnScreenStateChanged;
 			
-			Game.Get.gameState.Board.OnTowerPlaced += OnTowerPlaced;
-			Game.Get.gameState.Board.OnSelectedTileChanged += (_, newHex) => OnSelectedTileChanged(newHex);
+			GameState.Get.Board.OnTowerPlaced += OnTowerPlaced;
+			GameState.Get.Board.OnSelectedTileChanged += (_, newHex) => OnSelectedTileChanged(newHex);
 		}
 
 		void OnSelectedTileChanged(Hex selectedTile)
@@ -62,7 +62,7 @@ namespace UI.MainMenu.HUD
 			}
 
 			// check ground layer
-			if (!GameState.Get.Board.groundLayer.GetComponentAtHex(selectedTile, out GroundTileComponent groundTile))
+			if (GameState.Get.Board.groundLayer.GetComponentAtHex(selectedTile, out GroundTileComponent groundTile))
 			{
 				if (groundTile.TileType == HexTileType.Build)
 				{

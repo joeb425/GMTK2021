@@ -26,7 +26,7 @@ public class ZoneHandler
 
 	public void AddOrCreateZone(GroundTileComponent groundTile, ZoneData zoneData)
 	{
-		HexGridLayer groundLayer = Game.Get.gameState.Board.groundLayer;
+		HexGridLayer groundLayer = GameState.Get.Board.groundLayer;
 
 		for (int i = 0; i < 6; i++)
 		{

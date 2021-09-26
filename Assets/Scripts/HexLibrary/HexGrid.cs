@@ -54,7 +54,6 @@ namespace HexLibrary
 
 		public void Init()
 		{
-			Debug.Log("Init hex grid?");
 			if (Application.isPlaying)
 			{
 				LoadLevel();

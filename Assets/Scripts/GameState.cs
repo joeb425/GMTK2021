@@ -65,6 +65,7 @@ public class GameState
 	public void Init()
 	{
 		Get = this;
+		Game.Get.OnGameDestroyed += () => Get = null;
 
 		CurrentCash = StartingCash;
 		CurrentLives = MaxLives;

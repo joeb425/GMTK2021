@@ -55,7 +55,7 @@ namespace HexLibrary
 				tilePrefabs.Add(spawnData.tilePrefab);
 			}
 
-			Game.Get.gameState.Board.OnSelectedTileChanged += (_, newHex) =>
+			GameState.Get.Board.OnSelectedTileChanged += (_, newHex) =>
 			{
 				GetObjectAtHex(newHex, out var newSelection);
 				if (selectedObject != newSelection)

@@ -149,7 +149,7 @@ public class Enemy : MonoBehaviour
 
 	private void PlayDeathSfx()
 	{
-		Game.Get.audio.PlaySfx(deathSfx);
+		Game.Get.audioHandler.PlaySfx(deathSfx);
 		ParticleSystem ps = Instantiate(deathParticleSystem);
 		ps.transform.position = transform.position;
 		ps.Play();
