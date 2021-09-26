@@ -23,20 +23,23 @@ public class ZoneHandler
 
 	public void StartSpreadingZone(GroundTileComponent sourceTile)
 	{
-		var buildNeighbors = sourceTile.zone.GetZoneNeighbors().Where(neighbor => neighbor.TileType == HexTileType.Build);
-		foreach (var neighbor in buildNeighbors)
-		{
-			var highlight = Game.Get.tileHighlighter.SetHexHighlighted(neighbor.hex, true, new Color(.5f, .5f, 0.0f, 0.75f));
-			// if (highlight != null)
-			// {
-			// 	var pulse = highlight.AddComponent<MaterialPulse>();
-			// 	pulse.minAlpha = 0.0f;
-			// 	pulse.maxAlpha = 0.3f;
-			// }
-		}
+		if (sourceTile.zone != null)
+			{
+			var buildNeighbors = sourceTile.zone.GetZoneNeighbors().Where(neighbor => neighbor.TileType == HexTileType.Build);
+			foreach (var neighbor in buildNeighbors)
+			{
+				var highlight = Game.Get.tileHighlighter.SetHexHighlighted(neighbor.hex, true, new Color(.5f, .5f, 0.0f, 0.75f));
+				// if (highlight != null)
+				// {
+				// 	var pulse = highlight.AddComponent<MaterialPulse>();
+				// 	pulse.minAlpha = 0.0f;
+				// 	pulse.maxAlpha = 0.3f;
+				// }
+			}
 
-		this.sourceTile = sourceTile;
-		isSpreadingZone = true;
+			this.sourceTile = sourceTile;
+			isSpreadingZone = true;
+		}
 	}
 
 	public bool TrySpreadZoneToLocation(Hex targetHex)
