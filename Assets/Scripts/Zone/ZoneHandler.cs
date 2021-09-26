@@ -7,92 +7,76 @@ using Random = UnityEngine.Random;
 
 public class ZoneHandler
 {
-    public Dictionary<string, Material> zoneMats = new Dictionary<string, Material>();
-    public Dictionary<string, List<Hex>> zoneLocs = new Dictionary<string, List<Hex>>();
-    public Dictionary<string, List<TowerData>> zoneStats = new Dictionary<string, List<TowerData>>();
-    public List<Zone> zones = new List<Zone>();
+	public Dictionary<string, Material> zoneMats = new Dictionary<string, Material>();
+	public Dictionary<string, List<Hex>> zoneLocs = new Dictionary<string, List<Hex>>();
+	public Dictionary<string, List<TowerData>> zoneStats = new Dictionary<string, List<TowerData>>();
+	public List<Zone> zones = new List<Zone>();
 
-    public void InitializeSpread(string spread)
-    {
-        List<Material> zoneMats = GlobalData.GetAssetBindings().gameAssets.spreadMaterials;
+	public void InitializeSpread(string spread)
+	{
+		List<Material> zoneMats = GlobalData.GetAssetBindings().gameAssets.spreadMaterials;
 
-        if (this.zoneMats.ContainsKey(spread))
-        {
-            return;
-        }
-        this.zoneMats[spread] = zoneMats[this.zoneMats.Count];
-    }
+		if (this.zoneMats.ContainsKey(spread))
+		{
+			return;
+		}
 
-    public void AddOrCreateZone(GroundTileComponent groundTile, ZoneData zoneData)
-    {
-        if (Game.Get.gameState == null)
-        {
-            Debug.Log("Gamestate null");
-        }
+		this.zoneMats[spread] = zoneMats[this.zoneMats.Count];
+	}
 
-        if (Game.Get.gameState.Board == null)
-        {
-            Debug.Log("Board is null");
-        }
+	public void AddOrCreateZone(GroundTileComponent groundTile, ZoneData zoneData)
+	{
+		HexGridLayer groundLayer = Game.Get.gameState.Board.groundLayer;
 
-        
-        var groundLayer = Game.Get.gameState.Board.groundLayer;
+		for (int i = 0; i < 6; i++)
+		{
+			Hex neighbor = groundTile.hex.Neighbor(i);
 
- 
-        Debug.Log("test");
-        for (int i = 0; i < 6; i++)
-        {
-            Hex neighbor = groundTile.hex.Neighbor(i);
+			if (groundLayer.GetComponentAtHex(neighbor, out GroundTileComponent neighborTile))
+			{
+				Zone neighborZone = neighborTile.zone;
+				if (neighborZone == null)
+					continue;
 
-            if (groundLayer.GetTile(neighbor, out var neighborTile))
-            {
-                Zone neighborZone = neighborTile.GetComponent<GroundTileComponent>().zone;
-                if (neighborZone != null)
-                {
-                    // Debug.Log($"Found neighbor {neighborZone.ZoneId}");
-                    neighborZone.AddTile(groundTile);
-                    return;
-                }
-            }
-        }
+				// Debug.Log($"Found neighbor {neighborZone.ZoneId}");
+				neighborZone.AddTile(groundTile);
+				return;
+			}
+		}
 
-        Zone zone = new Zone(zoneData);
-        zone.AddTile(groundTile);
-        // GlobalData.GetAssetBindings().gameAssets.testZoneData;
-        zones.Add(zone);
-        // Debug.Log($"Made zone {zone.ZoneId}");
-    }
+		Zone zone = new Zone(zoneData);
+		zone.AddTile(groundTile);
+		zones.Add(zone);
+		// Debug.Log($"Made zone {zone.ZoneId}");
+	}
 
-    public void CreateZone(GroundTileComponent groundTile)
-    {
-        
-    }
+	public void CreateZone(GroundTileComponent groundTile)
+	{
+	}
 
-    public void AddToZone(GroundTileComponent groundTile)
-    {
-        
-    }
+	public void AddToZone(GroundTileComponent groundTile)
+	{
+	}
 
-    public void AddSpread(string spreadName, Hex HexLoc, Tower tower = null)
-    {
-        // Add the spread location to the location
-        if (zoneLocs.ContainsKey(spreadName))
-        {
-            if (!zoneLocs[spreadName].Contains(HexLoc))
-            {
-                zoneLocs[spreadName].Add(HexLoc);
-            }
-        }
-        
-        if (tower!=null)
-        {
-            zoneStats[spreadName].Add(tower.towerData);
-        }
-    }
+	public void AddSpread(string spreadName, Hex HexLoc, Tower tower = null)
+	{
+		// Add the spread location to the location
+		if (zoneLocs.ContainsKey(spreadName))
+		{
+			if (!zoneLocs[spreadName].Contains(HexLoc))
+			{
+				zoneLocs[spreadName].Add(HexLoc);
+			}
+		}
 
-    public Material GetSpreadMat(string spread)
-    {
-        return zoneMats[spread];
-    }
+		if (tower != null)
+		{
+			zoneStats[spreadName].Add(tower.towerData);
+		}
+	}
 
+	public Material GetSpreadMat(string spread)
+	{
+		return zoneMats[spread];
+	}
 }

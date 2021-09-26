@@ -122,16 +122,12 @@ public class GameBoard : MonoBehaviour
 		foliageLayer.DeleteTile(tile);
 		OnTowerPlaced?.Invoke(tile, tower);
 
-		if (groundLayer.GetTile(tile, out var groundObject))
+		if (groundLayer.GetComponentAtHex(tile, out GroundTileComponent groundTile))
 		{
-			var groundTile = groundObject.GetComponent<GroundTileComponent>();
-			if (groundTile)
-			{
-				tower.OnTowerPlaced(groundTile);
+			tower.OnTowerPlaced(groundTile);
 
-				groundTile.OnTowerEffectAdded += (hex, effect) => tower.Attributes.ApplyEffect(effect);
-				groundTile.ApplyEffectsToTower(tower);
-			}
+			groundTile.OnTowerEffectAdded += (hex, effect) => tower.Attributes.ApplyEffect(effect);
+			groundTile.ApplyEffectsToTower(tower);
 		}
 
 		Game.Get.audio.PlaySfx(GlobalData.GetAssetBindings().gameAssets.placeTowerSfx);
@@ -183,7 +179,7 @@ public class GameBoard : MonoBehaviour
 		// }
 	}
 
-	public Hex GetTile(Ray ray)
+	public Hex GetHexUnderRay(Ray ray)
 	{
 		grid.GetHexUnderRay(ray, out var hex);
 		return hex;
@@ -250,43 +246,13 @@ public class GameBoard : MonoBehaviour
 
 	public void SelectTile(Hex newSelectedTile)
 	{
-		// if (PlaceCurrentTower())
-		// {
-		// 	return;
-		// }
-
-		// make sure that the tile exists
-		if (!groundLayer.GetTile(newSelectedTile, out var content))
-		{
-
-		}
-			
-
-
 		Hex oldSelectedTile = selectedTile;
-		// HexContent oldSelectedContent = selectedTileContent;
+		selectedTile = newSelectedTile;
 
-		selectedTile = newSelectedTile; //GetTile(touchRay);
-		// selectedTileContent = selectedTile.Content
 		if (oldSelectedTile != selectedTile)
 		{
 			OnSelectedTileChanged?.Invoke(oldSelectedTile, selectedTile);
 		}
-		// content may have changed as well
-		else if (oldSelectedTile != null && selectedTile != null) 
-		                                 // &&
-		         // oldSelectedContent != selectedTileContent)
-		{
-			OnSelectedTileChanged?.Invoke(oldSelectedTile, selectedTile);
-		}
-
-
-
-		// bool showBuildMenu = selectedTile.Content.Type == HexContentType.Build;
-		// SetBuildMenuEnabled(showBuildMenu);
-
-		// bool showTowerUI = selectedTile.Content.Type == HexContentType.Tower;
-		// uiHandler.SetTowerUIEnabled(showTowerUI);
 	}
 
 	private void SetTileSelected(Hex tile, bool selected)
@@ -366,60 +332,10 @@ public class GameBoard : MonoBehaviour
 
 	public void CreateLink(Tower tower)
 	{
-		if (groundLayer.GetTile(selectedTile, out var tileObject))
+		if (groundLayer.GetComponentAtHex(selectedTile, out GroundTileComponent groundTile))
 		{
-			var groundTile = tileObject.GetComponent<GroundTileComponent>();
 			zoneHandler.AddOrCreateZone(groundTile, GlobalData.GetAssetBindings().gameAssets.testZoneData);
 		}
-
-		return;
-
-
-		// this will need to move to where spread begins in board initialize
-		string tempSpread = "red";
-		zoneHandler.InitializeSpread(tempSpread);
-
-		List<string> spreadType = new List<string>();
-		var centreHex = selectedTile;
-		for (int i = 0; i < 6; i++)
-		{
-			Hex neighbor = selectedTile.Neighbor(i);
-			groundLayer.GetTile(neighbor, out GameObject tile);
-
-			GroundTileComponent hexcomp = tile.GetComponent<GroundTileComponent>();
-
-			if (hexcomp != null)
-			{
-				if (hexcomp.SpreadType != null)
-				{
-					//Debug.Log("Spreadtype Found");
-					spreadType.Add(hexcomp.SpreadType);
-					// may need to pass this back for menu options
-				}
-			}
-		}
-		//Simulate spread on rejoining hex
-		spreadType.Add(tempSpread);
-		//
-
-		string toSpread;
-		Debug.Log("HERE :" + spreadType);
-		if (spreadType.Count > 0)
-		{
-			toSpread = spreadType[0];
-			groundLayer.GetTile(selectedTile, out GameObject curTile);
-			GroundTileComponent hexcomp = curTile.GetComponent<GroundTileComponent>();
-			MeshRenderer[] temp = curTile.transform.GetComponentsInChildren<MeshRenderer>();
-			foreach (MeshRenderer t in temp)
-				if (t.gameObject.name == "Outline")
-					t.material = zoneHandler.GetSpreadMat(tempSpread);
-			MeshRenderer tileMaterial = curTile.GetComponentInChildren<MeshRenderer>();
-			// Probably will make something else to indicate but for now any mesh renderer
-			//tileMaterial.material = zoneHandler.GetSpreadMat(tempSpread);
-			// We can set the material to a colour
-		}
-
-
 	}
 
 	public void SpreadLink(Hex tile, Tower tower)
@@ -427,19 +343,16 @@ public class GameBoard : MonoBehaviour
 
 	}
 
-	public void InitZones()
+	private void InitZones()
 	{
 		HexGridLayer zoneLayer = grid.GetLayer("Zone");
 		foreach (KeyValuePair<Hex,GameObject> kvp in zoneLayer.hexGrid)
 		{
 			ZonePrefabComponent zonePrefabComponent = kvp.Value.GetComponent<ZonePrefabComponent>();
-			Debug.Log(kvp.Key);
-			if (groundLayer.GetTile(kvp.Key, out var groundObject))
+			if (groundLayer.GetComponentAtHex(kvp.Key, out GroundTileComponent groundTile))
 			{
-				GroundTileComponent groundTile = groundObject.GetComponent<GroundTileComponent>();
 				zoneHandler.AddOrCreateZone(groundTile, zonePrefabComponent.zoneData);
 			}
 		}
 	}
-
 }

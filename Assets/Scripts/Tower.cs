@@ -9,7 +9,7 @@ public class Tower : MonoBehaviour
 {
 	[SerializeField]
 	public TowerData towerData;
-	
+
 	[SerializeField]
 	Transform turret;
 
@@ -58,15 +58,12 @@ public class Tower : MonoBehaviour
 		for (int i = 0; i < 6; i++)
 		{
 			Hex neighborHex = groundTile.hex.Neighbor(i);
-			if (Game.Get.gameState.Board.groundLayer.GetTile(neighborHex, out var neighborTile))
+
+			if (Game.Get.gameState.Board.groundLayer.GetComponentAtHex(neighborHex, out GroundTileComponent neighbor))
 			{
-				var neighbor = neighborTile.GetComponent<GroundTileComponent>();
-				if (neighbor != null)
+				foreach (GameplayEffect effect in towerData.supportEffects)
 				{
-					foreach (GameplayEffect effect in towerData.supportEffects)
-					{
-						neighbor.AddTowerEffect(effect);
-					}
+					neighbor.AddTowerEffect(effect);
 				}
 			}
 		}
@@ -174,7 +171,7 @@ public class Tower : MonoBehaviour
 			{
 				break;
 			}
-			
+
 			TargetPoint targetPoint = collider.GetComponent<TargetPoint>();
 			if (targetPoint != target)
 			{
@@ -214,7 +211,7 @@ public class Tower : MonoBehaviour
 
 	private void UpdateRangeDisplay()
 	{
-		float deltaTheta = (float) (2.0 * Mathf.PI) / numSegments;
+		float deltaTheta = (float)(2.0 * Mathf.PI) / numSegments;
 		float theta = 0f;
 
 		for (int i = 0; i < numSegments + 1; i++)
@@ -246,7 +243,7 @@ public class Tower : MonoBehaviour
 		Attributes.InitAttribute(AttributeType.AttackSpeed, towerData.attackSpeed);
 		Attributes.InitAttribute(AttributeType.Split, towerData.split);
 		onHitEffects = towerData.onHitEffects;
-		
+
 		// TODO bind to callbacks when attributes change
 		Attributes.GetAttribute(AttributeType.Range).OnAttributeChanged += (attribute) =>
 		{
@@ -287,14 +284,14 @@ public class Tower : MonoBehaviour
 	{
 		return _towerLevel < towerData.upgradeInfos.Length;
 	}
-	
+
 	public void UpgradeTower()
 	{
 		if (!CanUpgradeTower())
 		{
 			return;
 		}
-		
+
 		UpgradeInfo upgradeInfo = towerData.upgradeInfos[_towerLevel];
 		if (GameState.Get.SpendCash(upgradeInfo.upgradeCost))
 		{
@@ -309,14 +306,9 @@ public class Tower : MonoBehaviour
 		GameState.Get.Board.CreateLink(this);
 
 		// 
-
-
-
-
 	}
 
 	public void UpdateAttributes()
 	{
-
 	}
 }

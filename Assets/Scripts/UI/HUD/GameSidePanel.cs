@@ -55,39 +55,28 @@ namespace UI.MainMenu.HUD
 		void OnSelectedTileChanged(Hex selectedTile)
 		{
 			// check tower layer
-			if (GameState.Get.Board.towerLayer.GetTile(selectedTile, out GameObject towerContent))
+			if (GameState.Get.Board.towerLayer.GetComponentAtHex(selectedTile, out Tower tower))
 			{
-				Tower tower = towerContent.GetComponent<Tower>();
-				if (tower != null)
-				{
-					_screenSwitcher.EnableScreen(TowerInfoMenuName).Q<TowerInfoMenu>()?.BindToTower(tower);
-					return;
-				}
+				_screenSwitcher.EnableScreen(TowerInfoMenuName).Q<TowerInfoMenu>()?.BindToTower(tower);
+				return;
 			}
 
 			// check ground layer
-			if (!GameState.Get.Board.groundLayer.GetTile(selectedTile, out GameObject tileContent))
+			if (!GameState.Get.Board.groundLayer.GetComponentAtHex(selectedTile, out GroundTileComponent groundTile))
 			{
-				_screenSwitcher.HideAll();
-				return;
-			}
-
-			var hexComponent = tileContent.GetComponent<GroundTileComponent>();
-			if (hexComponent == null)
-			{
-				_screenSwitcher.HideAll();
-				return;
-			}
-
-			switch (hexComponent.TileType)
-			{
-				case HexTileType.Build:
+				if (groundTile.TileType == HexTileType.Build)
+				{
 					_screenSwitcher.EnableScreen(TowerBuildMenuName);
-					break;
-				default:
+				}
+				else
+				{
 					_screenSwitcher.HideAll();
-					break;
+				}
+
+				return;
 			}
+
+			_screenSwitcher.HideAll();
 		}
 
 		private void OnTowerPlaced(Hex hex, Tower tower)

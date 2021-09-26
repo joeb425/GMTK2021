@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
 
+
 namespace HexLibrary
 {
 	[Serializable]
@@ -44,7 +45,7 @@ namespace HexLibrary
 
 		public void InitLayer(HexGrid grid, string layerName)
 		{
-			Debug.Log($"Init layer {layerName}");
+			// Debug.Log($"Init layer {layerName}");
 			this.grid = grid;
 			this.layerName = layerName;
 
@@ -56,7 +57,7 @@ namespace HexLibrary
 
 			Game.Get.gameState.Board.OnSelectedTileChanged += (_, newHex) =>
 			{
-				GetTile(newHex, out var newSelection);
+				GetObjectAtHex(newHex, out var newSelection);
 				if (selectedObject != newSelection)
 				{
 					OnSelectedObjectChanged?.Invoke(selectedObject, newSelection);
@@ -65,12 +66,24 @@ namespace HexLibrary
 			};
 		}
 
-		public bool GetTile(Hex hexCoord, out GameObject tile)
+		public bool GetObjectAtHex(Hex hexCoord, out GameObject tile)
 		{
 			if (hexCoord != null)
 				return hexGrid.TryGetValue(hexCoord, out tile);
 
 			tile = null;
+			return false;
+		}
+
+		public bool GetComponentAtHex<T>(Hex hexCoord, out T behavior) where T : MonoBehaviour
+		{
+			if (GetObjectAtHex(hexCoord, out GameObject go))
+			{
+				go.TryGetComponent(out behavior);
+				return true;
+			}
+
+			behavior = null;
 			return false;
 		}
 
@@ -111,7 +124,7 @@ namespace HexLibrary
 
 		public bool RemoveTile(Hex hexCoord, out GameObject objectOnTile)
 		{
-			if (GetTile(hexCoord, out objectOnTile))
+			if (GetObjectAtHex(hexCoord, out objectOnTile))
 			{
 				hexGrid.Remove(hexCoord);
 				return true;
@@ -199,7 +212,7 @@ namespace HexLibrary
 
 		public bool GetHexComponent(Hex hex, out GroundTileComponent groundTileComponent)
 		{
-			if (GetTile(hex, out var tile))
+			if (GetObjectAtHex(hex, out var tile))
 			{
 				groundTileComponent = tile.GetComponent<GroundTileComponent>();
 				if (groundTileComponent != null)
