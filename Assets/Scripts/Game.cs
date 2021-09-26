@@ -1,4 +1,5 @@
 ﻿using System;
+using Misc;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
@@ -12,6 +13,8 @@ public class Game : MonoBehaviour
 	public UIHandler uiHandler;
 
 	public InputHandler input;
+
+	public TileHighlighter tileHighlighter;
 
 	[SerializeField]
 	public AudioHandler audioHandler;
@@ -60,6 +63,8 @@ public class Game : MonoBehaviour
 
 		input = new InputHandler();
 		input.Init();
+
+		tileHighlighter = Instantiate(GlobalData.GetAssetBindings().gameAssets.tileHighlighter);
 
 		GlobalData.OnGameInit?.Invoke();
 	}

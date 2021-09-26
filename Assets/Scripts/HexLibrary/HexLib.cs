@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Profiling;
 using UnityEngine;
 
 namespace HexLibrary
@@ -70,6 +71,11 @@ namespace HexLibrary
 		public Hex Neighbor(int direction)
 		{
 			return Add(Hex.Direction(direction));
+		}
+
+		public List<Hex> GetNeighbors()
+		{
+			return directions.Select(Add).ToList();
 		}
 
 		static public List<Hex> diagonals = new List<Hex>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Attributes;
 using HexLibrary;
 using UnityEngine;
@@ -31,5 +32,22 @@ public class Zone
 		{
 			tile.AddTowerEffect(effect); 
 		}
+	}
+
+	public List<GroundTileComponent> GetZoneNeighbors()
+	{
+		List<GroundTileComponent> zoneNeighbors = new List<GroundTileComponent>();
+		foreach (var neighbor in groundTiles.SelectMany(groundTile => groundTile.hex.GetNeighbors()))
+		{
+			if (GameState.Get.Board.groundLayer.GetComponentAtHex(neighbor, out GroundTileComponent neighborTile))
+			{
+				if (!groundTiles.Contains(neighborTile))
+				{
+					zoneNeighbors.Add(neighborTile);
+				}
+			}
+		}
+
+		return zoneNeighbors;
 	}
 }

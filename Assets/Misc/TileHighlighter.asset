@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be4266bed50b4fada14011dc4ddc8a06, type: 3}
+  m_Name: TileHighlighter
+  m_EditorClassIdentifier: 
+  TileHighlightPrefab: {fileID: 2769202544443153295, guid: 900016635e9cd7f4da7a3308ac91b791,
+    type: 3}

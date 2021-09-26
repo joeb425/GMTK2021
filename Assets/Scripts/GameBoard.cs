@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using DefaultNamespace.Zone;
 using HexLibrary;
 using UnityEditor;
@@ -244,6 +245,11 @@ public class GameBoard : MonoBehaviour
 
 	public void SelectTile(Hex newSelectedTile)
 	{
+		if (zoneHandler.TrySpreadZoneToLocation(newSelectedTile))
+		{
+			return;
+		}
+		
 		Hex oldSelectedTile = selectedTile;
 		selectedTile = newSelectedTile;
 
@@ -259,6 +265,8 @@ public class GameBoard : MonoBehaviour
 		{
 			return;
 		}
+
+		Game.Get.tileHighlighter.SetHexHighlighted(tile, selected, new Color(.5f, .5f, .5f, 0.35f));
 
 		// if (tile.Content)
 		// {
@@ -330,15 +338,14 @@ public class GameBoard : MonoBehaviour
 
 	public void CreateLink(Tower tower)
 	{
-		if (groundLayer.GetComponentAtHex(selectedTile, out GroundTileComponent groundTile))
-		{
-			zoneHandler.AddOrCreateZone(groundTile, GlobalData.GetAssetBindings().gameAssets.testZoneData);
-		}
 	}
 
-	public void SpreadLink(Hex tile, Tower tower)
+	public void StartSelectZoneSpread(Hex tile)
 	{
-
+		if (groundLayer.GetHexComponent(tile, out GroundTileComponent groundTile))
+		{
+			zoneHandler.StartSpreadingZone(groundTile);
+		}
 	}
 
 	private void InitZones()
@@ -349,7 +356,7 @@ public class GameBoard : MonoBehaviour
 			ZonePrefabComponent zonePrefabComponent = kvp.Value.GetComponent<ZonePrefabComponent>();
 			if (groundLayer.GetComponentAtHex(kvp.Key, out GroundTileComponent groundTile))
 			{
-				zoneHandler.AddOrCreateZone(groundTile, zonePrefabComponent.zoneData);
+				zoneHandler.CreateZone(groundTile, zonePrefabComponent.zoneData);
 			}
 		}
 	}

@@ -19,6 +19,9 @@ public class Tower : MonoBehaviour
 	[SerializeField]
 	public LineRenderer linePrefab;
 
+	[SerializeField]
+	public GameObject towerRangeDisplay;
+
 	private float attackTimeRemaining;
 
 	public int numSegments = 64;
@@ -36,6 +39,8 @@ public class Tower : MonoBehaviour
 	private int _towerLevel = 0;
 
 	public List<GameplayEffect> onHitEffects = new List<GameplayEffect>();
+
+	public GroundTileComponent groundTile;
 
 	private void Awake()
 	{
@@ -55,6 +60,7 @@ public class Tower : MonoBehaviour
 
 	public void OnTowerPlaced(GroundTileComponent groundTile)
 	{
+		this.groundTile = groundTile;
 		for (int i = 0; i < 6; i++)
 		{
 			Hex neighborHex = groundTile.hex.Neighbor(i);
@@ -71,7 +77,7 @@ public class Tower : MonoBehaviour
 
 	public void InitLineRenderer()
 	{
-		radiusLineRenderer = gameObject.AddComponent<LineRenderer>();
+		radiusLineRenderer = gameObject.GetComponent<LineRenderer>();
 		radiusLineRenderer.startColor = Color.red;
 		radiusLineRenderer.endColor = Color.red;
 		radiusLineRenderer.startWidth = 0.05f;
@@ -99,10 +105,28 @@ public class Tower : MonoBehaviour
 		Attributes.Update(Time.deltaTime);
 	}
 
-	private void UpdateTowerRangeCollider()
+	private void UpdateTowerRange()
 	{
+		float range = Attributes.GetCurrentValue(AttributeType.Range);
+		// update collider
 		sphereCollider = gameObject.GetComponent<SphereCollider>();
-		sphereCollider.radius = Attributes.GetCurrentValue(AttributeType.Range);
+		sphereCollider.radius = range;
+
+		// update tower range display
+		towerRangeDisplay.transform.localScale = new Vector3(range * 2.0f, towerRangeDisplay.transform.localScale.y, range * 2.0f);
+
+		// update line renderer
+		float deltaTheta = (float)(2.0 * Mathf.PI) / numSegments;
+		float theta = 0f;
+
+		for (int i = 0; i < numSegments + 1; i++)
+		{
+			float x = range * Mathf.Cos(theta);
+			float z = range * Mathf.Sin(theta);
+			Vector3 pos = new Vector3(x, transform.position.y + 0.25f, z);
+			radiusLineRenderer.SetPosition(i, pos);
+			theta += deltaTheta;
+		}
 	}
 
 	bool TrackTarget()
@@ -247,12 +271,10 @@ public class Tower : MonoBehaviour
 		// TODO bind to callbacks when attributes change
 		Attributes.GetAttribute(AttributeType.Range).OnAttributeChanged += (attribute) =>
 		{
-			UpdateRangeDisplay();
-			UpdateTowerRangeCollider();
+			UpdateTowerRange();
 		};
 
-		UpdateTowerRangeCollider();
-		UpdateRangeDisplay();
+		UpdateTowerRange();
 	}
 
 	public void ApplyHit(TargetPoint targetPoint)
@@ -278,6 +300,12 @@ public class Tower : MonoBehaviour
 	public void OnSelected(bool selected)
 	{
 		radiusLineRenderer.enabled = selected;
+		towerRangeDisplay.SetActive(selected);
+		// for (int i = 0; i < 6; i++)
+		// {
+		// 	Hex neighborHex = groundTile.hex.Neighbor(i);
+		// 	Game.Get.tileHighlighter.SetHexHighlighted(neighborHex, selected, new Color(1.0f, 1.0f, 0.1f, 0.33f));
+		// }
 	}
 
 	public bool CanUpgradeTower()
