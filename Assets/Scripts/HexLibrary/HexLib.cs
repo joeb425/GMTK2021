@@ -116,7 +116,22 @@ namespace HexLibrary
 
 		public bool Equals(Hex obj)
 		{
+			if (obj == null)
+			{
+				return false;
+			}
+
 			return q == obj.q && r == obj.r && s == obj.s;
+		}
+
+		public static bool operator ==(Hex a, Hex b)
+		{
+			return a != null && a.Equals(b);
+		}
+
+		public static bool operator !=(Hex a, Hex b)
+		{
+			return !(a == b);
 		}
 	}
 
