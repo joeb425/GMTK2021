@@ -5,7 +5,7 @@ using HexLibrary;
 using UnityEngine;
 
 [Serializable]
-public class Tower : MonoBehaviour
+public class Tower : HexTileComponent
 {
 	[SerializeField]
 	public TowerData towerData;
@@ -51,16 +51,21 @@ public class Tower : MonoBehaviour
 		RotatorComponent rotatorComponent = gameObject.GetComponent<RotatorComponent>();
 		hasRotator = rotatorComponent != null;
 
-		GameState.Get.Board.towerLayer.OnSelectedObjectChanged += (oldTower, newTower) =>
-		{
-			bool selectedThis = newTower == gameObject;
-			OnSelected(selectedThis);
-		};
+		GameState.Get.Board.towerLayer.OnSelectedObjectChanged += OnSelected;
 	}
 
-	public void OnTowerPlaced(GroundTileComponent groundTile)
+	private void OnDestroy()
 	{
-		this.groundTile = groundTile;
+		GameState.Get.Board.towerLayer.OnSelectedObjectChanged -= OnSelected;
+	}
+
+	public override void PlaceOnHex(Hex hex) 
+	{
+		base.PlaceOnHex(hex);
+		GameState.Get.Board.GetGroundTileAtHex(hex, out groundTile);
+
+		groundTile.effectList.SetContainer(Attributes);
+
 		for (int i = 0; i < 6; i++)
 		{
 			Hex neighborHex = groundTile.hex.Neighbor(i);
@@ -73,6 +78,25 @@ public class Tower : MonoBehaviour
 				}
 			}
 		}
+	}
+
+	public override void RemoveFromHex(Hex hex)
+	{
+		base.RemoveFromHex(hex);
+		for (int i = 0; i < 6; i++)
+		{
+			Hex neighborHex = groundTile.hex.Neighbor(i);
+
+			if (GameState.Get.Board.groundLayer.GetComponentAtHex(neighborHex, out GroundTileComponent neighbor))
+			{
+				foreach (GameplayEffect effect in towerData.supportEffects)
+				{
+					neighbor.RemoveTowerEffect(effect);
+				}
+			}
+		}
+
+		groundTile.effectList.SetContainer(null);
 	}
 
 	public void InitLineRenderer()
@@ -297,8 +321,12 @@ public class Tower : MonoBehaviour
 		targetPoint.Enemy.ApplyDamage(damage);
 	}
 
-	public void OnSelected(bool selected)
+	public void OnSelected(GameObject _, GameObject newSelection)
 	{
+		if (newSelection == null)
+			return;
+
+		bool selected = newSelection.GetComponent<Tower>() == this;
 		radiusLineRenderer.enabled = selected;
 		towerRangeDisplay.SetActive(selected);
 		// for (int i = 0; i < 6; i++)

@@ -21,13 +21,12 @@ public class GameBoard : MonoBehaviour
 	[HideInInspector]
 	public HexGridLayer foliageLayer;
 
-	List<Hex> spawnPoints = new List<Hex>();
-	
 	public event System.Action<Hex, Hex> OnSelectedTileChanged;	
 	public event System.Action<Hex, Hex> OnHoveredTileChanged;
 
 	public event System.Action<Hex, Tower> OnTowerPlaced;
 
+	// Todo: enemy path should be somewhere else?
 	public List<Hex> enemyPath = new List<Hex>();
 
 	[HideInInspector]
@@ -40,6 +39,23 @@ public class GameBoard : MonoBehaviour
 	private Tower towerToBePlacedPrefab;
 
 	public ZoneHandler zoneHandler = new ZoneHandler();
+
+	public HexGridLayer GetGroundLayer()
+	{
+		if (groundLayer == null)
+			groundLayer = grid.GetLayer("Ground");
+
+		return groundLayer;
+	}
+
+	public HexGridLayer GetTowerLayer()
+	{
+		if (towerLayer == null)
+			towerLayer = grid.GetLayer("Tower");
+
+		return towerLayer;
+	}
+
 
 	public void Initialize()
 	{
@@ -68,125 +84,6 @@ public class GameBoard : MonoBehaviour
 		InitZones();
 	}
 
-	public void ToggleSpawnPoint(Hex tile)
-	{
-		// if (tile.Content.Type == HexContentType.SpawnPoint)
-		// {
-		// 	if (spawnPoints.Count > 1)
-		// 	{
-		// 		spawnPoints.Remove(tile);
-		// 		tile.Content = contentFactory.Get(HexContentType.Path);
-		// 	}
-		// }
-		// else if (tile.Content.Type == HexContentType.Path)
-		// {
-		// 	tile.Content = contentFactory.Get(HexContentType.SpawnPoint);
-		// 	spawnPoints.Add(tile);
-		// }
-	}
-
-	public Hex GetSpawnPoint(int index)
-	{
-		return spawnPoints[index];
-	}
-
-	public int SpawnPointCount => spawnPoints.Count;
-
-	public void ToggleDestination(Hex tile)
-	{
-		// if (tile.Content.Type == HexContentType.Destination)
-		// {
-		// 	tile.Content = contentFactory.Get(HexContentType.Path);
-		// 	if (!FindPaths())
-		// 	{
-		// 		tile.Content =
-		// 			contentFactory.Get(HexContentType.Destination);
-		// 		FindPaths();
-		// 	}
-		// }
-		// else if (tile.Content.Type == HexContentType.Path)
-		// {
-		// 	tile.Content = contentFactory.Get(HexContentType.Destination);
-		// 	FindPaths();
-		// }
-	}
-	public void ToggleBuildSpot(Hex tile)
-	{
-		// updatingContent.Remove(tile.Content);
-		// tile.Content = contentFactory.Get(HexContentType.Build);
-		// updatingContent.Add(tile.Content);
-
-	}
-	public void ToggleTower(Hex tile, Tower towerPrefab)
-	{
-		Tower tower = Instantiate(towerPrefab);
-		towerLayer.AddTile(tile, tower.gameObject);
-		foliageLayer.DeleteTile(tile);
-		OnTowerPlaced?.Invoke(tile, tower);
-
-		if (groundLayer.GetComponentAtHex(tile, out GroundTileComponent groundTile))
-		{
-			tower.OnTowerPlaced(groundTile);
-
-			groundTile.OnTowerEffectAdded += (hex, effect) => tower.Attributes.ApplyEffect(effect);
-			groundTile.ApplyEffectsToTower(tower);
-		}
-
-		Game.Get.audioHandler.PlaySfx(GlobalData.GetAssetBindings().gameAssets.placeTowerSfx);
-
-		// // tower.transform.position = grid.flat.HexToWorld(tile);
-		// towerLayer.AddTile(tile, tower.gameObject);
-
-
-		// tile.Content = tower.gameObject;
-
-		// if (tile.Content.Type == HexContentType.Tower)
-		// {
-		// 	updatingContent.Remove(tile.Content);
-		// 	tile.Content = contentFactory.Get(HexContentType.Build);
-		// 	FindPaths();
-		// }
-		// else if (tile.Content.Type == HexContentType.Wall)
-		// {
-		// 	tile.Content = contentFactory.Get(HexContentType.Tower);
-		// 	updatingContent.Add(tile.Content);
-		// }
-		// else if (tile.Content.Type ==  HexContentType.Build)
-		// {
-		// 	if (BuyTower(towerPrefab))
-		// 	{
-		// 		tile.Content = contentFactory.Get(towerPrefab);
-		// 		updatingContent.Add(tile.Content);
-		//
-		// 		// update hud
-		// 	}
-		// }
-	}
-
-	public void ToggleWall(Hex tile)
-	{
-		// if (tile.Content.Type == HexContentType.Wall)
-		// {
-		// 	tile.Content = contentFactory.Get(HexContentType.Path);
-		// 	FindPaths();
-		// }
-		// else if (tile.Content.Type == HexContentType.Path)
-		// {
-		// 	tile.Content = contentFactory.Get(HexContentType.Wall);
-		// 	if (!FindPaths())
-		// 	{
-		// 		tile.Content = contentFactory.Get(HexContentType.Path);
-		// 		FindPaths();
-		// 	}
-		// }
-	}
-
-	public Hex GetHexUnderRay(Ray ray)
-	{
-		grid.GetHexUnderRay(ray, out var hex);
-		return hex;
-	}
-
 	public void GameUpdate()
 	{
 		// TODO optimize this
@@ -208,22 +105,34 @@ public class GameBoard : MonoBehaviour
 		// }
 	}
 
-	public void Update()
+	public void PlaceTower(Hex tile, Tower towerPrefab)
 	{
-		// hoveredTile = GetTile(Game.Get.Input.touchRay);
+		Tower tower = Instantiate(towerPrefab);
+		towerLayer.AddTile(tile, tower.gameObject);
+		foliageLayer.DeleteTile(tile);
+		OnTowerPlaced?.Invoke(tile, tower);
+
+		if (groundLayer.GetComponentAtHex(tile, out GroundTileComponent groundTile))
+		{
+			// tower.OnTowerPlaced(groundTile);
+			// groundTile.OnTowerEffectAdded += (hex, effect) => tower.Attributes.ApplyEffect(effect);
+			// groundTile.ApplyEffectsToTower(tower);
+		}
+
+		Game.Get.audioHandler.PlaySfx(GlobalData.GetAssetBindings().gameAssets.placeTowerSfx);
 	}
 
-	public void PlaceTowerAtTile(Hex tile, Tower tower)
+	public void PlaceTowerAtHex(Hex tile, Tower tower)
 	{
 		if (tile == null || tower == null)
 			return;
 
-		ToggleTower(tile, tower);
+		PlaceTower(tile, tower);
 	}
 
-	public void PlaceTower(Tower tower)
+	public void PlaceTowerAtSelectedTile(Tower tower)
 	{
-		PlaceTowerAtTile(selectedTile, tower);
+		PlaceTowerAtHex(selectedTile, tower);
 	}
 
 	public bool BuyTower(Tower tower)
@@ -246,6 +155,13 @@ public class GameBoard : MonoBehaviour
 
 	public void SelectTile(Hex newSelectedTile)
 	{
+		if (GetGroundLayer().GetHexComponent(newSelectedTile, out GroundTileComponent groundTile))
+		{
+			Debug.Log($"Effects {groundTile.effectList.effects.Count} Active {groundTile.effectList.activeEffects.Count}");
+		}
+		
+		
+		
 		if (zoneHandler.isSpreadingZone)
 		{
 			zoneHandler.TrySpreadZoneToLocation(newSelectedTile);
@@ -291,7 +207,7 @@ public class GameBoard : MonoBehaviour
 		// place tower
 		if (towerToBePlaced != null)
 		{
-			PlaceTowerAtTile(hoveredTile, towerToBePlacedPrefab);
+			PlaceTowerAtHex(hoveredTile, towerToBePlacedPrefab);
 			Destroy(towerToBePlaced.gameObject);
 			return true;
 		}
@@ -361,5 +277,27 @@ public class GameBoard : MonoBehaviour
 				zoneHandler.CreateZone(groundTile, zonePrefabComponent.zoneData);
 			}
 		}
+	}
+
+	public bool GetTowerAtHex(Hex hex, out Tower tower)
+	{
+		if (towerLayer.GetComponentAtHex(hex, out tower))
+		{
+			return true;
+		}
+
+		tower = null;
+		return false;
+	}
+
+	public bool GetGroundTileAtHex(Hex hex, out GroundTileComponent tile)
+	{
+		if (groundLayer.GetComponentAtHex(hex, out tile))
+		{
+			return true;
+		}
+
+		tile = null;
+		return false;
 	}
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Attributes;
+using Unity.Profiling;
 using UnityEngine;
 
 namespace HexLibrary
@@ -27,29 +29,16 @@ namespace HexLibrary
 
 		public Zone zone;
 
-		public System.Action<Hex, GameplayEffect> OnTowerEffectAdded;
-		public System.Action<Hex, GameplayEffect> OnTowerEffectRemoved;
-
-		private List<GameplayEffect> towerEffects = new List<GameplayEffect>();
-
-		public void ApplyEffectsToTower(Tower tower)
-		{
-			foreach (GameplayEffect effect in towerEffects)
-			{
-				tower.Attributes.ApplyEffect(effect);
-			}
-		}
+		public GameplayEffectList effectList = new GameplayEffectList();
 
 		public void AddTowerEffect(GameplayEffect effect)
 		{
-			towerEffects.Add(effect);
-			OnTowerEffectAdded?.Invoke(hex, effect);
+			effectList.AddEffect(effect);
 		}
 
 		public void RemoveTowerEffect(GameplayEffect effect)
 		{
-			towerEffects.Remove(effect);
-			OnTowerEffectRemoved?.Invoke(hex, effect);
+			effectList.RemoveEffect(effect);
 		}
 	}
 }

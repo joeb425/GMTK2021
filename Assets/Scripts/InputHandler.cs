@@ -54,8 +54,7 @@ public class InputHandler
 		}
 		
 		GameBoard board = GameState.Get.Board;
-		Hex tile = board.GetHexUnderRay(touchRay);
-		if (tile != null)
+		if (board.hoveredTile != null)
 		{
 			board.SelectTile(board.hoveredTile);
 		}

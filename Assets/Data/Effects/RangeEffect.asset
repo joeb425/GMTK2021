@@ -16,6 +16,6 @@ MonoBehaviour:
   - attribute: 2
     value: 3
     valueOperator: 0
-  duration: 0
+  duration: -1
   interval: 0
   serializedGuid: 9371ed8344537f439b091ce411ddedc6

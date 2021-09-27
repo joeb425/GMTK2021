@@ -39,7 +39,8 @@ namespace HexLibrary
 		[SerializeField]
 		private List<HexObjectPair> serializedGrid = new List<HexObjectPair>();
 
-		public System.Action<Hex, GameObject> OnTileAdded;
+		public System.Action<Hex, GameObject> OnObjectAdded;
+		public System.Action<Hex, GameObject> OnObjectRemoved;
 		public System.Action<GameObject, GameObject> OnSelectedObjectChanged;
 		public GameObject selectedObject;
 
@@ -115,9 +116,10 @@ namespace HexLibrary
 			if (objectOnTile.TryGetComponent(out HexTileComponent hexTileComponent))
 			{
 				hexTileComponent.hex = hexCoord;
+				hexTileComponent.PlaceOnHex(hexCoord);
 			}
 
-			OnTileAdded?.Invoke(hexCoord, objectOnTile);
+			OnObjectAdded?.Invoke(hexCoord, objectOnTile);
 
 			return objectOnTile;
 		}
@@ -126,6 +128,14 @@ namespace HexLibrary
 		{
 			if (GetObjectAtHex(hexCoord, out objectOnTile))
 			{
+				HexTileComponent hexComponent = objectOnTile.GetComponent<HexTileComponent>();
+				if (hexComponent != null)
+				{
+					hexComponent.RemoveFromHex(hexCoord);
+				}
+
+				OnObjectRemoved?.Invoke(hexCoord, objectOnTile);
+
 				hexGrid.Remove(hexCoord);
 				return true;
 			}

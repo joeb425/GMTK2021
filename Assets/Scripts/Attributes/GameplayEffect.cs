@@ -25,10 +25,10 @@ namespace Attributes
 		public GameplayAttributeModifier[] Modifiers;
 
 		[SerializeField]
-		public float duration;
+		public float duration = -1;
 
 		[SerializeField]
-		public float interval;
+		public float interval = 0.0f;
 
 		[SerializeField]
 		private byte[] serializedGuid;

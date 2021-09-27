@@ -57,9 +57,7 @@ public class TowerInfoMenu : VisualElement
 	{
 		// Sell the current tower -> Gameboard tells us content and sells tower?
 		Debug.Log("Sell Tower");
-		// GameState.Get.Board.selectedTile.Content.Recycle();
-		// GameState.Get.Board.ToggleBuildSpot(GameState.Get.Board.selectedTile);
-		// GameState.Get.SetCash(GameState.Get.CurrentCash + 15);
+		GameState.Get.SellSelectedTower();
 	}
 
 	public void BindToTower(Tower tower)

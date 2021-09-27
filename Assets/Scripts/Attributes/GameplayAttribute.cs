@@ -131,12 +131,15 @@ namespace Attributes
 			{
 				case AttributeOperator.Add:
 					additiveModifiers.Remove(active);
+					OnAttributeChanged?.Invoke(this);
 					return true;
 				case AttributeOperator.Multiply:
 					multiplicativeModifiers.Remove(active);
+					OnAttributeChanged?.Invoke(this);
 					return true;
 				case AttributeOperator.Override:
 					overrideModifiers.Remove(active);
+					OnAttributeChanged?.Invoke(this);
 					return true;
 				default:
 					throw new ArgumentOutOfRangeException();

@@ -47,7 +47,7 @@ namespace Attributes
 		public ActiveEffect ApplyEffect(GameplayEffect effect)
 		{
 			// effect has no duration, apply directly
-			if (effect.duration <= 0)
+			if (effect.duration == 0)
 			{
 				foreach (GameplayAttributeModifier mod in effect.Modifiers)
 				{

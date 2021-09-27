@@ -90,4 +90,14 @@ public class GameState
 		Debug.Log("Level finished!");
 		OnLevelFinished?.Invoke();
 	}
+
+	public void SellSelectedTower()
+	{
+		if (!Board.GetTowerAtHex(Board.selectedTile, out Tower tower)) 
+			return;
+
+		Board.towerLayer.RemoveTile(tower.hex, out GameObject removedTower);
+		SetCash(CurrentCash + tower.towerData.towerSell);
+		Object.Destroy(removedTower);
+	}
 }
