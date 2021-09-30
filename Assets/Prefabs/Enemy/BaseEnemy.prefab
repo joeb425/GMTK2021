@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4226526925643850459}
   - component: {fileID: 4226526925643850458}
+  - component: {fileID: 2038034166387832802}
   m_Layer: 9
   m_Name: BaseEnemy
   m_TagString: Untagged
@@ -48,11 +49,29 @@ MonoBehaviour:
   deathSfx: {fileID: 8300000, guid: 0e1bcc82f1749544495b2a765be9f828, type: 3}
   deathParticleSystem: {fileID: 7732684545211868803, guid: 3bec3748d70383b4180db380046303ca,
     type: 3}
-  slider: {fileID: 0}
+  enemyModel: {fileID: 4226526927541590264}
   healthBarPrefab: {fileID: 2143082155953639934, guid: a927b9a2336083a4ca0ca01e266cfee4,
     type: 3}
-  _healthBarInstance: {fileID: 0}
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!95 &2038034166387832802
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4226526925643850461}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 449a24de60de0c74ea046b68633a62a2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4226526925664016134
 GameObject:
   m_ObjectHideFlags: 0

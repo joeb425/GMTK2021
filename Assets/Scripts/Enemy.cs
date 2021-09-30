@@ -5,6 +5,7 @@ using HexLibrary;
 using UnityEngine;
 using UnityEngine.UI;
 using Quaternion = UnityEngine.Quaternion;
+using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
 public class Enemy : MonoBehaviour
@@ -17,6 +18,9 @@ public class Enemy : MonoBehaviour
 
 	[SerializeField]
 	public ParticleSystem deathParticleSystem;
+
+	[SerializeField]
+	public GameObject enemyModel;
 
 	EnemyFactory _originFactory;
 
@@ -35,6 +39,7 @@ public class Enemy : MonoBehaviour
 	public Quaternion desiredRotation;
 
 	public GameplayAttributeContainer Attributes;
+
 
 	public EnemyFactory OriginFactory
 	{
@@ -63,6 +68,8 @@ public class Enemy : MonoBehaviour
 		Attributes.InitAttribute(AttributeType.Health, maxHealth);
 		Attributes.InitAttribute(AttributeType.MaxHealth, maxHealth);
 		Attributes.InitAttribute(AttributeType.Speed, 1.0f);
+
+		enemyModel.transform.localPosition = new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, 0.0f);
 	}
 
 	public void ApplyDamage(float damage)
@@ -107,7 +114,7 @@ public class Enemy : MonoBehaviour
 
 			Vector3 delta = hexTo - hexFrom;
 			desiredRotation = Quaternion.LookRotation(delta, Vector3.up);
-			transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, Time.deltaTime * 5.0f);
+			enemyModel.transform.rotation = Quaternion.Slerp(enemyModel.transform.rotation, desiredRotation, Time.deltaTime * 5.0f);
 		}
 		else
 		{
@@ -124,7 +131,7 @@ public class Enemy : MonoBehaviour
 
 	void SetHealthbarPosition()
 	{
-		_healthBarInstance.transform.position = transform.position + Vector3.up * 2.0f + Vector3.forward * 0.5f;
+		_healthBarInstance.transform.position = enemyModel.transform.position + Vector3.up * 2.0f + Vector3.forward * 0.5f;
 	}
 
 	float GetHealth()

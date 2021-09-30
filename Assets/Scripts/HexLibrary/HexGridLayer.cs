@@ -56,15 +56,18 @@ namespace HexLibrary
 				tilePrefabs.Add(spawnData.tilePrefab);
 			}
 
-			GameState.Get.Board.OnSelectedTileChanged += (_, newHex) =>
+			if (GameState.Get != null)
 			{
-				GetObjectAtHex(newHex, out var newSelection);
-				if (selectedObject != newSelection)
+				GameState.Get.Board.OnSelectedTileChanged += (_, newHex) =>
 				{
-					OnSelectedObjectChanged?.Invoke(selectedObject, newSelection);
-					selectedObject = newSelection;
-				}
-			};
+					GetObjectAtHex(newHex, out var newSelection);
+					if (selectedObject != newSelection)
+					{
+						OnSelectedObjectChanged?.Invoke(selectedObject, newSelection);
+						selectedObject = newSelection;
+					}
+				};
+			}
 		}
 
 		public bool GetObjectAtHex(Hex hexCoord, out GameObject tile)

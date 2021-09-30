@@ -43,4 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89756bcd65684a8285f2e7d6a4575e1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelToLoad: {fileID: 4900000, guid: 83ca3590de29f2948bb960d8b6be122c, type: 3}
   tilePalette: {fileID: 11400000, guid: 3c317e0a842eea94397cfe51c527338c, type: 2}
+  serializedLayers: []
