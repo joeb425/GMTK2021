@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: -8397094983990540312}
   - component: {fileID: 4075005451639140559}
   - component: {fileID: 531897848442091768}
+  - component: {fileID: 8236314880511772701}
   m_Layer: 11
   m_Name: BaseTower
   m_TagString: Untagged
@@ -206,12 +207,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec00ed17c21ccbe43a7feaa9f0da2871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hex:
+    q: 0
+    r: 0
+    s: 0
   towerData: {fileID: 0}
   turret: {fileID: 263773572115014597}
   bulletSpawnPoint: {fileID: 5004033099111384222}
   linePrefab: {fileID: 1792455083954044815, guid: 5241ef6354b1ece46aa5e64a54fa87e1,
     type: 3}
   towerRangeDisplay: {fileID: 8796409826960070298}
+  trackTarget: 1
+  spawnAnimation: {fileID: 0}
   numSegments: 128
   radiusLineRenderer: {fileID: 0}
   onHitEffects: []
@@ -340,6 +347,22 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 0
   m_Loop: 1
+--- !u!111 &8236314880511772701
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3242984198978901850}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 86913fbfa5d9212438465e1e64cc9683, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 86913fbfa5d9212438465e1e64cc9683, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &8286558232567512454
 GameObject:
   m_ObjectHideFlags: 0

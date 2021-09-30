@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: Basic
   towerIcon: {fileID: 2800000, guid: 2fe36d1c5aac1eb4a9844bb7ad9debec, type: 3}
-  towerCost: 2
+  towerCost: 5
   towerSell: 4
-  attackRange: 2
-  damage: 2
+  attackRange: 1.5
+  damage: 1
   attackSpeed: 2
   split: 0
   splash: 0

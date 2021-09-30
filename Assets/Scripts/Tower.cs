@@ -25,6 +25,9 @@ public class Tower : HexTileComponent
 	[SerializeField]
 	public bool trackTarget = true;
 
+	[SerializeField]
+	public AnimationClip spawnAnimation;
+
 	private float attackTimeRemaining;
 
 	public int numSegments = 64;
@@ -45,6 +48,8 @@ public class Tower : HexTileComponent
 
 	public GroundTileComponent groundTile;
 
+	private Animation _animation;
+
 	private void Awake()
 	{
 		InitLineRenderer();
@@ -55,6 +60,8 @@ public class Tower : HexTileComponent
 		hasRotator = rotatorComponent != null;
 
 		GameState.Get.Board.towerLayer.OnSelectedObjectChanged += OnSelected;
+
+		_animation = GetComponent<Animation>();
 	}
 
 	private void OnDestroy()
@@ -84,6 +91,9 @@ public class Tower : HexTileComponent
 				}
 			}
 		}
+
+		_animation.Play();
+		Debug.Log("Play animation");
 	}
 
 	public override void RemoveFromHex(Hex hex)

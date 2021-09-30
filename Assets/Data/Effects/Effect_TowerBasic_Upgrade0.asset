@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: Effect_TowerBasic_Upgrade0
   m_EditorClassIdentifier: 
   Modifiers:
-  - attribute: 0
-    value: 3
+  - attribute: 5
+    value: 20
+    valueOperator: 0
+  - attribute: 3
+    value: 1000
     valueOperator: 0
   duration: 0
   interval: 0

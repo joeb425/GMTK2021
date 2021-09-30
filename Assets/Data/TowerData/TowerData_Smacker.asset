@@ -10,22 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ee7b0f9fbcc46a080c5fb5c716b97b9, type: 3}
-  m_Name: TowerData_Sniper
+  m_Name: TowerData_Smacker
   m_EditorClassIdentifier: 
-  towerName: Sniper
-  towerIcon: {fileID: 2800000, guid: 2fe36d1c5aac1eb4a9844bb7ad9debec, type: 3}
+  towerName: Smacker
+  towerIcon: {fileID: 0}
   towerCost: 5
-  towerSell: 4
-  attackRange: 4
-  damage: 6
-  attackSpeed: 0.5
+  towerSell: 5
+  attackRange: 2
+  damage: 0.5
+  attackSpeed: 1
   split: 0
   splash: 0
-  bulletPrefab: {fileID: 7556477264031917805, guid: 8bc7a28741259a142baf7604852785e1,
-    type: 3}
+  bulletPrefab: {fileID: 0}
   upgradeInfos: []
-  onHitEffects:
-  - {fileID: 11400000, guid: 98097641af988c14bb6bb71566ec298b, type: 2}
-  shootSfx: {fileID: 8300000, guid: ef083d5dbc204c04ba079c7b37bfd570, type: 3}
+  onHitEffects: []
+  shootSfx: {fileID: 0}
   supportEffects: []
   supportRadius: 0

@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using HexLibrary;
+using Misc;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Networking;
+using Object = System.Object;
 
 namespace Editor
 {
@@ -88,6 +92,13 @@ namespace Editor
 			}
 
 			_gridPrefab = (HexLibrary.HexGrid)EditorGUILayout.ObjectField(_gridPrefab, typeof(HexLibrary.HexGrid), false);
+
+			if (GUILayout.Button("Load game data"))
+			{
+				GameObject gameObject = new GameObject();
+				LoadGoogleDocs loadGoogleDocs = gameObject.AddComponent<LoadGoogleDocs>();
+				loadGoogleDocs.Load();
+			}
 		}
 
 		private void Update()
