@@ -18,8 +18,8 @@ MonoBehaviour:
   towerSell: 4
   attackRange: 1.5
   damage: 0.66
-  attackSpeed: 5
-  split: 0
+  attackSpeed: 0.1
+  split: 5
   splash: 0
   bulletPrefab: {fileID: 558967105862248459, guid: 53c0347117e139f4c94a42e205b4429d,
     type: 3}

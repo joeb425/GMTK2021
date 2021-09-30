@@ -219,6 +219,8 @@ MonoBehaviour:
   towerRangeDisplay: {fileID: 8796409826960070298}
   trackTarget: 1
   spawnAnimation: {fileID: 0}
+  testGuid:
+    serializedGuid: b0b3ce35-8c59-403a-b295-a976d038317a
   numSegments: 128
   radiusLineRenderer: {fileID: 0}
   onHitEffects: []

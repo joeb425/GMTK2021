@@ -6,10 +6,11 @@ using UnityEngine.Networking;
 
 namespace Misc
 {
-	
-	
 	public class LoadGoogleDocs : MonoBehaviour
 	{
+		private static string docsLink =
+			"https://docs.google.com/spreadsheets/d/e/2PACX-1vTLjwrRjkQUgdmoWzjUyMSnbwqe1pX1ZXw_tQLKoRSOnTsu9Mh61Vp9kKJgtR2sKmKbN7cCy0f9VKLs/pub?gid=2074852759&single=true&output=csv";
+
 		public void Load()
 		{
 			StartCoroutine(LoadGoogleDoc(gameObject));
@@ -17,9 +18,7 @@ namespace Misc
 
 		private IEnumerator LoadGoogleDoc(GameObject killMe)
 		{
-			UnityWebRequest www =
-				UnityWebRequest.Get(
-					"https://docs.google.com/spreadsheets/d/e/2PACX-1vTLjwrRjkQUgdmoWzjUyMSnbwqe1pX1ZXw_tQLKoRSOnTsu9Mh61Vp9kKJgtR2sKmKbN7cCy0f9VKLs/pub?output=csv");
+			UnityWebRequest www = UnityWebRequest.Get(docsLink);
 
 			yield return www.SendWebRequest();
 

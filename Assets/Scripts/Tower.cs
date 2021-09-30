@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Attributes;
 using HexLibrary;
+using Misc.SerializableGuid;
+using UnityEditor;
 using UnityEngine;
 
 [Serializable]

@@ -48,7 +48,7 @@ public class BulletPool : MonoBehaviour
 
 	public void ReclaimToPool(Bullet bullet)
 	{
-		Guid bulletGuid = bullet.guidComponent.GetGuid();
+		Guid bulletGuid = bullet.guid.GetGuid();
 		if (!inactiveBullets.ContainsKey(bulletGuid))
 		{
 			inactiveBullets.Add(bulletGuid, new Stack<Bullet>());
@@ -66,13 +66,7 @@ public class BulletPool : MonoBehaviour
 			return null;
 		}
 
-		if (bulletPrefab.guidComponent == null)
-		{
-			return null;
-			
-		}
-
-		Guid bulletGuid = bulletPrefab.guidComponent.GetGuid();
+		Guid bulletGuid = bulletPrefab.guid.GetGuid();
 		if (!inactiveBullets.ContainsKey(bulletGuid))
 		{
 			inactiveBullets.Add(bulletGuid, new Stack<Bullet>());

@@ -681,6 +681,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
+      propertyPath: testGuid.serializedGuid
+      value: 4fd69419-fba8-4cbe-9513-363aaf0aa595
+      objectReference: {fileID: 0}
+    - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
       propertyPath: towerPerks.Array.data[0].SpeedMod
       value: 0.1
       objectReference: {fileID: 0}

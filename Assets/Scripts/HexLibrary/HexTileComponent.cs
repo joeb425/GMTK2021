@@ -1,4 +1,5 @@
 ﻿using System;
+using Misc.SerializableGuid;
 using UnityEngine;
 
 namespace HexLibrary
@@ -8,6 +9,9 @@ namespace HexLibrary
 	{
 		[HideInInspector]
 		public Hex hex;
+
+		[SerializeField]
+		public SerializableGuid Guid;
 
 		public System.Action<Hex> OnPlacedOnHex;
 		public System.Action<Hex> OnRemovedFromHex;

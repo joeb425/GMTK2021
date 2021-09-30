@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Misc.SerializableGuid;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-[RequireComponent(typeof(GuidComponent))]
 public class Bullet : MonoBehaviour
 {
 	public Tower tower;
@@ -23,7 +19,7 @@ public class Bullet : MonoBehaviour
 	private TrailRenderer _trailRenderer;
 
 	[SerializeField]
-	public GuidComponent guidComponent;
+	public SerializableGuid guid;
 
 	public void Awake()
 	{

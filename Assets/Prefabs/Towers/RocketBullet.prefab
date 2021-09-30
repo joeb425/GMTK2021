@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: bulletSpeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 558967105862248459, guid: 53c0347117e139f4c94a42e205b4429d,
+        type: 3}
+      propertyPath: guid.serializedGuid
+      value: 0446f050-b140-47f0-889c-c8e9c329d251
+      objectReference: {fileID: 0}
     - target: {fileID: 4196600553289992653, guid: 53c0347117e139f4c94a42e205b4429d,
         type: 3}
       propertyPath: m_Name
