@@ -21,11 +21,8 @@ MonoBehaviour:
   attackSpeed: 2
   split: 0
   splash: 0
-  bulletPrefab: {fileID: 558967105862248459, guid: 53c0347117e139f4c94a42e205b4429d,
+  bulletPrefab: {fileID: 7556477264031917805, guid: 3764e102f80783e41ba30cd4794e2e57,
     type: 3}
-  bulletSpeed: 5
-  bulletMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  bulletMaterial: {fileID: 2100000, guid: 60e9d42099cf8ec40897d6903f7e6c6e, type: 2}
   upgradeInfos:
   - upgradeCost: 5
     upgradeEffect: {fileID: 11400000, guid: 5875d55ef89a56a45945586af535f14e, type: 2}
