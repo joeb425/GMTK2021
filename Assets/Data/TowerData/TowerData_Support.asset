@@ -21,6 +21,8 @@ MonoBehaviour:
   attackSpeed: 1
   split: 0
   splash: 0
+  bulletPrefab: {fileID: 558967105862248459, guid: 53c0347117e139f4c94a42e205b4429d,
+    type: 3}
   bulletSpeed: 1
   bulletMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   bulletMaterial: {fileID: 2100000, guid: 60e9d42099cf8ec40897d6903f7e6c6e, type: 2}

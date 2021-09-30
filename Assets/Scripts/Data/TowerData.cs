@@ -9,7 +9,7 @@ public struct UpgradeInfo
 {
 	[SerializeField]
 	public int upgradeCost;
-	
+
 	[SerializeField]
 	public GameplayEffect upgradeEffect;
 }
@@ -45,13 +45,7 @@ public class TowerData : ScriptableObject
 	public float splash = 0;
 
 	[SerializeField]
-	public float bulletSpeed = 1.0f;
-
-	[SerializeField]
-	public Mesh bulletMesh;
-
-	[SerializeField]
-	public Material bulletMaterial;
+	public Bullet bulletPrefab;
 
 	[SerializeField]
 	public UpgradeInfo[] upgradeInfos;

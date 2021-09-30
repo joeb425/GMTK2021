@@ -4,27 +4,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+[RequireComponent(typeof(GuidComponent))]
 public class Bullet : MonoBehaviour
 {
 	public Tower tower;
-	
+
 	public TargetPoint target;
 
 	public Vector3 spawnPoint;
 	public Vector3 lastKnownPos;
 
+	[SerializeField]
 	public float bulletSpeed = 3.0f;
 
-	[SerializeField]
-	public MeshFilter bulletMesh;
-
-	[SerializeField]
-	public MeshRenderer bulletMeshRenderer;
-
-	private float progress = 0.0f;
-	private float progressSpeed = 1.0f;
+	private float _progress;
+	private float _progressSpeed;
 
 	private TrailRenderer _trailRenderer;
+
+	[SerializeField]
+	public GuidComponent guidComponent;
 
 	public void Awake()
 	{
@@ -33,7 +32,7 @@ public class Bullet : MonoBehaviour
 
 	public void Init()
 	{
-		progress = 0.0f;
+		_progress = 0.0f;
 
 		lastKnownPos = target.Position;
 		spawnPoint = tower.bulletSpawnPoint.position;
@@ -45,19 +44,22 @@ public class Bullet : MonoBehaviour
 		{
 			lastKnownPos = target.Position;
 			float distance = (lastKnownPos - spawnPoint).magnitude;
-			progressSpeed = (1.0f / distance) * bulletSpeed;
+			_progressSpeed = (1.0f / distance) * bulletSpeed;
 		}
 
-		
-		progress += Time.deltaTime * progressSpeed;
-		transform.LookAt(lastKnownPos);
-		transform.position = Vector3.Lerp(spawnPoint, lastKnownPos, progress);
 
-		if (progress >= 1.0f)
+		_progress += Time.deltaTime * _progressSpeed;
+		transform.LookAt(lastKnownPos);
+		transform.position = Vector3.Lerp(spawnPoint, lastKnownPos, _progress);
+
+		if (_progress >= 1.0f)
 		{
 			Explode();
-			BulletPool.Get.ReclaimToPool(gameObject);
-			_trailRenderer.Clear();
+			BulletPool.Get.ReclaimToPool(this);
+			if (_trailRenderer)
+			{
+				_trailRenderer.Clear();
+			}
 		}
 	}
 
@@ -73,11 +75,9 @@ public class Bullet : MonoBehaviour
 
 	private void PlaySound()
 	{
-		
 	}
 
 	private void PlayParticleEffect()
 	{
-		
 	}
 }

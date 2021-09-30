@@ -3,55 +3,90 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public struct InitialBullets
+{
+	[SerializeField]
+	public Bullet bulletPrefab;
+
+	[SerializeField]
+	public int amountToPool;
+}
+
 public class BulletPool : MonoBehaviour
 {
 	public static BulletPool Get;
 
-	// public List<GameObject> inactiveBullets;
-	public Stack<GameObject> inactiveBullets;
+	public Dictionary<Guid, Stack<Bullet>> inactiveBullets;
 
 	[SerializeField]
-	public GameObject objectToPool;
+	public List<InitialBullets> initialBullets;
 
 	[SerializeField]
-	public int amountToPool = 150;
-
-	[SerializeField]
-	public int increments = 50;
+	public int increments = 25;
 
 	public void Initialize()
 	{
 		Get = this;
 
-		inactiveBullets = new Stack<GameObject>();
+		inactiveBullets = new Dictionary<Guid, Stack<Bullet>>();
 
-		AddBullets(amountToPool);
+		foreach (InitialBullets initialBullet in initialBullets)
+		{
+			AddBullets(initialBullet.bulletPrefab, initialBullet.amountToPool);
+		}
 	}
 
-	private void AddBullets(int amount)
+	private void AddBullets(Bullet bulletPrefab, int amount)
 	{
 		for (int i = 0; i < amount; i++)
 		{
-			GameObject obj = Instantiate(objectToPool);
+			Bullet obj = Instantiate(bulletPrefab);
 			ReclaimToPool(obj);
 		}
 	}
 
-	public void ReclaimToPool(GameObject obj)
+	public void ReclaimToPool(Bullet bullet)
 	{
-		obj.SetActive(false);
-		inactiveBullets.Push(obj);
-	}
-
-	public GameObject GetInstance()
-	{
-		if (inactiveBullets.Count <= 0)
+		Guid bulletGuid = bullet.guidComponent.GetGuid();
+		if (!inactiveBullets.ContainsKey(bulletGuid))
 		{
-			AddBullets(increments);
+			inactiveBullets.Add(bulletGuid, new Stack<Bullet>());
+			AddBullets(bullet, increments);
 		}
 
-		var bullet = inactiveBullets.Pop();
-		bullet.SetActive(true);
+		bullet.gameObject.SetActive(false);
+		inactiveBullets[bulletGuid].Push(bullet);
+	}
+
+	public Bullet GetInstance(Bullet bulletPrefab)
+	{
+		if (bulletPrefab == null)
+		{
+			return null;
+		}
+
+		if (bulletPrefab.guidComponent == null)
+		{
+			return null;
+			
+		}
+
+		Guid bulletGuid = bulletPrefab.guidComponent.GetGuid();
+		if (!inactiveBullets.ContainsKey(bulletGuid))
+		{
+			inactiveBullets.Add(bulletGuid, new Stack<Bullet>());
+			AddBullets(bulletPrefab, increments);
+		}
+
+		var pool = inactiveBullets[bulletGuid];
+		if (pool.Count <= 0)
+		{
+			AddBullets(bulletPrefab, increments);
+		}
+
+		var bullet = inactiveBullets[bulletGuid].Pop();
+		bullet.gameObject.SetActive(true);
 		return bullet;
 	}
 

@@ -240,19 +240,23 @@ public class Tower : HexTileComponent
 			}
 			else
 			{
-				GameObject bulletObject = BulletPool.Get.GetInstance();
-				if (bulletObject != null)
+				if (towerData.bulletPrefab == null)
 				{
-					bulletObject.transform.position = bulletSpawnPoint.position;
-					bulletObject.transform.rotation = bulletSpawnPoint.rotation;
+					Debug.LogError("no bullet set in tower data");
+				}
+				else
+				{
+					Bullet bulletObject = BulletPool.Get.GetInstance(towerData.bulletPrefab);
+					if (bulletObject != null)
+					{
+						bulletObject.transform.position = bulletSpawnPoint.position;
+						bulletObject.transform.rotation = bulletSpawnPoint.rotation;
 
-					Bullet bullet = bulletObject.GetComponent<Bullet>();
-					bullet.target = targetToAttack;
-					bullet.tower = this;
-					bullet.bulletMesh.mesh = towerData.bulletMesh;
-					bullet.bulletSpeed = towerData.bulletSpeed;
-					bullet.bulletMeshRenderer.materials[0] = towerData.bulletMaterial;
-					bullet.Init();
+						Bullet bullet = bulletObject.GetComponent<Bullet>();
+						bullet.target = targetToAttack;
+						bullet.tower = this;
+						bullet.Init();
+					}
 				}
 			}
 		}
