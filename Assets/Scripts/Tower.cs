@@ -22,6 +22,9 @@ public class Tower : HexTileComponent
 	[SerializeField]
 	public GameObject towerRangeDisplay;
 
+	[SerializeField]
+	public bool trackTarget = true;
+
 	private float attackTimeRemaining;
 
 	public int numSegments = 64;
@@ -119,7 +122,7 @@ public class Tower : HexTileComponent
 	{
 		if (TrackTarget() || AcquireTarget())
 		{
-			if (!hasRotator)
+			if (!hasRotator && trackTarget)
 			{
 				Vector3 point = target.Position;
 				point.y = turret.transform.position.y;
