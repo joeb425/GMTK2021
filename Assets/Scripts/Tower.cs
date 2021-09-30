@@ -56,7 +56,10 @@ public class Tower : HexTileComponent
 
 	private void OnDestroy()
 	{
-		GameState.Get.Board.towerLayer.OnSelectedObjectChanged -= OnSelected;
+		if (GameState.Get != null)
+		{
+			GameState.Get.Board.towerLayer.OnSelectedObjectChanged -= OnSelected;
+		}
 	}
 
 	public override void PlaceOnHex(Hex hex) 
