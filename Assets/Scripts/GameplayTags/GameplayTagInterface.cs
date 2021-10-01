@@ -1,5 +1,5 @@
 ﻿
-namespace Misc.GameplayTags
+namespace GameplayTags
 {
 	public interface IGameplayTag
 	{

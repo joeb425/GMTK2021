@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8669709156246249371, guid: 2bb7a905db3adee4d99512067e1e31aa,
+        type: 3}
+      propertyPath: gameplayTag
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: -7270596217385348190, guid: 2bb7a905db3adee4d99512067e1e31aa,
         type: 3}
       propertyPath: serializedGuid.Array.data[0]

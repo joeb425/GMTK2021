@@ -1,6 +1,4 @@
-using Misc.GameplayTags;
-using Misc.SerializableGuid;
-using ObjectPools;
+using GameplayTags;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour, IGameplayTag
@@ -14,9 +12,6 @@ public class Bullet : MonoBehaviour, IGameplayTag
 	{
 		return gameplayTag;
 	}
-
-	[SerializeField]
-	public SerializableGuid guid;
 
 	public Tower tower;
 

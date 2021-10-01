@@ -1,7 +1,7 @@
 ﻿// using UnityEditor;
 // using UnityEngine;
 //
-// namespace Misc.GameplayTags
+// namespace GameplayTags
 // {
 // 	/// <summary>
 // 	/// Property drawer for SerializableGuid

@@ -1,8 +1,6 @@
 ﻿using DefaultNamespace.Data;
-using JetBrains.Annotations;
-using Misc.GameplayTags;
+using GameplayTags;
 using UnityEditor;
-using UnityEngine;
 
 public class GlobalData
 {

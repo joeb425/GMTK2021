@@ -29,6 +29,9 @@ MonoBehaviour:
     q: 0
     r: 0
     s: 0
+  Guid:
+    serializedGuid: e861859d-27eb-4c5c-86a0-b93981b5e553
+  gameplayTag: {fileID: 11400000, guid: 6edb06a2ba38c9b4fab7f3def8c4e13c, type: 2}
   IsObstacle: 0
   SpreadType: 
   TileType: 0

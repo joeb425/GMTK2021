@@ -157,6 +157,12 @@ PrefabInstance:
       propertyPath: TileType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6530625042590791959, guid: a90b1eaabc1350845929a4f9e92d5e6b,
+        type: 3}
+      propertyPath: gameplayTag
+      value: 
+      objectReference: {fileID: 11400000, guid: d5007226b209f79478596c10c8e1094a,
+        type: 2}
     - target: {fileID: 7065115286476866220, guid: a90b1eaabc1350845929a4f9e92d5e6b,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

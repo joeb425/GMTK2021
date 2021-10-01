@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DefaultNamespace;
+using GameplayTags;
 using UnityEngine;
 
 namespace HexLibrary
@@ -52,10 +53,15 @@ namespace HexLibrary
 
 		public void Init()
 		{
+			Debug.Log("Init");
 			if (Application.isPlaying)
 			{
 				LoadLevel();
 				// PathFinder.FindPath(this);
+			}
+			else
+			{
+				ResetGrid();
 			}
 		}
 
@@ -63,11 +69,14 @@ namespace HexLibrary
 		{
 			// TODO load level selected from menu screen
 			LevelData levelData = GlobalData.GetAssetBindings().levelData;
-			if (!levelData .IsLastLevel(GlobalData.CurrentLevel))
+			if (!levelData.IsLastLevel(GlobalData.CurrentLevel))
 			{
 				levelToLoad = levelData.levels[GlobalData.CurrentLevel];
+				Debug.Log($"Load level {GlobalData.CurrentLevel} : {levelToLoad.name}");
+
 			}
 
+			
 			LoadLevelFromJson(levelToLoad.text);
 		}
 
@@ -76,9 +85,11 @@ namespace HexLibrary
 			layers = new Dictionary<string, HexGridLayer>();
 			serializedLayers = new List<HexGridLayer>();
 
-			foreach (HexTileLayerPalette tile in tilePalette.tilePalette)
+			Debug.Log("Init layers?");
+			foreach (HexTileLayerPalette layer in tilePalette.tilePalette)
 			{
-				AddLayer(tile.layerName);
+				Debug.Log($"Add layer {layer.layerName}");
+				AddLayer(layer.layerName);
 			}
 		}
 
@@ -129,8 +140,8 @@ namespace HexLibrary
 				foreach (JsonHex jsonHex in jsonHexLayer.hexData)
 				{
 					Hex hex = jsonHex.hex;
-					Guid guid = new Guid(jsonHex.guid);
-					if (hexGridLayer.AddTile(hex, guid))
+					GlobalData.GetTagManager().RequestTag(jsonHex.tagName, out GameplayTag gameplayTag);
+					if (hexGridLayer.AddTile(hex, gameplayTag))
 					{
 						// Debug.Log($"Spawn tile {hex} : {jsonHex.guid}");
 					}
@@ -151,16 +162,8 @@ namespace HexLibrary
 				HexGridLayer hexGridLayer = layerKvp.Value;
 				foreach (var hexKvp in hexGridLayer.hexGrid)
 				{
-					Hex hex = hexKvp.Key;
 					HexTileComponent hexContent = hexKvp.Value;
-
-					if (!hexContent.TryGetComponent<GuidComponent>(out var guidComponent))
-					{
-						continue;
-					}
-
-					string guid = guidComponent.GetGuidString();
-					JsonHex jsonHex = new JsonHex(hex, guid);
+					JsonHex jsonHex = new JsonHex(hexContent);
 					hexLayer.hexData.Add(jsonHex);
 				}
 			}
@@ -178,14 +181,10 @@ namespace HexLibrary
 			serializedLayers.RemoveAll(layer => layer == null);
 
 			layers = new Dictionary<string, HexGridLayer>();
-			// foreach (HexGridLayer layer in serializedLayers)
-			// {
-			// 	Debug.Log(layer.layerName + " aa" + (layer == null));
-			// }
 
 			foreach (HexGridLayer layer in serializedLayers)
 			{
-				// Debug.Log(layer.layerName + " aa" + (layer == null));
+				// Debug.Log(layer.layerName + " " + (layer == null));
 				layers.Add(layer.layerName, layer);
 			}
 		}

@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Misc.GameplayTags
+namespace GameplayTags
 {
 	[CreateAssetMenu(menuName = "Data/GameplayTag")]
 	public class GameplayTag : ScriptableObject
@@ -11,7 +11,7 @@ namespace Misc.GameplayTags
 		private GameplayTag parent;
 
 		[SerializeField]
-		private List<GameplayTag> children;
+		private List<GameplayTag> children = new List<GameplayTag>();
 
 		public GameplayTag GetParent()
 		{

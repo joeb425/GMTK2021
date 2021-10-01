@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DefaultNamespace;
+using GameplayTags;
 using UnityEngine;
 
 
@@ -94,11 +95,11 @@ namespace HexLibrary
 		// 	return false;
 		// }
 
-		public HexTileComponent AddTile(Hex hexCoord, Guid guid)
+		public HexTileComponent AddTile(Hex hexCoord, GameplayTag gameplayTag)
 		{
 			foreach (HexTileComponent prefab in tilePrefabs)
 			{
-				if (prefab.GetComponent<GuidComponent>().GetGuid() == guid)
+				if (prefab.GetGameplayTag() == gameplayTag)
 				{
 					return AddTile(hexCoord, Instantiate(prefab));
 				}
@@ -155,11 +156,11 @@ namespace HexLibrary
 			{
 				if (Application.isPlaying)
 				{
-					Destroy(objectOnTile);
+					Destroy(objectOnTile.gameObject);
 				}
 				else
 				{
-					DestroyImmediate(objectOnTile);
+					DestroyImmediate(objectOnTile.gameObject);
 				}
 			}
 		}

@@ -163,6 +163,12 @@ PrefabInstance:
       propertyPath: TileType
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6530625042590791959, guid: a90b1eaabc1350845929a4f9e92d5e6b,
+        type: 3}
+      propertyPath: gameplayTag
+      value: 
+      objectReference: {fileID: 11400000, guid: 0a6fc6c347e817d4a9412b3b1f68910b,
+        type: 2}
     - target: {fileID: 6547271860368896937, guid: a90b1eaabc1350845929a4f9e92d5e6b,
         type: 3}
       propertyPath: m_LocalScale.x

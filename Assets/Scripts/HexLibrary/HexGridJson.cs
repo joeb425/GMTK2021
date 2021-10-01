@@ -35,15 +35,12 @@ namespace HexLibrary
 		public Hex hex;
 
 		[SerializeField]
-		public string guid;
-
-		[SerializeField]
 		public string tagName;
 
-		public JsonHex(Hex hex, string guid) 
+		public JsonHex(HexTileComponent hexTileComponent) 
 		{
-			this.hex = hex;
-			this.guid = guid;
+			this.hex = hexTileComponent.hex;
+			this.tagName = hexTileComponent.GetGameplayTag().name;
 		}
 	}
 }

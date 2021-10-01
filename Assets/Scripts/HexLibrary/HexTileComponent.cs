@@ -1,21 +1,21 @@
 ﻿using System;
-using Misc.GameplayTags;
-using Misc.SerializableGuid;
+using GameplayTags;
 using UnityEngine;
 
 namespace HexLibrary
 {
 	[Serializable]
-	public class HexTileComponent : MonoBehaviour
+	public class HexTileComponent : MonoBehaviour, IGameplayTag
 	{
 		[HideInInspector]
 		public Hex hex;
 
 		[SerializeField]
-		public SerializableGuid Guid;
-
-		[SerializeField]
-		public GameplayTag Tag;
+		public GameplayTag gameplayTag;
+		public GameplayTag GetGameplayTag()
+		{
+			return gameplayTag;
+		}
 
 		public System.Action<Hex> OnPlacedOnHex;
 		public System.Action<Hex> OnRemovedFromHex;
