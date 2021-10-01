@@ -126,12 +126,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809c5b9457ee9df45adc13c8f39e9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletSpeed: 3
+  gameplayTag: {fileID: 11400000, guid: fb989f3cdc9e7c3438187d51540e371a, type: 2}
+  guid:
+    serializedGuid: c40e79b0-c8e4-4ff4-b736-f1fb5383c756
   tower: {fileID: 0}
   target: {fileID: 0}
   spawnPoint: {x: 0, y: 0, z: 0}
   lastKnownPos: {x: 0, y: 0, z: 0}
-  bulletSpeed: 3
-  guidComponent: {fileID: 7522921511046828752}
 --- !u!114 &7522921511046828752
 MonoBehaviour:
   m_ObjectHideFlags: 0

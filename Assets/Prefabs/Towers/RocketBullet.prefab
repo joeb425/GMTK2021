@@ -14,6 +14,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 558967105862248459, guid: 53c0347117e139f4c94a42e205b4429d,
         type: 3}
+      propertyPath: gameplayTag
+      value: 
+      objectReference: {fileID: 11400000, guid: 869aad9a915107746a9488bff27ceb24,
+        type: 2}
+    - target: {fileID: 558967105862248459, guid: 53c0347117e139f4c94a42e205b4429d,
+        type: 3}
       propertyPath: guid.serializedGuid
       value: 0446f050-b140-47f0-889c-c8e9c329d251
       objectReference: {fileID: 0}

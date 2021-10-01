@@ -1,41 +1,100 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Misc.GameplayTags;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-[Serializable]
-public class GenericObjectPool
+namespace ObjectPools
 {
-	[SerializeField]
-	public GameObject objectToPool;
-
-	[SerializeField]
-	public int amountToPool = 1000;
-
-	private List<GameObject> pooledObjects;
-
-	public void Initialize()
+	[Serializable]
+	public class GenericObjectPool<T> : ScriptableObject where T : MonoBehaviour, IGameplayTag
 	{
-		pooledObjects = new List<GameObject>();
-
-		for (int i = 0; i < amountToPool; i++)
+		[Serializable]
+		public struct InitalPoolObjects
 		{
-			GameObject obj = Object.Instantiate(objectToPool);
-			obj.SetActive(false);
-			pooledObjects.Add(obj);
+			[SerializeField]
+			public T prefab;
+
+			[SerializeField]
+			public int amountToPool;
+		};
+
+		private Dictionary<GameplayTag, Stack<T>> _inactiveObjects = new Dictionary<GameplayTag, Stack<T>>();
+
+		[SerializeField]
+		public List<InitalPoolObjects> initialObjects = new List<InitalPoolObjects>();
+
+		[SerializeField]
+		public int increments = 25;
+
+		private void Awake()
+		{
+			Debug.Log("Object pool Awake");
 		}
-	}
 
-	public GameObject GetPooledObject()
-	{
-		for (int i = 0; i < pooledObjects.Count; i++)
+		public void Initialize()
 		{
-			if (!pooledObjects[i].activeInHierarchy)
+			_inactiveObjects = new Dictionary<GameplayTag, Stack<T>>();
+
+			foreach (InitalPoolObjects initialT in initialObjects)
 			{
-				return pooledObjects[i];
+				AddObject(initialT.prefab, initialT.amountToPool);
 			}
 		}
 
-		return null;
+		public void AddObject(T prefab, int amount)
+		{
+			for (int i = 0; i < amount; i++)
+			{
+				T obj = Object.Instantiate(prefab);
+				ReclaimToPool(obj);
+			}
+		}
+
+		public void ReclaimToPool(T obj)
+		{
+			GameplayTag gameplayTag = obj.GetGameplayTag();
+			if (!_inactiveObjects.ContainsKey(gameplayTag))
+			{
+				_inactiveObjects.Add(gameplayTag, new Stack<T>());
+				AddObject(obj, increments);
+			}
+
+			obj.gameObject.SetActive(false);
+			_inactiveObjects[gameplayTag].Push(obj);
+		}
+
+		public T GetInstance(T prefab)
+		{
+			if (prefab == null)
+			{
+				return null;
+			}
+
+			Debug.Log(prefab.name);
+
+			GameplayTag gameplayTag = prefab.GetGameplayTag();
+			if (gameplayTag is null)
+			{
+				Debug.Log($"{prefab} has null gameplay tag");
+			}
+
+			if (!_inactiveObjects.ContainsKey(gameplayTag))
+			{
+				_inactiveObjects.Add(gameplayTag, new Stack<T>());
+				AddObject(prefab, increments);
+			}
+
+			var pool = _inactiveObjects[gameplayTag];
+			if (pool.Count <= 0)
+			{
+				AddObject(prefab, increments);
+			}
+
+			var T = _inactiveObjects[gameplayTag].Pop();
+			T.gameObject.SetActive(true);
+			return T;
+		}
 	}
 }

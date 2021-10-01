@@ -37,6 +37,9 @@ namespace HexLibrary
 		[SerializeField]
 		public string guid;
 
+		[SerializeField]
+		public string tagName;
+
 		public JsonHex(Hex hex, string guid) 
 		{
 			this.hex = hex;

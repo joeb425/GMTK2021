@@ -1,8 +1,23 @@
+using Misc.GameplayTags;
 using Misc.SerializableGuid;
+using ObjectPools;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IGameplayTag
 {
+	[SerializeField]
+	public float bulletSpeed = 3.0f;
+
+	[SerializeField]
+	public GameplayTag gameplayTag;
+	public GameplayTag GetGameplayTag()
+	{
+		return gameplayTag;
+	}
+
+	[SerializeField]
+	public SerializableGuid guid;
+
 	public Tower tower;
 
 	public TargetPoint target;
@@ -10,16 +25,10 @@ public class Bullet : MonoBehaviour
 	public Vector3 spawnPoint;
 	public Vector3 lastKnownPos;
 
-	[SerializeField]
-	public float bulletSpeed = 3.0f;
-
 	private float _progress;
 	private float _progressSpeed;
 
 	private TrailRenderer _trailRenderer;
-
-	[SerializeField]
-	public SerializableGuid guid;
 
 	public void Awake()
 	{
@@ -51,7 +60,7 @@ public class Bullet : MonoBehaviour
 		if (_progress >= 1.0f)
 		{
 			Explode();
-			BulletPool.Get.ReclaimToPool(this);
+			GlobalData.GetAssetBindings().gamePrefabs.bulletPool.ReclaimToPool(this);
 			if (_trailRenderer)
 			{
 				_trailRenderer.Clear();

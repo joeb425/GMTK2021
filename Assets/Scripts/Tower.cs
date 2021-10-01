@@ -261,7 +261,7 @@ public class Tower : HexTileComponent
 				}
 				else
 				{
-					Bullet bulletObject = BulletPool.Get.GetInstance(towerData.bulletPrefab);
+					Bullet bulletObject = GlobalData.GetAssetBindings().gamePrefabs.bulletPool.GetInstance(towerData.bulletPrefab);
 					if (bulletObject != null)
 					{
 						bulletObject.transform.position = bulletSpawnPoint.position;

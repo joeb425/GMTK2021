@@ -73,7 +73,6 @@ public class GameBoard : MonoBehaviour
 
 		foliageLayer = grid.GetLayer("Foliage");
 
-
 		if (towerLayer == null)
 		{
 			Debug.Log("tower layer invalid");

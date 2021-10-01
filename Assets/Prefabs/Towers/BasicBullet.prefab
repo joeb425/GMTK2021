@@ -107,6 +107,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 558967105862248459, guid: 53c0347117e139f4c94a42e205b4429d,
         type: 3}
+      propertyPath: gameplayTag
+      value: 
+      objectReference: {fileID: 11400000, guid: fb989f3cdc9e7c3438187d51540e371a,
+        type: 2}
+    - target: {fileID: 558967105862248459, guid: 53c0347117e139f4c94a42e205b4429d,
+        type: 3}
       propertyPath: guid.serializedGuid
       value: 4007d3a0-e1ef-449f-881c-17d6f1511c15
       objectReference: {fileID: 0}

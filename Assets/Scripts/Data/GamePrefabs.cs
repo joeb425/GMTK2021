@@ -1,4 +1,4 @@
-﻿
+﻿using ObjectPools;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -26,6 +26,9 @@ public class GamePrefabs : ScriptableObject
 	[SerializeField]
 	public VisualTreeAsset towerBuildButton;
 
-	[SerializeField] 
+	[SerializeField]
 	public VisualTreeAsset attributeDisplayItem;
+
+	[SerializeField]
+	public BulletPool bulletPool;
 }

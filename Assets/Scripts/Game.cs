@@ -37,9 +37,6 @@ public class Game : MonoBehaviour
 	[SerializeField]
 	SpawnerHandler spawnerHandler;
 
-	[SerializeField]
-	BulletPool bulletPool;
-
 	public EnemyCollection enemies = new EnemyCollection();
 
 	public System.Action OnGameDestroyed;
@@ -58,8 +55,6 @@ public class Game : MonoBehaviour
 		gameState.Init();
 
 		board.Initialize();
-
-		bulletPool.Initialize();
 
 		uiHandler = new UIHandler();
 		uiHandler.Init(hud);

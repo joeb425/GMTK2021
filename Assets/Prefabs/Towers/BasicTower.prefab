@@ -655,6 +655,12 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: ff16d17399ac5244fb66eb15226d70a4, type: 2}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
+      propertyPath: Tag
+      value: 
+      objectReference: {fileID: 11400000, guid: fb989f3cdc9e7c3438187d51540e371a,
+        type: 2}
+    - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
       propertyPath: Cost
       value: 2
       objectReference: {fileID: 0}

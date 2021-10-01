@@ -1,4 +1,5 @@
 ﻿using System;
+using Misc.GameplayTags;
 using Misc.SerializableGuid;
 using UnityEngine;
 
@@ -12,6 +13,9 @@ namespace HexLibrary
 
 		[SerializeField]
 		public SerializableGuid Guid;
+
+		[SerializeField]
+		public GameplayTag Tag;
 
 		public System.Action<Hex> OnPlacedOnHex;
 		public System.Action<Hex> OnRemovedFromHex;
