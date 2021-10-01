@@ -9,8 +9,8 @@ namespace Misc
 	{
 		private void Start()
 		{
-			AudioSource audio = GetComponent<AudioSource>();
-			StartCoroutine(FadeIn(audio, 3f, Mathf.SmoothStep));
+			// AudioSource audio = GetComponent<AudioSource>();
+			// StartCoroutine(FadeIn(audio, 3f, Mathf.SmoothStep));
 		}
 
 		public static IEnumerator FadeOut(AudioSource source, float fadingTime, Func<float, float, float, float> Interpolate)

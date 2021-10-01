@@ -32,6 +32,11 @@ namespace ObjectPools
 			Debug.Log("Object pool Awake");
 		}
 
+		private void OnEnable()
+		{
+			Debug.Log("Object pool enable");
+		}
+
 		public void Initialize()
 		{
 			_inactiveObjects = new Dictionary<GameplayTag, Stack<T>>();
