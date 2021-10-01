@@ -15,39 +15,38 @@ MonoBehaviour:
   tilePalette:
   - layerName: Ground
     spawnDatas:
-    - tilePrefab: {fileID: 2463445931989178885, guid: 21cdff0f27a8180428dd70d58298d5d8,
+    - tilePrefab: {fileID: 4995526960439839814, guid: 21cdff0f27a8180428dd70d58298d5d8,
         type: 3}
       spawnKeyCode: 282
-    - tilePrefab: {fileID: 8068691030735012088, guid: 7df7ab4ad88653d47ba0f5466f71dd38,
+    - tilePrefab: {fileID: 614171760306722491, guid: 7df7ab4ad88653d47ba0f5466f71dd38,
         type: 3}
       spawnKeyCode: 283
-    - tilePrefab: {fileID: 2440284178702489885, guid: c0176dda0321b8e489f00d9deffbc142,
+    - tilePrefab: {fileID: 5089603867401686878, guid: c0176dda0321b8e489f00d9deffbc142,
         type: 3}
       spawnKeyCode: 284
-    - tilePrefab: {fileID: 8669667408885545373, guid: 34cc1f785881a834c802338d2139df48,
+    - tilePrefab: {fileID: 2246344979567390686, guid: 34cc1f785881a834c802338d2139df48,
         type: 3}
       spawnKeyCode: 285
   - layerName: Tower
     spawnDatas:
-    - tilePrefab: {fileID: 2501059870606882893, guid: d0f4d9b1f614fa34d841ba8748eaca4e,
+    - tilePrefab: {fileID: 7682699519609654883, guid: d0f4d9b1f614fa34d841ba8748eaca4e,
         type: 3}
       spawnKeyCode: 282
-    - tilePrefab: {fileID: 1896651012418842372, guid: 1038ec44c5e3c514485f69db945a9f65,
+    - tilePrefab: {fileID: 8119690419672304627, guid: 2add2897b33aaa44ca5482e243244e44,
         type: 3}
       spawnKeyCode: 283
-    - tilePrefab: {fileID: 4072676126635458013, guid: 2add2897b33aaa44ca5482e243244e44,
+    - tilePrefab: {fileID: 7662874212954485398, guid: afc394f333da7184ca9c6a1db1ebca3b,
         type: 3}
       spawnKeyCode: 284
   - layerName: Foliage
     spawnDatas:
-    - tilePrefab: {fileID: 33994638995381417, guid: eb9a1ee02176bb14b874a6f2ccfaeffc,
-        type: 3}
+    - tilePrefab: {fileID: 0}
       spawnKeyCode: 282
   - layerName: Zone
     spawnDatas:
-    - tilePrefab: {fileID: 831816239544940775, guid: a027e31e1d57d6043837367dd6e513bc,
+    - tilePrefab: {fileID: 2104985721687576514, guid: a027e31e1d57d6043837367dd6e513bc,
         type: 3}
       spawnKeyCode: 282
-    - tilePrefab: {fileID: 7034241482235270821, guid: 7a2c477dab2f823468ca1327e12036c5,
+    - tilePrefab: {fileID: 8584978482922807680, guid: 7a2c477dab2f823468ca1327e12036c5,
         type: 3}
       spawnKeyCode: 283

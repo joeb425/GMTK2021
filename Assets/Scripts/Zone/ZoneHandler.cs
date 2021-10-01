@@ -51,7 +51,7 @@ public class ZoneHandler
 
 		var groundLayer = GameState.Get.Board.groundLayer;
 
-		if (!groundLayer.GetHexComponent(targetHex, out GroundTileComponent targetTile))
+		if (!groundLayer.GetTileAtHex(targetHex, out GroundTileComponent targetTile))
 		{
 			CancelZoneSpread();
 			return false;

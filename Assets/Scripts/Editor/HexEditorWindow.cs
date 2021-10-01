@@ -173,7 +173,7 @@ namespace Editor
 			}
 		}
 
-		bool GetPrefabFromKey(KeyCode key, out GameObject prefab)
+		bool GetPrefabFromKey(KeyCode key, out HexTileComponent prefab)
 		{
 			List<HexTileSpawnData> spawnDatas = GetLayerPalette().spawnDatas;
 			if (spawnDatas.Count == 0)

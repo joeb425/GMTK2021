@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using DefaultNamespace;
 using UnityEngine;
-using UnityEngine.LowLevel;
 
 namespace HexLibrary
 {
@@ -154,7 +152,7 @@ namespace HexLibrary
 				foreach (var hexKvp in hexGridLayer.hexGrid)
 				{
 					Hex hex = hexKvp.Key;
-					GameObject hexContent = hexKvp.Value;
+					HexTileComponent hexContent = hexKvp.Value;
 
 					if (!hexContent.TryGetComponent<GuidComponent>(out var guidComponent))
 					{

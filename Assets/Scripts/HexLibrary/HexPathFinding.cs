@@ -23,7 +23,7 @@ namespace HexLibrary
 		
 		public bool FindPath_Rec(Hex current, List<Hex> path)
 		{
-			if (groundLayer.GetHexComponent(current, out var hexComponent))
+			if (groundLayer.GetTileAtHex(current, out GroundTileComponent hexComponent))
 			{
 				bool isPath = hexComponent.TileType == HexTileType.Start ||
 				              hexComponent.TileType == HexTileType.Path ||
@@ -95,7 +95,7 @@ namespace HexLibrary
 				//Debug.Log(surTile.Count);
 				foreach (Hex tileCoord in surTile)
 				{
-					if (!groundLayer.GetHexComponent(tileCoord, out var hexComponent))
+					if (!groundLayer.GetTileAtHex(tileCoord, out GroundTileComponent hexComponent))
 					{
 						continue;
 					}

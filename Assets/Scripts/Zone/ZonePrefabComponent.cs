@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using HexLibrary;
+using UnityEngine;
 
 namespace DefaultNamespace.Zone
 {
-	public class ZonePrefabComponent : MonoBehaviour
-	{
+	public class ZonePrefabComponent : HexTileComponent
+	{ 
 		public ZoneData zoneData;
 
 		void OnDrawGizmos()

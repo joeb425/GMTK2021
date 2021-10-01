@@ -16,6 +16,10 @@ namespace HexLibrary
 		public System.Action<Hex> OnPlacedOnHex;
 		public System.Action<Hex> OnRemovedFromHex;
 
+		public virtual void GameUpdate()
+		{
+		}
+
 		public virtual void PlaceOnHex(Hex hex)
 		{
 			this.hex = hex;

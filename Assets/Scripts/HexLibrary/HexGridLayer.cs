@@ -13,9 +13,9 @@ namespace HexLibrary
 		public Hex hex;
 
 		[SerializeField]
-		public GameObject gameObject;
+		public HexTileComponent gameObject;
 
-		public HexObjectPair(Hex h, GameObject go)
+		public HexObjectPair(Hex h, HexTileComponent go)
 		{
 			hex = h;
 			gameObject = go;
@@ -31,18 +31,18 @@ namespace HexLibrary
 		[SerializeField]
 		public HexGrid grid;
 
-		public Dictionary<Hex, GameObject> hexGrid = new Dictionary<Hex, GameObject>();
+		public Dictionary<Hex, HexTileComponent> hexGrid = new Dictionary<Hex, HexTileComponent>();
 
 		[SerializeField]
-		public List<GameObject> tilePrefabs = new List<GameObject>();
+		public List<HexTileComponent> tilePrefabs = new List<HexTileComponent>();
 
 		[SerializeField]
 		private List<HexObjectPair> serializedGrid = new List<HexObjectPair>();
 
-		public System.Action<Hex, GameObject> OnObjectAdded;
-		public System.Action<Hex, GameObject> OnObjectRemoved;
-		public System.Action<GameObject, GameObject> OnSelectedObjectChanged;
-		public GameObject selectedObject;
+		public System.Action<Hex, HexTileComponent> OnObjectAdded;
+		public System.Action<Hex, HexTileComponent> OnObjectRemoved;
+		public System.Action<HexTileComponent, HexTileComponent> OnSelectedObjectChanged;
+		public HexTileComponent selectedObject;
 
 		public void InitLayer(HexGrid grid, string layerName)
 		{
@@ -50,7 +50,7 @@ namespace HexLibrary
 			this.grid = grid;
 			this.layerName = layerName;
 
-			tilePrefabs = new List<GameObject>();
+			tilePrefabs = new List<HexTileComponent>();
 			foreach (HexTileSpawnData spawnData in grid.tilePalette.GetLayerPalette(layerName).spawnDatas)
 			{
 				tilePrefabs.Add(spawnData.tilePrefab);
@@ -60,7 +60,7 @@ namespace HexLibrary
 			{
 				GameState.Get.Board.OnSelectedTileChanged += (_, newHex) =>
 				{
-					GetObjectAtHex(newHex, out var newSelection);
+					GetTileAtHex(newHex, out HexTileComponent newSelection);
 					if (selectedObject != newSelection)
 					{
 						OnSelectedObjectChanged?.Invoke(selectedObject, newSelection);
@@ -70,30 +70,33 @@ namespace HexLibrary
 			}
 		}
 
-		public bool GetObjectAtHex(Hex hexCoord, out GameObject tile)
+		public bool GetTileAtHex<T>(Hex hexCoord, out T outTile) where T : HexTileComponent
 		{
-			if (hexCoord != null)
-				return hexGrid.TryGetValue(hexCoord, out tile);
-
-			tile = null;
-			return false;
-		}
-
-		public bool GetComponentAtHex<T>(Hex hexCoord, out T behavior) where T : MonoBehaviour
-		{
-			if (GetObjectAtHex(hexCoord, out GameObject go))
+			if (hexGrid.TryGetValue(hexCoord, out HexTileComponent tile))
 			{
-				go.TryGetComponent(out behavior);
+				outTile = tile as T;
 				return true;
 			}
 
-			behavior = null;
+			outTile = null;
 			return false;
 		}
 
-		public GameObject AddTile(Hex hexCoord, Guid guid)
+		// public bool GetComponentAtHex<T>(Hex hexCoord, out T behavior) where T : MonoBehaviour
+		// {
+		// 	if (GetObjectAtHex(hexCoord, out HexTileComponent go))
+		// 	{
+		// 		go.gameObject.TryGetComponent(out behavior);
+		// 		return true;
+		// 	}
+		//
+		// 	behavior = null;
+		// 	return false;
+		// }
+
+		public HexTileComponent AddTile(Hex hexCoord, Guid guid)
 		{
-			foreach (GameObject prefab in tilePrefabs)
+			foreach (HexTileComponent prefab in tilePrefabs)
 			{
 				if (prefab.GetComponent<GuidComponent>().GetGuid() == guid)
 				{
@@ -104,7 +107,7 @@ namespace HexLibrary
 			return null;
 		}
 
-		public GameObject AddTile(Hex hexCoord, GameObject objectOnTile)
+		public HexTileComponent AddTile(Hex hexCoord, HexTileComponent objectOnTile)
 		{
 			DeleteTile(hexCoord);
 
@@ -127,9 +130,9 @@ namespace HexLibrary
 			return objectOnTile;
 		}
 
-		public bool RemoveTile(Hex hexCoord, out GameObject objectOnTile)
+		public bool RemoveTile(Hex hexCoord, out HexTileComponent objectOnTile)
 		{
-			if (GetObjectAtHex(hexCoord, out objectOnTile))
+			if (GetTileAtHex(hexCoord, out objectOnTile))
 			{
 				HexTileComponent hexComponent = objectOnTile.GetComponent<HexTileComponent>();
 				if (hexComponent != null)
@@ -148,7 +151,7 @@ namespace HexLibrary
 
 		public void DeleteTile(Hex hexCoord)
 		{
-			if (RemoveTile(hexCoord, out GameObject objectOnTile))
+			if (RemoveTile(hexCoord, out HexTileComponent objectOnTile))
 			{
 				if (Application.isPlaying)
 				{
@@ -164,7 +167,7 @@ namespace HexLibrary
 		public void ResetLayer()
 		{
 			GlobalHelpers.DeleteAllChildren(gameObject);
-			hexGrid = new Dictionary<Hex, GameObject>();
+			hexGrid = new Dictionary<Hex, HexTileComponent>();
 		}
 
 		private void Update()
@@ -212,7 +215,7 @@ namespace HexLibrary
 
 		public void OnAfterDeserialize()
 		{
-			hexGrid = new Dictionary<Hex, GameObject>();
+			hexGrid = new Dictionary<Hex, HexTileComponent>();
 
 			foreach (var hexObject in serializedGrid)
 			{
@@ -221,21 +224,6 @@ namespace HexLibrary
 					hexGrid[hexObject.hex] = hexObject.gameObject;
 				}
 			}
-		}
-
-		public bool GetHexComponent(Hex hex, out GroundTileComponent groundTileComponent)
-		{
-			if (GetObjectAtHex(hex, out var tile))
-			{
-				groundTileComponent = tile.GetComponent<GroundTileComponent>();
-				if (groundTileComponent != null)
-				{
-					return true;
-				}
-			}
-
-			groundTileComponent = null;
-			return false;
 		}
 	}
 }

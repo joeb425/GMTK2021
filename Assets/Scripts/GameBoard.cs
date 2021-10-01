@@ -87,9 +87,10 @@ public class GameBoard : MonoBehaviour
 	public void GameUpdate()
 	{
 		// TODO optimize this
-		foreach (GameObject tower in towerLayer.hexGrid.Values)
+		foreach (HexTileComponent tower in towerLayer.hexGrid.Values)
 		{
-			tower.GetComponent<Tower>().GameUpdate();
+			tower.GameUpdate();
+			// tower.GetComponent<Tower>().GameUpdate();
 		}
 
 		// for (int i = 0; i < updatingContent.Count; i++)
@@ -108,11 +109,11 @@ public class GameBoard : MonoBehaviour
 	public void PlaceTower(Hex tile, Tower towerPrefab)
 	{
 		Tower tower = Instantiate(towerPrefab);
-		towerLayer.AddTile(tile, tower.gameObject);
+		towerLayer.AddTile(tile, tower);
 		foliageLayer.DeleteTile(tile);
 		OnTowerPlaced?.Invoke(tile, tower);
 
-		if (groundLayer.GetComponentAtHex(tile, out GroundTileComponent groundTile))
+		if (groundLayer.GetTileAtHex(tile, out GroundTileComponent groundTile))
 		{
 			// tower.OnTowerPlaced(groundTile);
 			// groundTile.OnTowerEffectAdded += (hex, effect) => tower.Attributes.ApplyEffect(effect);
@@ -155,7 +156,7 @@ public class GameBoard : MonoBehaviour
 
 	public void SelectTile(Hex newSelectedTile)
 	{
-		if (GetGroundLayer().GetHexComponent(newSelectedTile, out GroundTileComponent groundTile))
+		if (GetGroundLayer().GetTileAtHex(newSelectedTile, out GroundTileComponent groundTile))
 		{
 			Debug.Log($"Effects {groundTile.effectList.effects.Count} Active {groundTile.effectList.activeEffects.Count}");
 		}
@@ -260,7 +261,7 @@ public class GameBoard : MonoBehaviour
 
 	public void StartSelectZoneSpread(Hex tile)
 	{
-		if (groundLayer.GetHexComponent(tile, out GroundTileComponent groundTile))
+		if (groundLayer.GetTileAtHex(tile, out GroundTileComponent groundTile))
 		{
 			zoneHandler.StartSpreadingZone(groundTile);
 		}
@@ -269,10 +270,10 @@ public class GameBoard : MonoBehaviour
 	private void InitZones()
 	{
 		HexGridLayer zoneLayer = grid.GetLayer("Zone");
-		foreach (KeyValuePair<Hex,GameObject> kvp in zoneLayer.hexGrid)
+		foreach (var kvp in zoneLayer.hexGrid)
 		{
 			ZonePrefabComponent zonePrefabComponent = kvp.Value.GetComponent<ZonePrefabComponent>();
-			if (groundLayer.GetComponentAtHex(kvp.Key, out GroundTileComponent groundTile))
+			if (groundLayer.GetTileAtHex(kvp.Key, out GroundTileComponent groundTile))
 			{
 				zoneHandler.CreateZone(groundTile, zonePrefabComponent.zoneData);
 			}
@@ -281,7 +282,7 @@ public class GameBoard : MonoBehaviour
 
 	public bool GetTowerAtHex(Hex hex, out Tower tower)
 	{
-		if (towerLayer.GetComponentAtHex(hex, out tower))
+		if (towerLayer.GetTileAtHex(hex, out tower))
 		{
 			return true;
 		}
@@ -292,7 +293,7 @@ public class GameBoard : MonoBehaviour
 
 	public bool GetGroundTileAtHex(Hex hex, out GroundTileComponent tile)
 	{
-		if (groundLayer.GetComponentAtHex(hex, out tile))
+		if (groundLayer.GetTileAtHex(hex, out tile))
 		{
 			return true;
 		}

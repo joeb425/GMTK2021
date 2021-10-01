@@ -9,7 +9,7 @@ namespace HexLibrary
 	public class HexTileSpawnData
 	{
 		[SerializeField]
-		public GameObject tilePrefab;
+		public HexTileComponent tilePrefab;
 
 		[SerializeField]
 		public KeyCode spawnKeyCode;
@@ -36,12 +36,12 @@ namespace HexLibrary
 			return tilePalette.FirstOrDefault(palette => palette.layerName == layerName);
 		}
 
-		public Dictionary<string, List<GameObject>> GetPaletteAsDictionary()
+		public Dictionary<string, List<HexTileComponent>> GetPaletteAsDictionary()
 		{
-			Dictionary<string, List<GameObject>> dictionary = new Dictionary<string, List<GameObject>>();
+			Dictionary<string, List<HexTileComponent>> dictionary = new Dictionary<string, List<HexTileComponent>>();
 			foreach (HexTileLayerPalette layerPalette in tilePalette)
 			{
-				List<GameObject> objectsByIndex = layerPalette.spawnDatas.Select(spawnData => spawnData.tilePrefab).ToList();
+				List<HexTileComponent> objectsByIndex = layerPalette.spawnDatas.Select(spawnData => spawnData.tilePrefab).ToList();
 				dictionary.Add(layerPalette.layerName, objectsByIndex);
 			}
 

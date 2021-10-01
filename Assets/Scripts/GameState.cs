@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using HexLibrary;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngineInternal;
 
@@ -96,7 +97,7 @@ public class GameState
 		if (!Board.GetTowerAtHex(Board.selectedTile, out Tower tower)) 
 			return;
 
-		Board.towerLayer.RemoveTile(tower.hex, out GameObject removedTower);
+		Board.towerLayer.RemoveTile(tower.hex, out HexTileComponent removedTower);
 		SetCash(CurrentCash + tower.towerData.towerSell);
 		Object.Destroy(removedTower);
 	}

@@ -85,7 +85,7 @@ public class Tower : HexTileComponent
 		{
 			Hex neighborHex = groundTile.hex.Neighbor(i);
 
-			if (GameState.Get.Board.groundLayer.GetComponentAtHex(neighborHex, out GroundTileComponent neighbor))
+			if (GameState.Get.Board.groundLayer.GetTileAtHex(neighborHex, out GroundTileComponent neighbor))
 			{
 				foreach (GameplayEffect effect in towerData.supportEffects)
 				{
@@ -105,7 +105,7 @@ public class Tower : HexTileComponent
 		{
 			Hex neighborHex = groundTile.hex.Neighbor(i);
 
-			if (GameState.Get.Board.groundLayer.GetComponentAtHex(neighborHex, out GroundTileComponent neighbor))
+			if (GameState.Get.Board.groundLayer.GetTileAtHex(neighborHex, out GroundTileComponent neighbor))
 			{
 				foreach (GameplayEffect effect in towerData.supportEffects)
 				{
@@ -130,7 +130,7 @@ public class Tower : HexTileComponent
 		radiusLineRenderer.enabled = false;
 	}
 
-	public void GameUpdate()
+	public override void GameUpdate()
 	{
 		if (TrackTarget() || AcquireTarget())
 		{
@@ -343,12 +343,12 @@ public class Tower : HexTileComponent
 		targetPoint.Enemy.ApplyDamage(damage);
 	}
 
-	public void OnSelected(GameObject _, GameObject newSelection)
+	public void OnSelected(HexTileComponent _, HexTileComponent newSelection)
 	{
 		if (newSelection == null)
 			return;
 
-		bool selected = newSelection.GetComponent<Tower>() == this;
+		bool selected = (newSelection as Tower) == this;
 		radiusLineRenderer.enabled = selected;
 		towerRangeDisplay.SetActive(selected);
 		// for (int i = 0; i < 6; i++)

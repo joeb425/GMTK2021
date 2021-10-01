@@ -55,14 +55,14 @@ namespace UI.MainMenu.HUD
 		void OnSelectedTileChanged(Hex selectedTile)
 		{
 			// check tower layer
-			if (GameState.Get.Board.towerLayer.GetComponentAtHex(selectedTile, out Tower tower))
+			if (GameState.Get.Board.towerLayer.GetTileAtHex(selectedTile, out Tower tower))
 			{
 				_screenSwitcher.EnableScreen(TowerInfoMenuName).Q<TowerInfoMenu>()?.BindToTower(tower);
 				return;
 			}
 
 			// check ground layer
-			if (GameState.Get.Board.groundLayer.GetComponentAtHex(selectedTile, out GroundTileComponent groundTile))
+			if (GameState.Get.Board.groundLayer.GetTileAtHex(selectedTile, out GroundTileComponent groundTile))
 			{
 				if (groundTile.TileType == HexTileType.Build)
 				{
