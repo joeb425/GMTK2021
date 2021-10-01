@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using Misc.GameplayTags;
+using GameplayTags;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -72,12 +71,11 @@ namespace ObjectPools
 				return null;
 			}
 
-			Debug.Log(prefab.name);
-
 			GameplayTag gameplayTag = prefab.GetGameplayTag();
 			if (gameplayTag is null)
 			{
 				Debug.Log($"{prefab} has null gameplay tag");
+				return null;
 			}
 
 			if (!_inactiveObjects.ContainsKey(gameplayTag))
