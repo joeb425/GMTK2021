@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using GameplayTags;
+using Mantis.GameplayTags;
 using UnityEngine;
 using Object = UnityEngine.Object;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DefaultNamespace;
-using GameplayTags;
+using Mantis.GameplayTags;
 using UnityEngine;
 
 

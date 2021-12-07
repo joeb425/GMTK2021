@@ -2,7 +2,7 @@
 using HexLibrary;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.EnhancedTouch;
+// using UnityEngine.InputSystem.EnhancedTouch;
 using UnityEngine.UIElements;
 using UnityEngineInternal;
 
@@ -12,7 +12,7 @@ using UnityEngineInternal;
 
 public class InputHandler
 {
-	private GameInputs _gameInputs;
+	// private GameInputs _gameInputs;
 	public Ray touchRay;
 
 	public Vector2 mousePos;
@@ -28,12 +28,12 @@ public class InputHandler
 
 	public void Init()
 	{
-		TouchSimulation.Enable();
+		// TouchSimulation.Enable();
 
-		_gameInputs = new GameInputs();
-		_gameInputs.Enable();
-		_gameInputs.Mouse.MouseClick.performed += ctx => MouseClick();
-		_gameInputs.Keyboard.FastForward.performed += ctx => FastForward();
+		// _gameInputs = new GameInputs();
+		// _gameInputs.Enable();
+		// _gameInputs.Mouse.MouseClick.performed += ctx => MouseClick();
+		// _gameInputs.Keyboard.FastForward.performed += ctx => FastForward();
 
 		Camera camera = Camera.main;
 		_desiredCameraSize = camera.orthographicSize;
@@ -43,7 +43,7 @@ public class InputHandler
 
 	public void Disable()
 	{
-		_gameInputs.Disable();
+		// _gameInputs.Disable();
 	}
 
 	public void MouseClick()
@@ -71,7 +71,7 @@ public class InputHandler
 		Camera camera = Camera.main;
 		
 		// Update touch ray
-		mousePos = _gameInputs.Mouse.MousePosition.ReadValue<Vector2>();
+		// mousePos = _gameInputs.Mouse.MousePosition.ReadValue<Vector2>();
 		touchRay = camera.ScreenPointToRay(new Vector3(mousePos.x, mousePos.y, 0.0f));
 
 		UpdateCamera();
@@ -85,16 +85,16 @@ public class InputHandler
 		// Update camera position
 		if (!Game.Get.uiHandler.IsMouseBlocked(mousePos))
 		{
-			Vector2 cameraDelta = _gameInputs.Mouse.TouchDelta.ReadValue<Vector2>();
-			_desiredCameraLocation -= new Vector3(cameraDelta.x, 0, cameraDelta.y) * _cameraSpeed;
-			camera.transform.position = Vector3.Lerp(camera.transform.position, _desiredCameraLocation, Time.deltaTime *
-				_cameraLerpSpeed);
+			// Vector2 cameraDelta = _gameInputs.Mouse.TouchDelta.ReadValue<Vector2>();
+			// _desiredCameraLocation -= new Vector3(cameraDelta.x, 0, cameraDelta.y) * _cameraSpeed;
+			// camera.transform.position = Vector3.Lerp(camera.transform.position, _desiredCameraLocation, Time.deltaTime *
+				// _cameraLerpSpeed);
 		}
 
 		// Update zoom
-		float zoom = _gameInputs.Mouse.MouseWheel.ReadValue<float>();
-		var orthographicSize = camera.orthographicSize;
-		_desiredCameraSize -= zoom * 0.4f;
-		camera.orthographicSize = Mathf.Lerp(orthographicSize, _desiredCameraSize, Time.deltaTime * _cameraZoomSpeed);
+		// float zoom = _gameInputs.Mouse.MouseWheel.ReadValue<float>();
+		// var orthographicSize = camera.orthographicSize;
+		// _desiredCameraSize -= zoom * 0.4f;
+		// camera.orthographicSize = Mathf.Lerp(orthographicSize, _desiredCameraSize, Time.deltaTime * _cameraZoomSpeed);
 	}
 }

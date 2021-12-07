@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Attributes;
+using Mantis.AttributeSystem;
+using Mantis.Utils;
 using Misc;
 using UnityEngine;
 

@@ -1,0 +1,14 @@
+{
+  "name": "com.mantis.gameplaytags",
+  "version": "0.0.1",
+  "displayName": "Gameplay Tags",
+  "description": "Mantis gameplay tags",
+  "unity": "2019.1",
+  "dependencies": {
+  },
+  "keywords": [
+    "mantis",
+    "gameplay",
+    "tags"
+  ]
+}

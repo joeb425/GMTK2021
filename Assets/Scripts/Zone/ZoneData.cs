@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Attributes;
+using Mantis.AttributeSystem;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Data/ZoneData")]

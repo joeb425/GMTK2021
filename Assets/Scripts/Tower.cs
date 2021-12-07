@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Attributes;
+using Mantis.AttributeSystem;
 using HexLibrary;
 using UnityEngine;
 

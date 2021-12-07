@@ -1,4 +1,4 @@
-﻿using Attributes;
+﻿using Mantis.AttributeSystem;
 using UnityEngine;
 using UnityEngine.UIElements;
 

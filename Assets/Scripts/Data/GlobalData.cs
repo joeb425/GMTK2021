@@ -1,5 +1,5 @@
 ﻿using DefaultNamespace.Data;
-using GameplayTags;
+using Mantis.GameplayTags;
 using UnityEditor;
 
 public class GlobalData

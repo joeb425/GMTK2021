@@ -1,5 +1,36 @@
 {
   "dependencies": {
+    "com.mantis.attributesystem": {
+      "version": "file:com.mantis.attributesystem",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.mantis.gameplaytags": "0.0.1"
+      }
+    },
+    "com.mantis.engine": {
+      "version": "file:com.mantis.engine",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.mantis.utils": "",
+        "com.unity.ui": ""
+      }
+    },
+    "com.mantis.gameplaytags": {
+      "version": "file:com.mantis.gameplaytags",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.mantis.utils": {
+      "version": "file:com.mantis.utils",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.mantis.gameplaytags": "0.0.1"
+      }
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
@@ -126,7 +157,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textcore": {
-      "version": "1.0.0-preview.2",
+      "version": "1.0.0-preview.3",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -154,17 +185,19 @@
       }
     },
     "com.unity.ui": {
-      "version": "1.0.0-preview.14",
+      "version": "1.0.0-preview.16",
       "depth": 0,
       "source": "registry",
       "dependencies": {
+        "nuget.moq": "1.0.0",
+        "nuget.castle-core": "1.0.1",
         "com.unity.modules.uielementsnative": "1.0.0",
-        "com.unity.textcore": "1.0.0-preview.2"
+        "com.unity.textcore": "1.0.0-preview.3"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.ui.builder": {
-      "version": "1.0.0-preview.14",
+      "version": "1.0.0-preview.18",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -177,6 +210,22 @@
       "dependencies": {
         "com.unity.modules.vr": "1.0.0",
         "com.unity.modules.xr": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "nuget.castle-core": {
+      "version": "1.0.1",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "nuget.moq": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "nuget.castle-core": "1.0.1"
       },
       "url": "https://packages.unity.com"
     },

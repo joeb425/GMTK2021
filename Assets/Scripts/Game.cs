@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mantis.Utils;
 using Misc;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -83,7 +84,7 @@ public class Game : MonoBehaviour
 	private void OnDestroy()
 	{
 		Debug.Log("Game On Destroy");
-		input.Disable();
+		// input.Disable();
 		Get = null;
 
 		GlobalData.Clear();

@@ -1,4 +1,4 @@
-using GameplayTags;
+using Mantis.GameplayTags;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour, IGameplayTag

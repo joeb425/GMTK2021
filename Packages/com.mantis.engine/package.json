@@ -1,0 +1,15 @@
+{
+  "name": "com.mantis.engine",
+  "version": "0.0.1",
+  "displayName": "Mantis Engine",
+  "description": "Mantis Engine",
+  "unity": "2019.1",
+  "dependencies": {
+    "com.mantis.utils": "",
+    "com.unity.ui": ""
+  },
+  "keywords": [
+    "mantis",
+    "engine"
+  ]
+}

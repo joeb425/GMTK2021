@@ -1,0 +1,15 @@
+{
+  "name": "com.mantis.attributesystem",
+  "version": "0.0.1",
+  "displayName": "Mantis Attribute System",
+  "description": "Mantis Attribute System",
+  "unity": "2019.1",
+  "dependencies": {
+    "com.mantis.gameplaytags": "0.0.1"
+  },
+  "keywords": [
+    "mantis",
+    "attribute",
+    "system"
+  ]
+}

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Attributes;
+using Mantis.AttributeSystem;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;

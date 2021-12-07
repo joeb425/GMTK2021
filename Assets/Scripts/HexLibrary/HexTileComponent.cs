@@ -1,5 +1,5 @@
 ﻿using System;
-using GameplayTags;
+using Mantis.GameplayTags;
 using UnityEngine;
 
 namespace HexLibrary
