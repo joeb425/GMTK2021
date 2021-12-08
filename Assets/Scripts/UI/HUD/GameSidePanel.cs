@@ -33,7 +33,7 @@ namespace UI.MainMenu.HUD
 
 		public void OnScreenStateChanged(VisualElement screen, bool enabled)
 		{
-			Game.Get.uiHandler.SetElementBlockingMouse(screen, enabled);
+			Game.Get.GetUIHandler().SetElementBlockingMouse(screen, enabled);
 		}
 
 		public void OnGameInit()
