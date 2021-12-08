@@ -233,10 +233,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4a8c46f22f8c47a1a14e9657bbb981b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiHandler: {fileID: 0}
   audioHandler: {fileID: 11400000, guid: 9ee7c83103bbc6d4faed5b330ddc4145, type: 2}
   tileHighlighter: {fileID: 11400000, guid: 27d869aeabf7a93429aeb0a55f07707c, type: 2}
-  hud: {fileID: 739550510}
   board: {fileID: 2022507406}
   spawnerHandler: {fileID: 640835631}
 --- !u!4 &371505263
@@ -278,7 +276,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 371505261}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e75bf7575de9ed54d98c2788cd929b70, type: 3}
+  m_Script: {fileID: 11500000, guid: f5008a26810a442da3a61f7ec7d34fd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hud: {fileID: 739550510}
