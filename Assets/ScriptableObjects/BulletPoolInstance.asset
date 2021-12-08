@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a8b825bf629494cbf8359bf8e1904c5, type: 3}
-  m_Name: AudioHandler
+  m_Script: {fileID: 11500000, guid: aa844d5c26114328a2e10a458089d0fd, type: 3}
+  m_Name: BulletPoolInstance
   m_EditorClassIdentifier: 
-  maxFrequency: 0.1
+  initialObjects: []
+  increments: 25

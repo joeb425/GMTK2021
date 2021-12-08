@@ -275,7 +275,7 @@ public class Tower : HexTileComponent
 			}
 		}
 
-		Game.Get.audioHandler.PlaySfx(towerData.shootSfx);
+		Game.Get.GetAudioHandler().PlaySfx(towerData.shootSfx);
 	}
 
 	private void UpdateRangeDisplay()

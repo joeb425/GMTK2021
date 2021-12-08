@@ -234,11 +234,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiHandler: {fileID: 0}
-  tileHighlighter: {fileID: 11400000, guid: 27d869aeabf7a93429aeb0a55f07707c, type: 2}
   audioHandler: {fileID: 11400000, guid: 9ee7c83103bbc6d4faed5b330ddc4145, type: 2}
+  tileHighlighter: {fileID: 11400000, guid: 27d869aeabf7a93429aeb0a55f07707c, type: 2}
   hud: {fileID: 739550510}
-  StartingCash: 10
-  MaxLives: 25
   board: {fileID: 2022507406}
   spawnerHandler: {fileID: 640835631}
 --- !u!4 &371505263
@@ -424,9 +422,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 883103049}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34624183cfe24dee9fc4f1f734b4ffb9, type: 3}
+  m_Script: {fileID: 11500000, guid: 745b56fae3f447d438cb3295181c6410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 9ee7c83103bbc6d4faed5b330ddc4145, type: 2}
+        m_TargetAssemblyTypeName: AudioHandler, Mantis.Engine
+        m_MethodName: PlayMusic
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 5d770964c3d334740b52626a72b5752d,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1104057213
 GameObject:
   m_ObjectHideFlags: 0

@@ -120,7 +120,7 @@ public class GameBoard : MonoBehaviour
 			// groundTile.ApplyEffectsToTower(tower);
 		}
 
-		Game.Get.audioHandler.PlaySfx(GlobalData.GetAssetBindings().gameAssets.placeTowerSfx);
+		Game.Get.GetAudioHandler().PlaySfx(GlobalData.GetAssetBindings().gameAssets.placeTowerSfx);
 	}
 
 	public void PlaceTowerAtHex(Hex tile, Tower tower)

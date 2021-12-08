@@ -13,25 +13,9 @@ public class Game : BaseGame
 {
 	public static Game Get;
 
-	// public GameState gameState;
-
-	// public UIHandler uiHandler;
-
 	public InputHandler input;
 
 	public TileHighlighter tileHighlighter;
-
-	[SerializeField]
-	public AudioHandler audioHandler;
-
-	[SerializeField]
-	public UIDocument hud;
-
-	[SerializeField]
-	public int StartingCash = 10;
-
-	[SerializeField]
-	public int MaxLives = 25;
 
 	[SerializeField]
 	GameBoard board;
