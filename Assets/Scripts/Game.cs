@@ -18,9 +18,6 @@ public class Game : BaseGame
 	public TileHighlighter tileHighlighter;
 
 	[SerializeField]
-	GameBoard board;
-
-	[SerializeField]
 	SpawnerHandler spawnerHandler;
 
 	public EnemyCollection enemies = new EnemyCollection();
@@ -32,8 +29,6 @@ public class Game : BaseGame
 
 	protected override void Init()
 	{
-		board.Initialize();
-
 		input = new InputHandler();
 		input.Init();
 
@@ -44,7 +39,6 @@ public class Game : BaseGame
 	{
 		spawnerHandler.GameUpdate();
 		enemies.GameUpdate();
-		board.GameUpdate();
 		input.GameUpdate();
 
 		if (Input.GetKeyDown(KeyCode.Z))

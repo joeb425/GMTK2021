@@ -67,11 +67,18 @@ public class GameState : BaseGameState
 
 	public override void Init()
 	{
+		Board.Initialize();
+
 		Get = this;
 		Game.Get.OnGameDestroyed += () => Get = null;
 
 		CurrentCash = StartingCash;
 		CurrentLives = MaxLives;
+	}
+
+	public override void GameUpdate()
+	{
+		Board.GameUpdate();
 	}
 
 	public void RestartGame()

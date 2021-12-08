@@ -64,6 +64,15 @@ public class GameBoard : MonoBehaviour
 
 		grid.Init();
 
+		// // TODO load level selected from menu screen
+		// LevelData levelData = GlobalData.GetAssetBindings().levelData;
+		// if (!levelData.IsLastLevel(GlobalData.CurrentLevel))
+		// {
+		// 	TextAsset levelToLoad = levelData.levels[GlobalData.CurrentLevel];
+		// 	Debug.Log($"Load level {GlobalData.CurrentLevel} : {levelToLoad.name}");
+		// 	grid.LoadLevelFromJson(levelToLoad.text);
+		// }
+
 		groundLayer = grid.GetLayer("Ground");
 		if (groundLayer == null)
 		{
