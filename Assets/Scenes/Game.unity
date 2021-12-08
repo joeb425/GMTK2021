@@ -212,6 +212,8 @@ GameObject:
   m_Component:
   - component: {fileID: 371505263}
   - component: {fileID: 371505262}
+  - component: {fileID: 371505264}
+  - component: {fileID: 371505265}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -231,8 +233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4a8c46f22f8c47a1a14e9657bbb981b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileHighlighter: {fileID: 0}
-  audioHandler: {fileID: 0}
+  uiHandler: {fileID: 0}
+  tileHighlighter: {fileID: 11400000, guid: 27d869aeabf7a93429aeb0a55f07707c, type: 2}
+  audioHandler: {fileID: 11400000, guid: 9ee7c83103bbc6d4faed5b330ddc4145, type: 2}
   hud: {fileID: 739550510}
   StartingCash: 10
   MaxLives: 25
@@ -252,6 +255,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &371505264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371505261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec7bfb73d292403f86fe54c609f810f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Board: {fileID: 2022507406}
+  StartingCash: 10
+  MaxLives: 25
+  IsGameOver: 0
+--- !u!114 &371505265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371505261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e75bf7575de9ed54d98c2788cd929b70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hud: {fileID: 739550510}
 --- !u!1 &640835630
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,22 +427,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34624183cfe24dee9fc4f1f734b4ffb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 9ee7c83103bbc6d4faed5b330ddc4145, type: 2}
-        m_TargetAssemblyTypeName: AudioHandler, Assembly-CSharp
-        m_MethodName: PlayMusic
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 5d770964c3d334740b52626a72b5752d,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1104057213
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +699,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2022507404}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89756bcd65684a8285f2e7d6a4575e1c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7852bcb5113932c4daffcbeae5a2cec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2022507406

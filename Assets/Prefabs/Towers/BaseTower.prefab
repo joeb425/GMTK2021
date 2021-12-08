@@ -168,7 +168,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7822758320480785569}
   - component: {fileID: 7289787119796724084}
-  - component: {fileID: -8397094983990540312}
   - component: {fileID: 4075005451639140559}
   - component: {fileID: 531897848442091768}
   - component: {fileID: 8236314880511772701}
@@ -211,6 +210,7 @@ MonoBehaviour:
     q: 0
     r: 0
     s: 0
+  gameplayTag: {fileID: 0}
   towerData: {fileID: 0}
   turret: {fileID: 263773572115014597}
   bulletSpawnPoint: {fileID: 5004033099111384222}
@@ -219,25 +219,10 @@ MonoBehaviour:
   towerRangeDisplay: {fileID: 8796409826960070298}
   trackTarget: 1
   spawnAnimation: {fileID: 0}
-  testGuid:
-    serializedGuid: b0b3ce35-8c59-403a-b295-a976d038317a
   numSegments: 128
   radiusLineRenderer: {fileID: 0}
   onHitEffects: []
   groundTile: {fileID: 0}
---- !u!114 &-8397094983990540312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3242984198978901850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializedGuid: c50441db30953c4985361e293cb1066c
 --- !u!135 &4075005451639140559
 SphereCollider:
   m_ObjectHideFlags: 0

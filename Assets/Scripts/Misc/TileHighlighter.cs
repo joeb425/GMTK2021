@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using HexLibrary;
 using UnityEngine;
+using Mantis.Hex;
 
 namespace Misc
 {

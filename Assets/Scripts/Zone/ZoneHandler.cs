@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using HexLibrary;
+using Mantis.Hex;
 using Mantis.Utils;
 using Random = UnityEngine.Random;
 

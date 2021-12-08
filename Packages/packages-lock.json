@@ -1,36 +1,5 @@
 {
   "dependencies": {
-    "com.mantis.attributesystem": {
-      "version": "file:com.mantis.attributesystem",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.mantis.gameplaytags": "0.0.1"
-      }
-    },
-    "com.mantis.engine": {
-      "version": "file:com.mantis.engine",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.mantis.utils": "",
-        "com.unity.ui": ""
-      }
-    },
-    "com.mantis.gameplaytags": {
-      "version": "file:com.mantis.gameplaytags",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
-    },
-    "com.mantis.utils": {
-      "version": "file:com.mantis.utils",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {
-        "com.mantis.gameplaytags": "0.0.1"
-      }
-    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
@@ -212,6 +181,45 @@
         "com.unity.modules.xr": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "mantis.attributesystem": {
+      "version": "file:mantis.attributesystem",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "mantis.gameplaytags": "0.0.1"
+      }
+    },
+    "mantis.engine": {
+      "version": "file:mantis.engine",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "mantis.utils": "",
+        "com.unity.ui": ""
+      }
+    },
+    "mantis.gameplaytags": {
+      "version": "file:mantis.gameplaytags",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "mantis.hextile": {
+      "version": "file:mantis.hex",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "mantis.gameplaytags": "0.0.1"
+      }
+    },
+    "mantis.utils": {
+      "version": "file:mantis.utils",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "mantis.gameplaytags": "0.0.1"
+      }
     },
     "nuget.castle-core": {
       "version": "1.0.1",

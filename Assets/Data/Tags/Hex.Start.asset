@@ -9,6 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 05ab3d04918143b47967032fe5631659, type: 3}
   m_Name: Hex.Start
   m_EditorClassIdentifier: 
+  parent: {fileID: 11400000, guid: aec0f975ba6ac3046bc310df41497758, type: 2}
+  children: []
+  parent: {fileID: 11400000, guid: aec0f975ba6ac3046bc310df41497758, type: 2}
+  children: []

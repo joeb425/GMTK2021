@@ -2,17 +2,21 @@
     "name": "Mantis.LinkTD",
     "rootNamespace": "",
     "references": [
-        "GUID:dae8a0422d47c3a43a279dd78804765d",
-        "GUID:b189871ee54ae3b489e7be2fcefd77bd",
-        "GUID:dd43faba914f3704f84146a692b0af5c",
-        "GUID:6b75878addccf204eb4d8747ee6463b4"
+        "Mantis.GameplayTags",
+        "Mantis.AttributeSystem",
+        "Mantis.Utils",
+        "Unity.InputSystem",
+        "Mantis.Engine",
+        "Mantis.Hex",
+        "Mantis.Hex.Editor",
+        "UnityEngine.UIElementsModule"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
-    "autoReferenced": true,
+    "autoReferenced": false,
     "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false

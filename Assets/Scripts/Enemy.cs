@@ -1,5 +1,6 @@
 ﻿using Mantis.AttributeSystem;
 using HexLibrary;
+using Mantis.Hex;
 using UnityEngine;
 using UnityEngine.UI;
 using Quaternion = UnityEngine.Quaternion;

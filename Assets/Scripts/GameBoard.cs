@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace.Zone;
 using HexLibrary;
+using Mantis.Hex;
 using Mantis.Utils;
 using UnityEditor;
 
@@ -68,7 +69,7 @@ public class GameBoard : MonoBehaviour
 		{
 			Debug.Log("ground layer invalid");
 		}
-		Debug.Log(groundLayer.hexGrid.Count);
+
 		towerLayer = grid.GetLayer("Tower");
 
 		foliageLayer = grid.GetLayer("Foliage");

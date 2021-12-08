@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Mantis.AttributeSystem;
 using HexLibrary;
+using Mantis.Hex;
 using UnityEngine;
 
 [Serializable]

@@ -657,8 +657,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Tag
       value: 
-      objectReference: {fileID: 11400000, guid: fb989f3cdc9e7c3438187d51540e371a,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: Cost
@@ -679,6 +678,12 @@ PrefabInstance:
       propertyPath: towerData
       value: 
       objectReference: {fileID: 11400000, guid: fec1b97e14d79514c9b76d3234a3d974,
+        type: 2}
+    - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: gameplayTag
+      value: 
+      objectReference: {fileID: 11400000, guid: 8b900d4dc524707458544b2c9f377f4b,
         type: 2}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}

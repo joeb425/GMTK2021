@@ -91,7 +91,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8646245697078925413}
   - component: {fileID: 558967105862248459}
-  - component: {fileID: 7522921511046828752}
   m_Layer: 0
   m_Name: BaseBullet
   m_TagString: Untagged
@@ -127,23 +126,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 3
-  gameplayTag: {fileID: 11400000, guid: fb989f3cdc9e7c3438187d51540e371a, type: 2}
-  guid:
-    serializedGuid: c40e79b0-c8e4-4ff4-b736-f1fb5383c756
+  gameplayTag: {fileID: 0}
   tower: {fileID: 0}
   target: {fileID: 0}
   spawnPoint: {x: 0, y: 0, z: 0}
   lastKnownPos: {x: 0, y: 0, z: 0}
---- !u!114 &7522921511046828752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4196600553289992653}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98bbc2c1e63e98543830eec78d976795, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serializedGuid: a9855768e18f08469c5fc03e19095d77

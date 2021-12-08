@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mantis.Engine;
 using Mantis.Utils;
 using Misc;
 using UnityEngine;
@@ -8,13 +9,13 @@ using UnityEngine.Networking;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
-public class Game : MonoBehaviour
+public class Game : BaseGame
 {
 	public static Game Get;
 
-	public GameState gameState;
+	// public GameState gameState;
 
-	public UIHandler uiHandler;
+	// public UIHandler uiHandler;
 
 	public InputHandler input;
 
@@ -40,25 +41,16 @@ public class Game : MonoBehaviour
 
 	public EnemyCollection enemies = new EnemyCollection();
 
-	public System.Action OnGameDestroyed;
+	// public System.Action OnGameDestroyed;
 
-	void Awake()
+	protected override void PreInit()
 	{
 		Get = this;
+	}
 
-		gameState = new GameState
-		{
-			StartingCash = StartingCash, 
-			MaxLives = MaxLives, 
-			Board = board
-		};
-
-		gameState.Init();
-
+	protected override void Init()
+	{
 		board.Initialize();
-
-		uiHandler = new UIHandler();
-		uiHandler.Init(hud);
 
 		input = new InputHandler();
 		input.Init();
@@ -68,7 +60,28 @@ public class Game : MonoBehaviour
 		GlobalData.OnGameInit?.Invoke();
 	}
 
-	void Update()
+	// void Awake()
+	// {
+	//
+	// 	// gameState = new GameState
+	// 	// {
+	// 	// 	StartingCash = StartingCash, 
+	// 	// 	MaxLives = MaxLives, 
+	// 	// 	Board = board
+	// 	// };
+	//
+	// 	// gameState.Init();
+	//
+	// 	// uiHandler = new UIHandler();
+	// 	// uiHandler.Init(hud);
+	// }
+
+	// void Update()
+	// {
+	//
+	// }
+
+	protected override void GameUpdate()
 	{
 		spawnerHandler.GameUpdate();
 		enemies.GameUpdate();
@@ -78,13 +91,24 @@ public class Game : MonoBehaviour
 		if (UnityEngine.Input.GetKeyDown(KeyCode.Z))
 		{
 			GameState.Get.LoseLife();
-		}
+		}		
 	}
 
-	private void OnDestroy()
+	// private new void OnDestroy()
+	// {
+	// 	// Debug.Log("Game On Destroy");
+	// 	// input.Disable();
+	// 	// Get = null;
+	//
+	// 	GlobalData.Clear();
+	//
+	// 	OnGameDestroyed?.Invoke();
+	// }
+
+	protected override void GameDestroyed()
 	{
 		Debug.Log("Game On Destroy");
-		// input.Disable();
+		input.Disable();
 		Get = null;
 
 		GlobalData.Clear();

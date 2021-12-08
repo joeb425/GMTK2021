@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Mantis.AttributeSystem;
+using Mantis.Hex;
 using Unity.Profiling;
 using UnityEngine;
 

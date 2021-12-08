@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Mantis.Hex;
 using UnityEngine;
 
 namespace HexLibrary

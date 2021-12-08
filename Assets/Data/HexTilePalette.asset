@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c086ba032a5649c89661d72c87a31d44, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b3d7f821b8c9774d8771e501fcdfd97, type: 3}
   m_Name: HexTilePalette
   m_EditorClassIdentifier: 
   tilePalette:
@@ -21,32 +21,15 @@ MonoBehaviour:
     - tilePrefab: {fileID: 614171760306722491, guid: 7df7ab4ad88653d47ba0f5466f71dd38,
         type: 3}
       spawnKeyCode: 283
-    - tilePrefab: {fileID: 5089603867401686878, guid: c0176dda0321b8e489f00d9deffbc142,
+    - tilePrefab: {fileID: 2246344979567390686, guid: 34cc1f785881a834c802338d2139df48,
         type: 3}
       spawnKeyCode: 284
-    - tilePrefab: {fileID: 2246344979567390686, guid: 34cc1f785881a834c802338d2139df48,
+    - tilePrefab: {fileID: 5089603867401686878, guid: c0176dda0321b8e489f00d9deffbc142,
         type: 3}
       spawnKeyCode: 285
   - layerName: Tower
-    spawnDatas:
-    - tilePrefab: {fileID: 7682699519609654883, guid: d0f4d9b1f614fa34d841ba8748eaca4e,
-        type: 3}
-      spawnKeyCode: 282
-    - tilePrefab: {fileID: 8119690419672304627, guid: 2add2897b33aaa44ca5482e243244e44,
-        type: 3}
-      spawnKeyCode: 283
-    - tilePrefab: {fileID: 7662874212954485398, guid: afc394f333da7184ca9c6a1db1ebca3b,
-        type: 3}
-      spawnKeyCode: 284
+    spawnDatas: []
   - layerName: Foliage
-    spawnDatas:
-    - tilePrefab: {fileID: 0}
-      spawnKeyCode: 282
+    spawnDatas: []
   - layerName: Zone
-    spawnDatas:
-    - tilePrefab: {fileID: 2104985721687576514, guid: a027e31e1d57d6043837367dd6e513bc,
-        type: 3}
-      spawnKeyCode: 282
-    - tilePrefab: {fileID: 8584978482922807680, guid: 7a2c477dab2f823468ca1327e12036c5,
-        type: 3}
-      spawnKeyCode: 283
+    spawnDatas: []

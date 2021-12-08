@@ -1,9 +1,11 @@
 ﻿using HexLibrary;
+using Mantis.Engine;
+using Mantis.Hex;
 using ObjectPools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameState
+public class GameState : BaseGameState
 {
 	public static GameState Get;
 
@@ -63,7 +65,7 @@ public class GameState
 		}
 	}
 
-	public void Init()
+	public override void Init()
 	{
 		Get = this;
 		Game.Get.OnGameDestroyed += () => Get = null;
