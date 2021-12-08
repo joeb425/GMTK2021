@@ -25,8 +25,6 @@ public class Game : BaseGame
 
 	public EnemyCollection enemies = new EnemyCollection();
 
-	// public System.Action OnGameDestroyed;
-
 	protected override void PreInit()
 	{
 		Get = this;
@@ -40,30 +38,7 @@ public class Game : BaseGame
 		input.Init();
 
 		tileHighlighter = Instantiate(GlobalData.GetAssetBindings().gameAssets.tileHighlighter);
-
-		GlobalData.OnGameInit?.Invoke();
 	}
-
-	// void Awake()
-	// {
-	//
-	// 	// gameState = new GameState
-	// 	// {
-	// 	// 	StartingCash = StartingCash, 
-	// 	// 	MaxLives = MaxLives, 
-	// 	// 	Board = board
-	// 	// };
-	//
-	// 	// gameState.Init();
-	//
-	// 	// uiHandler = new UIHandler();
-	// 	// uiHandler.Init(hud);
-	// }
-
-	// void Update()
-	// {
-	//
-	// }
 
 	protected override void GameUpdate()
 	{
@@ -72,31 +47,16 @@ public class Game : BaseGame
 		board.GameUpdate();
 		input.GameUpdate();
 
-		if (UnityEngine.Input.GetKeyDown(KeyCode.Z))
+		if (Input.GetKeyDown(KeyCode.Z))
 		{
 			GameState.Get.LoseLife();
-		}		
+		}
 	}
-
-	// private new void OnDestroy()
-	// {
-	// 	// Debug.Log("Game On Destroy");
-	// 	// input.Disable();
-	// 	// Get = null;
-	//
-	// 	GlobalData.Clear();
-	//
-	// 	OnGameDestroyed?.Invoke();
-	// }
 
 	protected override void GameDestroyed()
 	{
-		Debug.Log("Game On Destroy");
 		input.Disable();
-		Get = null;
-
-		GlobalData.Clear();
-
 		OnGameDestroyed?.Invoke();
+		Get = null;
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using HexLibrary;
+using Mantis.Engine;
 using Mantis.Hex;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -24,7 +25,7 @@ namespace UI.MainMenu.HUD
 		public GameSidePanel()
 		{
 			RegisterCallback<AttachToPanelEvent>(OnAttach);
-			GlobalData.OnGameInit += OnGameInit;
+			BaseGame.OnGameInit += OnGameInit;
 		}
 
 		private void OnAttach(AttachToPanelEvent evt)

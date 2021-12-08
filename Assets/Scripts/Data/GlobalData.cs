@@ -15,19 +15,5 @@ public class GlobalData
 		return _assetBindings;
 	}
 
-	private static GameplayTagManager _tagManager;
-	public static GameplayTagManager GetTagManager()
-	{
-		return _tagManager ??= new GameplayTagManager();
-	}
-
 	public static int CurrentLevel { get; set; } = 0;
-
-
-	public static System.Action OnGameInit;
-
-	public static void Clear()
-	{
-		OnGameInit = null;
-	}
 }
