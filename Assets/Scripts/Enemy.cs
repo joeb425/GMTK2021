@@ -1,6 +1,8 @@
-﻿using DefaultNamespace.Data;
+﻿using System;
+using DefaultNamespace.Data;
 using Mantis.AttributeSystem;
 using HexLibrary;
+using Mantis.GameplayTags;
 using Mantis.Hex;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +10,7 @@ using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
+[RequireComponent(typeof(GameplayTagContainer))]
 public class Enemy : MonoBehaviour
 {
 	[SerializeField]
@@ -40,6 +43,7 @@ public class Enemy : MonoBehaviour
 
 	public GameplayAttributeContainer Attributes;
 
+	public GameplayTagContainer gameplayTagContainer;
 
 	public EnemyFactory OriginFactory
 	{
@@ -49,6 +53,11 @@ public class Enemy : MonoBehaviour
 			Debug.Assert(_originFactory == null, "Redefined origin factory!");
 			_originFactory = value;
 		}
+	}
+
+	private void Awake()
+	{
+		gameplayTagContainer = GetComponent<GameplayTagContainer>();
 	}
 
 	public void SpawnOn(Vector3 worldPos)

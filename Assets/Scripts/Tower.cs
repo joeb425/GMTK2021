@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using DefaultNamespace.Data;
 using Mantis.AttributeSystem;
 using HexLibrary;
+using Mantis.GameplayTags;
 using Mantis.Hex;
+using UnityEditor;
 using UnityEngine;
 
 [Serializable]
@@ -197,14 +199,36 @@ public class Tower : HexTileComponent
 	bool AcquireTarget()
 	{
 		Collider[] targets = GetEnemiesInRadius();
-
-		if (targets.Length > 0)
+		
+		foreach (Collider targetCollider in targets)
 		{
-			target = targets[0].GetComponent<TargetPoint>();
-			// Debug.Log("Set target" + targets[0].gameObject);
-			Debug.Assert(target != null, "Targeted non-enemy!", targets[0]);
-			return true;
+			TargetPoint targetPoint = targetCollider.GetComponent<TargetPoint>();
+			Enemy enemyTarget = targetPoint.Enemy;
+			if (!enemyTarget)
+			{
+				Debug.Log("enemy target null");
+				continue;
+			}
+
+			GameplayTagManager.instance.RequestTag("Status.IsAlive", out GameplayTag statusIsAlive);
+			GameplayTagManager.instance.RequestTag("Status.Invulnerable", out GameplayTag statusInvulnerable);
+			bool isAlive = enemyTarget.gameplayTagContainer.ContainsTag(statusIsAlive);
+			bool isInvulnerable = enemyTarget.gameplayTagContainer.ContainsTag(statusInvulnerable);
+
+			if (isAlive && !isInvulnerable)
+			{
+				target = targetPoint;
+				return true;
+			}
 		}
+
+		// if (targets.Length > 0)
+		// {
+		// 	target = targets[0].GetComponent<TargetPoint>();
+		// 	// Debug.Log("Set target" + targets[0].gameObject);
+		// 	Debug.Assert(target != null, "Targeted non-enemy!", targets[0]);
+		// 	return true;
+		// }
 
 		target = null;
 		return false;
