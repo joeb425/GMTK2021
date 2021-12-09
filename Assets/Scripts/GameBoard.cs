@@ -165,13 +165,11 @@ public class GameBoard : MonoBehaviour
 
 	public void SelectTile(Hex newSelectedTile)
 	{
-		if (GetGroundLayer().GetTileAtHex(newSelectedTile, out GroundTileComponent groundTile))
-		{
-			Debug.Log($"Effects {groundTile.effectList.effects.Count} Active {groundTile.effectList.activeEffects.Count}");
-		}
-		
-		
-		
+		// if (GetGroundLayer().GetTileAtHex(newSelectedTile, out GroundTileComponent groundTile))
+		// {
+		// 	Debug.Log($"Effects {groundTile.effectList.effects.Count} Active {groundTile.effectList.activeEffects.Count}");
+		// }
+
 		if (zoneHandler.isSpreadingZone)
 		{
 			zoneHandler.TrySpreadZoneToLocation(newSelectedTile);

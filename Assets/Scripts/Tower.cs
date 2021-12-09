@@ -8,7 +8,7 @@ using Mantis.Hex;
 using UnityEditor;
 using UnityEngine;
 
-[Serializable]
+[RequireComponent(typeof(GameplayAttributeContainer))]
 public class Tower : HexTileComponent
 {
 	[SerializeField]
@@ -44,7 +44,7 @@ public class Tower : HexTileComponent
 
 	private bool hasRotator;
 
-	public GameplayAttributeContainer Attributes = new GameplayAttributeContainer();
+	public GameplayAttributeContainer Attributes;
 
 	private int _towerLevel = 0;
 
@@ -146,12 +146,12 @@ public class Tower : HexTileComponent
 			UpdateAttacking();
 		}
 
-		Attributes.Update(Time.deltaTime);
+		Attributes.GameUpdate();
 	}
 
 	private void UpdateTowerRange()
 	{
-		float range = Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().Range);
+		float range = Attributes.GetCurrentValue(MyAttributes.Get().Range);
 		// update collider
 		sphereCollider = gameObject.GetComponent<SphereCollider>();
 		sphereCollider.radius = range;
@@ -175,14 +175,15 @@ public class Tower : HexTileComponent
 
 	bool TrackTarget()
 	{
-		if (target == null)
+		if (!IsValidTarget(target))
 		{
+			target = null;
 			return false;
 		}
 
 		Vector3 a = transform.localPosition;
 		Vector3 b = target.Position;
-		if (Vector3.Distance(a, b) > Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().Range) + 0.125f)
+		if (Vector3.Distance(a, b) > Attributes.GetCurrentValue(MyAttributes.Get().Range) + 0.125f)
 		{
 			target = null;
 			return false;
@@ -193,7 +194,28 @@ public class Tower : HexTileComponent
 
 	Collider[] GetEnemiesInRadius()
 	{
-		return Physics.OverlapSphere(transform.localPosition, Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().Range), 1 << 9);
+		return Physics.OverlapSphere(transform.localPosition, Attributes.GetCurrentValue(MyAttributes.Get().Range), 1 << 9);
+	}
+
+	bool IsValidTarget(TargetPoint targetPoint)
+	{
+		if (targetPoint == null)
+		{
+			return false;
+		}
+		
+		Enemy enemyTarget = targetPoint.Enemy;
+		if (!enemyTarget)
+		{
+			return false;
+		}
+
+		GameplayTagManager.instance.RequestTag("Status.IsAlive", out GameplayTag statusIsAlive);
+		GameplayTagManager.instance.RequestTag("Status.Invulnerable", out GameplayTag statusInvulnerable);
+		bool isAlive = enemyTarget.gameplayTagContainer.ContainsTag(statusIsAlive);
+		bool isInvulnerable = enemyTarget.gameplayTagContainer.ContainsTag(statusInvulnerable);
+
+		return isAlive && !isInvulnerable;
 	}
 
 	bool AcquireTarget()
@@ -203,19 +225,7 @@ public class Tower : HexTileComponent
 		foreach (Collider targetCollider in targets)
 		{
 			TargetPoint targetPoint = targetCollider.GetComponent<TargetPoint>();
-			Enemy enemyTarget = targetPoint.Enemy;
-			if (!enemyTarget)
-			{
-				Debug.Log("enemy target null");
-				continue;
-			}
-
-			GameplayTagManager.instance.RequestTag("Status.IsAlive", out GameplayTag statusIsAlive);
-			GameplayTagManager.instance.RequestTag("Status.Invulnerable", out GameplayTag statusInvulnerable);
-			bool isAlive = enemyTarget.gameplayTagContainer.ContainsTag(statusIsAlive);
-			bool isInvulnerable = enemyTarget.gameplayTagContainer.ContainsTag(statusInvulnerable);
-
-			if (isAlive && !isInvulnerable)
+			if (IsValidTarget(targetPoint))
 			{
 				target = targetPoint;
 				return true;
@@ -241,7 +251,7 @@ public class Tower : HexTileComponent
 			attackTimeRemaining -= Time.deltaTime;
 			if (attackTimeRemaining <= 0)
 			{
-				attackTimeRemaining = Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().AttackSpeed) - attackTimeRemaining;
+				attackTimeRemaining = Attributes.GetCurrentValue(MyAttributes.Get().AttackSpeed) - attackTimeRemaining;
 				Attack();
 			}
 		}
@@ -253,7 +263,7 @@ public class Tower : HexTileComponent
 		targetsToAttack.Add(target);
 
 		Collider[] enemies = GetEnemiesInRadius();
-		int numExtraTargets = Mathf.FloorToInt(Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().Split));
+		int numExtraTargets = Mathf.FloorToInt(Attributes.GetCurrentValue(MyAttributes.Get().Split));
 
 		foreach (Collider collider in enemies)
 		{
@@ -310,7 +320,7 @@ public class Tower : HexTileComponent
 
 		for (int i = 0; i < numSegments + 1; i++)
 		{
-			float range = Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().Range);
+			float range = Attributes.GetCurrentValue(MyAttributes.Get().Range);
 			float x = range * Mathf.Cos(theta);
 			float z = range * Mathf.Sin(theta);
 			Vector3 pos = new Vector3(x, transform.position.y + 0.25f, z);
@@ -326,20 +336,24 @@ public class Tower : HexTileComponent
 
 	private void OnDrawGizmos()
 	{
-		//	Gizmos.DrawLine(turret.localPosition, target.Position);
+		if (target != null)
+		{
+			Gizmos.DrawLine(transform.position, target.Position);
+		}
 	}
 
 	public void InitAttributes()
 	{
-		Attributes.InitAttribute(DefaultNamespace.Data.MyAttributes.Get().Damage, towerData.damage);
-		Attributes.InitAttribute(DefaultNamespace.Data.MyAttributes.Get().SplashPercent, towerData.splash);
-		Attributes.InitAttribute(DefaultNamespace.Data.MyAttributes.Get().Range, towerData.attackRange);
-		Attributes.InitAttribute(DefaultNamespace.Data.MyAttributes.Get().AttackSpeed, towerData.attackSpeed);
-		Attributes.InitAttribute(DefaultNamespace.Data.MyAttributes.Get().Split, towerData.split);
+		Attributes = GetComponent<GameplayAttributeContainer>();
+		Attributes.InitAttribute(MyAttributes.Get().Damage, towerData.damage);
+		Attributes.InitAttribute(MyAttributes.Get().SplashPercent, towerData.splash);
+		Attributes.InitAttribute(MyAttributes.Get().Range, towerData.attackRange);
+		Attributes.InitAttribute(MyAttributes.Get().AttackSpeed, towerData.attackSpeed);
+		Attributes.InitAttribute(MyAttributes.Get().Split, towerData.split);
 		onHitEffects = towerData.onHitEffects;
 
 		// TODO bind to callbacks when attributes change
-		Attributes.GetAttribute(DefaultNamespace.Data.MyAttributes.Get().Range).OnAttributeChanged += (attribute) =>
+		Attributes.GetAttribute(MyAttributes.Get().Range).OnAttributeChanged += (attribute) =>
 		{
 			UpdateTowerRange();
 		};
@@ -354,17 +368,39 @@ public class Tower : HexTileComponent
 			targetPoint.Enemy.Attributes.ApplyEffect(effect);
 		}
 
-		float damage = Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().Damage);
+		float damage = Attributes.GetCurrentValue(MyAttributes.Get().Damage);
 
 		Collider[] splashedTargets = Physics.OverlapSphere(targetPoint.Position, 2.0f, 1 << 9);
 		foreach (Collider collider in splashedTargets)
 		{
 			TargetPoint aoeTarget = collider.GetComponent<TargetPoint>();
-			float splashPercent = Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().SplashPercent);
-			aoeTarget.Enemy.ApplyDamage(damage * splashPercent);
+			if (IsValidTarget(aoeTarget))
+			{
+				float splashPercent = Attributes.GetCurrentValue(MyAttributes.Get().SplashPercent);
+				DamageEnemy(aoeTarget.Enemy, damage * splashPercent);
+			}
 		}
 
-		targetPoint.Enemy.ApplyDamage(damage);
+		DamageEnemy(targetPoint.Enemy, damage);
+	}
+
+	public void DamageEnemy(Enemy enemy, float damage)
+	{
+		if (damage == 0) 
+			return;
+
+		EffectParameters effectParameters;
+		effectParameters.source = Attributes;
+
+		GameplayEffect damageEffect = ScriptableObject.CreateInstance<GameplayEffect>();
+		GameplayAttributeModifier healthMod = new GameplayAttributeModifier(
+			MyAttributes.Get().Health, 
+			-1 * damage,
+			AttributeOperator.Add);
+
+		damageEffect.modifiers.Add(healthMod);
+
+		enemy.Attributes.ApplyEffect(damageEffect, effectParameters);
 	}
 
 	public void OnSelected(HexTileComponent _, HexTileComponent newSelection)

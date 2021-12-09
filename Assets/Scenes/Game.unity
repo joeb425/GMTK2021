@@ -235,7 +235,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioHandler: {fileID: 11400000, guid: 9ee7c83103bbc6d4faed5b330ddc4145, type: 2}
   tileHighlighter: {fileID: 11400000, guid: 27d869aeabf7a93429aeb0a55f07707c, type: 2}
-  board: {fileID: 2022507406}
   spawnerHandler: {fileID: 640835631}
 --- !u!4 &371505263
 Transform:
@@ -312,7 +311,7 @@ MonoBehaviour:
   enemyFactory: {fileID: 11400000, guid: 10853dab2c4eb754599ef45380c49ac5, type: 2}
   waves:
   - enemyCount: 5
-    spawnSpeed: 0.25
+    spawnSpeed: 2
     enemyElementNo: 0
   - enemyCount: 50
     spawnSpeed: 0.25

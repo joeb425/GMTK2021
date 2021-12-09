@@ -11,6 +11,7 @@ using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
 [RequireComponent(typeof(GameplayTagContainer))]
+[RequireComponent(typeof(GameplayAttributeContainer))]
 public class Enemy : MonoBehaviour
 {
 	[SerializeField]
@@ -31,8 +32,8 @@ public class Enemy : MonoBehaviour
 
 	private Slider slider;
 
-	public event System.Action OnReachEnd;
-	public event System.Action OnKilled;
+	public event Action OnReachEnd;
+	public event Action OnKilled;
 
 	[SerializeField]
 	public GameObject healthBarPrefab;
@@ -41,8 +42,10 @@ public class Enemy : MonoBehaviour
 
 	public Quaternion desiredRotation;
 
+	[HideInInspector]
 	public GameplayAttributeContainer Attributes;
 
+	[HideInInspector]
 	public GameplayTagContainer gameplayTagContainer;
 
 	public EnemyFactory OriginFactory
@@ -58,6 +61,7 @@ public class Enemy : MonoBehaviour
 	private void Awake()
 	{
 		gameplayTagContainer = GetComponent<GameplayTagContainer>();
+		Attributes = GetComponent<GameplayAttributeContainer>();
 	}
 
 	public void SpawnOn(Vector3 worldPos)
@@ -74,9 +78,9 @@ public class Enemy : MonoBehaviour
 
 		slider = _healthBarInstance.GetComponentInChildren<Slider>();
 
-		Attributes.InitAttribute(DefaultNamespace.Data.MyAttributes.Get().Health, maxHealth);
-		Attributes.InitAttribute(DefaultNamespace.Data.MyAttributes.Get().MaxHealth, maxHealth);
-		Attributes.InitAttribute(DefaultNamespace.Data.MyAttributes.Get().Speed, 1.0f);
+		Attributes.InitAttribute(MyAttributes.Get().Health, maxHealth);
+		Attributes.InitAttribute(MyAttributes.Get().MaxHealth, maxHealth);
+		Attributes.InitAttribute(MyAttributes.Get().Speed, 1.0f);
 
 		enemyModel.transform.localPosition = new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, 0.0f);
 	}
@@ -84,12 +88,20 @@ public class Enemy : MonoBehaviour
 	public void ApplyDamage(float damage)
 	{
 		Debug.Assert(damage >= 0f, "Negative damage applied.");
-		Attributes.ApplyModifierDirectly(new GameplayAttributeModifier(DefaultNamespace.Data.MyAttributes.Get().Health, -1 * damage, AttributeOperator.Add));
+		// Attributes.ApplyModifierDirectly(new GameplayAttributeModifier(MyAttributes.Get().Health, -1 * damage, AttributeOperator.Add));
 	}
 
 	public bool GameUpdate()
 	{
-		Attributes.Update(Time.deltaTime);
+		// if (GameplayTagManager.instance.RequestTag("Status.Invulnerable", out GameplayTag statusInvulnerable))
+		// {
+			// if (gameplayTagContainer.ContainsTag(statusInvulnerable))
+			// {
+				// Debug.Log("Invuln");
+			// }
+		// }
+
+		Attributes.GameUpdate();
 
 		slider.value = CalculateHealth();
 		if (GetHealth() <= 0f)
@@ -108,7 +120,7 @@ public class Enemy : MonoBehaviour
 
 		var path = GameState.Get.Board.enemyPath;
 
-		_progress += Mathf.Clamp(Time.deltaTime * Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().Speed), 0.0f, path.Count);
+		_progress += Mathf.Clamp(Time.deltaTime * Attributes.GetCurrentValue(MyAttributes.Get().Speed), 0.0f, path.Count);
 		int index = (int)Mathf.Floor(_progress);
 
 		if (index + 1 < path.Count)
@@ -145,12 +157,12 @@ public class Enemy : MonoBehaviour
 
 	float GetHealth()
 	{
-		return Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().Health);
+		return Attributes.GetCurrentValue(MyAttributes.Get().Health);
 	}
 
 	float GetMaxHealth()
 	{
-		return Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().MaxHealth);
+		return Attributes.GetCurrentValue(MyAttributes.Get().MaxHealth);
 	}
 
 	float CalculateHealth()

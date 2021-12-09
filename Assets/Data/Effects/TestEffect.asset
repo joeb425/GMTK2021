@@ -10,17 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0d05f0b92f185549bc35851608aea4c, type: 3}
-  m_Name: SlowEffect
+  m_Name: TestEffect
   m_EditorClassIdentifier: 
-  modifiers: []
-  extraEffects: []
-  duration: 1
+  modifiers:
+  - attribute: {fileID: 11400000, guid: 0ff80dc1f4cd10d438f7deca00a6d145, type: 2}
+    value: -5
+    valueOperator: 0
+  extraEffects:
+  - {fileID: 11400000, guid: 98097641af988c14bb6bb71566ec298b, type: 2}
+  duration: 5
   interval: 0
-  appliedTags: []
+  appliedTags:
+  - {fileID: 11400000, guid: 64118fb11000f5545a76cbed5208d785, type: 2}
   removedTags: []
   sourceRequirements:
     requiredTags: []
     blockedTags: []
   targetRequirements:
     requiredTags: []
-    blockedTags: []
+    blockedTags:
+    - {fileID: 11400000, guid: 64118fb11000f5545a76cbed5208d785, type: 2}
