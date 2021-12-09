@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace.Data;
 using Mantis.AttributeSystem;
 using Mantis.Utils;
 using Misc;
@@ -23,4 +24,7 @@ public class GameAssets : ScriptableObject
 
 	[SerializeField]
 	public TileHighlighter tileHighlighter;
+
+	[SerializeField]
+	public MyAttributes myAttributes;
 }

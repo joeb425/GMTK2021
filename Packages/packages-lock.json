@@ -196,6 +196,7 @@
       "source": "embedded",
       "dependencies": {
         "mantis.utils": "",
+        "mantis.gameplaytags": "",
         "com.unity.ui": ""
       }
     },
@@ -217,9 +218,7 @@
       "version": "file:mantis.utils",
       "depth": 0,
       "source": "embedded",
-      "dependencies": {
-        "mantis.gameplaytags": "0.0.1"
-      }
+      "dependencies": {}
     },
     "nuget.castle-core": {
       "version": "1.0.1",

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DefaultNamespace.Data;
 using Mantis.AttributeSystem;
 using HexLibrary;
 using Mantis.Hex;
@@ -148,7 +149,7 @@ public class Tower : HexTileComponent
 
 	private void UpdateTowerRange()
 	{
-		float range = Attributes.GetCurrentValue(AttributeType.Range);
+		float range = Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().Range);
 		// update collider
 		sphereCollider = gameObject.GetComponent<SphereCollider>();
 		sphereCollider.radius = range;
@@ -179,7 +180,7 @@ public class Tower : HexTileComponent
 
 		Vector3 a = transform.localPosition;
 		Vector3 b = target.Position;
-		if (Vector3.Distance(a, b) > Attributes.GetCurrentValue(AttributeType.Range) + 0.125f)
+		if (Vector3.Distance(a, b) > Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().Range) + 0.125f)
 		{
 			target = null;
 			return false;
@@ -190,7 +191,7 @@ public class Tower : HexTileComponent
 
 	Collider[] GetEnemiesInRadius()
 	{
-		return Physics.OverlapSphere(transform.localPosition, Attributes.GetCurrentValue(AttributeType.Range), 1 << 9);
+		return Physics.OverlapSphere(transform.localPosition, Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().Range), 1 << 9);
 	}
 
 	bool AcquireTarget()
@@ -216,7 +217,7 @@ public class Tower : HexTileComponent
 			attackTimeRemaining -= Time.deltaTime;
 			if (attackTimeRemaining <= 0)
 			{
-				attackTimeRemaining = Attributes.GetCurrentValue(AttributeType.AttackSpeed) - attackTimeRemaining;
+				attackTimeRemaining = Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().AttackSpeed) - attackTimeRemaining;
 				Attack();
 			}
 		}
@@ -228,7 +229,7 @@ public class Tower : HexTileComponent
 		targetsToAttack.Add(target);
 
 		Collider[] enemies = GetEnemiesInRadius();
-		int numExtraTargets = Mathf.FloorToInt(Attributes.GetCurrentValue(AttributeType.Split));
+		int numExtraTargets = Mathf.FloorToInt(Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().Split));
 
 		foreach (Collider collider in enemies)
 		{
@@ -285,7 +286,7 @@ public class Tower : HexTileComponent
 
 		for (int i = 0; i < numSegments + 1; i++)
 		{
-			float range = Attributes.GetCurrentValue(AttributeType.Range);
+			float range = Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().Range);
 			float x = range * Mathf.Cos(theta);
 			float z = range * Mathf.Sin(theta);
 			Vector3 pos = new Vector3(x, transform.position.y + 0.25f, z);
@@ -306,15 +307,15 @@ public class Tower : HexTileComponent
 
 	public void InitAttributes()
 	{
-		Attributes.InitAttribute(AttributeType.Damage, towerData.damage);
-		Attributes.InitAttribute(AttributeType.SplashPercent, towerData.splash);
-		Attributes.InitAttribute(AttributeType.Range, towerData.attackRange);
-		Attributes.InitAttribute(AttributeType.AttackSpeed, towerData.attackSpeed);
-		Attributes.InitAttribute(AttributeType.Split, towerData.split);
+		Attributes.InitAttribute(DefaultNamespace.Data.MyAttributes.Get().Damage, towerData.damage);
+		Attributes.InitAttribute(DefaultNamespace.Data.MyAttributes.Get().SplashPercent, towerData.splash);
+		Attributes.InitAttribute(DefaultNamespace.Data.MyAttributes.Get().Range, towerData.attackRange);
+		Attributes.InitAttribute(DefaultNamespace.Data.MyAttributes.Get().AttackSpeed, towerData.attackSpeed);
+		Attributes.InitAttribute(DefaultNamespace.Data.MyAttributes.Get().Split, towerData.split);
 		onHitEffects = towerData.onHitEffects;
 
 		// TODO bind to callbacks when attributes change
-		Attributes.GetAttribute(AttributeType.Range).OnAttributeChanged += (attribute) =>
+		Attributes.GetAttribute(DefaultNamespace.Data.MyAttributes.Get().Range).OnAttributeChanged += (attribute) =>
 		{
 			UpdateTowerRange();
 		};
@@ -329,13 +330,13 @@ public class Tower : HexTileComponent
 			targetPoint.Enemy.Attributes.ApplyEffect(effect);
 		}
 
-		float damage = Attributes.GetCurrentValue(AttributeType.Damage);
+		float damage = Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().Damage);
 
 		Collider[] splashedTargets = Physics.OverlapSphere(targetPoint.Position, 2.0f, 1 << 9);
 		foreach (Collider collider in splashedTargets)
 		{
 			TargetPoint aoeTarget = collider.GetComponent<TargetPoint>();
-			float splashPercent = Attributes.GetCurrentValue(AttributeType.SplashPercent);
+			float splashPercent = Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().SplashPercent);
 			aoeTarget.Enemy.ApplyDamage(damage * splashPercent);
 		}
 

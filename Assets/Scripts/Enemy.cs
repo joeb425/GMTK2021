@@ -1,4 +1,5 @@
-﻿using Mantis.AttributeSystem;
+﻿using DefaultNamespace.Data;
+using Mantis.AttributeSystem;
 using HexLibrary;
 using Mantis.Hex;
 using UnityEngine;
@@ -64,9 +65,9 @@ public class Enemy : MonoBehaviour
 
 		slider = _healthBarInstance.GetComponentInChildren<Slider>();
 
-		Attributes.InitAttribute(AttributeType.Health, maxHealth);
-		Attributes.InitAttribute(AttributeType.MaxHealth, maxHealth);
-		Attributes.InitAttribute(AttributeType.Speed, 1.0f);
+		Attributes.InitAttribute(DefaultNamespace.Data.MyAttributes.Get().Health, maxHealth);
+		Attributes.InitAttribute(DefaultNamespace.Data.MyAttributes.Get().MaxHealth, maxHealth);
+		Attributes.InitAttribute(DefaultNamespace.Data.MyAttributes.Get().Speed, 1.0f);
 
 		enemyModel.transform.localPosition = new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, 0.0f);
 	}
@@ -74,7 +75,7 @@ public class Enemy : MonoBehaviour
 	public void ApplyDamage(float damage)
 	{
 		Debug.Assert(damage >= 0f, "Negative damage applied.");
-		Attributes.ApplyModifierDirectly(new GameplayAttributeModifier(AttributeType.Health, -1 * damage, AttributeOperator.Add));
+		Attributes.ApplyModifierDirectly(new GameplayAttributeModifier(DefaultNamespace.Data.MyAttributes.Get().Health, -1 * damage, AttributeOperator.Add));
 	}
 
 	public bool GameUpdate()
@@ -98,7 +99,7 @@ public class Enemy : MonoBehaviour
 
 		var path = GameState.Get.Board.enemyPath;
 
-		_progress += Mathf.Clamp(Time.deltaTime * Attributes.GetCurrentValue(AttributeType.Speed), 0.0f, path.Count);
+		_progress += Mathf.Clamp(Time.deltaTime * Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().Speed), 0.0f, path.Count);
 		int index = (int)Mathf.Floor(_progress);
 
 		if (index + 1 < path.Count)
@@ -135,12 +136,12 @@ public class Enemy : MonoBehaviour
 
 	float GetHealth()
 	{
-		return Attributes.GetCurrentValue(AttributeType.Health);
+		return Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().Health);
 	}
 
 	float GetMaxHealth()
 	{
-		return Attributes.GetCurrentValue(AttributeType.MaxHealth);
+		return Attributes.GetCurrentValue(DefaultNamespace.Data.MyAttributes.Get().MaxHealth);
 	}
 
 	float CalculateHealth()
