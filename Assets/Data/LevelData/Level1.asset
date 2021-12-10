@@ -16,7 +16,5 @@ MonoBehaviour:
   waves:
   - enemyCount: 5
     spawnSpeed: 1
-    enemyElementNo: 0
-    enemyTag: {fileID: 0}
     enemyPrefab: {fileID: 3921608051714855020, guid: 4f3eeab436ba11f4dbf29ffcdb7a6847,
       type: 3}
