@@ -7,7 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class GameState : BaseGameState
 {
-	public static GameState Get;
+	public static GameState Get()
+	{
+		return Game.Get.GetGameState<GameState>();
+	}
 
 	public GameBoard Board;
 
@@ -68,9 +71,6 @@ public class GameState : BaseGameState
 	public override void Init()
 	{
 		Board.Initialize();
-
-		Get = this;
-		Game.Get.OnGameDestroyed += () => Get = null;
 
 		CurrentCash = StartingCash;
 		CurrentLives = MaxLives;

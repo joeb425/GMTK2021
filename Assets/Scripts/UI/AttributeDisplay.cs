@@ -8,6 +8,7 @@ namespace UI.MainMenu
 	{
 		private Label _attributeName;
 		private Label _attributeValue;
+		private bool _isInitialized = false;
 
 		public new class UxmlFactory : UxmlFactory<AttributeDisplay, UxmlTraits>
 		{
@@ -22,8 +23,15 @@ namespace UI.MainMenu
 			RegisterCallback<AttachToPanelEvent>(OnAttach); // phil?=<ghenius 
 		}
 
-		private void OnAttach(AttachToPanelEvent evt)
+		public void Init()
 		{
+			if (_isInitialized)
+			{
+				return;
+			}
+
+			_isInitialized = true;
+
 			_attributeName = this.Q<Label>("AttributeName");
 			_attributeValue = this.Q<Label>("AttributeValue");
 
@@ -33,8 +41,14 @@ namespace UI.MainMenu
 			}
 		}
 
+		private void OnAttach(AttachToPanelEvent evt)
+		{
+			Init();
+		}
+
 		public void BindToGameplayAttribute(GameplayAttribute attribute)
 		{
+			Init();
 			_attributeName.text = attribute.attributeType.name;
 			_attributeValue.text = "" + attribute.GetValue();
 			attribute.OnAttributeChanged += gameplayAttribute => _attributeValue.text = "" + attribute.GetValue();

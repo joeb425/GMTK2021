@@ -39,7 +39,7 @@ namespace UI.MainMenu
 		private void GoToNextLevel()
 		{
 			GlobalData.CurrentLevel += 1;
-			GameState.Get.RestartGame();
+			GameState.Get().RestartGame();
 		}
 
 		private void GoToMainMenu()

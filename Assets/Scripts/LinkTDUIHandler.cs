@@ -16,15 +16,15 @@ public class LinkTDUIHandler : UIHandler
 	{
 		base.Init();
 
-		GameState.Get.OnCashChanged += (oldValue, newValue) => UpdateCashLabel(newValue);
-		GameState.Get.OnLivesChanged += (oldValue, newValue) => UpdateLivesLabel(newValue);
+		GameState.Get().OnCashChanged += (oldValue, newValue) => UpdateCashLabel(newValue);
+		GameState.Get().OnLivesChanged += (oldValue, newValue) => UpdateLivesLabel(newValue);
 
-		GameState.Get.OnGameOver += OnGameOver;
+		GameState.Get().OnGameOver += OnGameOver;
 
-		GameState.Get.OnLevelFinished += OnLevelFinished;
+		GameState.Get().OnLevelFinished += OnLevelFinished;
 
-		UpdateCashLabel(GameState.Get.CurrentCash);
-		UpdateLivesLabel(GameState.Get.CurrentLives);
+		UpdateCashLabel(GameState.Get().CurrentCash);
+		UpdateLivesLabel(GameState.Get().CurrentLives);
 	}
 
 	protected override void ReadUIDocument()
@@ -43,7 +43,7 @@ public class LinkTDUIHandler : UIHandler
 
 	private void UpdateLivesLabel(int lives)
 	{
-		_livesLabel.text = lives + "/" + GameState.Get.MaxLives;
+		_livesLabel.text = lives + "/" + GameState.Get().MaxLives;
 	}
 
 	private void OnGameOver()

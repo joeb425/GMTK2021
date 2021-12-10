@@ -62,7 +62,7 @@ public class SpawnerHandler : MonoBehaviour
 
 	public void OnEnemyReachEnd()
 	{
-		GameState.Get.LoseLife();
+		GameState.Get().LoseLife();
 		OnEnemyDestroyed();
 	}
 
@@ -82,7 +82,7 @@ public class SpawnerHandler : MonoBehaviour
 
 		if (_numAliveEnemies <= 0 && endFlag == 1)
 		{
-			GameState.Get.FinishLevel();
+			GameState.Get().FinishLevel();
 		}
 	}
 

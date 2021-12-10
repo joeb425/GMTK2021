@@ -48,7 +48,7 @@ public class TowerBuildMenu : VisualElement
 		if (!towerPrefab)
 			return;
 
-		spawnBasicTower.RegisterCallback<ClickEvent>(ev => GameState.Get.Board.PlaceTowerAtSelectedTile(towerPrefab));
+		spawnBasicTower.RegisterCallback<ClickEvent>(ev => GameState.Get().Board.PlaceTowerAtSelectedTile(towerPrefab));
 		costLabel.text = "" + towerPrefab.towerData.towerCost;
 		spawnBasicTower.name = towerPrefab.towerData.name;
 		button.text = btnText;

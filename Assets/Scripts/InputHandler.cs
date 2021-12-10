@@ -53,7 +53,7 @@ public class InputHandler
 			return;
 		}
 		
-		GameBoard board = GameState.Get.Board;
+		GameBoard board = GameState.Get().Board;
 		if (board.hoveredTile != null)
 		{
 			board.SelectTile(board.hoveredTile);

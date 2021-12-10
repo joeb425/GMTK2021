@@ -50,7 +50,7 @@ public class ZoneHandler
 			return false;
 		}
 
-		var groundLayer = GameState.Get.Board.groundLayer;
+		var groundLayer = GameState.Get().Board.groundLayer;
 
 		if (!groundLayer.GetTileAtHex(targetHex, out GroundTileComponent targetTile))
 		{

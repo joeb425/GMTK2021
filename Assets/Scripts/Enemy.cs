@@ -117,7 +117,7 @@ public class Enemy : MonoBehaviour
 			_healthBarInstance.SetActive(true);
 		}
 
-		var path = GameState.Get.Board.enemyPath;
+		var path = GameState.Get().Board.enemyPath;
 
 		_progress += Mathf.Clamp(Time.deltaTime * Attributes.GetCurrentValue(MyAttributes.Get().Speed), 0.0f, path.Count);
 		int index = (int)Mathf.Floor(_progress);
@@ -128,8 +128,8 @@ public class Enemy : MonoBehaviour
 			Hex nextHex = path[index + 1];
 
 			float tileProgress = _progress - index;
-			Vector3 hexFrom = GameState.Get.Board.grid.flat.HexToWorld(hex);
-			Vector3 hexTo = GameState.Get.Board.grid.flat.HexToWorld(nextHex);
+			Vector3 hexFrom = GameState.Get().Board.grid.flat.HexToWorld(hex);
+			Vector3 hexTo = GameState.Get().Board.grid.flat.HexToWorld(nextHex);
 			transform.position = Vector3.LerpUnclamped(hexFrom, hexTo, tileProgress);
 
 			Vector3 delta = hexTo - hexFrom;

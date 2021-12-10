@@ -50,14 +50,14 @@ public class TowerInfoMenu : VisualElement
 		// need to store the current selected tile and pass the next selected tile as well
 		// Grab the position of the tower and query the board for the ground tile can change the colour from there
 		// can cheat and use selectedtile and oldselectedtile
-		GameState.Get.Board.StartSelectZoneSpread(_currentTower.groundTile.hex);
+		GameState.Get().Board.StartSelectZoneSpread(_currentTower.groundTile.hex);
 	}
 
 	void SellTower()
 	{
 		// Sell the current tower -> Gameboard tells us content and sells tower?
 		Debug.Log("Sell Tower");
-		GameState.Get.SellSelectedTower();
+		GameState.Get().SellSelectedTower();
 	}
 
 	public void BindToTower(Tower tower)

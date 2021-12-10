@@ -26,7 +26,7 @@ namespace Misc
 				}
 				else
 				{
-					Vector3 worldPos = GameState.Get.Board.grid.flat.HexToWorld(hex);
+					Vector3 worldPos = GameState.Get().Board.grid.flat.HexToWorld(hex);
 					GameObject gameObject = Instantiate(TileHighlightPrefab);
 					MeshRenderer[] meshes = gameObject.GetComponentsInChildren<MeshRenderer>();
 					foreach (MeshRenderer meshRenderer in meshes)

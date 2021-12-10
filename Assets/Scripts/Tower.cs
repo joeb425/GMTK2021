@@ -63,23 +63,23 @@ public class Tower : HexTileComponent
 		RotatorComponent rotatorComponent = gameObject.GetComponent<RotatorComponent>();
 		hasRotator = rotatorComponent != null;
 
-		GameState.Get.Board.towerLayer.OnSelectedObjectChanged += OnSelected;
+		GameState.Get().Board.towerLayer.OnSelectedObjectChanged += OnSelected;
 
 		_animation = GetComponent<Animation>();
 	}
 
 	private void OnDestroy()
 	{
-		if (GameState.Get != null)
-		{
-			GameState.Get.Board.towerLayer.OnSelectedObjectChanged -= OnSelected;
-		}
+		// if (GameState.Get() != null)
+		// {
+		// 	GameState.Get().Board.towerLayer.OnSelectedObjectChanged -= OnSelected;
+		// }
 	}
 
 	public override void PlaceOnHex(Hex hex) 
 	{
 		base.PlaceOnHex(hex);
-		GameState.Get.Board.GetGroundTileAtHex(hex, out groundTile);
+		GameState.Get().Board.GetGroundTileAtHex(hex, out groundTile);
 
 		groundTile.effectList.SetContainer(Attributes);
 
@@ -87,7 +87,7 @@ public class Tower : HexTileComponent
 		{
 			Hex neighborHex = groundTile.hex.Neighbor(i);
 
-			if (GameState.Get.Board.groundLayer.GetTileAtHex(neighborHex, out GroundTileComponent neighbor))
+			if (GameState.Get().Board.groundLayer.GetTileAtHex(neighborHex, out GroundTileComponent neighbor))
 			{
 				foreach (GameplayEffect effect in towerData.supportEffects)
 				{
@@ -107,7 +107,7 @@ public class Tower : HexTileComponent
 		{
 			Hex neighborHex = groundTile.hex.Neighbor(i);
 
-			if (GameState.Get.Board.groundLayer.GetTileAtHex(neighborHex, out GroundTileComponent neighbor))
+			if (GameState.Get().Board.groundLayer.GetTileAtHex(neighborHex, out GroundTileComponent neighbor))
 			{
 				foreach (GameplayEffect effect in towerData.supportEffects)
 				{
@@ -117,6 +117,8 @@ public class Tower : HexTileComponent
 		}
 
 		groundTile.effectList.SetContainer(null);
+
+		GameState.Get().Board.towerLayer.OnSelectedObjectChanged -= OnSelected;
 	}
 
 	public void InitLineRenderer()
@@ -431,7 +433,7 @@ public class Tower : HexTileComponent
 		}
 
 		UpgradeInfo upgradeInfo = towerData.upgradeInfos[_towerLevel];
-		if (GameState.Get.SpendCash(upgradeInfo.upgradeCost))
+		if (GameState.Get().SpendCash(upgradeInfo.upgradeCost))
 		{
 			Attributes.ApplyEffect(upgradeInfo.upgradeEffect);
 		}
@@ -441,7 +443,7 @@ public class Tower : HexTileComponent
 	{
 		// Link tower -> need to tell board link has occured and probably pass in coord of linking tile
 		var link = 1;
-		GameState.Get.Board.CreateLink(this);
+		GameState.Get().Board.CreateLink(this);
 
 		// 
 	}

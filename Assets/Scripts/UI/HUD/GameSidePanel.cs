@@ -24,8 +24,10 @@ namespace UI.MainMenu.HUD
 
 		public GameSidePanel()
 		{
-			RegisterCallback<AttachToPanelEvent>(OnAttach);
-			BaseGame.OnGameInit += OnGameInit;
+			// RegisterCallback<AttachToPanelEvent>(OnAttach);
+			RegisterCallback((AttachToPanelEvent evt) => EngineStatics.OnGameInit += OnGameInit);
+			RegisterCallback((DetachFromPanelEvent evt) => EngineStatics.OnGameInit -= OnGameInit);
+			// EngineStatics.OnGameInit += OnGameInit;
 		}
 
 		private void OnAttach(AttachToPanelEvent evt)
@@ -50,21 +52,21 @@ namespace UI.MainMenu.HUD
 			_screenSwitcher.HideAll();
 			_screenSwitcher.OnScreenStateChanged += OnScreenStateChanged;
 			
-			GameState.Get.Board.OnTowerPlaced += OnTowerPlaced;
-			GameState.Get.Board.OnSelectedTileChanged += (_, newHex) => OnSelectedTileChanged(newHex);
+			GameState.Get().Board.OnTowerPlaced += OnTowerPlaced;
+			GameState.Get().Board.OnSelectedTileChanged += (_, newHex) => OnSelectedTileChanged(newHex);
 		}
 
 		void OnSelectedTileChanged(Hex selectedTile)
 		{
 			// check tower layer
-			if (GameState.Get.Board.towerLayer.GetTileAtHex(selectedTile, out Tower tower))
+			if (GameState.Get().Board.towerLayer.GetTileAtHex(selectedTile, out Tower tower))
 			{
 				_screenSwitcher.EnableScreen(TowerInfoMenuName).Q<TowerInfoMenu>()?.BindToTower(tower);
 				return;
 			}
 
 			// check ground layer
-			if (GameState.Get.Board.groundLayer.GetTileAtHex(selectedTile, out GroundTileComponent groundTile))
+			if (GameState.Get().Board.groundLayer.GetTileAtHex(selectedTile, out GroundTileComponent groundTile))
 			{
 				if (groundTile.TileType == HexTileType.Build)
 				{

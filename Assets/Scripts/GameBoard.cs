@@ -148,9 +148,9 @@ public class GameBoard : MonoBehaviour
 	public bool BuyTower(Tower tower)
 	{
 		int towerCost = tower.towerData.towerCost;
-		if (GameState.Get.CurrentCash >= towerCost)
+		if (GameState.Get().CurrentCash >= towerCost)
 		{
-			GameState.Get.SetCash(GameState.Get.CurrentCash - towerCost);
+			GameState.Get().SetCash(GameState.Get().CurrentCash - towerCost);
 			return true;
 		}
 

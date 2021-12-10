@@ -14,7 +14,7 @@ public class CameraOutline : MonoBehaviour
 	// private void Start()
 	// {
 	// 	// TODO am I using this class?
-	// 	// GameState.Get.Board.OnSelectedTileChanged += OnSelectedTileChanged;
+	// 	// GameState.Get().Board.OnSelectedTileChanged += OnSelectedTileChanged;
 	// }
 	//
 	// private void OnSelectedTileChanged(GameTile oldTile, GameTile newTile)

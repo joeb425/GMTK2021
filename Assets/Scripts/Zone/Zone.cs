@@ -39,7 +39,7 @@ public class Zone
 		List<GroundTileComponent> zoneNeighbors = new List<GroundTileComponent>();
 		foreach (var neighbor in groundTiles.SelectMany(groundTile => groundTile.hex.GetNeighbors()))
 		{
-			if (GameState.Get.Board.groundLayer.GetTileAtHex(neighbor, out GroundTileComponent neighborTile))
+			if (GameState.Get().Board.groundLayer.GetTileAtHex(neighbor, out GroundTileComponent neighborTile))
 			{
 				if (!groundTiles.Contains(neighborTile))
 				{

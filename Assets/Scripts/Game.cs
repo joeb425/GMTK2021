@@ -43,14 +43,13 @@ public class Game : BaseGame
 
 		if (Input.GetKeyDown(KeyCode.Z))
 		{
-			GameState.Get.LoseLife();
+			GameState.Get().LoseLife();
 		}
 	}
 
 	protected override void GameDestroyed()
 	{
 		input.Disable();
-		OnGameDestroyed?.Invoke();
 		Get = null;
 	}
 }
