@@ -11,7 +11,8 @@
                     "id": "b0166acb-c483-4416-a43a-f9f4f853d96d",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "MousePosition",
@@ -19,7 +20,8 @@
                     "id": "84eab8f5-cf15-4062-914d-1fbc4b835575",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "TouchDelta",
@@ -27,7 +29,8 @@
                     "id": "5329e858-4252-46e5-ad3d-9a42e1aaa9e1",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "MouseWheel",
@@ -35,15 +38,16 @@
                     "id": "3d03b7dd-4690-4e76-9c98-0750d78de3d2",
                     "expectedControlType": "Axis",
                     "processors": "Clamp(min=-1,max=1)",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
                     "name": "",
                     "id": "6921eafa-d36f-48ef-a53c-4498ddd5684f",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "Press",
+                    "path": "<Touchscreen>/touch*/Press",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",
                     "action": "MouseClick",
@@ -53,7 +57,7 @@
                 {
                     "name": "",
                     "id": "d89ce630-9a4c-47f2-a2b9-12d4b7048c48",
-                    "path": "<Mouse>/position",
+                    "path": "<Touchscreen>/touch0/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -95,7 +99,8 @@
                     "id": "61c8201e-281f-416d-bef9-36dfe8245fd2",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [

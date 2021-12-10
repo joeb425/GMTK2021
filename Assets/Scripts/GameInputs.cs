@@ -68,8 +68,8 @@ public partial class @GameInputs : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6921eafa-d36f-48ef-a53c-4498ddd5684f"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Press"",
+                    ""path"": ""<Touchscreen>/touch*/Press"",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MouseClick"",
@@ -79,7 +79,7 @@ public partial class @GameInputs : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d89ce630-9a4c-47f2-a2b9-12d4b7048c48"",
-                    ""path"": ""<Mouse>/position"",
+                    ""path"": ""<Touchscreen>/touch0/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
