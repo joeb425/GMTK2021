@@ -9,7 +9,7 @@
                 <ui:VisualElement style="margin-right: 0; margin-top: 8px; margin-left: 8px; margin-bottom: 0; flex-direction: column;">
                     <ui:VisualElement style="flex-direction: row;">
                         <ui:Label text="Cash:" display-tooltip-when-elided="true" name="Label" class="hud-label RegularText" style="width: 55px; -unity-text-align: upper-left;" />
-                        <ui:Label text="10" display-tooltip-when-elided="true" name="Cash" class="hud-label ValueText BoldText" />
+                        <ui:Label text="10" display-tooltip-when-elided="true" name="Cash" class="hud-label ValueText" />
                     </ui:VisualElement>
                     <ui:VisualElement style="flex-direction: row;">
                         <ui:Label text="Lives:" display-tooltip-when-elided="true" class="hud-label RegularText" style="width: 55px; -unity-text-align: upper-left;" />

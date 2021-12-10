@@ -46,13 +46,15 @@
 
 .BoldText {
     -unity-font-style: bold;
+    color: rgba(255, 255, 255, 255);
 }
 
 .ValueText {
+    color: rgba(255, 255, 255, 255);
 }
 
 .RegularText {
-    color: rgba(255, 222, 0, 255);
+    color: rgb(255, 222, 0);
     -unity-font-style: bold;
 }
 
@@ -68,30 +70,32 @@
     flex-grow: 0;
     width: 64px;
     height: 64px;
-    background-image: url('/Assets/Icons/hades-symbol.png');
+    background-image: url('project://database/Assets/Sprites/particle-1.png?fileID=2800000&guid=2fe36d1c5aac1eb4a9844bb7ad9debec&type=3#particle-1');
     justify-content: flex-start;
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    -unity-background-image-tint-color: rgb(18, 34, 58);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    -unity-background-image-tint-color: rgb(82, 82, 82);
     -unity-background-scale-mode: stretch-to-fill;
-    background-color: rgb(59, 60, 60);
+    background-color: rgb(82, 29, 28);
+    font-size: 14px;
+    -unity-font-style: bold;
+    color: rgba(255, 255, 255, 255);
+    border-left-color: rgba(0, 0, 0, 255);
+    border-right-color: rgba(0, 0, 0, 255);
+    border-top-color: rgba(0, 0, 0, 255);
+    border-bottom-color: rgba(0, 0, 0, 255);
 }
 
 .RegularButton {
     position: relative;
     flex-grow: 0;
-    font-size: 11px;
-    -unity-font-style: bold;
-    -unity-font-definition: resource('Fonts & Materials/LiberationSans SDF');
-    -unity-text-align: middle-center;
     background-color: rgb(43, 43, 43);
-    color: rgb(135, 135, 135);
     border-left-color: rgb(75, 75, 74);
     border-right-color: rgb(75, 75, 74);
     border-top-color: rgb(75, 75, 74);
@@ -100,14 +104,27 @@
     border-bottom-left-radius: 8px;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
-    width: 80px;
+    width: 120px;
     height: 48px;
     border-left-width: 4px;
     border-right-width: 4px;
     border-top-width: 4px;
     border-bottom-width: 4px;
-    margin-left: 4px;
-    margin-right: 4px;
-    margin-top: 4px;
-    margin-bottom: 4px;
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    color: rgba(255, 255, 255, 255);
+    font-size: 12px;
+}
+
+.TitleText {
+    -unity-font-style: bold-and-italic;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    -unity-text-align: upper-center;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
