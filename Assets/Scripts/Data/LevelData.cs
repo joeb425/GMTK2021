@@ -5,10 +5,8 @@ using UnityEngine;
 public class LevelData : ScriptableObject
 {
 	[SerializeField]
-	public List<TextAsset> levels;
+	public TextAsset level;
 
-	public bool IsLastLevel(int levelIndex)
-	{
-		return levelIndex >= levels.Count;
-	}
+	[SerializeField]
+	public List<SpawnerHandler.Wave> waves;
 }

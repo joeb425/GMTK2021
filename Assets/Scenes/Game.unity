@@ -346,6 +346,7 @@ MonoBehaviour:
   - enemyCount: 1
     spawnSpeed: 2
     enemyElementNo: 0
+    enemyTag: {fileID: 0}
   board: {fileID: 2022507406}
 --- !u!4 &640835632
 Transform:

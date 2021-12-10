@@ -5,6 +5,7 @@ using Mantis.AttributeSystem;
 using HexLibrary;
 using Mantis.GameplayTags;
 using Mantis.Hex;
+using ObjectPools;
 using UnityEditor;
 using UnityEngine;
 
@@ -297,7 +298,7 @@ public class Tower : HexTileComponent
 				}
 				else
 				{
-					Bullet bulletObject = GlobalData.GetAssetBindings().gamePrefabs.bulletPool.GetInstance(towerData.bulletPrefab);
+					Bullet bulletObject = BulletPool.Get().GetInstance(towerData.bulletPrefab);
 					if (bulletObject != null)
 					{
 						bulletObject.transform.position = bulletSpawnPoint.position;

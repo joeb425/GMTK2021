@@ -1,15 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
+using ObjectPools;
 using UnityEngine;
 
 
 public class SpawnerHandler : MonoBehaviour
 {
-	[SerializeField]
-	EnemyFactory enemyFactory = default;
-
-	public Wave[] waves;
 	public GameBoard board;
 
 	[System.Serializable]
@@ -17,14 +11,15 @@ public class SpawnerHandler : MonoBehaviour
 	{
 		public int enemyCount;
 		public float spawnSpeed;
-		public int enemyElementNo;
+
+		[SerializeField]
+		public Enemy enemyPrefab;
 	}
 
 	Wave currentWave;
 	int currentWaveNumber = 0;
 	int enemiesRemainingToSpawn;
 	float nextSpawnTime;
-	EnemyCollection enemies = new EnemyCollection();
 	int endFlag = 0;
 
 	private int _numAliveEnemies = 0;
@@ -47,13 +42,12 @@ public class SpawnerHandler : MonoBehaviour
 		{
 			enemiesRemainingToSpawn--;
 			nextSpawnTime = Time.time + currentWave.spawnSpeed;
-			
-			Enemy enemy = enemyFactory.Get(currentWave.enemyElementNo);
+
+			Enemy enemy = EnemyPool.Get().GetInstance(currentWave.enemyPrefab);
 
 			var spawnPoint = board.grid.flat.HexToWorld(board.enemyPath[0]);
 			enemy.SpawnOn(spawnPoint);
-			
-			Game.Get.enemies.Add(enemy);
+
 			enemy.OnReachEnd += OnEnemyReachEnd;
 			enemy.OnKilled += OnEnemyKilled;
 			_numAliveEnemies += 1;
@@ -89,17 +83,20 @@ public class SpawnerHandler : MonoBehaviour
 	void NextWave()
 	{
 		Debug.Log("Next Wave! " + currentWaveNumber);
+		LevelData currentLevel = GameData.Get().GetCurrentLevel();
+		Debug.Assert(currentLevel != null, "currentLevel is null");
 
 		currentWaveNumber++;
 
 		int waveIndex = currentWaveNumber - 1;
-		if (waveIndex >= waves.Length)
+		if (waveIndex >= currentLevel.waves.Count)
 		{
 			endFlag = 1;
 			return;
 		}
 
-		currentWave = waves[waveIndex];
+		currentWave = currentLevel.waves[waveIndex];
+		Debug.Log($"{currentWave}");
 		enemiesRemainingToSpawn = currentWave.enemyCount;
 	}
 }

@@ -31,4 +31,7 @@ public class GamePrefabs : ScriptableObject
 
 	[SerializeField]
 	public BulletPool bulletPool;
+
+	[SerializeField]
+	public EnemyPool enemyPool;
 }

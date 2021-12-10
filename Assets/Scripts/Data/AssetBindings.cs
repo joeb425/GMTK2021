@@ -7,10 +7,10 @@ namespace DefaultNamespace.Data
 	public class AssetBindings : ScriptableObject
 	{
 		[SerializeField]
-		public GamePrefabs gamePrefabs;
+		public GameData gameData;
 
 		[SerializeField]
-		public LevelData levelData;
+		public GamePrefabs gamePrefabs;
 
 		[SerializeField]
 		public GameAssets gameAssets;

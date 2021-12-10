@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b77381d16ccbaa40aeeda83a72184e6, type: 3}
-  m_Name: AudioHandlerInstance
+  m_Script: {fileID: 11500000, guid: 05ab3d04918143b47967032fe5631659, type: 3}
+  m_Name: Enemy.B
   m_EditorClassIdentifier: 
-  maxFrequency: 0.1
+  parent: {fileID: 0}
+  children: []

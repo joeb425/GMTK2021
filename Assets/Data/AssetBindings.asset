@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62cae05c6a4430d94813f87baa2b38d, type: 3}
   m_Name: AssetBindings
   m_EditorClassIdentifier: 
+  gameData: {fileID: 11400000, guid: d0384c9840e401a40968240d40da1841, type: 2}
   gamePrefabs: {fileID: 11400000, guid: 628bff90698edc646b398b251fd85d71, type: 2}
-  levelData: {fileID: 11400000, guid: 0aaf009447a0a124bbb46fb18065666c, type: 2}
   gameAssets: {fileID: 11400000, guid: 42af6bf33bb700b4e965560d34d30cc9, type: 2}

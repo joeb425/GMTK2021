@@ -1,4 +1,5 @@
 using Mantis.GameplayTags;
+using ObjectPools;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour, IGameplayTag
@@ -55,7 +56,7 @@ public class Bullet : MonoBehaviour, IGameplayTag
 		if (_progress >= 1.0f)
 		{
 			Explode();
-			GlobalData.GetAssetBindings().gamePrefabs.bulletPool.ReclaimToPool(this);
+			BulletPool.Get().ReclaimToPool(this);
 			if (_trailRenderer)
 			{
 				_trailRenderer.Clear();

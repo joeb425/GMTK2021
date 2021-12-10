@@ -29,3 +29,4 @@ MonoBehaviour:
   attributeDisplayItem: {fileID: 9197481963319205126, guid: 08e06cb30ce70cc4bba44186db502f17,
     type: 3}
   bulletPool: {fileID: 11400000, guid: 2983fe1099e94784eb1c6d8b525695b1, type: 2}
+  enemyPool: {fileID: 11400000, guid: 468a9b3fa6515af42b092154c7d1033f, type: 2}

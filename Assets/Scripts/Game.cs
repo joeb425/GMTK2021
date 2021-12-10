@@ -20,8 +20,6 @@ public class Game : BaseGame
 	[SerializeField]
 	SpawnerHandler spawnerHandler;
 
-	public EnemyCollection enemies = new EnemyCollection();
-
 	protected override void PreInit()
 	{
 		Get = this;
@@ -38,7 +36,6 @@ public class Game : BaseGame
 	protected override void GameUpdate()
 	{
 		spawnerHandler.GameUpdate();
-		enemies.GameUpdate();
 		input.GameUpdate();
 
 		if (Input.GetKeyDown(KeyCode.Z))

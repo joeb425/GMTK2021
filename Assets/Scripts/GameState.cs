@@ -1,4 +1,5 @@
-﻿using HexLibrary;
+﻿using System.Collections.Generic;
+using HexLibrary;
 using Mantis.Engine;
 using Mantis.Hex;
 using ObjectPools;

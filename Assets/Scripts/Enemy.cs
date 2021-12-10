@@ -1,9 +1,9 @@
 ﻿using System;
 using DefaultNamespace.Data;
 using Mantis.AttributeSystem;
-using HexLibrary;
 using Mantis.GameplayTags;
 using Mantis.Hex;
+using ObjectPools;
 using UnityEngine;
 using UnityEngine.UI;
 using Quaternion = UnityEngine.Quaternion;
@@ -11,8 +11,11 @@ using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
 // [RequireComponent(typeof(GameplayAttributeContainer))]
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IGameplayTag
 {
+	[SerializeField]
+	public GameplayTag gameplayTag;
+
 	[SerializeField]
 	public float maxHealth;
 
@@ -24,8 +27,6 @@ public class Enemy : MonoBehaviour
 
 	[SerializeField]
 	public GameObject enemyModel;
-
-	EnemyFactory _originFactory;
 
 	private float _progress;
 
@@ -46,16 +47,6 @@ public class Enemy : MonoBehaviour
 
 	[HideInInspector]
 	public GameplayTagContainer gameplayTagContainer;
-
-	public EnemyFactory OriginFactory
-	{
-		get => _originFactory;
-		set
-		{
-			Debug.Assert(_originFactory == null, "Redefined origin factory!");
-			_originFactory = value;
-		}
-	}
 
 	private void Awake()
 	{
@@ -90,26 +81,19 @@ public class Enemy : MonoBehaviour
 		// Attributes.ApplyModifierDirectly(new GameplayAttributeModifier(MyAttributes.Get().Health, -1 * damage, AttributeOperator.Add));
 	}
 
-	public bool GameUpdate()
+	// public bool GameUpdate()
+	public void Update()
 	{
-		// if (GameplayTagManager.instance.RequestTag("Status.Invulnerable", out GameplayTag statusInvulnerable))
-		// {
-			// if (gameplayTagContainer.ContainsTag(statusInvulnerable))
-			// {
-				// Debug.Log("Invuln");
-			// }
-		// }
-
 		Attributes.GameUpdate();
 
 		slider.value = CalculateHealth();
 		if (GetHealth() <= 0f)
 		{
 			_healthBarInstance.SetActive(false);
-			OriginFactory.Reclaim(this);
+			EnemyPool.Get().ReclaimToPool(this);
 			OnKilled?.Invoke();
 			PlayDeathSfx();
-			return false;
+			return;
 		}
 
 		if (GetHealth() < GetMaxHealth())
@@ -140,13 +124,11 @@ public class Enemy : MonoBehaviour
 		{
 			// reached end
 			OnReachEnd?.Invoke();
-			OriginFactory.Reclaim(this);
-			return false;
+			EnemyPool.Get().ReclaimToPool(this);
+			return;
 		}
 
 		SetHealthbarPosition();
-
-		return true;
 	}
 
 	void SetHealthbarPosition()
@@ -181,5 +163,10 @@ public class Enemy : MonoBehaviour
 		ps.transform.position = transform.position;
 		ps.Play();
 		// particleSystem.Play();
+	}
+
+	public GameplayTag GetGameplayTag()
+	{
+		return gameplayTag;
 	}
 }
