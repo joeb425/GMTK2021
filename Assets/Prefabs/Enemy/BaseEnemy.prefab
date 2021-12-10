@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4226526925643850458}
   - component: {fileID: 2038034166387832802}
   - component: {fileID: 4929574876201900905}
+  - component: {fileID: -1424150158732135498}
   m_Layer: 9
   m_Name: BaseEnemy
   m_TagString: Untagged
@@ -54,6 +55,7 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 2143082155953639934, guid: a927b9a2336083a4ca0ca01e266cfee4,
     type: 3}
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
+  Attributes: {fileID: 0}
   gameplayTagContainer: {fileID: 0}
 --- !u!95 &2038034166387832802
 Animator:
@@ -88,6 +90,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialTags:
   - {fileID: 11400000, guid: 26c06d7ea1a039844949fc75f2fb1b46, type: 2}
+  containedTags: []
+--- !u!114 &-1424150158732135498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4226526925643850461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3504134767e7ce74e984a26d439d9e27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialAttributes: []
+  initialEffects: []
+  attributeModifierLayers:
+  - {fileID: 11400000, guid: 2b3b53c5246d6cf4fa9d1aac005f60b9, type: 2}
 --- !u!1 &4226526925664016134
 GameObject:
   m_ObjectHideFlags: 0

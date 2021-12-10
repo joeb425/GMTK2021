@@ -171,6 +171,8 @@ GameObject:
   - component: {fileID: 4075005451639140559}
   - component: {fileID: 531897848442091768}
   - component: {fileID: 8236314880511772701}
+  - component: {fileID: 5871226150245388465}
+  - component: {fileID: 7286309082845951563}
   m_Layer: 11
   m_Name: BaseTower
   m_TagString: Untagged
@@ -221,6 +223,7 @@ MonoBehaviour:
   spawnAnimation: {fileID: 0}
   numSegments: 128
   radiusLineRenderer: {fileID: 0}
+  Attributes: {fileID: 0}
   onHitEffects: []
   groundTile: {fileID: 0}
 --- !u!135 &4075005451639140559
@@ -350,6 +353,34 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &5871226150245388465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3242984198978901850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd7c79ba08848b1a20c410302bae9d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialTags: []
+  containedTags: []
+--- !u!114 &7286309082845951563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3242984198978901850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3504134767e7ce74e984a26d439d9e27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialAttributes: []
+  attributeModifierLayers: []
 --- !u!1 &8286558232567512454
 GameObject:
   m_ObjectHideFlags: 0

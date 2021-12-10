@@ -400,7 +400,7 @@ public class Tower : HexTileComponent
 
 		damageEffect.modifiers.Add(healthMod);
 
-		enemy.Attributes.ApplyEffect(damageEffect, effectParameters);
+		// enemy.Attributes.ApplyEffect(damageEffect, effectParameters);
 	}
 
 	public void OnSelected(HexTileComponent _, HexTileComponent newSelection)

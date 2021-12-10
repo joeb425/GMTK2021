@@ -114,6 +114,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1424150158732135498, guid: fc64a3fd233487043944d04bd380edf4,
+        type: 3}
+      propertyPath: initialEffects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1424150158732135498, guid: fc64a3fd233487043944d04bd380edf4,
+        type: 3}
+      propertyPath: initialEffects.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: a42c37957d8ed5349a0dd697522c7bcb,
+        type: 2}
     - target: {fileID: 4226526925643850458, guid: fc64a3fd233487043944d04bd380edf4,
         type: 3}
       propertyPath: maxHealth

@@ -10,8 +10,7 @@ using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
-[RequireComponent(typeof(GameplayTagContainer))]
-[RequireComponent(typeof(GameplayAttributeContainer))]
+// [RequireComponent(typeof(GameplayAttributeContainer))]
 public class Enemy : MonoBehaviour
 {
 	[SerializeField]

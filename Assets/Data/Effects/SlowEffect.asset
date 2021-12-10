@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0d05f0b92f185549bc35851608aea4c, type: 3}
   m_Name: SlowEffect
   m_EditorClassIdentifier: 
-  modifiers: []
+  modifiers:
+  - attribute: {fileID: 11400000, guid: 893ff796af13803458646454cef5d294, type: 2}
+    value: 0.1
+    valueOperator: 2
+  duration: 0.5
+  triggerInterval: -1
   extraEffects: []
-  duration: 1
-  interval: 0
   appliedTags: []
   removedTags: []
   sourceRequirements:
@@ -24,3 +27,4 @@ MonoBehaviour:
   targetRequirements:
     requiredTags: []
     blockedTags: []
+  modifierLayers: []

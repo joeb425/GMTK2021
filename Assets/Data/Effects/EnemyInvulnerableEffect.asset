@@ -10,16 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0d05f0b92f185549bc35851608aea4c, type: 3}
-  m_Name: TestEffect
+  m_Name: EnemyInvulnerableEffect
   m_EditorClassIdentifier: 
-  modifiers:
-  - attribute: {fileID: 11400000, guid: 0ff80dc1f4cd10d438f7deca00a6d145, type: 2}
-    value: -1
-    valueOperator: 0
-  duration: 4
-  triggerInterval: 1
-  extraEffects:
-  - {fileID: 11400000, guid: 98097641af988c14bb6bb71566ec298b, type: 2}
+  modifiers: []
+  duration: -1
+  interval: 0
+  extraEffects: []
   appliedTags: []
   removedTags: []
   sourceRequirements:
@@ -27,6 +23,5 @@ MonoBehaviour:
     blockedTags: []
   targetRequirements:
     requiredTags: []
-    blockedTags:
-    - {fileID: 11400000, guid: 64118fb11000f5545a76cbed5208d785, type: 2}
+    blockedTags: []
   modifierLayers: []

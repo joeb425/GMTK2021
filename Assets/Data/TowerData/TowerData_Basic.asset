@@ -17,16 +17,17 @@ MonoBehaviour:
   towerCost: 5
   towerSell: 4
   attackRange: 5
-  damage: 1
-  attackSpeed: 0.5
-  split: 0
+  damage: 5
+  attackSpeed: 5
+  split: 3
   splash: 0
   bulletPrefab: {fileID: 7556477264031917805, guid: 3764e102f80783e41ba30cd4794e2e57,
     type: 3}
   upgradeInfos:
   - upgradeCost: 5
     upgradeEffect: {fileID: 11400000, guid: 5875d55ef89a56a45945586af535f14e, type: 2}
-  onHitEffects: []
+  onHitEffects:
+  - {fileID: 11400000, guid: 9ceb0776e14ea924ca9b918308d7a7d8, type: 2}
   shootSfx: {fileID: 8300000, guid: 4552758ee0437044eb0460214f880917, type: 3}
   supportEffects: []
   supportRadius: 0
