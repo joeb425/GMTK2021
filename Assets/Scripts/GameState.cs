@@ -108,6 +108,6 @@ public class GameState : BaseGameState
 
 		Board.towerLayer.RemoveTile(tower.hex, out HexTileComponent removedTower);
 		SetCash(CurrentCash + tower.towerData.towerSell);
-		Object.Destroy(removedTower);
+		Object.Destroy(removedTower.gameObject);
 	}
 }

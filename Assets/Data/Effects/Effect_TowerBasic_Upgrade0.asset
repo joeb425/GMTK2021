@@ -12,13 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0d05f0b92f185549bc35851608aea4c, type: 3}
   m_Name: Effect_TowerBasic_Upgrade0
   m_EditorClassIdentifier: 
-  Modifiers:
-  - attribute: 3
+  modifiers:
+  - attribute: {fileID: 11400000, guid: 902c58cf8c3927c4a9f73ab5b70b3d31, type: 2}
     value: 100
     valueOperator: 0
-  - attribute: 2
-    value: 3
-    valueOperator: 0
   duration: -1
-  interval: 0
-  serializedGuid: 
+  triggerInterval: -1
+  extraEffects: []
+  appliedTags: []
+  removedTags: []
+  sourceRequirements:
+    requiredTags: []
+    blockedTags: []
+  targetRequirements:
+    requiredTags: []
+    blockedTags: []
+  modifierLayers: []

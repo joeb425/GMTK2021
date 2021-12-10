@@ -48,11 +48,11 @@ public class LinkTDUIHandler : UIHandler
 
 	private void OnGameOver()
 	{
-		_gameOverScreen.style.display = DisplayStyle.Flex;
+		_gameOverScreen.style.display = DisplayStyle.Flex;  //Fix the uis
 	}
 
 	private void OnLevelFinished()
 	{
-		_levelFinishedScreen.style.display = DisplayStyle.Flex;
+		_levelFinishedScreen.style.display = DisplayStyle.Flex; //Fix the uis
 	}
 }

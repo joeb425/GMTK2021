@@ -1,22 +1,26 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="GameSidePanel" src="GameSidePanel.uxml" />
-    <Style src="/Assets/UI/StyleSheets/GameStyleSheet.uss" />
-    <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+    <ui:Template name="GameOverScreen" src="project://database/Assets/UI/HUD/GameOverScreen.uxml?fileID=9197481963319205126&amp;guid=f613df4188c025740a4215b60a0109a2&amp;type=3#GameOverScreen" />
+    <ui:Template name="LevelFinishedScreen" src="project://database/Assets/UI/HUD/LevelFinishedScreen.uxml?fileID=9197481963319205126&amp;guid=3905470106788f242822fb974d97f93f&amp;type=3#LevelFinishedScreen" />
+    <ui:Template name="GameSidePanel" src="project://database/Assets/UI/HUD/GameSidePanel.uxml?fileID=9197481963319205126&amp;guid=6e0b2cf12552b074783b86ed2492c044&amp;type=3#GameSidePanel" />
+    <Style src="project://database/Assets/UI/StyleSheets/GameStyleSheet.uss?fileID=7433441132597879392&amp;guid=433dadd39fe2be0468082094f993acb2&amp;type=3#GameStyleSheet" />
+    <ui:VisualElement style="flex-grow: 1; flex-direction: row; position: relative; left: auto; top: auto; right: auto; bottom: auto; flex-basis: auto; align-items: stretch;">
         <ui:VisualElement name="LeftPanel" style="flex-grow: 0; flex-direction: row;">
             <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
                 <ui:VisualElement style="margin-right: 0; margin-top: 8px; margin-left: 8px; margin-bottom: 0; flex-direction: column;">
                     <ui:VisualElement style="flex-direction: row;">
-                        <ui:Label text="Cash:" display-tooltip-when-elided="true" class="hud-label RegularText" style="width: 55px; -unity-text-align: upper-left;" />
-                        <ui:Label text="10" display-tooltip-when-elided="true" name="Cash" class="hud-label ValueText" />
+                        <ui:Label text="Cash:" display-tooltip-when-elided="true" name="Label" class="hud-label" style="width: 55px; -unity-text-align: upper-left;" />
+                        <ui:Label text="10" display-tooltip-when-elided="true" name="Cash" class="hud-label" />
                     </ui:VisualElement>
                     <ui:VisualElement style="flex-direction: row;">
-                        <ui:Label text="Lives:" display-tooltip-when-elided="true" class="hud-label RegularText" style="width: 55px; -unity-text-align: upper-left;" />
-                        <ui:Label text="20" display-tooltip-when-elided="true" name="Lives" class="hud-label ValueText" style="flex-direction: column; flex-wrap: nowrap; flex-grow: 1;" />
+                        <ui:Label text="Lives:" display-tooltip-when-elided="true" class="hud-label" style="width: 55px; -unity-text-align: upper-left;" />
+                        <ui:Label text="20" display-tooltip-when-elided="true" name="Lives" class="hud-label" style="flex-direction: column; flex-wrap: nowrap; flex-grow: 1;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement style="flex-grow: 1;" />
-        <ui:Instance template="GameSidePanel" name="GameSidePanel" style="width: 256px;" />
+        <ui:Instance template="GameOverScreen" name="GameOverScreen" style="position: absolute; left: 50%; top: 50%; display: flex; visibility: hidden;" />
+        <ui:Instance template="LevelFinishedScreen" name="LevelFinishedScreen" style="display: flex; position: absolute; left: 50%; top: 50%; visibility: hidden;" />
+        <ui:Instance template="GameSidePanel" name="GameSidePanel" style="position: absolute; left: 50%; top: 50%; display: none;" />
     </ui:VisualElement>
 </ui:UXML>
