@@ -24,6 +24,12 @@ public class GamePrefabs : ScriptableObject
 	public Tower supportTowerPrefab = default;
 
 	[SerializeField]
+	public Tower recoupTowerPrefab = default;
+
+	[SerializeField]
+	public Tower slowTowerPrefab = default;
+
+	[SerializeField]
 	public VisualTreeAsset towerBuildButton;
 
 	[SerializeField]

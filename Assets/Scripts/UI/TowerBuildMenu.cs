@@ -34,6 +34,8 @@ public class TowerBuildMenu : VisualElement
 			CreateButton(buttons, gamePrefabs.sniperTowerPrefab, "Sniper");
 			CreateButton(buttons, gamePrefabs.smgTowerPrefab, "SMG");
 			CreateButton(buttons, gamePrefabs.supportTowerPrefab, "Support");
+			CreateButton(buttons, gamePrefabs.recoupTowerPrefab, "Recoup"); 
+			CreateButton(buttons, gamePrefabs.slowTowerPrefab, "Slow");
 		}
 	}
 
