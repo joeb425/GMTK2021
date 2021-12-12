@@ -28,6 +28,14 @@ MonoBehaviour:
     type: 3}
   slowTowerPrefab: {fileID: 7682699519609654883, guid: 273af856cc5360d438fea242c8135132,
     type: 3}
+  tower9Prefab: {fileID: 3820566386367478122, guid: 7e20c4da96ce8fb4096db41adc0b1670,
+    type: 3}
+  tower10Prefab: {fileID: 3820566386367478122, guid: 55e4b6eec10ea314288f6985b7af5e56,
+    type: 3}
+  tower11Prefab: {fileID: 3820566386367478122, guid: bc9c4b2a941a1784c8ffcbf05e4ab5b0,
+    type: 3}
+  tower12Prefab: {fileID: 3820566386367478122, guid: 2d2000ee35b631e42a5b9bb3bd69b886,
+    type: 3}
   towerBuildButton: {fileID: 9197481963319205126, guid: 1e385f200928b6848a91c9d4c40d7be8,
     type: 3}
   attributeDisplayItem: {fileID: 9197481963319205126, guid: 08e06cb30ce70cc4bba44186db502f17,
