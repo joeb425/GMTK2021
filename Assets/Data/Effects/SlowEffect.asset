@@ -16,7 +16,7 @@ MonoBehaviour:
   - attribute: {fileID: 11400000, guid: 893ff796af13803458646454cef5d294, type: 2}
     value: 0.1
     valueOperator: 2
-  duration: 0.5
+  duration: 2
   triggerInterval: -1
   extraEffects: []
   appliedTags: []
@@ -28,3 +28,8 @@ MonoBehaviour:
     requiredTags: []
     blockedTags: []
   modifierLayers: []
+  effectDisplay:
+    display: {fileID: 11400000, guid: 51af5b17602586944868383ec1d14f93, type: 2}
+    particleSystem: {fileID: 7732684545211868803, guid: 4672aac19d6a7be41b96cc60cf17a55a,
+      type: 3}
+    audioClip: {fileID: 0}

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0d05f0b92f185549bc35851608aea4c, type: 3}
-  m_Name: TestEffect
+  m_Name: SimpleDamage
   m_EditorClassIdentifier: 
   modifiers:
   - attribute: {fileID: 11400000, guid: 0ff80dc1f4cd10d438f7deca00a6d145, type: 2}
-    value: -1
+    value: -5
     valueOperator: 0
-  duration: 4
-  triggerInterval: 1
+  duration: -1
+  triggerInterval: -1
   extraEffects:
   - {fileID: 11400000, guid: 98097641af988c14bb6bb71566ec298b, type: 2}
   appliedTags: []
@@ -27,10 +27,10 @@ MonoBehaviour:
     blockedTags: []
   targetRequirements:
     requiredTags: []
-    blockedTags:
-    - {fileID: 11400000, guid: 64118fb11000f5545a76cbed5208d785, type: 2}
+    blockedTags: []
   modifierLayers: []
   effectDisplay:
-    display: {fileID: 11400000, guid: eee3c61975c6e8e41a5771d7a08431ac, type: 2}
-    particleSystem: {fileID: 0}
-    audioClip: {fileID: 8300000, guid: ef083d5dbc204c04ba079c7b37bfd570, type: 3}
+    display: {fileID: 0}
+    particleSystem: {fileID: 7732684545211868803, guid: 3bec3748d70383b4180db380046303ca,
+      type: 3}
+    audioClip: {fileID: 8300000, guid: 7db5627f1c764cf4db7801272fbcc302, type: 3}
