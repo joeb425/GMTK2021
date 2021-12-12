@@ -1,7 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="/Assets/UI/StyleSheets/GameStyleSheet.uss" />
+    <Style src="project://database/Assets/UI/StyleSheets/GameStyleSheet.uss?fileID=7433441132597879392&amp;guid=433dadd39fe2be0468082094f993acb2&amp;type=3#GameStyleSheet" />
     <TowerBuildMenu name="TowerBuildMenu" class="FullScreenPanel" style="align-items: center; justify-content: flex-end; flex-direction: column;">
         <ui:VisualElement style="flex-grow: 1;" />
+        <ui:VisualElement style="flex-direction: row;">
+            <ui:Button text="✓" display-tooltip-when-elided="true" name="ConfirmButton" class="GameButton" style="font-size: 40px; background-image: none;" />
+            <ui:Button text="✖" display-tooltip-when-elided="true" name="CancelButton" class="GameButton" style="font-size: 30px; -unity-font-style: normal; background-image: none;" />
+        </ui:VisualElement>
         <ui:VisualElement name="Buttons" class="HUDSidePanel" style="flex-direction: row; flex-grow: 0; justify-content: center;" />
     </TowerBuildMenu>
 </ui:UXML>

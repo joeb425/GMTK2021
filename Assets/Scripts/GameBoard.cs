@@ -22,6 +22,9 @@ public class GameBoard : MonoBehaviour
 	[HideInInspector]
 	public HexGridLayer foliageLayer;
 
+	[HideInInspector]
+	public HexGridLayer tempTowerLayer;
+
 	public event System.Action<Hex, Hex> OnSelectedTileChanged;	
 	public event System.Action<Hex, Hex> OnHoveredTileChanged;
 
@@ -86,6 +89,8 @@ public class GameBoard : MonoBehaviour
 			Debug.Log("tower layer invalid");
 		}
 
+		tempTowerLayer = grid.AddLayer("tempTower");
+
 		enemyPath = new HexPathFinding().FindPath2(grid);
 
 		InitZones();
@@ -118,6 +123,7 @@ public class GameBoard : MonoBehaviour
 		Tower tower = Instantiate(towerPrefab);
 		towerLayer.AddTile(tile, tower);
 		foliageLayer.DeleteTile(tile);
+		tempTowerLayer.RemoveTile(tile);
 		OnTowerPlaced?.Invoke(tile, tower);
 
 		if (groundLayer.GetTileAtHex(tile, out GroundTileComponent groundTile))
@@ -213,7 +219,7 @@ public class GameBoard : MonoBehaviour
 		// place tower
 		if (towerToBePlaced != null)
 		{
-			PlaceTowerAtHex(hoveredTile, towerToBePlacedPrefab);
+			PlaceTowerAtHex(towerToBePlaced.hex, towerToBePlacedPrefab);
 			Destroy(towerToBePlaced.gameObject);
 			return true;
 		}
@@ -221,15 +227,25 @@ public class GameBoard : MonoBehaviour
 		return false;
 	}
 
+	public void CancelTowerToBePlaced()
+	{
+		SetTowerToBePlaced(null);
+	}
+
 	public void SetTowerToBePlaced(Tower towerPrefab)
 	{
-		Debug.Log("Tessst");
-		if (towerToBePlaced)
+		if (towerToBePlaced != null)
 		{
-			Destroy(towerToBePlaced);
+			tempTowerLayer.DeleteTile(towerToBePlaced.hex);
+			towerToBePlaced = null;
 		}
 
-		towerToBePlaced = Instantiate(towerPrefab);
+		if (towerPrefab != null)
+		{
+			towerToBePlaced = Instantiate(towerPrefab);
+			tempTowerLayer.AddTile(selectedTile, towerToBePlaced);
+		}
+
 		towerToBePlacedPrefab = towerPrefab;
 	}
 

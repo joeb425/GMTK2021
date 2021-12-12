@@ -5,6 +5,8 @@ using UnityEngine.UIElements;
 public class TowerBuildMenu : VisualElement
 {
 	private VisualTreeAsset _iconButton;
+	private Button _confirmButton;
+	private Button _cancelButton;
 
 	public new class UxmlFactory : UxmlFactory<TowerBuildMenu, UxmlTraits>
 	{
@@ -21,6 +23,11 @@ public class TowerBuildMenu : VisualElement
 
 	private void OnAttach(AttachToPanelEvent evt)
 	{
+		_confirmButton = this.Q<Button>("ConfirmButton");
+		_confirmButton.RegisterCallback<ClickEvent>(ev => GameState.Get().Board.PlaceCurrentTower());
+		_cancelButton = this.Q<Button>("CancelButton");
+		_cancelButton.RegisterCallback<ClickEvent>(ev => GameState.Get().Board.CancelTowerToBePlaced());
+
 		_iconButton = GlobalData.GetAssetBindings().gamePrefabs.towerBuildButton;
 		GamePrefabs gamePrefabs = GlobalData.GetAssetBindings().gamePrefabs;
 
@@ -54,7 +61,8 @@ public class TowerBuildMenu : VisualElement
 		if (!towerPrefab)
 			return;
 
-		spawnBasicTower.RegisterCallback<ClickEvent>(ev => GameState.Get().Board.PlaceTowerAtSelectedTile(towerPrefab));
+		// spawnBasicTower.RegisterCallback<ClickEvent>(ev => GameState.Get().Board.PlaceTowerAtSelectedTile(towerPrefab));
+		spawnBasicTower.RegisterCallback<ClickEvent>(ev => GameState.Get().Board.SetTowerToBePlaced(towerPrefab));
 		costLabel.text = "" + towerPrefab.towerData.towerCost;
 		spawnBasicTower.name = towerPrefab.towerData.name;
 		button.text = btnText;
