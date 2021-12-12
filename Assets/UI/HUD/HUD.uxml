@@ -21,6 +21,6 @@
         <ui:VisualElement style="flex-grow: 1;" />
         <ui:Instance template="GameOverScreen" name="GameOverScreen" style="position: absolute; left: 50%; top: 50%; display: none; visibility: visible;" />
         <ui:Instance template="LevelFinishedScreen" name="LevelFinishedScreen" style="display: none; position: absolute; left: 50%; top: 50%; visibility: visible;" />
-        <ui:Instance template="GameSidePanel" name="GameSidePanel" style="position: relative; left: auto; top: auto; display: flex; width: 400px;" />
+        <ui:Instance template="GameSidePanel" name="GameSidePanel" style="position: relative; left: auto; top: auto; display: flex; width: 450px;" />
     </ui:VisualElement>
 </ui:UXML>
