@@ -39,8 +39,8 @@ public class GameBoard : MonoBehaviour
 	[HideInInspector]
 	public Hex hoveredTile;
 
-	private Tower towerToBePlaced;
-	private Tower towerToBePlacedPrefab;
+	public Tower towerToBePlaced;
+	public Tower towerToBePlacedPrefab;
 
 	public ZoneHandler zoneHandler = new ZoneHandler();
 
@@ -118,30 +118,27 @@ public class GameBoard : MonoBehaviour
 		// }
 	}
 
-	public void PlaceTower(Hex tile, Tower towerPrefab)
+	public bool PlaceTower(Hex tile, Tower towerPrefab)
 	{
+		if (!GameState.Get().SpendCash(towerPrefab.towerData.towerCost))
+			return false;
+
 		Tower tower = Instantiate(towerPrefab);
 		towerLayer.AddTile(tile, tower);
 		foliageLayer.DeleteTile(tile);
-		tempTowerLayer.RemoveTile(tile);
+		tempTowerLayer.DeleteTile(tile);
 		OnTowerPlaced?.Invoke(tile, tower);
 
-		if (groundLayer.GetTileAtHex(tile, out GroundTileComponent groundTile))
-		{
-			// tower.OnTowerPlaced(groundTile);
-			// groundTile.OnTowerEffectAdded += (hex, effect) => tower.Attributes.ApplyEffect(effect);
-			// groundTile.ApplyEffectsToTower(tower);
-		}
-
 		Game.Get.GetAudioHandler().PlaySfx(GlobalData.GetAssetBindings().gameAssets.placeTowerSfx);
+		return true;
 	}
 
-	public void PlaceTowerAtHex(Hex tile, Tower tower)
+	public bool PlaceTowerAtHex(Hex tile, Tower tower)
 	{
 		if (tile == null || tower == null)
-			return;
+			return false;
 
-		PlaceTower(tile, tower);
+		return PlaceTower(tile, tower);
 	}
 
 	public void PlaceTowerAtSelectedTile(Tower tower)
@@ -219,9 +216,7 @@ public class GameBoard : MonoBehaviour
 		// place tower
 		if (towerToBePlaced != null)
 		{
-			PlaceTowerAtHex(towerToBePlaced.hex, towerToBePlacedPrefab);
-			Destroy(towerToBePlaced.gameObject);
-			return true;
+			return PlaceTowerAtHex(towerToBePlaced.hex, towerToBePlacedPrefab);
 		}
 
 		return false;

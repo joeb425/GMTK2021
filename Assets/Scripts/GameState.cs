@@ -10,7 +10,7 @@ public class GameState : BaseGameState
 {
 	public static GameState Get()
 	{
-		return Game.Get.GetGameState<GameState>();
+		return Game.Get != null ? Game.Get.GetGameState<GameState>() : null;
 	}
 
 	public GameBoard Board;
@@ -32,7 +32,7 @@ public class GameState : BaseGameState
 
 	public bool SpendCash(int Cost)
 	{
-		if (CurrentCash > Cost)
+		if (CurrentCash >= Cost)
 		{
 			SetCash(CurrentCash - Cost);
 			return true;

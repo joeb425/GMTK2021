@@ -92,6 +92,7 @@ public class Enemy : MonoBehaviour, IGameplayTag
 			_healthBarInstance.SetActive(false);
 			EnemyPool.Get().ReclaimToPool(this);
 			OnKilled?.Invoke();
+			GameState.Get().SetCash(GameState.Get().CurrentCash + 1);
 			PlayDeathSfx();
 			return;
 		}

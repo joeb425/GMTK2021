@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Board: {fileID: 2022507406}
-  StartingCash: 10
+  StartingCash: 7
   MaxLives: 25
   IsGameOver: 0
 --- !u!114 &371505265
@@ -923,3 +923,5 @@ MonoBehaviour:
     q: 0
     r: 0
     s: 0
+  towerToBePlaced: {fileID: 0}
+  towerToBePlacedPrefab: {fileID: 0}

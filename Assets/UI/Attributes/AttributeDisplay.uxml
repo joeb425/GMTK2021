@@ -1,7 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="/Assets/UI/StyleSheets/SidePanel.uss" />
-    <Style src="/Assets/UI/StyleSheets/FontStyleSheet.uss" />
-    <UI.MainMenu.AttributeDisplay name="AttributeDisplay" style="flex-direction: row; margin-left: 4px; margin-right: 4px; margin-top: 4px; margin-bottom: 4px;">
+    <Style src="project://database/Assets/UI/StyleSheets/SidePanel.uss?fileID=7433441132597879392&amp;guid=97a02f591700eb549b3e0dc9051e97e5&amp;type=3#SidePanel" />
+    <UI.MainMenu.AttributeDisplay name="AttributeDisplay" style="flex-direction: row; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;">
         <ui:Label text="Label" display-tooltip-when-elided="true" name="AttributeName" class="RegularText" />
         <ui:Label text=":" display-tooltip-when-elided="true" class="RegularText" />
         <ui:Label text="Label" display-tooltip-when-elided="true" name="AttributeValue" class="ValueText" />
