@@ -43,7 +43,7 @@ public class LinkTDUIHandler : UIHandler
 
 	private void UpdateLivesLabel(int lives)
 	{
-		_livesLabel.text = lives + "/" + GameState.Get().MaxLives;
+		_livesLabel.text = "" + lives;
 	}
 
 	private void OnGameOver()

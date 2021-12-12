@@ -5,15 +5,15 @@
     <Style src="project://database/Assets/UI/StyleSheets/GameStyleSheet.uss?fileID=7433441132597879392&amp;guid=433dadd39fe2be0468082094f993acb2&amp;type=3#GameStyleSheet" />
     <ui:VisualElement style="flex-grow: 1; flex-direction: row; position: relative; left: auto; top: auto; right: auto; bottom: auto; flex-basis: auto; align-items: stretch;">
         <ui:VisualElement name="LeftPanel" style="flex-grow: 0; flex-direction: row;">
-            <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
-                <ui:VisualElement style="margin-right: 0; margin-top: 8px; margin-left: 8px; margin-bottom: 0; flex-direction: column;">
+            <ui:VisualElement style="flex-grow: 0; flex-direction: row; align-items: flex-start;">
+                <ui:VisualElement style="margin-right: 0; margin-top: 16px; margin-left: 16px; margin-bottom: 0; flex-direction: row;">
                     <ui:VisualElement style="flex-direction: row;">
-                        <ui:Label text="Cash:" display-tooltip-when-elided="true" name="Label" class="hud-label RegularText" style="width: 55px; -unity-text-align: upper-left;" />
-                        <ui:Label text="10" display-tooltip-when-elided="true" name="Cash" class="hud-label ValueText" />
+                        <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Icons/rupee.png?fileID=2800000&amp;guid=fb7fa66f3ab407a41af29822beeef1af&amp;type=3#rupee&apos;); width: 48px; height: 48px; -unity-background-image-tint-color: rgb(231, 255, 0);" />
+                        <ui:Label text="10" display-tooltip-when-elided="true" name="Cash" class="hud-label BigValueText" style="-unity-text-align: middle-left;" />
                     </ui:VisualElement>
-                    <ui:VisualElement style="flex-direction: row;">
-                        <ui:Label text="Lives:" display-tooltip-when-elided="true" class="hud-label RegularText" style="width: 55px; -unity-text-align: upper-left;" />
-                        <ui:Label text="20" display-tooltip-when-elided="true" name="Lives" class="hud-label ValueText" style="flex-direction: column; flex-wrap: nowrap; flex-grow: 1;" />
+                    <ui:VisualElement style="flex-direction: row; margin-left: 24px;">
+                        <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Icons/hearts.png?fileID=2800000&amp;guid=480a33a98fb32eb4a94ac805ae1fedbe&amp;type=3#hearts&apos;); width: 48px; height: 48px; align-items: stretch; -unity-background-image-tint-color: rgb(255, 0, 0);" />
+                        <ui:Label text="20" display-tooltip-when-elided="true" name="Lives" class="hud-label BigValueText" style="flex-direction: column; flex-wrap: nowrap; flex-grow: 1; -unity-text-align: middle-left;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
@@ -21,6 +21,6 @@
         <ui:VisualElement style="flex-grow: 1;" />
         <ui:Instance template="GameOverScreen" name="GameOverScreen" style="position: absolute; left: 50%; top: 50%; display: none; visibility: visible;" />
         <ui:Instance template="LevelFinishedScreen" name="LevelFinishedScreen" style="display: none; position: absolute; left: 50%; top: 50%; visibility: visible;" />
-        <ui:Instance template="GameSidePanel" name="GameSidePanel" style="position: relative; left: auto; top: auto; display: flex; width: 450px;" />
+        <ui:Instance template="GameSidePanel" name="GameSidePanel" style="position: relative; left: auto; top: auto; display: flex; width: 450px; margin-right: 16px; margin-bottom: 16px;" />
     </ui:VisualElement>
 </ui:UXML>

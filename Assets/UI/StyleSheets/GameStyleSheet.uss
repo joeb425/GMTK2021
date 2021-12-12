@@ -64,6 +64,7 @@
 .RegularText {
     color: rgb(255, 222, 0);
     -unity-font-style: bold;
+    font-size: 12px;
 }
 
 .GameButton {
@@ -135,4 +136,10 @@
     padding-right: 12px;
     padding-top: 12px;
     padding-bottom: 12px;
+}
+
+.BigValueText {
+    -unity-font-style: bold;
+    font-size: 32px;
+    color: rgba(255, 255, 255, 255);
 }
