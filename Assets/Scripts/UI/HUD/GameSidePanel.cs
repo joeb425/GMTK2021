@@ -2,10 +2,11 @@
 using HexLibrary;
 using Mantis.Engine;
 using Mantis.Hex;
+using Mantis.Utils.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UI.MainMenu.HUD
+namespace UI.HUD
 {
 	public class GameSidePanel : VisualElement
 	{

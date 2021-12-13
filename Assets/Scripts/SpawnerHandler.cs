@@ -22,6 +22,8 @@ public class SpawnerHandler : MonoBehaviour
 	float nextSpawnTime;
 	int endFlag = 0;
 
+	public System.Action<Wave, int> OnNextWave;
+
 	private int _numAliveEnemies = 0;
 
 	public void Start()
@@ -98,5 +100,7 @@ public class SpawnerHandler : MonoBehaviour
 		currentWave = currentLevel.waves[waveIndex];
 		Debug.Log($"{currentWave}");
 		enemiesRemainingToSpawn = currentWave.enemyCount;
+
+		OnNextWave?.Invoke(currentWave, waveIndex);
 	}
 }

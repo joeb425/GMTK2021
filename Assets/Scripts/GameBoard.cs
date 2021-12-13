@@ -13,6 +13,9 @@ public class GameBoard : MonoBehaviour
 	[SerializeField]
 	public HexGrid grid;
 
+	[SerializeField]
+	public Material towerBuildMaterial;
+
 	[HideInInspector]
 	public HexGridLayer groundLayer;
 
@@ -239,6 +242,7 @@ public class GameBoard : MonoBehaviour
 		{
 			towerToBePlaced = Instantiate(towerPrefab);
 			tempTowerLayer.AddTile(selectedTile, towerToBePlaced);
+			MantisUtils.SetAllMaterials(towerToBePlaced.gameObject, towerBuildMaterial);
 		}
 
 		towerToBePlacedPrefab = towerPrefab;

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Mantis.Utils.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.SceneManagement;
 
 namespace UI.MainMenu
 {

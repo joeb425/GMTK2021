@@ -18,7 +18,7 @@ public class Game : BaseGame
 	public TileHighlighter tileHighlighter;
 
 	[SerializeField]
-	SpawnerHandler spawnerHandler;
+	public SpawnerHandler spawnerHandler;
 
 	protected override void PreInit()
 	{

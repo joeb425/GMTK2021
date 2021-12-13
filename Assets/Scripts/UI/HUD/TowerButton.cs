@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UI.MainMenu.HUD
+namespace UI.HUD
 {
 	// TODO finish this
 	public class TowerButton : Button
 	{
-		private ScreenSwitcher _screenSwitcher;
 		private Tower _towerPrefab;
 
 		public new class UxmlFactory : UxmlFactory<TowerButton, UxmlTraits>

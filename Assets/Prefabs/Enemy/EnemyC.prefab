@@ -12,6 +12,12 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 4226526925643850458, guid: fc64a3fd233487043944d04bd380edf4,
+        type: 3}
+      propertyPath: gameplayTag
+      value: 
+      objectReference: {fileID: 11400000, guid: 544a0325a4eb01b47b598b89d608fd83,
+        type: 2}
     - target: {fileID: 4226526925643850459, guid: fc64a3fd233487043944d04bd380edf4,
         type: 3}
       propertyPath: m_RootOrder

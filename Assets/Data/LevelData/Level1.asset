@@ -18,3 +18,11 @@ MonoBehaviour:
     spawnSpeed: 1
     enemyPrefab: {fileID: 3921608051714855020, guid: 4f3eeab436ba11f4dbf29ffcdb7a6847,
       type: 3}
+  - enemyCount: 5
+    spawnSpeed: 1
+    enemyPrefab: {fileID: 4652461330361346228, guid: 86afe939ac0a4694290366e7e61711b1,
+      type: 3}
+  - enemyCount: 5
+    spawnSpeed: 1
+    enemyPrefab: {fileID: 4639886780305533709, guid: bd7be24a3eed8884dbc2cc39c0141222,
+      type: 3}
