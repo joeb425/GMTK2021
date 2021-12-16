@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &4321021611481032979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1963560510177681812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f67495bedd7c8941b382c9863cd92d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 200
 --- !u!1001 &3908723236828329678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -103,17 +90,17 @@ PrefabInstance:
     - target: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
@@ -144,12 +131,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8107aa7b5acb0014a94284b08d6f4a68, type: 2}
+      objectReference: {fileID: 2100000, guid: c47ee6c074aa3874fa3b8dedc66525c1, type: 2}
     - target: {fileID: 4880797105941278356, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 9b5b2354425786042ab161d936fdd8ba, type: 2}
+      objectReference: {fileID: 2100000, guid: 366db51b37910184cadf106e036a8494, type: 2}
     - target: {fileID: 4880797105941278356, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_Materials.Array.data[2]
@@ -164,7 +151,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 5689379215262424677, guid: 672b5c79d365ff444ae1ac245d6f60c3,
+      objectReference: {fileID: -415871484387272367, guid: d6ae011923b92dd4db37bbdc8a191119,
         type: 3}
     - target: {fileID: 6918217714850351385, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
@@ -300,9 +287,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfa6eb68b75ccea4e96aedc38b044481, type: 3}
---- !u!1 &1963560510177681812 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3242984198978901850, guid: dfa6eb68b75ccea4e96aedc38b044481,
-    type: 3}
-  m_PrefabInstance: {fileID: 3908723236828329678}
-  m_PrefabAsset: {fileID: 0}

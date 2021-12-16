@@ -31,18 +31,24 @@ PrefabInstance:
     - target: {fileID: 5931582039851925569, guid: 53c0347117e139f4c94a42e205b4429d,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5931582039851925569, guid: 53c0347117e139f4c94a42e205b4429d,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5931582039851925569, guid: 53c0347117e139f4c94a42e205b4429d,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 6625289499911562201, guid: 53c0347117e139f4c94a42e205b4429d,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 1647375723656349233, guid: 836e201ce6332434f9caf38caf53acff,
+        type: 3}
     - target: {fileID: 7522921511046828752, guid: 53c0347117e139f4c94a42e205b4429d,
         type: 3}
       propertyPath: serializedGuid.Array.data[0]
