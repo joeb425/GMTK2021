@@ -8,6 +8,7 @@ using Mantis.Hex;
 using ObjectPools;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(GameplayAttributeContainer))]
 public class Tower : HexTileComponent
@@ -55,6 +56,10 @@ public class Tower : HexTileComponent
 
 	private Animation _animation;
 
+	private VisualElement _towerDisplay;
+
+	private Camera _mainCamera;
+
 	private void Awake()
 	{
 		InitLineRenderer();
@@ -67,6 +72,13 @@ public class Tower : HexTileComponent
 		GameState.Get().Board.towerLayer.OnSelectedObjectChanged += OnSelected;
 
 		_animation = GetComponent<Animation>();
+		_towerDisplay = gameObject.GetComponent<UIDocument>().rootVisualElement;
+		_mainCamera = Camera.main;
+
+		// Vector3 worldPosition = transform.position + Vector3.up * 5.0f;
+		// Vector2 newPosition = RuntimePanelUtils.CameraTransformWorldToPanel(_towerDisplay.panel, worldPosition, _mainCamera);
+		// newPosition.x -= _towerDisplay.layout.width / 2;
+		// _towerDisplay.transform.position = newPosition;
 	}
 
 	private void OnDestroy()

@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Board: {fileID: 2022507406}
-  StartingCash: 7
+  StartingCash: 20
   MaxLives: 25
   IsGameOver: 0
 --- !u!114 &371505265

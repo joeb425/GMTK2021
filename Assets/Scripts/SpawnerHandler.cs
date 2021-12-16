@@ -98,7 +98,6 @@ public class SpawnerHandler : MonoBehaviour
 		}
 
 		currentWave = currentLevel.waves[waveIndex];
-		Debug.Log($"{currentWave}");
 		enemiesRemainingToSpawn = currentWave.enemyCount;
 
 		OnNextWave?.Invoke(currentWave, waveIndex);
