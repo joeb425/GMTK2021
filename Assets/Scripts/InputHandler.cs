@@ -83,7 +83,7 @@ public class InputHandler
 		Camera camera = Camera.main;
 		
 		// Update camera position
-		if (!Game.Get.GetUIHandler().IsMouseBlocked(mousePos))
+		// if (!Game.Get.GetUIHandler().IsMouseBlocked(mousePos))
 		{
 			Vector2 cameraDelta = _gameInputs.Mouse.TouchDelta.ReadValue<Vector2>();
 			_desiredCameraLocation -= new Vector3(cameraDelta.x, 0, cameraDelta.y) * _cameraSpeed;
