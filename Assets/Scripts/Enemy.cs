@@ -89,11 +89,7 @@ public class Enemy : MonoBehaviour, IGameplayTag
 		slider.value = CalculateHealth();
 		if (GetHealth() <= 0f)
 		{
-			_healthBarInstance.SetActive(false);
-			EnemyPool.Get().ReclaimToPool(this);
-			OnKilled?.Invoke();
-			GameState.Get().SetCash(GameState.Get().CurrentCash + 1);
-			PlayDeathSfx();
+			OnDeath();
 			return;
 		}
 
@@ -130,6 +126,21 @@ public class Enemy : MonoBehaviour, IGameplayTag
 		}
 
 		SetHealthbarPosition();
+	}
+
+	protected void OnDeath()
+	{
+		_healthBarInstance.SetActive(false);
+		EnemyPool.Get().ReclaimToPool(this);
+		OnKilled?.Invoke();
+		GameState.Get().SetCash(GameState.Get().CurrentCash + 1);
+
+		if (GameplayTagManager.instance.RequestTag("Status.IsAlive", out GameplayTag aliveTag))
+		{
+			gameplayTagContainer.RemoveTag(aliveTag);
+		}
+
+		PlayDeathSfx();
 	}
 
 	void SetHealthbarPosition()
