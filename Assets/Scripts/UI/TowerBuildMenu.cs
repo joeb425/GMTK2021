@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Mantis.Engine;
+using UnityEngine;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.UIElements;
 
@@ -33,6 +34,7 @@ public class TowerBuildMenu : VisualElement
 
 		OnCashChanged(GameState.Get().CurrentCash);
 		GameState.Get().OnCashChanged += (_, cash) => OnCashChanged(cash);
+		GameState.Get().Board.OnSetTowerToBePlaced += tower => UpdateConfirmButton(GameState.Get().CurrentCash);
 	}
 
 	private void OnAttach(AttachToPanelEvent evt)
@@ -63,13 +65,8 @@ public class TowerBuildMenu : VisualElement
 
 	private void OnCashChanged(int currentCash)
 	{
-		Tower tower = GameState.Get().Board.towerToBePlaced;
-		if (tower != null)
-		{
-			UpdateConfirmButton(currentCash);
-		}
-		
-		UpdateTowerButtons(currentCash);
+		UpdateConfirmButton(currentCash);
+		// UpdateTowerButtons(currentCash);
 	}
 
 	private void UpdateConfirmButton(int currentCash)

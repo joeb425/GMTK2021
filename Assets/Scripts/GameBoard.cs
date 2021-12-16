@@ -32,6 +32,7 @@ public class GameBoard : MonoBehaviour
 	public event System.Action<Hex, Hex> OnHoveredTileChanged;
 
 	public event System.Action<Hex, Tower> OnTowerPlaced;
+	public event System.Action<Tower> OnSetTowerToBePlaced;
 
 	// Todo: enemy path should be somewhere else?
 	public List<Hex> enemyPath = new List<Hex>();
@@ -246,6 +247,8 @@ public class GameBoard : MonoBehaviour
 		}
 
 		towerToBePlacedPrefab = towerPrefab;
+
+		OnSetTowerToBePlaced?.Invoke(towerToBePlaced);
 	}
 
 	private void OnDrawGizmos()
