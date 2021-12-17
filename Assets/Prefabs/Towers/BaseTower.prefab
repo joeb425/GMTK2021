@@ -218,15 +218,15 @@ MonoBehaviour:
     q: 0
     r: 0
     s: 0
+  layer: {fileID: 0}
   gameplayTag: {fileID: 0}
   towerData: {fileID: 0}
   turret: {fileID: 263773572115014597}
   bulletSpawnPoint: {fileID: 5004033099111384222}
-  linePrefab: {fileID: 1792455083954044815, guid: 5241ef6354b1ece46aa5e64a54fa87e1,
-    type: 3}
   towerRangeDisplay: {fileID: 8796409826960070298}
   trackTarget: 1
   spawnAnimation: {fileID: 0}
+  towerBuildMaterial: {fileID: 2100000, guid: e33cddd4d7caec14f90cbdb8a653bbf6, type: 2}
   numSegments: 128
   radiusLineRenderer: {fileID: 0}
   Attributes: {fileID: 0}

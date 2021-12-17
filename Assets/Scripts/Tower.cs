@@ -7,6 +7,7 @@ using HexLibrary;
 using Mantis.AttributeSystem.UI;
 using Mantis.GameplayTags;
 using Mantis.Hex;
+using Mantis.Utils;
 using ObjectPools;
 using UI.MainMenu;
 using UnityEditor;
@@ -33,6 +34,9 @@ public class Tower : HexTileComponent
 
 	[SerializeField]
 	public AnimationClip spawnAnimation;
+
+	[SerializeField]
+	public Material towerBuildMaterial;
 
 	private float attackTimeRemaining;
 
@@ -84,11 +88,17 @@ public class Tower : HexTileComponent
 		}
 	}
 
-	public override void PlaceOnHex(Hex hex) 
+	public override void PlaceOnHex(Hex newHex, HexGridLayer newLayer) 
 	{
-		base.PlaceOnHex(hex);
+		base.PlaceOnHex(newHex, newLayer);
 
 		SetRadiusVisible(true);
+
+		if (layer == GameState.Get().Board.tempTowerLayer)
+		{
+			PlaceOnTempLayer();
+			return;
+		}
 
 		if (layer != GameState.Get().Board.towerLayer)
 		{
@@ -115,6 +125,11 @@ public class Tower : HexTileComponent
 		// _animation.Play();
 
 		GameState.Get().Board.OnSelectedTileChanged += OnSelected;
+	}
+
+	public void PlaceOnTempLayer()
+	{
+		MantisUtils.SetAllMaterials(turret, towerBuildMaterial);
 	}
 
 	public override void RemoveFromHex(Hex hex)
