@@ -26,9 +26,6 @@ public class Tower : HexTileComponent
 	public Transform bulletSpawnPoint;
 
 	[SerializeField]
-	public LineRenderer linePrefab;
-
-	[SerializeField]
 	public GameObject towerRangeDisplay;
 
 	[SerializeField]
@@ -72,8 +69,6 @@ public class Tower : HexTileComponent
 		RotatorComponent rotatorComponent = gameObject.GetComponent<RotatorComponent>();
 		hasRotator = rotatorComponent != null;
 
-		GameState.Get().Board.towerLayer.OnSelectedObjectChanged += OnSelected;
-
 		_animation = GetComponent<Animation>();
 		_mainCamera = Camera.main;
 		_towerDisplay = gameObject.GetComponent<UIDocument>().rootVisualElement;
@@ -83,15 +78,23 @@ public class Tower : HexTileComponent
 
 	private void OnDestroy()
 	{
-		// if (GameState.Get() != null)
-		// {
-		// 	GameState.Get().Board.towerLayer.OnSelectedObjectChanged -= OnSelected;
-		// }
+		if (GameState.Get() != null)
+		{
+			GameState.Get().Board.OnSelectedTileChanged -= OnSelected;
+		}
 	}
 
 	public override void PlaceOnHex(Hex hex) 
 	{
 		base.PlaceOnHex(hex);
+
+		SetRadiusVisible(true);
+
+		if (layer != GameState.Get().Board.towerLayer)
+		{
+			return;
+		}
+
 		GameState.Get().Board.GetGroundTileAtHex(hex, out groundTile);
 
 		groundTile.effectList.SetContainer(Attributes);
@@ -109,13 +112,20 @@ public class Tower : HexTileComponent
 			}
 		}
 
-		_animation.Play();
-		Debug.Log("Play animation");
+		// _animation.Play();
+
+		GameState.Get().Board.OnSelectedTileChanged += OnSelected;
 	}
 
 	public override void RemoveFromHex(Hex hex)
 	{
 		base.RemoveFromHex(hex);
+
+		if (layer != GameState.Get().Board.towerLayer)
+		{
+			return;
+		}
+
 		for (int i = 0; i < 6; i++)
 		{
 			Hex neighborHex = groundTile.hex.Neighbor(i);
@@ -131,7 +141,7 @@ public class Tower : HexTileComponent
 
 		groundTile.effectList.SetContainer(null);
 
-		GameState.Get().Board.towerLayer.OnSelectedObjectChanged -= OnSelected;
+		GameState.Get().Board.OnSelectedTileChanged -= OnSelected;
 	}
 
 	public void InitLineRenderer()
@@ -144,7 +154,7 @@ public class Tower : HexTileComponent
 		radiusLineRenderer.loop = true;
 		radiusLineRenderer.positionCount = numSegments + 1;
 		radiusLineRenderer.useWorldSpace = false;
-		radiusLineRenderer.enabled = false;
+		radiusLineRenderer.enabled = true;
 	}
 
 	public override void GameUpdate()
@@ -432,22 +442,18 @@ public class Tower : HexTileComponent
 		enemy.Attributes.ApplyEffect(damageEffect, effectParameters);
 	}
 
-	public void OnSelected(HexTileComponent _, HexTileComponent newSelection)
+	protected void OnSelected(Hex _, Hex newSelection)
 	{
-		if (newSelection == null)
-			return;
-
-		bool selected = (newSelection as Tower) == this;
-		radiusLineRenderer.enabled = selected;
-		towerRangeDisplay.SetActive(selected);
-		// for (int i = 0; i < 6; i++)
-		// {
-		// 	Hex neighborHex = groundTile.hex.Neighbor(i);
-		// 	Game.Get.tileHighlighter.SetHexHighlighted(neighborHex, selected, new Color(1.0f, 1.0f, 0.1f, 0.33f));
-		// }
+		SetRadiusVisible(newSelection == hex);
 	}
 
-	public bool CanUpgradeTower()
+	protected void SetRadiusVisible(bool visible)
+	{
+		radiusLineRenderer.enabled = visible;
+		towerRangeDisplay.SetActive(visible);
+	}
+
+	protected bool CanUpgradeTower()
 	{
 		return _towerLevel < towerData.upgradeInfos.Length;
 	}
