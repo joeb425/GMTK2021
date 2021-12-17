@@ -12,9 +12,15 @@ namespace UI.HUD
 	{
 		public GameVisualElement()
 		{
+			if (!Application.isPlaying) 
+				return;
+
 			RegisterCallback((AttachToPanelEvent evt) =>
 			{
+				EngineStatics.OnGamePreInit -= OnGamePreInit;
 				EngineStatics.OnGamePreInit += OnGamePreInit;
+
+				EngineStatics.OnGameInit -= OnGameInit;
 				EngineStatics.OnGameInit += OnGameInit;
 			});
 

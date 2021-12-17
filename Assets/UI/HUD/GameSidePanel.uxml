@@ -4,8 +4,8 @@
     <Style src="project://database/Assets/UI/StyleSheets/GameStyleSheet.uss?fileID=7433441132597879392&amp;guid=433dadd39fe2be0468082094f993acb2&amp;type=3#GameStyleSheet" />
     <UI.HUD.GameSidePanel class="FullScreenPanel">
         <Mantis.Utils.UI.ScreenSwitcher style="width: 100%; height: 100%;">
-            <ui:Instance template="TowerInfoMenu" name="TowerInfoMenu" style="width: 100%; height: 100%; position: absolute;" />
-            <ui:Instance template="TowerBuildMenu" name="TowerBuildMenu" style="position: absolute; width: 100%; height: 100%;" />
+            <ui:Instance template="TowerInfoMenu" name="TowerInfoMenu" style="width: 100%; height: 100%; position: absolute; justify-content: flex-end;" />
+            <ui:Instance template="TowerBuildMenu" name="TowerBuildMenu" style="position: absolute; width: 100%; height: 100%; justify-content: flex-end;" />
         </Mantis.Utils.UI.ScreenSwitcher>
     </UI.HUD.GameSidePanel>
 </ui:UXML>

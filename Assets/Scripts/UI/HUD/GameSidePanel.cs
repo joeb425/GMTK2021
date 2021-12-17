@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using HexLibrary;
 using Mantis.Engine;
 using Mantis.Hex;
@@ -8,7 +9,7 @@ using UnityEngine.UIElements;
 
 namespace UI.HUD
 {
-	public class GameSidePanel : VisualElement
+	public class GameSidePanel : GameVisualElement
 	{
 		private ScreenSwitcher _screenSwitcher;
 
@@ -23,24 +24,16 @@ namespace UI.HUD
 		public static string TowerBuildMenuName = "TowerBuildMenu";
 		public static string TowerInfoMenuName = "TowerInfoMenu";
 
-		public GameSidePanel()
-		{
-			// RegisterCallback<AttachToPanelEvent>(OnAttach);
-			RegisterCallback((AttachToPanelEvent evt) => EngineStatics.OnGameInit += OnGameInit);
-			RegisterCallback((DetachFromPanelEvent evt) => EngineStatics.OnGameInit -= OnGameInit);
-			// EngineStatics.OnGameInit += OnGameInit;
-		}
-
-		private void OnAttach(AttachToPanelEvent evt)
-		{
-		}
-
 		public void OnScreenStateChanged(VisualElement screen, bool enabled)
 		{
-			Game.Get.GetUIHandler().SetElementBlockingMouse(screen, enabled);
+			VisualElement screenContent = screen.Children().First();
+			if (screenContent != null)
+			{
+				Game.Get.GetUIHandler().SetElementBlockingMouse(screenContent, enabled);
+			}
 		}
 
-		public void OnGameInit()
+		public override void OnGameInit()
 		{
 			_screenSwitcher = this.Q<ScreenSwitcher>();
 			if (_screenSwitcher is null)
@@ -52,12 +45,16 @@ namespace UI.HUD
 			_screenSwitcher.ReadScreens();
 			_screenSwitcher.HideAll();
 			_screenSwitcher.OnScreenStateChanged += OnScreenStateChanged;
-			
-			GameState.Get().Board.OnTowerPlaced += OnTowerPlaced;
-			GameState.Get().Board.OnSelectedTileChanged += (_, newHex) => OnSelectedTileChanged(newHex);
+
+			GameBoard board = GameState.Get().Board;
+			board.OnTowerPlaced -= OnTowerPlaced;
+			board.OnTowerPlaced += OnTowerPlaced;
+
+			board.OnSelectedTileChanged -= OnSelectedTileChanged;
+			board.OnSelectedTileChanged += OnSelectedTileChanged;
 		}
 
-		void OnSelectedTileChanged(Hex selectedTile)
+		void OnSelectedTileChanged(Hex oldHex, Hex selectedTile)
 		{
 			// check tower layer
 			if (GameState.Get().Board.towerLayer.GetTileAtHex(selectedTile, out Tower tower))
