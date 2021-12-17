@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DefaultNamespace.Data;
 using Mantis.AttributeSystem;
 using HexLibrary;
+using Mantis.AttributeSystem.UI;
 using Mantis.GameplayTags;
 using Mantis.Hex;
 using ObjectPools;
+using UI.MainMenu;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -72,13 +75,10 @@ public class Tower : HexTileComponent
 		GameState.Get().Board.towerLayer.OnSelectedObjectChanged += OnSelected;
 
 		_animation = GetComponent<Animation>();
-		_towerDisplay = gameObject.GetComponent<UIDocument>().rootVisualElement;
 		_mainCamera = Camera.main;
-
-		// Vector3 worldPosition = transform.position + Vector3.up * 5.0f;
-		// Vector2 newPosition = RuntimePanelUtils.CameraTransformWorldToPanel(_towerDisplay.panel, worldPosition, _mainCamera);
-		// newPosition.x -= _towerDisplay.layout.width / 2;
-		// _towerDisplay.transform.position = newPosition;
+		_towerDisplay = gameObject.GetComponent<UIDocument>().rootVisualElement;
+		_towerDisplay.Q<AttributeLabel>("Damage").BindToGameplayAttribute(Attributes.GetAttribute(MyAttributes.Get().Damage));
+		_towerDisplay.Q<AttributeLabel>("AttackSpeed").BindToGameplayAttribute(Attributes.GetAttribute(MyAttributes.Get().AttackSpeed));
 	}
 
 	private void OnDestroy()
@@ -162,6 +162,8 @@ public class Tower : HexTileComponent
 		}
 
 		Attributes.GameUpdate();
+
+		UpdateTowerDisplay();
 	}
 
 	private void UpdateTowerRange()
@@ -186,6 +188,18 @@ public class Tower : HexTileComponent
 			radiusLineRenderer.SetPosition(i, pos);
 			theta += deltaTheta;
 		}
+	}
+
+	private void UpdateTowerDisplay()
+	{
+		// Update tower display document
+		Vector3 worldPosition = transform.position;
+		Vector2 newPosition = RuntimePanelUtils.CameraTransformWorldToPanel(_towerDisplay.panel, worldPosition, _mainCamera);
+		Rect layout = _towerDisplay.Children().First().layout;
+		newPosition.x -= layout.width / 2;
+		newPosition.y += 15.0f; // magic number 
+		// Debug.Log(_towerDisplay);
+		_towerDisplay.transform.position = newPosition;
 	}
 
 	bool TrackTarget()

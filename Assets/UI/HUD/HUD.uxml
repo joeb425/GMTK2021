@@ -3,6 +3,7 @@
     <ui:Template name="GameOverScreen" src="project://database/Assets/UI/HUD/GameOverScreen.uxml?fileID=9197481963319205126&amp;guid=f613df4188c025740a4215b60a0109a2&amp;type=3#GameOverScreen" />
     <ui:Template name="LevelFinishedScreen" src="project://database/Assets/UI/HUD/LevelFinishedScreen.uxml?fileID=9197481963319205126&amp;guid=3905470106788f242822fb974d97f93f&amp;type=3#LevelFinishedScreen" />
     <ui:Template name="GameSidePanel" src="project://database/Assets/UI/HUD/GameSidePanel.uxml?fileID=9197481963319205126&amp;guid=6e0b2cf12552b074783b86ed2492c044&amp;type=3#GameSidePanel" />
+    <ui:Template name="TowerDisplay" src="project://database/Assets/UI/HUD/TowerDisplay.uxml?fileID=9197481963319205126&amp;guid=c2bc0b410f207d24b8c40260b5163489&amp;type=3#TowerDisplay" />
     <Style src="project://database/Assets/UI/StyleSheets/GameStyleSheet.uss?fileID=7433441132597879392&amp;guid=433dadd39fe2be0468082094f993acb2&amp;type=3#GameStyleSheet" />
     <ui:VisualElement style="flex-grow: 1; flex-direction: row; position: relative; left: auto; top: auto; right: auto; bottom: auto; flex-basis: auto; align-items: stretch;">
         <ui:VisualElement name="LeftPanel" style="flex-grow: 0; flex-direction: row; margin-left: 16px; margin-top: 16px;">
@@ -18,6 +19,7 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:Instance template="EnemyWaveDisplay" name="EnemyWaveDisplay" />
+                <ui:Instance template="TowerDisplay" name="TowerDisplay" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement style="flex-grow: 1;" />

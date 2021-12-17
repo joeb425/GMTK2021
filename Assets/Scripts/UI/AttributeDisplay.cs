@@ -35,9 +35,9 @@ namespace UI.MainMenu
 			_attributeName = this.Q<Label>("AttributeName");
 			_attributeValue = this.Q<Label>("AttributeValue");
 
-			if (_attributeName == null || _attributeValue == null)
+			if (_attributeValue == null)
 			{
-				Debug.LogError("Failed to find attribute name or attribute value labels");
+				Debug.LogError("Failed to find attribute value label");
 			}
 		}
 
@@ -49,9 +49,14 @@ namespace UI.MainMenu
 		public void BindToGameplayAttribute(GameplayAttribute attribute)
 		{
 			Init();
-			_attributeName.text = attribute.attributeType.name;
-			_attributeValue.text = "" + attribute.GetValue();
-			attribute.OnAttributeChanged += gameplayAttribute => _attributeValue.text = "" + attribute.GetValue();
+
+			if (_attributeName != null)
+			{
+				_attributeName.text = attribute.attributeType.name;
+			}
+
+			_attributeValue.text = $"{attribute.GetValue()}";
+			attribute.OnAttributeChanged += gameplayAttribute => _attributeValue.text = $"{attribute.GetValue()}";
 		}
 	}
 }
