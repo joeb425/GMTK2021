@@ -86,6 +86,13 @@ public class InputHandler
 		// if (!Game.Get.GetUIHandler().IsMouseBlocked(mousePos))
 		{
 			Vector2 cameraDelta = _gameInputs.Mouse.TouchDelta.ReadValue<Vector2>();
+
+			const float maxMagnitude = 40.0f;
+			if (cameraDelta.SqrMagnitude() > maxMagnitude * maxMagnitude)
+			{
+				cameraDelta = cameraDelta.normalized * maxMagnitude;
+			}
+
 			_desiredCameraLocation -= new Vector3(cameraDelta.x, 0, cameraDelta.y) * _cameraSpeed;
 			camera.transform.position = Vector3.Lerp(camera.transform.position, _desiredCameraLocation, Time.deltaTime *
 				_cameraLerpSpeed);
