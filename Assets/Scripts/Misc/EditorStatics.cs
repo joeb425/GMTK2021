@@ -23,9 +23,10 @@ namespace Misc
 			Dictionary<string, TowerData> towerDatas = new Dictionary<string, TowerData>();
 			foreach (TowerData towerData in CustomAssetUtils.FindAssetsByType<TowerData>())
 			{
-				Debug.Log(towerData.name);
 				towerDatas.Add(towerData.name, towerData);
 			}
+
+			List<string> unusedTowerDatas = towerDatas.Keys.ToList();
 
 			string[] rows = fileData.Split('\n');
 
@@ -47,6 +48,9 @@ namespace Misc
 				TowerData towerData = null;
 
 				string fileName = $"TowerData_{name}";
+
+				unusedTowerDatas.Remove(fileName);
+
 				if (towerDatas.ContainsKey(fileName))
 				{
 					towerData = towerDatas[fileName];
@@ -58,15 +62,6 @@ namespace Misc
 					AssetDatabase.CreateAsset(towerData, filePath);
 					Debug.Log($"Create TowerData at: {filePath}");
 				}
-
-				// towerData.towerName = name;
-				// towerData.towerCost = price;
-				// towerData.attackRange = range;
-				// towerData.damage = damage;
-				// towerData.attackSpeed = atkspd;
-				// towerData.split = split;
-				// towerData.splash = splash;
-				// EditorUtility.SetDirty(towerData);
 
 				bool hasChanged =
 					UpdateValue(ref towerData.towerName, name) ||
@@ -82,6 +77,18 @@ namespace Misc
 					EditorUtility.SetDirty(towerData);
 				}
 			}
+
+			string[] allPaths = new string[unusedTowerDatas.Count];
+			for (var i = 0; i < unusedTowerDatas.Count; i++)
+			{
+				var fileName = unusedTowerDatas[i];
+				string filePath = $"Assets/Data/TowerData/{fileName}.asset";
+				allPaths[i] = filePath;
+				Debug.Log($"Delete unused {filePath}");
+			}
+
+			List<string> failed = new List<string>();
+			AssetDatabase.DeleteAssets(allPaths, failed);
 		}
 
 		private static bool UpdateValue<T>(ref T value, T newValue)
