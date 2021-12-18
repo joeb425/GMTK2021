@@ -14,18 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: Support
   towerIcon: {fileID: 2800000, guid: 357e1cc2a004b9642bc4c60f0688314d, type: 3}
-  towerCost: 5
+  towerCost: 0
   towerSell: 5
-  attackRange: 1
-  damage: 5
+  attackRange: 0
+  damage: 0
   attackSpeed: 1
   split: 0
   splash: 0
   bulletPrefab: {fileID: 558967105862248459, guid: 53c0347117e139f4c94a42e205b4429d,
     type: 3}
-  bulletSpeed: 1
-  bulletMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  bulletMaterial: {fileID: 2100000, guid: 60e9d42099cf8ec40897d6903f7e6c6e, type: 2}
   upgradeInfos: []
   onHitEffects: []
   shootSfx: {fileID: 0}

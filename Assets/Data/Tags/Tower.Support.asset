@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05ab3d04918143b47967032fe5631659, type: 3}
-  m_Name: Tower.Turret
+  m_Name: Tower.Support
   m_EditorClassIdentifier: 
-  parent: {fileID: 11400000, guid: 19e029207993da64eace40555617f4d3, type: 2}
+  parent: {fileID: 0}
   children: []

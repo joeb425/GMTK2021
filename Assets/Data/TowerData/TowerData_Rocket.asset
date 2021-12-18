@@ -16,9 +16,9 @@ MonoBehaviour:
   towerIcon: {fileID: 2800000, guid: 2fe36d1c5aac1eb4a9844bb7ad9debec, type: 3}
   towerCost: 5
   towerSell: 4
-  attackRange: 2
-  damage: 1
-  attackSpeed: 1
+  attackRange: 4
+  damage: 6
+  attackSpeed: 5
   split: 0
   splash: 1
   bulletPrefab: {fileID: 7556477264031917805, guid: 6e2b1622170444e40a2c06dab77ce310,

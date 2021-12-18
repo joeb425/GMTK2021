@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: Basic
   towerIcon: {fileID: 2800000, guid: 2fe36d1c5aac1eb4a9844bb7ad9debec, type: 3}
-  towerCost: 5
+  towerCost: 2
   towerSell: 4
-  attackRange: 5
+  attackRange: 1
   damage: 5
-  attackSpeed: 5
+  attackSpeed: 1
   split: 3
   splash: 0
   bulletPrefab: {fileID: 7556477264031917805, guid: 3764e102f80783e41ba30cd4794e2e57,

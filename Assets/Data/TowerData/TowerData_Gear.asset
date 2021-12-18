@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: Gear
   towerIcon: {fileID: 0}
-  towerCost: 5
+  towerCost: 0
   towerSell: 5
-  attackRange: 1
-  damage: 5
+  attackRange: 0
+  damage: 0
   attackSpeed: 1
   split: 0
   splash: 0

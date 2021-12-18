@@ -16,8 +16,8 @@ MonoBehaviour:
   towerIcon: {fileID: 0}
   towerCost: 5
   towerSell: 5
-  attackRange: 1
-  damage: 5
+  attackRange: 2
+  damage: 0.5
   attackSpeed: 1
   split: 0
   splash: 0
