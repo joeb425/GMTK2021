@@ -674,7 +674,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4880797105941278356, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880797105941278356, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 18ca0938e450d0342a895c131f2037f7, type: 2}
+    - target: {fileID: 4880797105941278356, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 18ca0938e450d0342a895c131f2037f7, type: 2}
     - target: {fileID: 5004033099111384222, guid: dfa6eb68b75ccea4e96aedc38b044481,
@@ -711,7 +721,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -386363871853332574, guid: 7383c8dc96a07504fa917b84fe29fb6f,
+      objectReference: {fileID: -931511829461655477, guid: ddfdfe765697ecf4e8690d615739899d,
         type: 3}
     - target: {fileID: 6918217714850351385, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
@@ -834,6 +844,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7822758320480785569, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7822758320480785569, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7822758320480785569, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7822758320480785569, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
