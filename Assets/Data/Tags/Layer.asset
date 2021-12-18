@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Layer
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
-  children: []
-  parent: {fileID: 0}
-  children: []
+  children:
+  - {fileID: 11400000, guid: f15ae74bf67540944a19be17ad9c5ab0, type: 2}
+  - {fileID: 11400000, guid: f70a66ef0cb4c2f4aab05be8d5559834, type: 2}
+  - {fileID: 11400000, guid: 6738e363fe8a55444862151e8223aff0, type: 2}
+  - {fileID: 11400000, guid: 450e95cfbf313664e871c96a6d8f43d2, type: 2}

@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: Hex
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
-  children: []
+  children:
+  - {fileID: 11400000, guid: 6edb06a2ba38c9b4fab7f3def8c4e13c, type: 2}
+  - {fileID: 11400000, guid: 50810c157d8969c42839f2018db8ad21, type: 2}
+  - {fileID: 11400000, guid: 0a6fc6c347e817d4a9412b3b1f68910b, type: 2}
+  - {fileID: 11400000, guid: c6969876e4707104b930cabefdb0f532, type: 2}
+  - {fileID: 11400000, guid: d5007226b209f79478596c10c8e1094a, type: 2}

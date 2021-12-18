@@ -13,6 +13,18 @@ MonoBehaviour:
   m_Name: Tower
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
-  children: []
-  parent: {fileID: 0}
-  children: []
+  children:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 8faee74b68492f143aecf5de50032e97, type: 2}
+  - {fileID: 11400000, guid: 869aad9a915107746a9488bff27ceb24, type: 2}
+  - {fileID: 11400000, guid: 8b900d4dc524707458544b2c9f377f4b, type: 2}
+  - {fileID: 11400000, guid: f10099857539b5c4faf20897a616840d, type: 2}
+  - {fileID: 11400000, guid: 085027912803d2946b4572a0a21c59a3, type: 2}
+  - {fileID: 11400000, guid: 220bba73ea0748f49af8da332faaf6c3, type: 2}
+  - {fileID: 11400000, guid: c3c87b4a26c02004297e012dd3d494fb, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: ad3a36efd2c7c9b4a850fce76454ea1d, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 953971581a9f58246bad81c3c3a2b556, type: 2}
+  - {fileID: 11400000, guid: b0a8596342978cf4f8762ce65c916069, type: 2}

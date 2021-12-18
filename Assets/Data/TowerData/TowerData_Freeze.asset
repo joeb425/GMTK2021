@@ -10,21 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ee7b0f9fbcc46a080c5fb5c716b97b9, type: 3}
-  m_Name: TowerData_Rocket
+  m_Name: TowerData_Freeze
   m_EditorClassIdentifier: 
-  towerName: Rocket
-  towerIcon: {fileID: 2800000, guid: 2fe36d1c5aac1eb4a9844bb7ad9debec, type: 3}
+  towerName: Freeze
+  towerIcon: {fileID: 0}
   towerCost: 5
-  towerSell: 4
-  attackRange: 2
-  damage: 1
+  towerSell: 5
+  attackRange: 1
+  damage: 5
   attackSpeed: 1
   split: 0
-  splash: 1
-  bulletPrefab: {fileID: 7556477264031917805, guid: 6e2b1622170444e40a2c06dab77ce310,
-    type: 3}
+  splash: 0
+  bulletPrefab: {fileID: 0}
   upgradeInfos: []
   onHitEffects: []
-  shootSfx: {fileID: 8300000, guid: 98f961f4df47f854cb30e775e49e23bf, type: 3}
+  shootSfx: {fileID: 0}
   supportEffects: []
   supportRadius: 0

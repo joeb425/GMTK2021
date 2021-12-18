@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: Enemy
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
-  children: []
+  children:
+  - {fileID: 11400000, guid: efd37527652763a49ab3cc8485af004c, type: 2}
+  - {fileID: 11400000, guid: ddabb945287047f489f6bd35484914e5, type: 2}
+  - {fileID: 11400000, guid: 544a0325a4eb01b47b598b89d608fd83, type: 2}
+  - {fileID: 11400000, guid: 1ed81c7bf440e5a43921035b7e3a83c2, type: 2}
