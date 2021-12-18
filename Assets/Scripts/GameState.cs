@@ -82,17 +82,6 @@ public class GameState : BaseGameState
 		Board.GameUpdate();
 	}
 
-	public void RestartGame()
-	{
-		Debug.Log("Restart game");
-		SceneManager.LoadScene("Assets/Scenes/Game.unity", LoadSceneMode.Single);
-	}
-
-	public void GoToMainMenu()
-	{
-		SceneManager.LoadScene("Assets/Scenes/MainMenu.unity", LoadSceneMode.Single);
-	}
-
 	public void FinishLevel()
 	{
 		if (IsGameOver) 

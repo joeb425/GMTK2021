@@ -6,6 +6,7 @@ using Mantis.Utils;
 using Misc;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
@@ -40,7 +41,7 @@ public class Game : BaseGame
 
 		if (Input.GetKeyDown(KeyCode.Z))
 		{
-			GameState.Get().LoseLife();
+			NextLevel();
 		}
 	}
 
@@ -48,5 +49,27 @@ public class Game : BaseGame
 	{
 		input.Disable();
 		Get = null;
+	}
+
+	public bool NextLevel()
+	{
+		if (GlobalData.GetAssetBindings().gameData.IsLastLevel(GlobalData.CurrentLevel))
+		{
+			return false;
+		}
+
+		GlobalData.CurrentLevel += 1;
+		RestartGame();
+		return true;
+	}
+
+	public void RestartGame()
+	{
+		SceneManager.LoadScene("Assets/Scenes/Game.unity", LoadSceneMode.Single);
+	}
+
+	public void GoToMainMenu()
+	{
+		SceneManager.LoadScene("Assets/Scenes/MainMenu.unity", LoadSceneMode.Single);
 	}
 }

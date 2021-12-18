@@ -34,7 +34,7 @@ namespace UI.MainMenu
 
 		private void RestartGame()
 		{
-			GameState.Get().RestartGame();
+			Game.Get.RestartGame();
 		}
 
 		private void GoToMainMenu()

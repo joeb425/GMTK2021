@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DefaultNamespace.Data;
 using UnityEngine;
 
@@ -15,11 +16,12 @@ public class GameData : ScriptableObject
 
 	public LevelData GetCurrentLevel()
 	{
-		return Get().levels[GlobalData.CurrentLevel];
+		int levelIndex = Math.Min(GlobalData.CurrentLevel, levels.Count - 1); 
+		return levels[levelIndex];
 	}
 
 	public bool IsLastLevel(int levelIndex)
 	{
-		return levelIndex >= levels.Count;
+		return levelIndex >= levels.Count - 1;
 	}
 }
