@@ -74,7 +74,9 @@ namespace Misc
 
 				if (hasChanged)
 				{
+					Debug.Log($"{towerData.name} changed");
 					EditorUtility.SetDirty(towerData);
+					AssetDatabase.SaveAssetIfDirty(towerData);
 				}
 			}
 

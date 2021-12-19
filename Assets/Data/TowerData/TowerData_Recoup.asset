@@ -19,7 +19,7 @@ MonoBehaviour:
   attackRange: 5
   damage: 0
   attackSpeed: 1
-  split: 2
+  split: 0
   splash: 0
   bulletPrefab: {fileID: 7556477264031917805, guid: 3764e102f80783e41ba30cd4794e2e57,
     type: 3}
