@@ -7,11 +7,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 3242984198978901850, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_Name
       value: Tower10
       objectReference: {fileID: 0}
+    - target: {fileID: 4880797105941278356, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4880797105941278356, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1f7dbd163b00788449d3490155096b49, type: 2}
+    - target: {fileID: 6714694530973837297, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -6589787566859588248, guid: fd17c746168af314bb1ee52127a7d240,
+        type: 3}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: towerData

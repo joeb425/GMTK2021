@@ -12,6 +12,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tower9
       objectReference: {fileID: 0}
+    - target: {fileID: 6714694530973837297, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 1307939546422566565, guid: 05ebb5be9dac1c844b022cf4dee9518a,
+        type: 3}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: towerData
