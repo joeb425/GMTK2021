@@ -1,3 +1,5 @@
+using Mantis.AttributeSystem;
+using Mantis.Engine.Misc;
 using ObjectPools;
 using UnityEngine;
 
@@ -26,11 +28,19 @@ public class SpawnerHandler : MonoBehaviour
 
 	private int _numAliveEnemies = 0;
 
+	public ScriptableObjectLootTable modifierTable;
+
+	public GameplayEffect[] mapMods; 
+
 	public void Start()
 	{
 		Debug.Log("starter");
 		nextSpawnTime = Time.time;
 		NextWave();
+
+		// TODO load map mods table from elsewhere
+		mapMods = modifierTable.GetItems<GameplayEffect>(2);
+		Debug.Log(mapMods);
 	}
 
 	public void GameUpdate()
@@ -53,6 +63,11 @@ public class SpawnerHandler : MonoBehaviour
 			enemy.OnReachEnd += OnEnemyReachEnd;
 			enemy.OnKilled += OnEnemyKilled;
 			_numAliveEnemies += 1;
+
+			foreach (GameplayEffect ge in mapMods)
+			{
+				enemy.Attributes.ApplyEffect(ge);
+			}
 		}
 	}
 

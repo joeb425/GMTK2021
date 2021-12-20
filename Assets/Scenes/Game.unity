@@ -310,6 +310,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   board: {fileID: 2022507406}
+  modifierTable: {fileID: 11400000, guid: 444f72c705760814dace26aaedc6989c, type: 2}
+  spawnModifiers: []
 --- !u!4 &640835632
 Transform:
   m_ObjectHideFlags: 0
@@ -747,7 +749,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 2022507405}
-  towerBuildMaterial: {fileID: 2100000, guid: e33cddd4d7caec14f90cbdb8a653bbf6, type: 2}
   groundLayer: {fileID: 0}
   towerLayer: {fileID: 0}
   foliageLayer: {fileID: 0}
