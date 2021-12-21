@@ -17,7 +17,7 @@ MonoBehaviour:
   towerCost: 2
   towerSell: 4
   attackRange: 2
-  damage: 5
+  damage: 0
   attackSpeed: 1
   split: 0
   splash: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
   - upgradeCost: 5
     upgradeEffect: {fileID: 11400000, guid: 5875d55ef89a56a45945586af535f14e, type: 2}
   onHitEffects:
-  - {fileID: 11400000, guid: 9ceb0776e14ea924ca9b918308d7a7d8, type: 2}
+  - {fileID: 11400000, guid: c3d5aaf545121b44984ca39c087a2b3a, type: 2}
   shootSfx: {fileID: 8300000, guid: 4552758ee0437044eb0460214f880917, type: 3}
   supportEffects: []
   supportRadius: 0

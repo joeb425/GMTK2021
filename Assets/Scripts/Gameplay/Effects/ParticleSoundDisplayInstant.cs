@@ -8,7 +8,7 @@ namespace DefaultNamespace.Enemy
 	[CreateAssetMenu(menuName = "Gameplay/Effects/ParticleSoundDisplayInstant")]
 	public class ParticleSoundDisplayInstant : EffectDisplay
 	{
-		public override void OnApplied(GameplayAttributeContainer attributeContainer, EffectDisplayParameters parameters, EffectParameters effectParameters)
+		public override void OnApplied(EffectContext context, EffectDisplayParameters parameters)
 		{
 			if (parameters.audioClip)
 			{
@@ -18,7 +18,7 @@ namespace DefaultNamespace.Enemy
 			if (parameters.particleSystem)
 			{
 				ParticleSystem ps = Instantiate(parameters.particleSystem);
-				ps.transform.position = attributeContainer.transform.position;
+				ps.transform.position = context.attributeContainer.transform.position;
 				ps.Play();
 			}
 		}

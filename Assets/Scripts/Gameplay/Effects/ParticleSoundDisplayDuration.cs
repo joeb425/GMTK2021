@@ -8,7 +8,7 @@ namespace DefaultNamespace.Enemy
 	{
 		private ParticleSystem ps;
 
-		public override void OnApplied(GameplayAttributeContainer attributeContainer, EffectDisplayParameters parameters, EffectParameters effectParameters)
+		public override void OnApplied(EffectContext context, EffectDisplayParameters parameters)
 		{
 			if (parameters.audioClip)
 			{
@@ -17,8 +17,8 @@ namespace DefaultNamespace.Enemy
 
 			if (parameters.particleSystem)
 			{
-				ps = Instantiate(parameters.particleSystem, attributeContainer.transform);
-				ps.transform.position = attributeContainer.transform.position;
+				ps = Instantiate(parameters.particleSystem, context.attributeContainer.transform);
+				ps.transform.position = context.attributeContainer.transform.position;
 				ps.Play();
 			}
 		}

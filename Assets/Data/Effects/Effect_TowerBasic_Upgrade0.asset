@@ -15,6 +15,22 @@ MonoBehaviour:
   modifiers:
   - attribute: {fileID: 11400000, guid: 902c58cf8c3927c4a9f73ab5b70b3d31, type: 2}
     value: 100
+    modifierMagnitide: {fileID: 0}
+    modifierMagnitideFunction:
+      _target: {fileID: 11400000, guid: 2b3b53c5246d6cf4fa9d1aac005f60b9, type: 2}
+      _methodName: Test
+      _args:
+      - boolValue: 0
+        intValue: 0
+        floatValue: 0
+        stringValue: 
+        objectValue: {fileID: 0}
+        argType: 3
+        _typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      _dynamic: 1
+      _typeName: Mantis.AttributeSystem.ModifierMagnitideFunction, Mantis.AttributeSystem,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      dirty: 0
     valueOperator: 0
   duration: -1
   triggerInterval: -1
@@ -28,3 +44,7 @@ MonoBehaviour:
     requiredTags: []
     blockedTags: []
   modifierLayers: []
+  effectDisplay:
+    display: {fileID: 0}
+    particleSystem: {fileID: 0}
+    audioClip: {fileID: 0}

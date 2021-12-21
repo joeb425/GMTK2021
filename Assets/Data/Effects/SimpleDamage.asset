@@ -14,12 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modifiers:
   - attribute: {fileID: 11400000, guid: 0ff80dc1f4cd10d438f7deca00a6d145, type: 2}
-    value: -5
+    value: 0
+    modifierMagnitide: {fileID: 11400000, guid: 63ff06f2cb10b2240b2d0e859e0efbd8,
+      type: 2}
+    modifierParameters:
+    - -5
     valueOperator: 0
   duration: -1
   triggerInterval: -1
-  extraEffects:
-  - {fileID: 11400000, guid: 98097641af988c14bb6bb71566ec298b, type: 2}
+  extraEffects: []
   appliedTags: []
   removedTags: []
   sourceRequirements:
