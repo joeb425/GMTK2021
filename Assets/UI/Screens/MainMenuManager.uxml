@@ -1,13 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:Template name="MenuScreen" src="MenuScreen.uxml" />
-    <ui:Template name="LevelSelectScreen" src="LevelSelectScreen.uxml" />
-    <ui:Template name="SettingsScreen" src="SettingsScreen.uxml" />
-    <Style src="/Assets/UI/StyleSheets/MainMenuStyleSheet.uss" />
+    <ui:Template name="SettingsScreen" src="project://database/Assets/UI/Screens/SettingsScreen.uxml?fileID=9197481963319205126&amp;guid=d7cb4cb92f226f244b71b960439410d3&amp;type=3#SettingsScreen" />
+    <ui:Template name="LevelSelectScreen" src="project://database/Assets/UI/Screens/LevelSelectScreen.uxml?fileID=9197481963319205126&amp;guid=4c0986249dd392b478a024f6f6875109&amp;type=3#LevelSelectScreen" />
+    <ui:Template name="MenuScreen" src="project://database/Assets/UI/Screens/MenuScreen.uxml?fileID=9197481963319205126&amp;guid=b75ac57bdb9ac7f44b7e11d5b2eedc9f&amp;type=3#MenuScreen" />
+    <Style src="project://database/Assets/UI/StyleSheets/MainMenuStyleSheet.uss?fileID=7433441132597879392&amp;guid=1a2419dd67beaf342afc7b052d04b018&amp;type=3#MainMenuStyleSheet" />
     <UI.MainMenu.MainMenuManager style="flex-grow: 1;">
-        <UI.MainMenu.ScreenSwitcher style="flex-grow: 1;">
-            <ui:Instance template="SettingsScreen" name="SettingsScreen" class="Screen" style="display: none;" />
+        <Mantis.Utils.UI.ScreenSwitcher class="Screen">
             <ui:Instance template="LevelSelectScreen" name="LevelSelectScreen" class="Screen" style="display: none;" />
             <ui:Instance template="MenuScreen" name="MenuScreen" class="Screen" />
-        </UI.MainMenu.ScreenSwitcher>
+            <ui:Instance template="SettingsScreen" name="SettingsScreen" class="Screen" style="display: none;" />
+        </Mantis.Utils.UI.ScreenSwitcher>
     </UI.MainMenu.MainMenuManager>
 </ui:UXML>
