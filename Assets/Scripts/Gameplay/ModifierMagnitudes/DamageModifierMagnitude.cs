@@ -2,7 +2,7 @@
 using Mantis.AttributeSystem;
 using UnityEngine;
 
-namespace DefaultNamespace.Enemy
+namespace DefaultNamespace.Enemy.ModifierMagnitude
 {
 	[CreateAssetMenu(menuName = "Attributes/ModifierMagnitude/DamageModifierMagnitude")]
 	public class DamageModifierMagnitude : ModifierMagnitide

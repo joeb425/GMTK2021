@@ -10,10 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05ab3d04918143b47967032fe5631659, type: 3}
-  m_Name: Status
+  m_Name: Status.Gear
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  children:
-  - {fileID: 11400000, guid: 26c06d7ea1a039844949fc75f2fb1b46, type: 2}
-  - {fileID: 11400000, guid: 64118fb11000f5545a76cbed5208d785, type: 2}
-  - {fileID: 11400000, guid: 7ecbb71bc59b52e4e9f05c7a2baac556, type: 2}
+  parent: {fileID: 11400000, guid: a36f5de4ddcc6bf48a9566336e975ec3, type: 2}
+  children: []

@@ -7,6 +7,7 @@ namespace DefaultNamespace.Enemy
 	[CreateAssetMenu(menuName = "Attributes/ModifierLayer/ReverseDamageLayer")]
 	public class ReverseDamageLayer : AttributeModifierLayer
 	{
+		// TODO pass in attribute system
 		public override float EditModifierValue(float value, GameplayAttributeModifier modifier)
 		{
 			if (modifier.attribute == MyAttributes.Get().Health)
