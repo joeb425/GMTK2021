@@ -50,6 +50,11 @@ public class Enemy : MonoBehaviour, IGameplayTag
 
 	private void Awake()
 	{
+		if (gameObject.transform.localScale != Vector3.one)
+		{
+			Debug.LogError("Enemy should have scale 1.0");
+		}
+
 		gameplayTagContainer = GetComponent<GameplayTagContainer>();
 		Attributes = GetComponent<GameplayAttributeContainer>();
 	}

@@ -66,6 +66,11 @@ public class Tower : HexTileComponent
 
 	private void Awake()
 	{
+		if (gameObject.transform.localScale != Vector3.one)
+		{
+			Debug.LogError("Tower should have scale 1.0");
+		}
+		
 		InitLineRenderer();
 
 		InitAttributes();
@@ -235,9 +240,10 @@ public class Tower : HexTileComponent
 			return false;
 		}
 
-		Vector3 a = transform.localPosition;
+		Vector3 a = transform.position;
 		Vector3 b = target.Position;
-		if (Vector3.Distance(a, b) > Attributes.GetCurrentValue(MyAttributes.Get().Range) + 0.125f)
+		a.y = b.y;
+		if (Vector3.Distance(a, b) > Attributes.GetCurrentValue(MyAttributes.Get().Range))
 		{
 			target = null;
 			return false;
@@ -248,7 +254,7 @@ public class Tower : HexTileComponent
 
 	Collider[] GetEnemiesInRadius()
 	{
-		return Physics.OverlapSphere(transform.localPosition, Attributes.GetCurrentValue(MyAttributes.Get().Range), 1 << 9);
+		return Physics.OverlapSphere(transform.position, Attributes.GetCurrentValue(MyAttributes.Get().Range), 1 << 9);
 	}
 
 	bool IsValidTarget(TargetPoint targetPoint)
@@ -259,7 +265,7 @@ public class Tower : HexTileComponent
 		}
 		
 		Enemy enemyTarget = targetPoint.Enemy;
-		if (!enemyTarget)
+		if (!enemyTarget || !enemyTarget.isActiveAndEnabled)
 		{
 			return false;
 		}
