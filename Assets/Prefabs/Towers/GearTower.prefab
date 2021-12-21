@@ -125,7 +125,7 @@ PrefabInstance:
     - target: {fileID: 3242984198978901850, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_Name
-      value: RocketTower
+      value: GearTower
       objectReference: {fileID: 0}
     - target: {fileID: 4880797105941278356, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
@@ -172,7 +172,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 6949565348763445047, guid: 9f399fc31d567be488897f370b2024cf,
+      objectReference: {fileID: 6949565348763445047, guid: 90b44c5dcee2ad14bbcca01a39ad18ad,
         type: 3}
     - target: {fileID: 6918217714850351385, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}

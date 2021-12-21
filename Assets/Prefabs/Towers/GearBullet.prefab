@@ -26,7 +26,7 @@ PrefabInstance:
     - target: {fileID: 4196600553289992653, guid: 53c0347117e139f4c94a42e205b4429d,
         type: 3}
       propertyPath: m_Name
-      value: RocketBullet
+      value: GearBullet
       objectReference: {fileID: 0}
     - target: {fileID: 5931582039851925569, guid: 53c0347117e139f4c94a42e205b4429d,
         type: 3}
@@ -47,7 +47,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 6949565348763445047, guid: 9f399fc31d567be488897f370b2024cf,
+      objectReference: {fileID: 6949565348763445047, guid: 90b44c5dcee2ad14bbcca01a39ad18ad,
         type: 3}
     - target: {fileID: 7522921511046828752, guid: 53c0347117e139f4c94a42e205b4429d,
         type: 3}
