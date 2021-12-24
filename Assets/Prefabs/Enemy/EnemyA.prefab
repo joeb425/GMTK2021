@@ -20,6 +20,12 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 4226526925643850458, guid: fc64a3fd233487043944d04bd380edf4,
         type: 3}
+      propertyPath: aliveTag
+      value: 
+      objectReference: {fileID: 11400000, guid: 26c06d7ea1a039844949fc75f2fb1b46,
+        type: 2}
+    - target: {fileID: 4226526925643850458, guid: fc64a3fd233487043944d04bd380edf4,
+        type: 3}
       propertyPath: maxHealth
       value: 15
       objectReference: {fileID: 0}

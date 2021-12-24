@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: {fileID: 4900000, guid: a7d490f489e649b43a49415b9e239b31, type: 3}
   waves:
-  - enemyCount: 5
-    spawnSpeed: 1
+  - enemyCount: 15
+    spawnSpeed: 5
     enemyPrefab: {fileID: 3921608051714855020, guid: 4f3eeab436ba11f4dbf29ffcdb7a6847,
       type: 3}
   - enemyCount: 5

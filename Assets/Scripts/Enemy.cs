@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Tracing;
 using DefaultNamespace.Data;
 using Mantis.AttributeSystem;
 using Mantis.GameplayTags;
@@ -48,20 +49,42 @@ public class Enemy : MonoBehaviour, IGameplayTag
 	[HideInInspector]
 	public GameplayTagContainer gameplayTagContainer;
 
+	[SerializeField]
+	public GameplayTag aliveTag;
+
 	private void Awake()
 	{
 		if (gameObject.transform.localScale != Vector3.one)
 		{
 			Debug.LogError("Enemy should have scale 1.0");
 		}
+		
+		Debug.Log("Awake " + name);
 
 		gameplayTagContainer = GetComponent<GameplayTagContainer>();
 		Attributes = GetComponent<GameplayAttributeContainer>();
 	}
 
+	private void OnHealthChanged(GameplayAttribute attribute)
+	{
+		if (!gameplayTagContainer.ContainsTag(aliveTag))
+		{
+			return;
+		}
+
+		slider.value = CalculateHealth();
+
+		if (GetHealth() <= 0f)
+		{
+			OnDeath();
+			return;
+		}
+	}
+
 	public void SpawnOn(Vector3 worldPos)
 	{
 		transform.position = worldPos;
+		_progress = 0.0f;
 
 		if (!_healthBarInstance)
 		{
@@ -73,9 +96,15 @@ public class Enemy : MonoBehaviour, IGameplayTag
 
 		slider = _healthBarInstance.GetComponentInChildren<Slider>();
 
+		gameplayTagContainer.Reset();
+		Attributes.Reset();
+
 		Attributes.InitAttribute(MyAttributes.Get().Health, maxHealth);
 		Attributes.InitAttribute(MyAttributes.Get().MaxHealth, maxHealth);
 		Attributes.InitAttribute(MyAttributes.Get().Speed, 1.0f);
+
+		Attributes.GetAttribute(MyAttributes.Get().Health).OnAttributeChanged -= OnHealthChanged;
+		Attributes.GetAttribute(MyAttributes.Get().Health).OnAttributeChanged += OnHealthChanged;
 
 		enemyModel.transform.localPosition = new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, 0.0f);
 	}
@@ -89,19 +118,12 @@ public class Enemy : MonoBehaviour, IGameplayTag
 	// public bool GameUpdate()
 	public void Update()
 	{
-		Attributes.GameUpdate();
-
-		slider.value = CalculateHealth();
-		if (GetHealth() <= 0f)
+		if (!gameplayTagContainer.ContainsTag(aliveTag))
 		{
-			OnDeath();
 			return;
 		}
 
-		if (GetHealth() < GetMaxHealth())
-		{
-			_healthBarInstance.SetActive(true);
-		}
+		Attributes.GameUpdate();
 
 		var path = GameState.Get().Board.enemyPath;
 
@@ -140,10 +162,7 @@ public class Enemy : MonoBehaviour, IGameplayTag
 		OnKilled?.Invoke();
 		GameState.Get().SetCash(GameState.Get().CurrentCash + 1);
 
-		if (GameplayTagManager.instance.RequestTag("Status.IsAlive", out GameplayTag aliveTag))
-		{
-			gameplayTagContainer.RemoveTag(aliveTag);
-		}
+		gameplayTagContainer.RemoveTag(aliveTag);
 
 		PlayDeathSfx();
 	}

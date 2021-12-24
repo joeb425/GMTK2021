@@ -59,6 +59,7 @@ MonoBehaviour:
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
   Attributes: {fileID: 0}
   gameplayTagContainer: {fileID: 0}
+  aliveTag: {fileID: 0}
 --- !u!95 &2038034166387832802
 Animator:
   serializedVersion: 4
