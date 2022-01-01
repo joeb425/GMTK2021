@@ -66,7 +66,7 @@ public class SpawnerHandler : MonoBehaviour
 
 			foreach (GameplayEffect ge in mapMods)
 			{
-				enemy.Attributes.ApplyEffect(ge);
+				enemy.attributes.ApplyEffect(ge);
 			}
 		}
 	}

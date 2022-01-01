@@ -425,7 +425,7 @@ public class Tower : HexTileComponent
 	{
 		foreach (GameplayEffect effect in onHitEffects)
 		{
-			targetPoint.Enemy.Attributes.ApplyEffect(effect);
+			targetPoint.Enemy.attributes.ApplyEffect(effect);
 		}
 
 		float damage = Attributes.GetCurrentValue(MyAttributes.Get().Damage);
@@ -460,7 +460,7 @@ public class Tower : HexTileComponent
 
 		damageEffect.modifiers.Add(healthMod);
 
-		enemy.Attributes.ApplyEffect(damageEffect, effectParameters);
+		enemy.attributes.ApplyEffect(damageEffect, effectParameters);
 	}
 
 	protected void OnSelected(Hex _, Hex newSelection)

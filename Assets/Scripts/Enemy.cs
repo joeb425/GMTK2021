@@ -5,6 +5,7 @@ using Mantis.GameplayTags;
 using Mantis.Hex;
 using ObjectPools;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
@@ -43,7 +44,7 @@ public class Enemy : MonoBehaviour, IGameplayTag
 	public Quaternion desiredRotation;
 
 	[HideInInspector]
-	public GameplayAttributeContainer Attributes;
+	public GameplayAttributeContainer attributes;
 
 	[HideInInspector]
 	public GameplayTagContainer gameplayTagContainer;
@@ -61,7 +62,7 @@ public class Enemy : MonoBehaviour, IGameplayTag
 		}
 
 		gameplayTagContainer = GetComponent<GameplayTagContainer>();
-		Attributes = GetComponent<GameplayAttributeContainer>();
+		attributes = GetComponent<GameplayAttributeContainer>();
 		_trailRenderer = GetComponentInChildren<TrailRenderer>();
 	}
 
@@ -99,14 +100,14 @@ public class Enemy : MonoBehaviour, IGameplayTag
 
 		_progress = 0.0f;
 		gameplayTagContainer.Reset();
-		Attributes.Reset();
+		attributes.Reset();
 
-		Attributes.InitAttribute(MyAttributes.Get().Health, maxHealth);
-		Attributes.InitAttribute(MyAttributes.Get().MaxHealth, maxHealth);
-		Attributes.InitAttribute(MyAttributes.Get().Speed, 1.0f);
+		attributes.InitAttribute(MyAttributes.Get().Health, maxHealth);
+		attributes.InitAttribute(MyAttributes.Get().MaxHealth, maxHealth);
+		attributes.InitAttribute(MyAttributes.Get().Speed, 1.0f);
 
-		Attributes.GetAttribute(MyAttributes.Get().Health).OnAttributeChanged -= OnHealthChanged;
-		Attributes.GetAttribute(MyAttributes.Get().Health).OnAttributeChanged += OnHealthChanged;
+		attributes.GetAttribute(MyAttributes.Get().Health).OnAttributeChanged -= OnHealthChanged;
+		attributes.GetAttribute(MyAttributes.Get().Health).OnAttributeChanged += OnHealthChanged;
 
 		enemyModel.transform.localPosition = new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, 0.0f);
 
@@ -128,11 +129,11 @@ public class Enemy : MonoBehaviour, IGameplayTag
 			return;
 		}
 
-		Attributes.GameUpdate();
+		attributes.GameUpdate();
 
 		var path = GameState.Get().Board.enemyPath;
 
-		_progress += Mathf.Clamp(Time.deltaTime * Attributes.GetCurrentValue(MyAttributes.Get().Speed), 0.0f, path.Count);
+		_progress += Mathf.Clamp(Time.deltaTime * attributes.GetCurrentValue(MyAttributes.Get().Speed), 0.0f, path.Count);
 		int index = (int)Mathf.Floor(_progress);
 
 		if (index + 1 < path.Count)
@@ -179,12 +180,12 @@ public class Enemy : MonoBehaviour, IGameplayTag
 
 	float GetHealth()
 	{
-		return Attributes.GetCurrentValue(MyAttributes.Get().Health);
+		return attributes.GetCurrentValue(MyAttributes.Get().Health);
 	}
 
 	float GetMaxHealth()
 	{
-		return Attributes.GetCurrentValue(MyAttributes.Get().MaxHealth);
+		return attributes.GetCurrentValue(MyAttributes.Get().MaxHealth);
 	}
 
 	float CalculateHealth()
