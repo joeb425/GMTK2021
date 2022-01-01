@@ -8,5 +8,11 @@ public class LevelData : ScriptableObject
 	public TextAsset level;
 
 	[SerializeField]
+	public string displayName;
+
+	[SerializeField]
+	public Texture2D thumbnail;
+
+	[SerializeField]
 	public List<SpawnerHandler.Wave> waves;
 }

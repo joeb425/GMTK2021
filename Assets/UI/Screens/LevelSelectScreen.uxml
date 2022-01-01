@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <UI.MainMenu.LevelSelectionPanel style="flex-grow: 1; justify-content: center; align-items: center;" />
-    <ui:VisualElement name="BackBtn" text="Back&#10;" style="justify-content: flex-start; align-items: center; width: 64px;">
-        <ui:Button text="Back&#10;" display-tooltip-when-elided="true" style="width: auto; align-items: center;" />
+    <Style src="project://database/Assets/UI/StyleSheets/MainMenuStyleSheet.uss?fileID=7433441132597879392&amp;guid=1a2419dd67beaf342afc7b052d04b018&amp;type=3#MainMenuStyleSheet" />
+    <ui:VisualElement style="align-items: center; flex-grow: 1; justify-content: center;">
+        <UI.MainMenu.LevelSelectionPanel class="MenuPanel" style="flex-direction: row; width: 500px; flex-wrap: wrap;" />
     </ui:VisualElement>
+    <ui:Button name="BackBtn" class="MenuButton BackButton" />
 </ui:UXML>

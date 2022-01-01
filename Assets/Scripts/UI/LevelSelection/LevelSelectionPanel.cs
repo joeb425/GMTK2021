@@ -33,18 +33,20 @@ namespace UI.MainMenu
 
 		private void OnAttach(AttachToPanelEvent evt)
 		{
+			Clear();
 			GameData gameData = GameData.Get();
 			for (var i = 0; i < gameData.levels.Count; i++)
 			{
 				LevelData level = gameData.levels[i];
 				TemplateContainer instance = _levelSelectionItem.CloneTree();
+				instance.name = "Level" + (i + 1); 
 
 				Button button = instance.Q<Button>();
 				var levelIndex = i;
 				button.RegisterCallback<ClickEvent>(ev => LoadLevel(level.level, levelIndex));
-				button.text = "Level " + i;
+				button.text = "" + (i + 1);
 
-				Add(button);
+				Add(instance);
 			}
 		}
 

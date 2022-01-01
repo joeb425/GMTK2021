@@ -1,3 +1,27 @@
+.MenuButton {
+    width: 64px;
+    height: 64px;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-top-left-radius: 32px;
+    border-bottom-left-radius: 32px;
+    border-top-right-radius: 32px;
+    border-bottom-right-radius: 32px;
+    border-left-color: rgb(85, 153, 119);
+    border-right-color: rgb(85, 153, 119);
+    border-top-color: rgb(85, 153, 119);
+    border-bottom-color: rgb(85, 153, 119);
+    background-color: rgb(17, 102, 68);
+    color: rgba(185, 185, 185, 255);
+}
+
 .Screen {
     position: absolute;
     left: 0;
@@ -6,4 +30,76 @@
     bottom: 0;
     width: 100%;
     height: 100%;
+}
+
+.MajorButton {
+    width: 256px;
+    height: 64px;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-left-color: rgba(85, 153, 119, 255);
+    border-right-color: rgba(85, 153, 119, 255);
+    border-top-color: rgba(85, 153, 119, 255);
+    border-bottom-color: rgba(85, 153, 119, 255);
+    background-color: rgba(17, 102, 68, 255);
+    color: rgba(255, 255, 255, 255);
+}
+
+.MenuPanel {
+    width: auto;
+    height: auto;
+    background-color: rgb(188, 156, 19);
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-left-color: rgba(255, 255, 255, 255);
+    border-right-color: rgba(255, 255, 255, 255);
+    border-top-color: rgba(255, 255, 255, 255);
+    border-bottom-color: rgba(255, 255, 255, 255);
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    white-space: nowrap;
+}
+
+.Title {
+    position: absolute;
+    top: 15%;
+    font-size: 64px;
+    -unity-font-style: bold-and-italic;
+    text-shadow: 4px 4px 0 rgb(17, 102, 68);
+    -unity-text-outline-color: rgba(255, 255, 255, 255);
+    -unity-text-outline-width: 0;
+}
+
+.BackButton {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-image: url('project://database/Assets/Icons/anticlockwise-rotation.png?fileID=2800000&guid=09feeb077588c7442bc0b9c35c7a89fb&type=3#anticlockwise-rotation');
+    width: 64px;
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-slice-left: 8;
+    -unity-slice-top: 8;
+    -unity-slice-right: 8;
+    -unity-slice-bottom: 8;
 }
