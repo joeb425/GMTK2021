@@ -55,10 +55,10 @@ public class SpawnerHandler : MonoBehaviour
 			enemiesRemainingToSpawn--;
 			nextSpawnTime = Time.time + currentWave.spawnSpeed;
 
-			Enemy enemy = EnemyPool.Get().GetInstance(currentWave.enemyPrefab);
-
+			Enemy enemy = EnemyPool.Get().GetInstanceInactive(currentWave.enemyPrefab);
 			var spawnPoint = board.grid.flat.HexToWorld(board.enemyPath[0]);
 			enemy.SpawnOn(spawnPoint);
+			enemy.gameObject.SetActive(true);
 
 			enemy.OnReachEnd += OnEnemyReachEnd;
 			enemy.OnKilled += OnEnemyKilled;

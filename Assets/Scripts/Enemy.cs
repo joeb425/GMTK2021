@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Tracing;
 using DefaultNamespace.Data;
 using Mantis.AttributeSystem;
 using Mantis.GameplayTags;
@@ -31,7 +30,7 @@ public class Enemy : MonoBehaviour, IGameplayTag
 
 	private float _progress;
 
-	private Slider slider;
+	private Slider _slider;
 
 	public event Action OnReachEnd;
 	public event Action OnKilled;
@@ -52,17 +51,18 @@ public class Enemy : MonoBehaviour, IGameplayTag
 	[SerializeField]
 	public GameplayTag aliveTag;
 
+	private TrailRenderer _trailRenderer;
+
 	private void Awake()
 	{
 		if (gameObject.transform.localScale != Vector3.one)
 		{
 			Debug.LogError("Enemy should have scale 1.0");
 		}
-		
-		Debug.Log("Awake " + name);
 
 		gameplayTagContainer = GetComponent<GameplayTagContainer>();
 		Attributes = GetComponent<GameplayAttributeContainer>();
+		_trailRenderer = GetComponentInChildren<TrailRenderer>();
 	}
 
 	private void OnHealthChanged(GameplayAttribute attribute)
@@ -72,7 +72,7 @@ public class Enemy : MonoBehaviour, IGameplayTag
 			return;
 		}
 
-		slider.value = CalculateHealth();
+		_slider.value = CalculateHealth();
 
 		if (GetHealth() <= 0f)
 		{
@@ -84,18 +84,20 @@ public class Enemy : MonoBehaviour, IGameplayTag
 	public void SpawnOn(Vector3 worldPos)
 	{
 		transform.position = worldPos;
-		_progress = 0.0f;
 
 		if (!_healthBarInstance)
 		{
 			_healthBarInstance = Instantiate(healthBarPrefab);
+			_slider = _healthBarInstance.GetComponentInChildren<Slider>();
 		}
 
 		_healthBarInstance.SetActive(true);
 		SetHealthbarPosition();
 
-		slider = _healthBarInstance.GetComponentInChildren<Slider>();
+		OnKilled = null;
+		OnReachEnd = null;
 
+		_progress = 0.0f;
 		gameplayTagContainer.Reset();
 		Attributes.Reset();
 
@@ -107,6 +109,9 @@ public class Enemy : MonoBehaviour, IGameplayTag
 		Attributes.GetAttribute(MyAttributes.Get().Health).OnAttributeChanged += OnHealthChanged;
 
 		enemyModel.transform.localPosition = new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, 0.0f);
+
+		// stop trail renderer showing when the enemy teleports
+		_trailRenderer?.Clear();
 	}
 
 	public void ApplyDamage(float damage)
