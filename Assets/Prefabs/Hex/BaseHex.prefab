@@ -1,25 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &6530625042590791959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4457779302516862804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4779fa9877934c0c8446d0fb42e5047d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hex:
-    q: 0
-    r: 0
-    s: 0
-  gameplayTag: {fileID: 11400000, guid: 6edb06a2ba38c9b4fab7f3def8c4e13c, type: 2}
-  IsObstacle: 0
-  SpreadType: 
-  TileType: 0
 --- !u!1 &5014410660391200318
 GameObject:
   m_ObjectHideFlags: 0
@@ -36,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6547271860368896937
 Transform:
@@ -48,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3933584233153132014}
   m_RootOrder: 0
@@ -63,6 +44,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -198,19 +180,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseHex
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0d68c412686f7774096c6ac3c0894a36,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: -5754084199372789682, guid: 0d68c412686f7774096c6ac3c0894a36, type: 3}
     - {fileID: -7511558181221131132, guid: 0d68c412686f7774096c6ac3c0894a36, type: 3}
+    - {fileID: -5754084199372789682, guid: 0d68c412686f7774096c6ac3c0894a36, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0d68c412686f7774096c6ac3c0894a36, type: 3}
---- !u!1 &4457779302516862804 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0d68c412686f7774096c6ac3c0894a36,
-    type: 3}
-  m_PrefabInstance: {fileID: 3538808383213015557}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3933584233153132014 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0d68c412686f7774096c6ac3c0894a36,
     type: 3}
   m_PrefabInstance: {fileID: 3538808383213015557}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4457779302516862804 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0d68c412686f7774096c6ac3c0894a36,
+    type: 3}
+  m_PrefabInstance: {fileID: 3538808383213015557}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6530625042590791959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4457779302516862804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4779fa9877934c0c8446d0fb42e5047d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hex:
+    q: 0
+    r: 0
+    s: 0
+  layer: {fileID: 0}
+  gameplayTag: {fileID: 11400000, guid: 6edb06a2ba38c9b4fab7f3def8c4e13c, type: 2}
+  IsObstacle: 0
+  SpreadType: 
+  TileType: 0

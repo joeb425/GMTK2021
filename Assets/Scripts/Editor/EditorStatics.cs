@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Mantis.GameplayTags;
 using Mantis.Utils;
+using Mantis.Utils.Editor;
 using UnityEditor;
 using UnityEngine;
-using CustomAssetUtils = Mantis.Utils.CustomAssetUtils;
 
-namespace Misc
+namespace Mantis.LinkTD.Editor.Editor
 {
 	static class EditorStatics
 	{

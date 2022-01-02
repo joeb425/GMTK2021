@@ -8,8 +8,8 @@
         "Unity.InputSystem",
         "Mantis.Engine",
         "Mantis.Hex",
-        "Mantis.Hex.Editor",
-        "UnityEngine.UIElementsModule"
+        "Unity.Addressables",
+        "Unity.ResourceManager"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -28,7 +28,7 @@ public class InputHandler
 
 	public void Init()
 	{
-		TouchSimulation.Enable();
+		// TouchSimulation.Enable();
 
 		_gameInputs = new GameInputs();
 		_gameInputs.Enable();
@@ -52,7 +52,7 @@ public class InputHandler
 		{
 			return;
 		}
-		
+
 		GameBoard board = GameState.Get().Board;
 		if (board.hoveredTile != null)
 		{

@@ -69,7 +69,7 @@ public class GameBoard : MonoBehaviour
 		// grid.Init();
 		GameData gameData = GameData.Get();
 		TextAsset levelToLoad = gameData.GetCurrentLevel().level;
-		Debug.Log($"Load level {GlobalData.CurrentLevel} : {levelToLoad.name}");
+		Debug.Log($"Load level {GlobalData.CurrentLevel} : {levelToLoad.name} : {levelToLoad.text}");
 		grid.LoadLevelFromJson(levelToLoad.text);
 
 		groundLayer = grid.GetLayer("Ground");

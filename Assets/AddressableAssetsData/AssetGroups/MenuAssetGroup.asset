@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: MenuAssetGroup
+  m_EditorClassIdentifier: 
+  m_GroupName: MenuAssetGroup
+  m_Data:
+    m_SerializedData: []
+  m_GUID: ea2618f2860767642af9ed00bfe9bb1b
+  m_SerializeEntries:
+  - m_GUID: fc2c125583b929145966758aa82868a4
+    m_Address: Assets/UI/Screens/LevelSelectItem.uxml
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bced2e0de75d9c943a1bc5f3d745672f
+    m_Address: Assets/Scenes/MainMenu.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 3dbc8760bff0bdc4fb5874ce941f1a6b, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 16da9eda14597ac47830f3e783f5752a, type: 2}
+    - {fileID: 11400000, guid: 5d46036d59562d14a8e2040f1f9ad051, type: 2}

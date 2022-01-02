@@ -227,6 +227,11 @@ MonoBehaviour:
   trackTarget: 1
   spawnAnimation: {fileID: 0}
   towerBuildMaterial: {fileID: 2100000, guid: e33cddd4d7caec14f90cbdb8a653bbf6, type: 2}
+  targetTagFilter:
+    requiredTags:
+    - {fileID: 11400000, guid: 26c06d7ea1a039844949fc75f2fb1b46, type: 2}
+    blockedTags:
+    - {fileID: 11400000, guid: 64118fb11000f5545a76cbed5208d785, type: 2}
   numSegments: 128
   radiusLineRenderer: {fileID: 0}
   Attributes: {fileID: 0}
@@ -373,7 +378,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialTags: []
-  containedTags: []
 --- !u!114 &7286309082845951563
 MonoBehaviour:
   m_ObjectHideFlags: 0

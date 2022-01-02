@@ -2,10 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using Mantis.Engine;
+using Mantis.GameplayTags;
 using Mantis.Utils;
 using Misc;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
@@ -21,8 +24,17 @@ public class Game : BaseGame
 	[SerializeField]
 	public SpawnerHandler spawnerHandler;
 
+	[SerializeField]
+	public GameplayTag myTagA;
+
+	[SerializeField]
+	public GameplayTag myTagB;
+
 	protected override void PreInit()
 	{
+		Application.targetFrameRate = 120;
+		AsyncOperationHandle<GameplayTag> op = Addressables.LoadAssetAsync<GameplayTag>("Assets/Data/Tags/Hex.asset");
+		GameplayTag loadTag = op.WaitForCompletion();
 		Get = this;
 	}
 

@@ -57,9 +57,9 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 2143082155953639934, guid: a927b9a2336083a4ca0ca01e266cfee4,
     type: 3}
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
-  Attributes: {fileID: 0}
+  attributes: {fileID: 0}
   gameplayTagContainer: {fileID: 0}
-  aliveTag: {fileID: 0}
+  aliveTag: {fileID: 11400000, guid: 26c06d7ea1a039844949fc75f2fb1b46, type: 2}
 --- !u!95 &2038034166387832802
 Animator:
   serializedVersion: 4
@@ -94,7 +94,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialTags:
   - {fileID: 11400000, guid: 26c06d7ea1a039844949fc75f2fb1b46, type: 2}
-  containedTags: []
 --- !u!114 &-1424150158732135498
 MonoBehaviour:
   m_ObjectHideFlags: 0

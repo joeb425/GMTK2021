@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 
@@ -20,8 +21,10 @@ namespace UI.MainMenu
 
 		public LevelSelectionPanel()
 		{
-			_levelSelectionItem =
-				AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI/Screens/LevelSelectItem.uxml");
+			var op = Addressables.LoadAssetAsync<VisualTreeAsset>("Assets/UI/Screens/LevelSelectItem.uxml");
+			_levelSelectionItem = op.WaitForCompletion();
+				
+				// AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI/Screens/LevelSelectItem.uxml");
 			if (_levelSelectionItem == null)
 			{
 				Debug.LogError("LevelSelectionItem not found");

@@ -29,7 +29,7 @@ public partial class @GameInputs : IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""MouseClick"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""b0166acb-c483-4416-a43a-f9f4f853d96d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -68,8 +68,8 @@ public partial class @GameInputs : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6921eafa-d36f-48ef-a53c-4498ddd5684f"",
-                    ""path"": ""<Touchscreen>/touch*/Press"",
-                    ""interactions"": ""Press(behavior=2)"",
+                    ""path"": ""<Touchscreen>/primaryTouch/press"",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MouseClick"",
@@ -79,7 +79,7 @@ public partial class @GameInputs : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d89ce630-9a4c-47f2-a2b9-12d4b7048c48"",
-                    ""path"": ""<Touchscreen>/touch0/position"",
+                    ""path"": ""<Touchscreen>/primaryTouch/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

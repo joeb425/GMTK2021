@@ -38,6 +38,10 @@ public class Tower : HexTileComponent
 	[SerializeField]
 	public Material towerBuildMaterial;
 
+	[SerializeField]
+	private GameplayTagFilter targetTagFilter; 
+
+
 	private float attackTimeRemaining;
 
 	public int numSegments = 64;
@@ -269,13 +273,16 @@ public class Tower : HexTileComponent
 		{
 			return false;
 		}
+		
+		
+		// GameplayTagManager.instance.RequestTag("Status.IsAlive", out GameplayTag statusIsAlive);
+		// GameplayTagManager.instance.RequestTag("Status.Invulnerable", out GameplayTag statusInvulnerable);
+		return targetTagFilter.DoesFilterPass(enemyTarget.gameplayTagContainer);
 
-		GameplayTagManager.instance.RequestTag("Status.IsAlive", out GameplayTag statusIsAlive);
-		GameplayTagManager.instance.RequestTag("Status.Invulnerable", out GameplayTag statusInvulnerable);
-		bool isAlive = enemyTarget.gameplayTagContainer.ContainsTag(statusIsAlive);
-		bool isInvulnerable = enemyTarget.gameplayTagContainer.ContainsTag(statusInvulnerable);
-
-		return isAlive && !isInvulnerable;
+		// bool isAlive = enemyTarget.gameplayTagContainer.ContainsTag(statusIsAlive);
+		// bool isInvulnerable = enemyTarget.gameplayTagContainer.ContainsTag(statusInvulnerable);
+		//
+		// return isAlive && !isInvulnerable;
 	}
 
 	bool AcquireTarget()

@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca2e53d2846d4dc59c81e0adab2724e4, type: 3}
   m_Name: GearModifierMagnitude
   m_EditorClassIdentifier: 
+  gearTag: {fileID: 11400000, guid: 7ecbb71bc59b52e4e9f05c7a2baac556, type: 2}
   baseValue: 1

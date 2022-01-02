@@ -1,0 +1,24 @@
+{
+    "name": "Mantis.LinkTD.Editor",
+    "rootNamespace": "Mantis.LinkTD.Editor",
+    "references": [
+        "Mantis.GameplayTags",
+        "Mantis.AttributeSystem",
+        "Mantis.Utils",
+        "Mantis.Utils.Editor",
+        "Unity.InputSystem",
+        "Mantis.Engine",
+        "Mantis.Hex",
+        "Mantis.Hex.Editor",
+        "Mantis.LinkTD"
+    ],
+    "includePlatforms": [ "Editor" ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

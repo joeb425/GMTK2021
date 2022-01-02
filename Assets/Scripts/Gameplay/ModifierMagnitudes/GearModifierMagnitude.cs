@@ -9,19 +9,17 @@ namespace DefaultNamespace.Enemy.ModifierMagnitude
 	public class GearModifierMagnitude : ModifierMagnitide
 	{
 		[SerializeField]
+		private GameplayTag gearTag;
+		
+		[SerializeField]
 		private float baseValue = 1.0f;
 
 		public override float GetMagnitude(float[] modifierParameters, EffectContext context)
 		{
 			GameplayTagContainer tags = context.attributeContainer.gameObject.GetComponent<GameplayTagContainer>();
 
-			if (GameplayTagManager.instance.RequestTag("Status.Gear", out var gearTag))
-			{
-				int gearCount = tags.GetTagCount(gearTag);
-				return gearCount * -1.0f;
-			}
-
-			return modifierParameters[0];
+			int gearCount = tags.GetTagCount(gearTag);
+			return gearCount * -1.0f;
 		}
 	}
 }
