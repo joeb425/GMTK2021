@@ -17,8 +17,8 @@ MonoBehaviour:
   thumbnail: {fileID: 1169890249420208065, guid: f7f32402de670e44eb5dabbc549b781c,
     type: 3}
   waves:
-  - enemyCount: 20
-    spawnSpeed: 0.5
+  - enemyCount: 1
+    spawnSpeed: 2
     enemyPrefab: {fileID: 3921608051714855020, guid: 4f3eeab436ba11f4dbf29ffcdb7a6847,
       type: 3}
   - enemyCount: 5
