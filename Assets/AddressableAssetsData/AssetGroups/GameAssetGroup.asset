@@ -42,6 +42,26 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - game
+  - m_GUID: 8913c71fffce944678d35abbd12a2984
+    m_Address: Assets/Prefabs
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+  - m_GUID: ac13854a66fc3cf4097e026f97fa2655
+    m_Address: Assets/UI/Attributes
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+  - m_GUID: a98a4f7f167bb2c4f9d04b02024f81a3
+    m_Address: Assets/UI/HUD
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+  - m_GUID: f999c0c45e316a94383d8ae589d3fcdf
+    m_Address: Assets/UI/StyleSheets
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3dbc8760bff0bdc4fb5874ce941f1a6b, type: 2}
   m_SchemaSet:

@@ -8,6 +8,7 @@
   <xs:import schemaLocation="UI.HUD.xsd" namespace="UI.HUD" />
   <xs:import schemaLocation="UI.MainMenu.xsd" namespace="UI.MainMenu" />
   <xs:import schemaLocation="Mantis.Utils.UI.xsd" namespace="Mantis.Utils.UI" />
+  <xs:import schemaLocation="Mantis.AttributeSystem.UI.xsd" namespace="Mantis.AttributeSystem.UI" />
   <xs:import schemaLocation="UnityEditor.ShortcutManagement.xsd" namespace="UnityEditor.ShortcutManagement" />
   <xs:import schemaLocation="UnityEditor.UIElements.Debugger.xsd" namespace="UnityEditor.UIElements.Debugger" />
   <xs:import schemaLocation="Unity.UI.Builder.xsd" namespace="Unity.UI.Builder" />
