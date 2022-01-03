@@ -154,6 +154,7 @@ public class Enemy : MonoBehaviour, IGameplayTag
 		{
 			// reached end
 			OnReachEnd?.Invoke();
+			_healthBarInstance.SetActive(false);
 			EnemyPool.Get().ReclaimToPool(this);
 			return;
 		}
