@@ -111,6 +111,8 @@ public class Enemy : MonoBehaviour, IGameplayTag
 
 		enemyModel.transform.localPosition = new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, 0.0f);
 
+		transform.rotation = GetDesiredRotation();
+
 		// stop trail renderer showing when the enemy teleports
 		_trailRenderer?.Clear();
 	}
@@ -148,6 +150,7 @@ public class Enemy : MonoBehaviour, IGameplayTag
 
 			Vector3 delta = hexTo - hexFrom;
 			desiredRotation = Quaternion.LookRotation(delta, Vector3.up);
+
 			enemyModel.transform.rotation = Quaternion.Slerp(enemyModel.transform.rotation, desiredRotation, Time.deltaTime * 5.0f);
 		}
 		else
@@ -160,6 +163,26 @@ public class Enemy : MonoBehaviour, IGameplayTag
 		}
 
 		SetHealthbarPosition();
+	}
+
+	public Quaternion GetDesiredRotation()
+	{
+		var path = GameState.Get().Board.enemyPath;
+
+		int index = (int)Mathf.Floor(_progress);
+
+		Hex hex = path[index];
+		Hex nextHex = path[index + 1];
+
+		float tileProgress = _progress - index;
+		Vector3 hexFrom = GameState.Get().Board.grid.flat.HexToWorld(hex);
+		Vector3 hexTo = GameState.Get().Board.grid.flat.HexToWorld(nextHex);
+		transform.position = Vector3.LerpUnclamped(hexFrom, hexTo, tileProgress);
+
+		Vector3 delta = hexTo - hexFrom;
+		desiredRotation = Quaternion.LookRotation(delta, Vector3.up);
+
+		return desiredRotation;
 	}
 
 	protected void OnDeath()
