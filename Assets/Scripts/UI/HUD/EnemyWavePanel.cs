@@ -7,8 +7,8 @@ namespace UI.HUD
 	public class EnemyWavePanel : GameVisualElement
 	{
 		private Label _waveNumber;
-		private Label _enemyName;
-		
+		private int _numWaves;
+
 		public new class UxmlFactory : UxmlFactory<EnemyWavePanel, UxmlTraits>
 		{
 		}
@@ -19,18 +19,22 @@ namespace UI.HUD
 
 		public override void OnGamePreInit()
 		{
-			Debug.Log("Enemy wave panel Pre init?");
 			Game.Get.spawnerHandler.OnNextWave += DisplayWave;
+			_numWaves = GameData.Get().GetCurrentLevel().waves.Count;
+
 			_waveNumber = this.Q<Label>("WaveNumber");
-			_enemyName = this.Q<Label>("EnemyName");
+
 			Debug.Assert(_waveNumber != null, "_waveNumber != null");
-			Debug.Assert(_enemyName != null, "_enemyName != null");
+		}
+
+		public override void OnGameInit()
+		{
+			base.OnGameInit();
 		}
 
 		private void DisplayWave(SpawnerHandler.Wave wave, int waveIndex)
 		{
-			_waveNumber.text = ""  + waveIndex;
-			_enemyName.text = wave.enemyPrefab.name;
+			_waveNumber.text = $"{waveIndex + 1}/{_numWaves}";
 		}
 	}
 }
