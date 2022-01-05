@@ -44,6 +44,8 @@ public class GameState : BaseGameState
 
 	public bool IsGameOver = false;
 
+	public bool _isPaused = false;
+
 	public bool SpendCash(int Cost)
 	{
 		if (CurrentCash >= Cost)
@@ -113,6 +115,32 @@ public class GameState : BaseGameState
 		Board.towerLayer.RemoveTile(tower.hex, out HexTileComponent removedTower);
 		SetCash(CurrentCash + tower.towerData.towerSell);
 		Object.Destroy(removedTower.gameObject);
+	}
+
+	public bool TogglePause()
+	{
+		if (_isPaused)
+		{
+			ResumeGame();
+		}
+		else
+		{
+			PauseGame();
+		}
+
+		return _isPaused;
+	}
+
+	public void PauseGame()
+	{
+		Time.timeScale = 0.0f;
+		_isPaused = true;
+	}
+
+	public void ResumeGame()
+	{
+		SetGameSpeed(gameSpeedIndex);
+		_isPaused = false;
 	}
 
 	public void SpeedUpGame()

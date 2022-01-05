@@ -3,11 +3,13 @@
     <ui:Template name="GameOverScreen" src="project://database/Assets/UI/HUD/GameOverScreen.uxml?fileID=9197481963319205126&amp;guid=f613df4188c025740a4215b60a0109a2&amp;type=3#GameOverScreen" />
     <ui:Template name="LevelFinishedScreen" src="project://database/Assets/UI/HUD/LevelFinishedScreen.uxml?fileID=9197481963319205126&amp;guid=3905470106788f242822fb974d97f93f&amp;type=3#LevelFinishedScreen" />
     <ui:Template name="GameSidePanel" src="project://database/Assets/UI/HUD/GameSidePanel.uxml?fileID=9197481963319205126&amp;guid=6e0b2cf12552b074783b86ed2492c044&amp;type=3#GameSidePanel" />
+    <ui:Template name="GameSpeedControls" src="project://database/Assets/UI/HUD/GameSpeedControls.uxml?fileID=9197481963319205126&amp;guid=27850937b0bc7bd42b17647ca5d3836e&amp;type=3#GameSpeedControls" />
     <Style src="project://database/Assets/UI/StyleSheets/GameStyleSheet.uss?fileID=7433441132597879392&amp;guid=433dadd39fe2be0468082094f993acb2&amp;type=3#GameStyleSheet" />
     <ui:VisualElement style="flex-grow: 1; flex-direction: row; position: relative; left: auto; top: auto; right: auto; bottom: auto; flex-basis: auto; align-items: stretch;">
         <ui:Instance template="GameTopPanel" name="GameTopPanel" style="position: absolute; top: 0; flex-grow: 0; width: 100%;" />
         <ui:Instance template="GameOverScreen" name="GameOverScreen" style="position: absolute; left: 50%; top: 50%; display: none; visibility: visible;" />
         <ui:Instance template="LevelFinishedScreen" name="LevelFinishedScreen" style="display: none; position: absolute; left: 50%; top: 50%; visibility: visible;" />
         <ui:Instance template="GameSidePanel" name="GameSidePanel" style="position: absolute; left: auto; top: auto; display: flex; width: 480px; margin-right: 16px; margin-bottom: 16px; right: 0; bottom: 0;" />
+        <ui:Instance template="GameSpeedControls" name="GameSpeedControls" style="position: absolute; left: 0; bottom: 0; margin-left: 32px; margin-bottom: 32px;" />
     </ui:VisualElement>
 </ui:UXML>

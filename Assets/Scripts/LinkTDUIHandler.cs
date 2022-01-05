@@ -34,4 +34,9 @@ public class LinkTDUIHandler : UIHandler
 	{
 		_levelFinishedScreen.style.display = DisplayStyle.Flex; //Fix the uis
 	}
+
+	private void OpenSettingsMenu()
+	{
+		GameState.Get().PauseGame();
+	}
 }

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Linq;
-using HexLibrary;
-using Mantis.Engine;
-using Mantis.Hex;
-using Mantis.Utils.UI;
-using UnityEngine;
-using UnityEngine.UIElements;
+﻿using UnityEngine.UIElements;
 
 namespace UI.HUD
 {
@@ -21,11 +14,16 @@ namespace UI.HUD
 
 		private Label _cashLabel;
 		private Label _livesLabel;
+		private Button _settingsButton;
 
 		public override void OnGameInit()
 		{
 			_cashLabel = this.Q<Label>("Cash");
 			_livesLabel = this.Q<Label>("Lives");
+
+			_settingsButton = this.Q<Button>("SettingsButton");
+			_settingsButton.RegisterCallback<ClickEvent>(ev => GameState.Get().SlowDownGame());
+
 			GameState.Get().OnCashChanged += (oldValue, newValue) => UpdateCashLabel(newValue);
 			GameState.Get().OnLivesChanged += (oldValue, newValue) => UpdateLivesLabel(newValue);
 			UpdateCashLabel(GameState.Get().CurrentCash);
@@ -41,6 +39,5 @@ namespace UI.HUD
 		{
 			_livesLabel.text = "" + lives;
 		}
-
 	}
 }

@@ -1,8 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="EnemyWaveDisplay" src="project://database/Assets/UI/HUD/EnemyWaveDisplay.uxml?fileID=9197481963319205126&amp;guid=8df91a36161184640be294a722211d9a&amp;type=3#EnemyWaveDisplay" />
-    <ui:Template name="GameSpeedControls" src="project://database/Assets/UI/HUD/GameSpeedControls.uxml?fileID=9197481963319205126&amp;guid=27850937b0bc7bd42b17647ca5d3836e&amp;type=3#GameSpeedControls" />
     <Style src="project://database/Assets/UI/StyleSheets/GameStyleSheet.uss?fileID=7433441132597879392&amp;guid=433dadd39fe2be0468082094f993acb2&amp;type=3#GameStyleSheet" />
-    <UI.HUD.GameTopPanel style="flex-direction: row; margin-left: 16px; margin-right: 16px; margin-top: 16px; margin-bottom: 16px;">
+    <UI.HUD.GameTopPanel style="flex-direction: row; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; align-items: center; border-top-width: 16px; border-left-width: 16px; border-right-width: 16px; border-bottom-width: 0;">
         <ui:VisualElement style="flex-direction: row;">
             <ui:VisualElement name="CashContainer" style="flex-direction: row; align-items: center; margin-left: 16px;">
                 <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Icons/rupee.png?fileID=2800000&amp;guid=fb7fa66f3ab407a41af29822beeef1af&amp;type=3#rupee&apos;); width: 32px; height: 32px; -unity-background-image-tint-color: rgb(231, 255, 0); -unity-text-align: middle-left; justify-content: center; align-items: auto; flex-direction: column;" />
@@ -16,6 +15,6 @@
         <ui:VisualElement />
         <ui:Instance template="EnemyWaveDisplay" name="EnemyWaveDisplay" style="margin-left: 64px; align-items: center; flex-direction: row;" />
         <ui:VisualElement style="flex-grow: 1;" />
-        <ui:Instance template="GameSpeedControls" name="GameSpeedControls" style="margin-right: 64px;" />
+        <ui:Button text="Button" display-tooltip-when-elided="true" name="SettingsButton" class="IconButton" style="background-image: url(&apos;project://database/Assets/Icons/settings.png?fileID=2800000&amp;guid=a5eda8c60af971743b86cc51b6131368&amp;type=3#settings&apos;); width: 64px; height: 64px; margin-right: 16px;" />
     </UI.HUD.GameTopPanel>
 </ui:UXML>
