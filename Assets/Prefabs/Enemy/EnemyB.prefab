@@ -94,6 +94,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4226526925643850458, guid: fc64a3fd233487043944d04bd380edf4,
         type: 3}
+      propertyPath: enemyData
+      value: 
+      objectReference: {fileID: 11400000, guid: c14e081344d587946919468cc2cef055,
+        type: 2}
+    - target: {fileID: 4226526925643850458, guid: fc64a3fd233487043944d04bd380edf4,
+        type: 3}
       propertyPath: maxHealth
       value: 25
       objectReference: {fileID: 0}

@@ -26,6 +26,12 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 4226526925643850458, guid: fc64a3fd233487043944d04bd380edf4,
         type: 3}
+      propertyPath: enemyData
+      value: 
+      objectReference: {fileID: 11400000, guid: bd2b45649ae9a5248b91f59c222e0cdf,
+        type: 2}
+    - target: {fileID: 4226526925643850458, guid: fc64a3fd233487043944d04bd380edf4,
+        type: 3}
       propertyPath: maxHealth
       value: 15
       objectReference: {fileID: 0}
@@ -290,7 +296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 3f2f858992969dc42839040fa1c0e538, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 3f2f858992969dc42839040fa1c0e538, type: 3}
       propertyPath: m_LocalScale.x

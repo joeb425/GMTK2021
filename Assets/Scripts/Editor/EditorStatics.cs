@@ -94,12 +94,83 @@ namespace Mantis.LinkTD.Editor.Editor
 
 		private static bool UpdateValue<T>(ref T value, T newValue)
 		{
-			if (Equals(value, newValue)) 
+			if (Equals(value, newValue))
 				return false;
 
 			value = newValue;
 			return true;
+		}
 
+		[MenuItem("LinkTD/LoadEnemyData")]
+		static void LoadEnemyData()
+		{
+			LoadGoogleDocs.Load(
+				"https://docs.google.com/spreadsheets/d/e/2PACX-1vTLjwrRjkQUgdmoWzjUyMSnbwqe1pX1ZXw_tQLKoRSOnTsu9Mh61Vp9kKJgtR2sKmKbN7cCy0f9VKLs/pub?gid=2004669391&single=true&output=csv",
+				OnLoadedEnemyData);
+		}
+
+		static void OnLoadedEnemyData(string fileData)
+		{
+			Dictionary<string, EnemyData> towerDatas = new Dictionary<string, EnemyData>();
+			foreach (EnemyData enemyData in CustomAssetUtils.FindAssetsByType<EnemyData>())
+			{
+				towerDatas.Add(enemyData.name, enemyData);
+			}
+
+			List<string> unusedTowerDatas = towerDatas.Keys.ToList();
+			string[] rows = fileData.Split('\n');
+
+			for (int i = 1; i < rows.Length; i++)
+			{
+				string row = rows[i];
+				var values = row.Split(',');
+				var name = values[0].Split('.').Last();
+				int.TryParse(values[1], out var health);
+				float.TryParse(values[2], out var speed);
+				float.TryParse(values[3], out var block);
+
+				EnemyData enemyData = null;
+
+				string fileName = $"EnemyData_{name}";
+
+				unusedTowerDatas.Remove(fileName);
+
+				if (towerDatas.ContainsKey(fileName))
+				{
+					enemyData = towerDatas[fileName];
+				}
+				else
+				{
+					string filePath = $"Assets/Data/EnemyData/{fileName}.asset";
+					enemyData = ScriptableObject.CreateInstance(typeof(EnemyData)) as EnemyData;
+					AssetDatabase.CreateAsset(enemyData, filePath);
+					Debug.Log($"Create TowerData at: {filePath}");
+				}
+
+				bool hasChanged =
+					UpdateValue(ref enemyData.health, health) ||
+					UpdateValue(ref enemyData.speed, speed) ||
+					UpdateValue(ref enemyData.block, block);
+
+				if (hasChanged)
+				{
+					Debug.Log($"{enemyData.name} changed");
+					EditorUtility.SetDirty(enemyData);
+					AssetDatabase.SaveAssetIfDirty(enemyData);
+				}
+			}
+
+			string[] allPaths = new string[unusedTowerDatas.Count];
+			for (var i = 0; i < unusedTowerDatas.Count; i++)
+			{
+				var fileName = unusedTowerDatas[i];
+				string filePath = $"Assets/Data/EnemyData/{fileName}.asset";
+				allPaths[i] = filePath;
+				Debug.Log($"Delete unused {filePath}");
+			}
+
+			List<string> failed = new List<string>();
+			AssetDatabase.DeleteAssets(allPaths, failed);
 		}
 	}
 }

@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4353946734237038, guid: 2e4ab17be462ca346983757421a25d62, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4353946734237038, guid: 2e4ab17be462ca346983757421a25d62, type: 3}
       propertyPath: m_LocalPosition.x
@@ -64,6 +64,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4226526925643850458, guid: fc64a3fd233487043944d04bd380edf4,
+        type: 3}
+      propertyPath: enemyData
+      value: 
+      objectReference: {fileID: 11400000, guid: c202846078f00da40829e75c8d5edc70,
+        type: 2}
     - target: {fileID: 4226526925643850458, guid: fc64a3fd233487043944d04bd380edf4,
         type: 3}
       propertyPath: maxHealth

@@ -5,7 +5,6 @@ using Mantis.GameplayTags;
 using Mantis.Hex;
 using ObjectPools;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
@@ -15,10 +14,10 @@ using Vector3 = UnityEngine.Vector3;
 public class Enemy : MonoBehaviour, IGameplayTag
 {
 	[SerializeField]
-	public GameplayTag gameplayTag;
+	public EnemyData enemyData;
 
 	[SerializeField]
-	public float maxHealth;
+	public GameplayTag gameplayTag;
 
 	[SerializeField]
 	public AudioClip deathSfx;
@@ -78,7 +77,6 @@ public class Enemy : MonoBehaviour, IGameplayTag
 		if (GetHealth() <= 0f)
 		{
 			OnDeath();
-			return;
 		}
 	}
 
@@ -102,9 +100,9 @@ public class Enemy : MonoBehaviour, IGameplayTag
 		gameplayTagContainer.Reset();
 		attributes.Reset();
 
-		attributes.InitAttribute(MyAttributes.Get().Health, maxHealth);
-		attributes.InitAttribute(MyAttributes.Get().MaxHealth, maxHealth);
-		attributes.InitAttribute(MyAttributes.Get().Speed, 1.0f);
+		attributes.InitAttribute(MyAttributes.Get().Health, enemyData.health);
+		attributes.InitAttribute(MyAttributes.Get().MaxHealth, enemyData.health);
+		attributes.InitAttribute(MyAttributes.Get().Speed, enemyData.speed);
 
 		attributes.GetAttribute(MyAttributes.Get().Health).OnAttributeChanged -= OnHealthChanged;
 		attributes.GetAttribute(MyAttributes.Get().Health).OnAttributeChanged += OnHealthChanged;
