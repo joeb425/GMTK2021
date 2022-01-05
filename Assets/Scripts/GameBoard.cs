@@ -168,6 +168,7 @@ public class GameBoard : MonoBehaviour
 		// {
 		// 	Debug.Log($"Effects {groundTile.effectList.effects.Count} Active {groundTile.effectList.activeEffects.Count}");
 		// }
+		
 
 		if (zoneHandler.isSpreadingZone)
 		{

@@ -17,8 +17,8 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 4ba0fd83fe4d28a44bb53f7fa6e9bb4f
   m_SerializeEntries:
-  - m_GUID: e309d610cb9154815b017a2db2bd7709
-    m_Address: Assets/UI Toolkit
+  - m_GUID: 92d40919b53e80a42b129d01503999ef
+    m_Address: Assets/UI/Settings/Default
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

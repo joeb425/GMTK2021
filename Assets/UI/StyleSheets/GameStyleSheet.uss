@@ -55,16 +55,19 @@
 .BoldText {
     -unity-font-style: bold;
     color: rgb(255, 255, 255);
+    -unity-font-definition: resource('Fonts & Materials/WorkSans-Bold SDF');
 }
 
 .ValueText {
     color: rgb(255, 255, 255);
+    -unity-font-definition: resource('Fonts & Materials/WorkSans-Bold SDF');
 }
 
 .RegularText {
     color: rgb(255, 222, 0);
     -unity-font-style: bold;
     font-size: 12px;
+    -unity-font-definition: resource('Fonts & Materials/WorkSans-ExtraLight SDF');
 }
 
 .GameButton {
@@ -77,8 +80,8 @@
     padding-top: 2px;
     padding-bottom: 2px;
     flex-grow: 0;
-    width: 64px;
-    height: 64px;
+    width: 96px;
+    height: 96px;
     background-image: url('project://database/Assets/Sprites/particle-1.png?fileID=2800000&guid=2fe36d1c5aac1eb4a9844bb7ad9debec&type=3#particle-1');
     justify-content: flex-start;
     border-left-width: 2px;
@@ -99,6 +102,7 @@
     border-right-color: rgb(253, 253, 253);
     border-top-color: rgb(253, 253, 253);
     border-bottom-color: rgb(253, 253, 253);
+    -unity-font-definition: resource('Fonts & Materials/WorkSans-Regular SDF');
 }
 
 .RegularButton {
@@ -125,6 +129,7 @@
     margin-bottom: 12px;
     color: rgb(255, 255, 255);
     font-size: 12px;
+    -unity-font-definition: resource('Fonts & Materials/WorkSans-Regular SDF');
 }
 
 .TitleText {
@@ -136,10 +141,12 @@
     padding-right: 12px;
     padding-top: 12px;
     padding-bottom: 12px;
+    -unity-font-definition: resource('Fonts & Materials/WorkSans-Regular SDF');
 }
 
 .BigValueText {
     -unity-font-style: bold;
     font-size: 32px;
-    color: rgba(255, 255, 255, 255);
+    color: rgb(255, 255, 255);
+    -unity-font-definition: resource('Fonts & Materials/WorkSans-Regular SDF');
 }

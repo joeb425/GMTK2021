@@ -17,7 +17,7 @@ MonoBehaviour:
   towerCost: 0
   towerSell: 5
   attackRange: 3
-  damage: 50
+  damage: 1
   attackSpeed: 0.1
   split: 0
   splash: 0
