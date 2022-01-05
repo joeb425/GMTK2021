@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using HexLibrary;
 using Mantis.Engine;
 using Mantis.Hex;
 using ObjectPools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
 public class GameState : BaseGameState
 {
@@ -14,6 +16,18 @@ public class GameState : BaseGameState
 	}
 
 	public GameBoard Board;
+
+	private static readonly float[] GameSpeeds =
+	{
+		0.5f,
+		1.0f,
+		2.0f,
+		5.0f
+	};
+
+	public int gameSpeedIndex = 1;
+
+	public System.Action<float> OnGameSpeedChanged;
 
 	public event System.Action<int, int> OnCashChanged;
 	public event System.Action<int, int> OnLivesChanged;
@@ -99,5 +113,22 @@ public class GameState : BaseGameState
 		Board.towerLayer.RemoveTile(tower.hex, out HexTileComponent removedTower);
 		SetCash(CurrentCash + tower.towerData.towerSell);
 		Object.Destroy(removedTower.gameObject);
+	}
+
+	public void SpeedUpGame()
+	{
+		SetGameSpeed(gameSpeedIndex + 1);
+	}
+
+	public void SlowDownGame()
+	{
+		SetGameSpeed(gameSpeedIndex - 1);
+	}
+
+	public void SetGameSpeed(int i)
+	{
+		gameSpeedIndex = Math.Clamp(i, 0, GameSpeeds.Length - 1);
+		Time.timeScale = GameSpeeds[gameSpeedIndex];
+		OnGameSpeedChanged(Time.timeScale);
 	}
 }

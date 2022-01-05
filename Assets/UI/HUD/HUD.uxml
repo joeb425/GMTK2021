@@ -1,30 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="EnemyWaveDisplay" src="project://database/Assets/UI/HUD/EnemyWaveDisplay.uxml?fileID=9197481963319205126&amp;guid=8df91a36161184640be294a722211d9a&amp;type=3#EnemyWaveDisplay" />
-    <ui:Template name="TowerDisplay" src="project://database/Assets/UI/HUD/TowerDisplay.uxml?fileID=9197481963319205126&amp;guid=c2bc0b410f207d24b8c40260b5163489&amp;type=3#TowerDisplay" />
+    <ui:Template name="GameTopPanel" src="project://database/Assets/UI/HUD/GameTopPanel.uxml?fileID=9197481963319205126&amp;guid=f80c2322bbf232e40b37db5c0c69c876&amp;type=3#GameTopPanel" />
     <ui:Template name="GameOverScreen" src="project://database/Assets/UI/HUD/GameOverScreen.uxml?fileID=9197481963319205126&amp;guid=f613df4188c025740a4215b60a0109a2&amp;type=3#GameOverScreen" />
     <ui:Template name="LevelFinishedScreen" src="project://database/Assets/UI/HUD/LevelFinishedScreen.uxml?fileID=9197481963319205126&amp;guid=3905470106788f242822fb974d97f93f&amp;type=3#LevelFinishedScreen" />
     <ui:Template name="GameSidePanel" src="project://database/Assets/UI/HUD/GameSidePanel.uxml?fileID=9197481963319205126&amp;guid=6e0b2cf12552b074783b86ed2492c044&amp;type=3#GameSidePanel" />
     <Style src="project://database/Assets/UI/StyleSheets/GameStyleSheet.uss?fileID=7433441132597879392&amp;guid=433dadd39fe2be0468082094f993acb2&amp;type=3#GameStyleSheet" />
     <ui:VisualElement style="flex-grow: 1; flex-direction: row; position: relative; left: auto; top: auto; right: auto; bottom: auto; flex-basis: auto; align-items: stretch;">
-        <ui:VisualElement name="LeftPanel" style="flex-grow: 0; flex-direction: row; margin-left: 16px; margin-top: 16px;">
-            <ui:VisualElement style="flex-grow: 0; flex-direction: column; align-items: flex-start;">
-                <ui:VisualElement style="flex-direction: row; margin-bottom: 24px;">
-                    <ui:VisualElement style="flex-direction: row;">
-                        <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Icons/rupee.png?fileID=2800000&amp;guid=fb7fa66f3ab407a41af29822beeef1af&amp;type=3#rupee&apos;); width: 26px; height: 27px; -unity-background-image-tint-color: rgb(231, 255, 0); -unity-text-align: middle-left; justify-content: center; align-items: auto; flex-direction: column;" />
-                        <ui:Label text="10" display-tooltip-when-elided="true" name="Cash" class="hud-label BigValueText" style="-unity-text-align: middle-left;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement style="flex-direction: row; margin-left: 24px;">
-                        <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Icons/hearts.png?fileID=2800000&amp;guid=480a33a98fb32eb4a94ac805ae1fedbe&amp;type=3#hearts&apos;); width: 24px; height: 24px; align-items: stretch; -unity-background-image-tint-color: rgb(255, 0, 0);" />
-                        <ui:Label text="20" display-tooltip-when-elided="true" name="Lives" class="hud-label BigValueText" style="flex-direction: column; flex-wrap: nowrap; flex-grow: 1; -unity-text-align: middle-left;" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:Instance template="EnemyWaveDisplay" name="EnemyWaveDisplay" />
-                <ui:Instance template="TowerDisplay" name="TowerDisplay" />
-            </ui:VisualElement>
-        </ui:VisualElement>
-        <ui:VisualElement style="flex-grow: 1;" />
+        <ui:Instance template="GameTopPanel" name="GameTopPanel" style="position: absolute; top: 0; flex-grow: 0; width: 100%;" />
         <ui:Instance template="GameOverScreen" name="GameOverScreen" style="position: absolute; left: 50%; top: 50%; display: none; visibility: visible;" />
         <ui:Instance template="LevelFinishedScreen" name="LevelFinishedScreen" style="display: none; position: absolute; left: 50%; top: 50%; visibility: visible;" />
-        <ui:Instance template="GameSidePanel" name="GameSidePanel" style="position: relative; left: auto; top: auto; display: flex; width: 480px; margin-right: 16px; margin-bottom: 16px;" />
+        <ui:Instance template="GameSidePanel" name="GameSidePanel" style="position: absolute; left: auto; top: auto; display: flex; width: 480px; margin-right: 16px; margin-bottom: 16px; right: 0; bottom: 0;" />
     </ui:VisualElement>
 </ui:UXML>

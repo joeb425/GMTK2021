@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/StyleSheets/GameStyleSheet.uss?fileID=7433441132597879392&amp;guid=433dadd39fe2be0468082094f993acb2&amp;type=3#GameStyleSheet" />
+    <UI.HUD.GameSpeedControls style="margin-left: 0; align-items: center; flex-grow: 0; flex-direction: row; margin-right: 0;">
+        <ui:VisualElement>
+            <ui:VisualElement style="flex-direction: row; align-items: center;">
+                <ui:Button display-tooltip-when-elided="true" name="SlowDownButton" class="IconButton" style="background-image: url(&apos;project://database/Assets/Icons/fast-backward-button.png?fileID=2800000&amp;guid=f91dc1a1c3a4146439ace09ddc669800&amp;type=3#fast-backward-button&apos;);" />
+                <ui:Label text="1x" display-tooltip-when-elided="true" name="GameSpeedLabel" class="BigValueText" style="-unity-text-align: upper-center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; width: 64px;" />
+                <ui:Button display-tooltip-when-elided="true" name="SpeedUpButton" class="IconButton" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </UI.HUD.GameSpeedControls>
+</ui:UXML>

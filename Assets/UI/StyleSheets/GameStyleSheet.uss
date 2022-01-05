@@ -149,4 +149,22 @@
     font-size: 32px;
     color: rgb(255, 255, 255);
     -unity-font-definition: resource('Fonts & Materials/WorkSans-Regular SDF');
+    -unity-text-outline-width: 1px;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 255);
+}
+
+.IconButton {
+    background-image: url('project://database/Assets/Icons/fast-forward-button.png?fileID=2800000&guid=79edd32758fb18a4f8de5edd1336c61c&type=3#fast-forward-button');
+    background-color: rgba(0, 0, 0, 0);
+    width: 96px;
+    height: 96px;
+    -unity-font-definition: none;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
