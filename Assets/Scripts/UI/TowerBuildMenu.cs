@@ -10,6 +10,7 @@ public class TowerBuildMenu : VisualElement
 	private Button _confirmButton;
 	private Button _cancelButton;
 	private Dictionary<Button, Tower> _buttonPrefabs = new Dictionary<Button, Tower>();
+	private VisualElement _buttons;
 
 	public new class UxmlFactory : UxmlFactory<TowerBuildMenu, UxmlTraits>
 	{
@@ -35,6 +36,16 @@ public class TowerBuildMenu : VisualElement
 		OnCashChanged(GameState.Get().CurrentCash);
 		GameState.Get().OnCashChanged += (_, cash) => OnCashChanged(cash);
 		GameState.Get().Board.OnSetTowerToBePlaced += tower => UpdateConfirmButton(GameState.Get().CurrentCash);
+
+		List<Tower> availableTowers = GameData.Get().GetCurrentLevel().availableTowers;
+		if (availableTowers.Count > 0)
+		{
+			_buttons.Clear();
+			foreach (Tower tower in availableTowers)
+			{
+				CreateButton(tower, "Basic");
+			}
+		}
 	}
 
 	private void OnAttach(AttachToPanelEvent evt)
@@ -44,22 +55,23 @@ public class TowerBuildMenu : VisualElement
 		_iconButton = GlobalData.GetAssetBindings().gamePrefabs.towerBuildButton;
 		GamePrefabs gamePrefabs = GlobalData.GetAssetBindings().gamePrefabs;
 
-		VisualElement buttons = this.Q<VisualElement>("Buttons");
-		if (buttons != null)
+		_buttons = this.Q<VisualElement>("Buttons");
+
+		if (_buttons != null)
 		{
-			buttons.Clear();
-			CreateButton(buttons, gamePrefabs.basicTowerPrefab, "Basic");
-			CreateButton(buttons, gamePrefabs.doubleTowerPrefab, "Double");
-			CreateButton(buttons, gamePrefabs.rocketTowerPrefab, "Rocket");
-			CreateButton(buttons, gamePrefabs.sniperTowerPrefab, "Sniper");
-			CreateButton(buttons, gamePrefabs.smgTowerPrefab, "SMG");
-			CreateButton(buttons, gamePrefabs.supportTowerPrefab, "Support");
-			CreateButton(buttons, gamePrefabs.recoupTowerPrefab, "Recoup"); 
-			CreateButton(buttons, gamePrefabs.slowTowerPrefab, "Slow");
-			CreateButton(buttons, gamePrefabs.tower9Prefab, "9");
-			CreateButton(buttons, gamePrefabs.tower10Prefab, "10");
-			CreateButton(buttons, gamePrefabs.tower11Prefab, "11");
-			CreateButton(buttons, gamePrefabs.tower12Prefab, "12");
+			_buttons.Clear();
+			CreateButton(gamePrefabs.basicTowerPrefab, "Basic");
+			CreateButton(gamePrefabs.doubleTowerPrefab, "Double");
+			CreateButton(gamePrefabs.rocketTowerPrefab, "Rocket");
+			CreateButton(gamePrefabs.sniperTowerPrefab, "Sniper");
+			CreateButton(gamePrefabs.smgTowerPrefab, "SMG");
+			CreateButton(gamePrefabs.supportTowerPrefab, "Support");
+			CreateButton(gamePrefabs.recoupTowerPrefab, "Recoup"); 
+			CreateButton(gamePrefabs.slowTowerPrefab, "Slow");
+			CreateButton(gamePrefabs.tower9Prefab, "9");
+			CreateButton(gamePrefabs.tower10Prefab, "10");
+			CreateButton(gamePrefabs.tower11Prefab, "11");
+			CreateButton(gamePrefabs.tower12Prefab, "12");
 		}
 	}
 
@@ -86,10 +98,10 @@ public class TowerBuildMenu : VisualElement
 		}
 	}
 
-	private void CreateButton(VisualElement rootContainer, Tower towerPrefab, string btnText)
+	private void CreateButton(Tower towerPrefab, string btnText)
 	{
 		VisualElement spawnBasicTower = _iconButton.CloneTree();
-		rootContainer.Add(spawnBasicTower);
+		_buttons.Add(spawnBasicTower);
 
 		Button button = spawnBasicTower.Q<Button>("Button");
 		var costLabel = spawnBasicTower.Q<Label>("Cost");
@@ -104,7 +116,7 @@ public class TowerBuildMenu : VisualElement
 
 		costLabel.text = "" + towerPrefab.towerData.towerCost;
 		spawnBasicTower.name = towerPrefab.towerData.name;
-		button.text = btnText;
+		button.text = towerPrefab.GetGameplayTag().GetLeafName();
 		button.style.backgroundImage = towerPrefab.towerData.towerIcon;
 
 		_buttonPrefabs.Add(button, towerPrefab);

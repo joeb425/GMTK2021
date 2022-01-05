@@ -15,4 +15,7 @@ public class LevelData : ScriptableObject
 
 	[SerializeField]
 	public List<SpawnerHandler.Wave> waves;
+
+	[SerializeField]
+	public List<Tower> availableTowers;
 }

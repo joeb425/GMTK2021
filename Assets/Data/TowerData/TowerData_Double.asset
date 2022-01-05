@@ -21,7 +21,7 @@ MonoBehaviour:
   attackSpeed: 2
   split: 1
   splash: 0
-  bulletPrefab: {fileID: 558967105862248459, guid: 53c0347117e139f4c94a42e205b4429d,
+  bulletPrefab: {fileID: 7556477264031917805, guid: 0123a54174043024e9f3812107fe4d7f,
     type: 3}
   upgradeInfos: []
   onHitEffects: []

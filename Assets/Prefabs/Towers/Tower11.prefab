@@ -18,6 +18,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: fec1b97e14d79514c9b76d3234a3d974,
         type: 2}
+    - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: gameplayTag
+      value: 
+      objectReference: {fileID: 11400000, guid: ef28ee297279c2e45a21bef8b1c0aadd,
+        type: 2}
     - target: {fileID: 7822758320480785569, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_RootOrder

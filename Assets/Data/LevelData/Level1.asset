@@ -29,3 +29,4 @@ MonoBehaviour:
     spawnSpeed: 1
     enemyPrefab: {fileID: 4639886780305533709, guid: bd7be24a3eed8884dbc2cc39c0141222,
       type: 3}
+  availableTowers: []

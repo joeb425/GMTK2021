@@ -177,7 +177,7 @@ PrefabInstance:
         type: 3}
       propertyPath: gameplayTag
       value: 
-      objectReference: {fileID: 11400000, guid: 8b900d4dc524707458544b2c9f377f4b,
+      objectReference: {fileID: 11400000, guid: 3b0df1af9ce7d3449b6e6cc24f302b66,
         type: 2}
     - target: {fileID: 4196600553289992653, guid: 53c0347117e139f4c94a42e205b4429d,
         type: 3}
