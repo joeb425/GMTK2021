@@ -150,7 +150,7 @@
     color: rgb(255, 255, 255);
     -unity-font-definition: resource('Fonts & Materials/WorkSans-Regular SDF');
     -unity-text-outline-width: 1px;
-    text-shadow: 2px 2px 0 rgba(0, 0, 0, 255);
+    text-shadow: 2px 2px 0 rgb(0, 0, 0);
 }
 
 .IconButton {
@@ -167,4 +167,12 @@
     border-bottom-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }

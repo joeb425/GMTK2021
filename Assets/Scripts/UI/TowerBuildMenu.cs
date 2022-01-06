@@ -7,11 +7,11 @@ using UnityEngine.UIElements;
 public class TowerBuildMenu : VisualElement
 {
 	private VisualTreeAsset _iconButton;
-	private Button _confirmButton;
-	private Button _cancelButton;
 	private Dictionary<Button, Tower> _buttonPrefabs = new Dictionary<Button, Tower>();
 	private VisualElement _buttons;
 
+	private VisualElement _selectedButton;
+	
 	public new class UxmlFactory : UxmlFactory<TowerBuildMenu, UxmlTraits>
 	{
 	}
@@ -28,14 +28,11 @@ public class TowerBuildMenu : VisualElement
 
 	private void OnGameInit()
 	{
-		_confirmButton = this.Q<Button>("ConfirmButton");
-		_cancelButton = this.Q<Button>("CancelButton");
-		_confirmButton.RegisterCallback<ClickEvent>(ev => GameState.Get().Board.PlaceCurrentTower());
-		_cancelButton.RegisterCallback<ClickEvent>(ev => GameState.Get().Board.CancelTowerToBePlaced());
-
-		OnCashChanged(GameState.Get().CurrentCash);
-		GameState.Get().OnCashChanged += (_, cash) => OnCashChanged(cash);
-		GameState.Get().Board.OnSetTowerToBePlaced += tower => UpdateConfirmButton(GameState.Get().CurrentCash);
+		GameState gameState = GameState.Get();
+		OnCashChanged(gameState.CurrentCash);
+		gameState.OnCashChanged += (_, cash) => OnCashChanged(cash);
+		gameState.Board.OnSetTowerToBePlaced += OnTowerToBePlacedChanged; 
+		
 
 		List<Tower> availableTowers = GameData.Get().GetCurrentLevel().availableTowers;
 		if (availableTowers.Count > 0)
@@ -45,6 +42,14 @@ public class TowerBuildMenu : VisualElement
 			{
 				CreateButton(tower, "Basic");
 			}
+		}
+	}
+
+	private void OnTowerToBePlacedChanged(Tower tower)
+	{
+		if (tower == null)
+		{
+			SetSelectedButton(null);
 		}
 	}
 
@@ -77,17 +82,7 @@ public class TowerBuildMenu : VisualElement
 
 	private void OnCashChanged(int currentCash)
 	{
-		UpdateConfirmButton(currentCash);
-		// UpdateTowerButtons(currentCash);
-	}
-
-	private void UpdateConfirmButton(int currentCash)
-	{
-		Tower tower = GameState.Get().Board.towerToBePlaced;
-		if (tower != null)
-		{
-			_confirmButton.SetEnabled(currentCash >= tower.towerData.towerCost);
-		}
+		UpdateTowerButtons(currentCash);
 	}
 
 	private void UpdateTowerButtons(int currentCash)
@@ -111,7 +106,16 @@ public class TowerBuildMenu : VisualElement
 
 		spawnBasicTower.RegisterCallback<ClickEvent>(ev =>
 		{
-			GameState.Get().Board.SetTowerToBePlaced(towerPrefab);
+			if (_selectedButton != button)
+			{
+				GameState.Get().Board.SetTowerToBePlaced(towerPrefab);
+				SetSelectedButton(button);
+			}
+			else
+			{
+				GameState.Get().Board.PlaceCurrentTower();
+				SetSelectedButton(null);
+			}
 		});
 
 		costLabel.text = "" + towerPrefab.towerData.towerCost;
@@ -120,5 +124,24 @@ public class TowerBuildMenu : VisualElement
 		button.style.backgroundImage = towerPrefab.towerData.towerIcon;
 
 		_buttonPrefabs.Add(button, towerPrefab);
+	}
+
+	private void SetSelectedButton(Button button)
+	{
+		// reset selected button
+		if (_selectedButton != null)
+		{
+			_selectedButton.style.color = Color.white;
+			_selectedButton.style.borderBottomColor = _selectedButton.style.borderLeftColor = _selectedButton.style.borderRightColor = _selectedButton.style.borderTopColor = Color.white;
+		}
+
+		_selectedButton = button;
+		if (_selectedButton == null)
+		{
+			return;
+		}
+
+		_selectedButton.style.color = Color.green;
+		_selectedButton.style.borderBottomColor = _selectedButton.style.borderLeftColor = _selectedButton.style.borderRightColor = _selectedButton.style.borderTopColor = Color.green;
 	}
 }

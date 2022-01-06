@@ -194,6 +194,11 @@ public class GameBoard : MonoBehaviour
 
 		Game.Get.tileHighlighter.SetHexHighlighted(tile, selected, new Color(.5f, .5f, .5f, 0.35f));
 
+		if (towerToBePlaced != null && towerToBePlaced.hex != tile)
+		{
+			CancelTowerToBePlaced();
+		}
+
 		// if (tile.Content)
 		// {
 		// 	// MeshRenderer[] renderers = tile.Content.GetComponentsInChildren<MeshRenderer>();
