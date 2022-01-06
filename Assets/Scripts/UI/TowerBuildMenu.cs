@@ -11,7 +11,8 @@ public class TowerBuildMenu : VisualElement
 	private VisualElement _buttons;
 
 	private VisualElement _selectedButton;
-	
+	private TowerDescription _towerDescription;
+
 	public new class UxmlFactory : UxmlFactory<TowerBuildMenu, UxmlTraits>
 	{
 	}
@@ -31,8 +32,9 @@ public class TowerBuildMenu : VisualElement
 		GameState gameState = GameState.Get();
 		OnCashChanged(gameState.CurrentCash);
 		gameState.OnCashChanged += (_, cash) => OnCashChanged(cash);
-		gameState.Board.OnSetTowerToBePlaced += OnTowerToBePlacedChanged; 
-		
+		gameState.Board.OnSetTowerToBePlaced += OnTowerToBePlacedChanged;
+
+		_towerDescription.BindToTower(null);
 
 		List<Tower> availableTowers = GameData.Get().GetCurrentLevel().availableTowers;
 		if (availableTowers.Count > 0)
@@ -51,6 +53,8 @@ public class TowerBuildMenu : VisualElement
 		{
 			SetSelectedButton(null);
 		}
+
+		_towerDescription.BindToTower(tower);
 	}
 
 	private void OnAttach(AttachToPanelEvent evt)
@@ -61,6 +65,7 @@ public class TowerBuildMenu : VisualElement
 		GamePrefabs gamePrefabs = GlobalData.GetAssetBindings().gamePrefabs;
 
 		_buttons = this.Q<VisualElement>("Buttons");
+		_towerDescription = this.Q<TowerDescription>();
 
 		if (_buttons != null)
 		{

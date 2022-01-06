@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerName: Gear
   towerIcon: {fileID: 2800000, guid: d398f9a95dab9d4469ac31475b523c96, type: 3}
+  towerDescription: 
   towerCost: 0
   towerSell: 5
   attackRange: 3

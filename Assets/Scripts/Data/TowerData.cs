@@ -21,6 +21,9 @@ public class TowerData : ScriptableObject
 	public string towerName;
 
 	[SerializeField]
+	public string towerDescription;
+
+	[SerializeField]
 	public Texture2D towerIcon;
 
 	[SerializeField]

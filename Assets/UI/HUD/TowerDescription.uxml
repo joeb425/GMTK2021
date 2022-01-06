@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="AttributeContainerDisplay" src="project://database/Assets/UI/Attributes/AttributeContainerDisplay.uxml?fileID=9197481963319205126&amp;guid=76ddb692649b62247b0bfb33bccf7b98&amp;type=3#AttributeContainerDisplay" />
+    <Style src="project://database/Assets/UI/StyleSheets/GameStyleSheet.uss?fileID=7433441132597879392&amp;guid=433dadd39fe2be0468082094f993acb2&amp;type=3#GameStyleSheet" />
+    <TowerDescription style="align-items: stretch;">
+        <ui:VisualElement class="HUDSidePanel" style="margin-bottom: 8px;">
+            <ui:Label text="Rocket" display-tooltip-when-elided="true" name="NameLabel" class="BoldText" style="font-size: 24px; border-bottom-width: 4px; -unity-text-align: upper-center;" />
+            <ui:Label text="A rocket tower" display-tooltip-when-elided="true" name="DescriptionLabel" class="RegularText" style="margin-bottom: 16px; font-size: 22px; -unity-text-align: upper-center;" />
+        </ui:VisualElement>
+        <ui:Instance template="AttributeContainerDisplay" name="AttributeContainerDisplay" class="HUDSidePanel" style="flex-grow: 0; flex-direction: column; margin-bottom: 12px;" />
+    </TowerDescription>
+</ui:UXML>

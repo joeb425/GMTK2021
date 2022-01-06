@@ -33,6 +33,10 @@ namespace UI.MainMenu
 		public void BindToAttributeContainer(GameplayAttributeContainer container)
 		{
 			_attributeContainer.Clear();
+			if (container == null)
+			{
+				return;
+			}
 
 			foreach (KeyValuePair<AttributeType, GameplayAttribute> kvp in container.attributes)
 			{

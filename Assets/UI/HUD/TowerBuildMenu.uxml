@@ -1,6 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="TowerDescription" src="project://database/Assets/UI/HUD/TowerDescription.uxml?fileID=9197481963319205126&amp;guid=bf5904463cbc0a147bf624e0bf2f38da&amp;type=3#TowerDescription" />
     <Style src="project://database/Assets/UI/StyleSheets/GameStyleSheet.uss?fileID=7433441132597879392&amp;guid=433dadd39fe2be0468082094f993acb2&amp;type=3#GameStyleSheet" />
-    <TowerBuildMenu name="TowerBuildMenu" class="FullScreenPanel" style="align-items: center; justify-content: flex-end; flex-direction: column; flex-grow: 0; width: auto; height: auto;">
-        <ui:VisualElement name="Buttons" class="HUDSidePanel" style="flex-direction: row; flex-grow: 0; justify-content: center;" />
+    <TowerBuildMenu name="TowerBuildMenu">
+        <ui:Instance template="TowerDescription" name="TowerDescription" />
+        <ui:VisualElement name="Buttons" class="HUDSidePanel" style="flex-direction: row; flex-grow: 0; justify-content: space-around; height: auto; align-items: center; flex-wrap: wrap;" />
     </TowerBuildMenu>
 </ui:UXML>
