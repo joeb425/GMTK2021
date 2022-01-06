@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Mantis.AttributeSystem;
 
 [CreateAssetMenu(menuName = "Data/LevelData")]
 public class LevelData : ScriptableObject
@@ -18,4 +19,7 @@ public class LevelData : ScriptableObject
 
 	[SerializeField]
 	public List<Tower> availableTowers;
+
+	[SerializeField]
+	public List<GameplayEffect> MapModifiers;
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30381384a0d04a77ad374eb22c3cd492, type: 3}
   m_Name: Level3
   m_EditorClassIdentifier: 
-  level: {fileID: 4900000, guid: 13942c3504d19f74191042d8fa7422cc, type: 3}
+  level: {fileID: 4900000, guid: 007dd564b25a0ee41a4dbc0505aedee5, type: 3}
   displayName: The Second Level
   thumbnail: {fileID: 0}
   waves:
@@ -20,3 +20,8 @@ MonoBehaviour:
     spawnSpeed: 0.25
     enemyPrefab: {fileID: 3921608051714855020, guid: 4f3eeab436ba11f4dbf29ffcdb7a6847,
       type: 3}
+  - enemyCount: 15
+    spawnSpeed: 0.5
+    enemyPrefab: {fileID: 3921608051714855020, guid: 4f3eeab436ba11f4dbf29ffcdb7a6847,
+      type: 3}
+  availableTowers: []

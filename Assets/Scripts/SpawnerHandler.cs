@@ -2,6 +2,7 @@ using Mantis.AttributeSystem;
 using Mantis.Engine.Misc;
 using ObjectPools;
 using UnityEngine;
+using System.Collections.Generic;
 
 
 public class SpawnerHandler : MonoBehaviour
@@ -28,18 +29,17 @@ public class SpawnerHandler : MonoBehaviour
 
 	private int _numAliveEnemies = 0;
 
-	public ScriptableObjectLootTable modifierTable;
 
-	public GameplayEffect[] mapMods; 
+	public List<GameplayEffect> mapMods; 
 
 	public void Start()
 	{
 		Debug.Log("starter");
 		nextSpawnTime = Time.time;
 		NextWave();
+		mapMods = GameData.Get().GetCurrentLevel().MapModifiers;
 
 		// TODO load map mods table from elsewhere
-		mapMods = modifierTable.GetItems<GameplayEffect>(2);
 		Debug.Log(mapMods);
 	}
 
@@ -101,6 +101,7 @@ public class SpawnerHandler : MonoBehaviour
 	{
 		Debug.Log("Next Wave! " + currentWaveNumber);
 		LevelData currentLevel = GameData.Get().GetCurrentLevel();
+
 		Debug.Assert(currentLevel != null, "currentLevel is null");
 
 		currentWaveNumber++;
