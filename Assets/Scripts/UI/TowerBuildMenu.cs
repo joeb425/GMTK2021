@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Mantis.Engine;
+using Mantis.Utils.UI;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.UIElements;
@@ -10,7 +11,7 @@ public class TowerBuildMenu : VisualElement
 	private Dictionary<Button, Tower> _buttonPrefabs = new Dictionary<Button, Tower>();
 	private VisualElement _buttons;
 
-	private VisualElement _selectedButton;
+	private TwoStageButton _selectedButton;
 	private TowerDescription _towerDescription;
 
 	public new class UxmlFactory : UxmlFactory<TowerBuildMenu, UxmlTraits>
@@ -51,7 +52,7 @@ public class TowerBuildMenu : VisualElement
 	{
 		if (tower == null)
 		{
-			SetSelectedButton(null);
+			_selectedButton?.ClearSelectedState();
 		}
 
 		_towerDescription.BindToTower(tower);
@@ -103,25 +104,24 @@ public class TowerBuildMenu : VisualElement
 		VisualElement spawnBasicTower = _iconButton.CloneTree();
 		_buttons.Add(spawnBasicTower);
 
-		Button button = spawnBasicTower.Q<Button>("Button");
+		TwoStageButton button = spawnBasicTower.Q<TwoStageButton>("Button");
 		var costLabel = spawnBasicTower.Q<Label>("Cost");
 
 		if (!towerPrefab)
 			return;
 
-		spawnBasicTower.RegisterCallback<ClickEvent>(ev =>
+		button.onSelected += () =>
 		{
-			if (_selectedButton != button)
-			{
-				GameState.Get().Board.SetTowerToBePlaced(towerPrefab);
-				SetSelectedButton(button);
-			}
-			else
-			{
-				GameState.Get().Board.PlaceCurrentTower();
-				SetSelectedButton(null);
-			}
-		});
+			_selectedButton?.ClearSelectedState();
+			_selectedButton = button;
+			GameState.Get().Board.SetTowerToBePlaced(towerPrefab);
+		};
+
+		button.onConfirmed += () =>
+		{
+			GameState.Get().Board.PlaceCurrentTower();
+			_selectedButton = null;
+		};
 
 		costLabel.text = "" + towerPrefab.towerData.towerCost;
 		spawnBasicTower.name = towerPrefab.towerData.name;
@@ -129,24 +129,5 @@ public class TowerBuildMenu : VisualElement
 		button.style.backgroundImage = towerPrefab.towerData.towerIcon;
 
 		_buttonPrefabs.Add(button, towerPrefab);
-	}
-
-	private void SetSelectedButton(Button button)
-	{
-		// reset selected button
-		if (_selectedButton != null)
-		{
-			_selectedButton.style.color = Color.white;
-			_selectedButton.style.borderBottomColor = _selectedButton.style.borderLeftColor = _selectedButton.style.borderRightColor = _selectedButton.style.borderTopColor = Color.white;
-		}
-
-		_selectedButton = button;
-		if (_selectedButton == null)
-		{
-			return;
-		}
-
-		_selectedButton.style.color = Color.green;
-		_selectedButton.style.borderBottomColor = _selectedButton.style.borderLeftColor = _selectedButton.style.borderRightColor = _selectedButton.style.borderTopColor = Color.green;
 	}
 }

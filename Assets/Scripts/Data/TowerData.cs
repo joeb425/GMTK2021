@@ -14,6 +14,16 @@ public struct UpgradeInfo
 	public GameplayEffect upgradeEffect;
 }
 
+[Serializable]
+public struct UpgradePath
+{
+	[SerializeField]
+	public int upgradeCost;
+
+	[SerializeField]
+	public Tower tower;
+}
+
 [CreateAssetMenu(menuName = "Data/TowerData")]
 public class TowerData : ScriptableObject
 {
@@ -52,6 +62,9 @@ public class TowerData : ScriptableObject
 
 	[SerializeField]
 	public UpgradeInfo[] upgradeInfos;
+
+	[SerializeField]
+	public UpgradePath[] upgradePaths;
 
 	[SerializeField]
 	public List<GameplayEffect> onHitEffects;

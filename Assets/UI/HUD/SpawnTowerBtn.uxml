@@ -1,7 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/StyleSheets/GameStyleSheet.uss?fileID=7433441132597879392&amp;guid=433dadd39fe2be0468082094f993acb2&amp;type=3#GameStyleSheet" />
-    <ui:Button text="Button" display-tooltip-when-elided="true" name="Button" class="GameButton">
-        <ui:VisualElement style="flex-grow: 1; align-items: stretch;" />
+    <Mantis.Utils.UI.TwoStageButton focusable="true" name="Button" color-attr="#00FF26FF" class="GameButton">
         <ui:Label text="10" display-tooltip-when-elided="true" name="Cost" style="position: absolute; top: 0; bottom: auto; justify-content: flex-start; flex-grow: 0; align-items: flex-end; flex-direction: column; right: 0;" />
-    </ui:Button>
+    </Mantis.Utils.UI.TwoStageButton>
 </ui:UXML>
