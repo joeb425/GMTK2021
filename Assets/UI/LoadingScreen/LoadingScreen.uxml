@@ -1,3 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Label text="LOADING" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; flex-grow: 1; align-items: center; justify-content: center; font-size: 50px; -unity-font-style: bold; color: rgb(171, 171, 171);" />
+    <Style src="project://database/Assets/UI/StyleSheets/LoadingScreenStyleSheet.uss?fileID=7433441132597879392&amp;guid=fc40c2d6fe31b594d95fafe1e8c271dc&amp;type=3#LoadingScreenStyleSheet" />
+    <ui:Label text="LOADING..." display-tooltip-when-elided="true" name="StatusLabel" style="-unity-text-align: middle-center; flex-grow: 1; align-items: center; justify-content: center; font-size: 50px; -unity-font-style: bold; color: rgb(171, 171, 171);" />
+    <ui:ProgressBar title="50%" name="ProgressBar" />
 </ui:UXML>

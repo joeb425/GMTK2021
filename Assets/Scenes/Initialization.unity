@@ -291,6 +291,7 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  loadingScreen: {fileID: 1574030969}
 --- !u!114 &1574030969
 MonoBehaviour:
   m_ObjectHideFlags: 0
