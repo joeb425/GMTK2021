@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TowerData_Decay
   m_EditorClassIdentifier: 
   towerName: Decay
+  towerDescription: 
   towerIcon: {fileID: 0}
   towerCost: 5
   towerSell: 5
@@ -23,6 +24,11 @@ MonoBehaviour:
   splash: 1
   bulletPrefab: {fileID: 0}
   upgradeInfos: []
+  upgradePaths:
+  - upgradeCost: 5
+    tower: {fileID: 8119690419672304627, guid: 2add2897b33aaa44ca5482e243244e44, type: 3}
+  - upgradeCost: 5
+    tower: {fileID: 7682699519609654883, guid: 7cb331027864aa34caa51c890a607a5c, type: 3}
   onHitEffects: []
   shootSfx: {fileID: 0}
   supportEffects: []

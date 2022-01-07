@@ -1,13 +1,14 @@
+using Mantis.Utils.UI;
 using UI.MainMenu;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class TowerInfoMenu : VisualElement
+public class TowerInfoMenu : MantisVisualElement
 {
 	private Tower _currentTower;
-
-	public AttributeContainerDisplay AttributeContainerDisplay { get; private set; }
+	private TowerUpgradePanel _towerUpgradePanel;
+	private TowerDescription _towerDescription;
 
 	public new class UxmlFactory : UxmlFactory<TowerInfoMenu, UxmlTraits>
 	{
@@ -17,22 +18,14 @@ public class TowerInfoMenu : VisualElement
 	{
 	}
 
-	public TowerInfoMenu()
+	protected override void OnAttach(AttachToPanelEvent evt)
 	{
-		RegisterCallback<AttachToPanelEvent>(OnAttach); // phil?=<ghenius 
-	}
-
-	private void OnAttach(AttachToPanelEvent evt)
-	{
+		_towerDescription = this.Q<TowerDescription>();
+		_towerUpgradePanel = this.Q<TowerUpgradePanel>();
+		_towerUpgradePanel.InitTowerDescription(_towerDescription);
 		this.Q("UpgradeBtn")?.RegisterCallback<ClickEvent>(ev => UpgradeTower());
 		this.Q("LinkBtn")?.RegisterCallback<ClickEvent>(ev => LinkTower());
 		this.Q("SellBtn")?.RegisterCallback<ClickEvent>(ev => SellTower());
-		
-		AttributeContainerDisplay = this.Q<AttributeContainerDisplay>();
-		if (AttributeContainerDisplay == null)
-		{
-			Debug.Log("Failed to find attribute container display");
-		}
 	}
 
 	void UpgradeTower()
@@ -68,6 +61,7 @@ public class TowerInfoMenu : VisualElement
 		}
 
 		_currentTower = tower;
-		AttributeContainerDisplay.BindToAttributeContainer(tower.Attributes);
+		_towerDescription.BindToTower(tower);
+		_towerUpgradePanel.BindToTower(tower);
 	}
 }

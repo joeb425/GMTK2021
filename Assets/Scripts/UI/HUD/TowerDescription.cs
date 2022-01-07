@@ -1,9 +1,10 @@
+using Mantis.Utils.UI;
 using UI.MainMenu;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class TowerDescription : VisualElement
+public class TowerDescription : MantisVisualElement
 {
 	private Tower _currentTower;
 	private Label _nameLabel;
@@ -19,12 +20,7 @@ public class TowerDescription : VisualElement
 	{
 	}
 
-	public TowerDescription()
-	{
-		RegisterCallback<AttachToPanelEvent>(OnAttach);
-	}
-
-	private void OnAttach(AttachToPanelEvent evt)
+	protected override void OnAttach(AttachToPanelEvent evt)
 	{
 		AttributeContainerDisplay = this.Q<AttributeContainerDisplay>();
 		_nameLabel = this.Q<Label>("NameLabel");

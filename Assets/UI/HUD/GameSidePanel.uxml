@@ -1,11 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="TowerInfoMenu" src="project://database/Assets/UI/HUD/TowerInfoMenu.uxml?fileID=9197481963319205126&amp;guid=e40c1dfec2e1af744906dba32859a5de&amp;type=3#TowerInfoMenu" />
     <ui:Template name="TowerBuildMenu" src="project://database/Assets/UI/HUD/TowerBuildMenu.uxml?fileID=9197481963319205126&amp;guid=6de1b042b3e815a4a993522c11180c68&amp;type=3#TowerBuildMenu" />
+    <ui:Template name="TowerInfoMenu" src="project://database/Assets/UI/HUD/TowerInfoMenu.uxml?fileID=9197481963319205126&amp;guid=e40c1dfec2e1af744906dba32859a5de&amp;type=3#TowerInfoMenu" />
     <Style src="project://database/Assets/UI/StyleSheets/GameStyleSheet.uss?fileID=7433441132597879392&amp;guid=433dadd39fe2be0468082094f993acb2&amp;type=3#GameStyleSheet" />
     <UI.HUD.GameSidePanel class="FullScreenPanel">
         <Mantis.Utils.UI.ScreenSwitcher style="width: 100%; height: 100%;">
-            <ui:Instance template="TowerInfoMenu" name="TowerInfoMenu" style="width: 100%; height: 100%; position: absolute; justify-content: flex-end; flex-direction: column;" />
-            <ui:Instance template="TowerBuildMenu" name="TowerBuildMenu" style="position: absolute; width: auto; height: auto; right: 0; bottom: 0; flex-direction: column;" />
+            <ui:Instance template="TowerInfoMenu" name="TowerInfoMenu" style="width: auto; height: auto; position: absolute; flex-direction: column; right: 0; bottom: 0; left: 0;" />
+            <ui:Instance template="TowerBuildMenu" name="TowerBuildMenu" style="position: absolute; width: auto; height: auto; right: 0; bottom: 0; flex-direction: column; left: 0;" />
         </Mantis.Utils.UI.ScreenSwitcher>
     </UI.HUD.GameSidePanel>
 </ui:UXML>

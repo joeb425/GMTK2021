@@ -38,6 +38,8 @@ MonoBehaviour:
     type: 3}
   towerBuildButton: {fileID: 9197481963319205126, guid: 1e385f200928b6848a91c9d4c40d7be8,
     type: 3}
+  upgradeTowerButton: {fileID: 9197481963319205126, guid: c1e5af7d5ff38014ab94119e236abfda,
+    type: 3}
   attributeDisplayItem: {fileID: 9197481963319205126, guid: 08e06cb30ce70cc4bba44186db502f17,
     type: 3}
   bulletPool: {fileID: 11400000, guid: 2983fe1099e94784eb1c6d8b525695b1, type: 2}

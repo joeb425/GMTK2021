@@ -26,11 +26,13 @@ namespace UI.HUD
 
 		public void OnScreenStateChanged(VisualElement screen, bool enabled)
 		{
-			VisualElement screenContent = screen.Children().First();
-			if (screenContent != null)
-			{
-				Game.Get.GetUIHandler().SetElementBlockingMouse(screenContent, enabled);
-			}
+			// VisualElement screenContent = screen.Children().First();
+			// if (screenContent != null)
+			// {
+			// 	Game.Get.GetUIHandler().SetElementBlockingMouse(screenContent, enabled);
+			// }
+
+			Game.Get.GetUIHandler().SetElementBlockingMouse(screen, enabled);
 		}
 
 		public override void OnGameInit()

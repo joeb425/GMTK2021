@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace UI.HUD
 {
-	public abstract class GameVisualElement : VisualElement
+	public abstract class GameVisualElement : MantisVisualElement
 	{
 		public GameVisualElement()
 		{

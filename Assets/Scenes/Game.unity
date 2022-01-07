@@ -266,9 +266,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Board: {fileID: 2022507406}
+  gameSpeedIndex: 1
   StartingCash: 20
   MaxLives: 25
   IsGameOver: 0
+  _isPaused: 0
 --- !u!114 &371505265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,7 +358,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   board: {fileID: 2022507406}
-  modifierTable: {fileID: 11400000, guid: 444f72c705760814dace26aaedc6989c, type: 2}
   mapMods: []
 --- !u!4 &640835632
 Transform:

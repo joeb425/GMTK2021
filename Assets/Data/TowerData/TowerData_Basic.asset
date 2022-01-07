@@ -30,6 +30,8 @@ MonoBehaviour:
   upgradePaths:
   - upgradeCost: 2
     tower: {fileID: 5986433788513884090, guid: b0f70ac5db884bb408b2058aa38412f8, type: 3}
+  - upgradeCost: 2
+    tower: {fileID: 8119690419672304627, guid: 2add2897b33aaa44ca5482e243244e44, type: 3}
   onHitEffects:
   - {fileID: 11400000, guid: c3d5aaf545121b44984ca39c087a2b3a, type: 2}
   shootSfx: {fileID: 8300000, guid: 4552758ee0437044eb0460214f880917, type: 3}

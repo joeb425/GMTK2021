@@ -512,4 +512,15 @@ public class Tower : HexTileComponent
 	public void UpdateAttributes()
 	{
 	}
+
+	public void UpgradeTower(UpgradePath upgradePath)
+	{
+		GameState gameState = GameState.Get();
+		Hex position = hex;
+		gameState.Board.towerLayer.RemoveTile(hex);
+		gameState.Board.PlaceTowerAtHex(position, upgradePath.tower);
+		gameState.SpendCash(upgradePath.upgradeCost);
+
+		Destroy(gameObject);
+	}
 }
