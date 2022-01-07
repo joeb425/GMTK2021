@@ -104,8 +104,10 @@ public class Enemy : MonoBehaviour, IGameplayTag
 		attributes.InitAttribute(MyAttributes.Get().MaxHealth, enemyData.health);
 		attributes.InitAttribute(MyAttributes.Get().Speed, enemyData.speed);
 
-		attributes.GetAttribute(MyAttributes.Get().Health).OnAttributeChanged -= OnHealthChanged;
-		attributes.GetAttribute(MyAttributes.Get().Health).OnAttributeChanged += OnHealthChanged;
+		GameplayAttribute healthAttribute = attributes.GetAttribute(MyAttributes.Get().Health);
+		healthAttribute.OnAttributeChanged -= OnHealthChanged;
+		healthAttribute.OnAttributeChanged += OnHealthChanged;
+		OnHealthChanged(healthAttribute);
 
 		enemyModel.transform.localPosition = new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, 0.0f);
 
