@@ -1,12 +1,19 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Mantis.AttributeSystem;
+using Mantis.Hex;
 
 [CreateAssetMenu(menuName = "Data/LevelData")]
 public class LevelData : ScriptableObject
 {
 	[SerializeField]
 	public TextAsset level;
+
+	[SerializeField]
+	public HexTilePalette tilePalette;
+
+	[SerializeField]
+	public LevelColorPalette colorPalette;
 
 	[SerializeField]
 	public string displayName;

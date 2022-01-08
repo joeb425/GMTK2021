@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36702b04fa22400384e0edf76739a1cd, type: 3}
+  m_Name: TestColorPalette
+  m_EditorClassIdentifier: 
+  cameraBackgroundColor: {r: 0, g: 0, b: 0, a: 0}
+  materialColors:
+  - material: {fileID: 2100000, guid: d31ad677f0eabbf42a05952f1eaef3c6, type: 2}
+    color: {r: 0.28235295, g: 0.28235295, b: 0.28235295, a: 0}
+  - material: {fileID: 2100000, guid: fe87a267a154b2a47a06e01d9854c7b4, type: 2}
+    color: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 0}

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace.Zone;
 using HexLibrary;
+using Mantis.GameplayTags;
 using Mantis.Hex;
 using Mantis.Utils;
 using UnityEditor;
@@ -68,9 +69,11 @@ public class GameBoard : MonoBehaviour
 
 		// grid.Init();
 		GameData gameData = GameData.Get();
-		TextAsset levelToLoad = gameData.GetCurrentLevel().level;
+		LevelData level = gameData.GetCurrentLevel();
+		TextAsset levelToLoad = level.level;
 		Debug.Log($"Load level {GlobalData.CurrentLevel} : {levelToLoad.name} : {levelToLoad.text}");
-		grid.LoadLevelFromJson(levelToLoad.text);
+
+		grid.LoadLevel(levelToLoad, level.tilePalette);
 
 		groundLayer = grid.GetLayer("Ground");
 		if (groundLayer == null)
@@ -78,7 +81,7 @@ public class GameBoard : MonoBehaviour
 			Debug.Log("ground layer invalid");
 		}
 
-		towerLayer = grid.GetLayer("Tower");
+		towerLayer = grid.AddLayer("Tower");
 
 		foliageLayer = grid.GetLayer("Foliage");
 
@@ -291,7 +294,7 @@ public class GameBoard : MonoBehaviour
 
 	private void InitZones()
 	{
-		HexGridLayer zoneLayer = grid.GetLayer("Zone");
+		HexGridLayer zoneLayer = grid.AddLayer("Zone");
 		foreach (var kvp in zoneLayer.hexGrid)
 		{
 			ZonePrefabComponent zonePrefabComponent = kvp.Value.GetComponent<ZonePrefabComponent>();
