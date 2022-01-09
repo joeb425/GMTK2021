@@ -15,3 +15,4 @@ MonoBehaviour:
   gameData: {fileID: 11400000, guid: d0384c9840e401a40968240d40da1841, type: 2}
   gamePrefabs: {fileID: 11400000, guid: 628bff90698edc646b398b251fd85d71, type: 2}
   gameAssets: {fileID: 11400000, guid: 42af6bf33bb700b4e965560d34d30cc9, type: 2}
+  playerSaveManager: {fileID: 11400000, guid: 2c982f4ce7532964b83890860367c190, type: 2}

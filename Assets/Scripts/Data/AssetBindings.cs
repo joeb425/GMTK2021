@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace DefaultNamespace.Data
 {
@@ -14,5 +13,8 @@ namespace DefaultNamespace.Data
 
 		[SerializeField]
 		public GameAssets gameAssets;
+
+		[SerializeField]
+		public PlayerSaveManager playerSaveManager;
 	}
 }
