@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fileName: playerSave
   data:
-    currentLevel: -1
+    unlockedLevel: 2

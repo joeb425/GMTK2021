@@ -51,10 +51,12 @@ public class Game : BaseGame
 		spawnerHandler.GameUpdate();
 		input.GameUpdate();
 
-		if (Input.GetKeyDown(KeyCode.Z))
-		{
-			NextLevel();
-		}
+		// if (Input.GetKeyDown(KeyCode.Z))
+		// {
+		// 	GlobalData.GetAssetBindings().playerSaveManager.FinishLevel(0);
+		// 	// NextLevel();
+		//
+		// }
 	}
 
 	protected override void GameDestroyed()

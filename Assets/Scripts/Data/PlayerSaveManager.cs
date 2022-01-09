@@ -1,6 +1,8 @@
 ﻿using System;
+using DefaultNamespace.Data;
 using Mantis.Engine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
@@ -8,12 +10,17 @@ namespace DefaultNamespace
 	public class PlayerSaveData
 	{
 		[SerializeField]
-		public int currentLevel = 0;
+		public int unlockedLevelIndex = 0;
 	}
 
 	[CreateAssetMenu(menuName = "Data/SaveManager")]
 	public class PlayerSaveManager : PersistantDataManager<PlayerSaveData>
 	{
+		public static PlayerSaveManager Get()
+		{
+			return AssetBindings.Get().playerSaveManager;
+		}
+		
 		public void Init()
 		{
 			LoadData();
@@ -28,7 +35,7 @@ namespace DefaultNamespace
 
 		public void FinishLevel(int levelIndex)
 		{
-			data.currentLevel = Math.Max(data.currentLevel, levelIndex + 1);
+			data.unlockedLevelIndex = Math.Max(data.unlockedLevelIndex, levelIndex + 1);
 			SaveData();
 		}
 	}

@@ -5,6 +5,11 @@ namespace DefaultNamespace.Data
 	[CreateAssetMenu(menuName = "Data/AssetBindings")]
 	public class AssetBindings : ScriptableObject
 	{
+		public static AssetBindings Get()
+		{
+			return GlobalData.GetAssetBindings();
+		}
+
 		[SerializeField]
 		public GameData gameData;
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using DefaultNamespace;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -38,6 +39,8 @@ namespace UI.MainMenu
 		{
 			Clear();
 			GameData gameData = GameData.Get();
+			int unlockedLevel = PlayerSaveManager.Get().GetData().unlockedLevelIndex;
+
 			for (var i = 0; i < gameData.levels.Count; i++)
 			{
 				LevelData level = gameData.levels[i];
@@ -48,6 +51,11 @@ namespace UI.MainMenu
 				var levelIndex = i;
 				button.RegisterCallback<ClickEvent>(ev => LoadLevel(level.level, levelIndex));
 				button.text = "" + (i + 1);
+
+				if (i <= unlockedLevel)
+				{
+					instance.Q("Locked").style.display = DisplayStyle.None;
+				}
 
 				Add(instance);
 			}
