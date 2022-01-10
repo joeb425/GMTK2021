@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/StyleSheets/GameStyleSheet.uss?fileID=7433441132597879392&amp;guid=433dadd39fe2be0468082094f993acb2&amp;type=3#GameStyleSheet" />
-    <UI.MainMenu.GameOverScreen class="FullScreenPanel" style="align-items: center;">
+    <UI.MainMenu.GameOverScreen class="FullScreenPanel" style="background-color: rgba(0, 0, 0, 0.94); top: 0; left: -1px;">
         <ui:VisualElement class="CenteredPanel">
             <ui:Label text="GAME OVER" class="TitleText" />
             <ui:Button text="Restart" name="RestartBtn" class="RegularButton" style="max-width: none; min-width: 128px; margin-bottom: 12px;" />

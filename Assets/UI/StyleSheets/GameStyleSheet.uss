@@ -48,8 +48,24 @@
     align-items: center;
     flex-grow: 1;
     flex-direction: column;
-    width: 32%;
-    background-color: rgba(29, 29, 29, 0.98);
+    background-color: rgb(70, 70, 70);
+    left: 30%;
+    top: 30%;
+    right: 30%;
+    bottom: 30%;
+    position: absolute;
+    border-left-color: rgba(63, 63, 63, 255);
+    border-right-color: rgba(63, 63, 63, 255);
+    border-top-color: rgba(63, 63, 63, 255);
+    border-bottom-color: rgba(63, 63, 63, 255);
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    border-top-left-radius: 72px;
+    border-bottom-left-radius: 72px;
+    border-top-right-radius: 72px;
+    border-bottom-right-radius: 72px;
 }
 
 .BoldText {
@@ -109,7 +125,7 @@
     -unity-slice-right: 16;
     -unity-slice-bottom: 16;
     -unity-text-outline-width: 1px;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 255);
+    text-shadow: 1px 1px 0 rgb(0, 0, 0);
 }
 
 .RegularButton {
@@ -124,8 +140,8 @@
     border-bottom-left-radius: 8px;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
-    width: 120px;
-    height: 48px;
+    width: 200px;
+    height: 96px;
     border-left-width: 4px;
     border-right-width: 4px;
     border-top-width: 4px;
@@ -135,20 +151,21 @@
     margin-top: 12px;
     margin-bottom: 12px;
     color: rgb(255, 255, 255);
-    font-size: 12px;
+    font-size: 24px;
     -unity-font-definition: resource('Fonts & Materials/WorkSans-Regular SDF');
+    -unity-font-style: bold;
 }
 
 .TitleText {
-    -unity-font-style: bold-and-italic;
+    -unity-font-style: bold;
     color: rgb(255, 255, 255);
-    font-size: 16px;
+    font-size: 30px;
     -unity-text-align: upper-center;
     padding-left: 12px;
     padding-right: 12px;
     padding-top: 12px;
     padding-bottom: 12px;
-    -unity-font-definition: resource('Fonts & Materials/WorkSans-Regular SDF');
+    -unity-font-definition: resource('Fonts & Materials/WorkSans-Bold SDF');
 }
 
 .BigValueText {
@@ -182,4 +199,34 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
+}
+
+.CenteredRow {
+    flex-direction: row;
+    align-items: center;
+}
+
+.ScreenOverlay {
+    position: absolute;
+    left: 15%;
+    top: 15%;
+    right: 15%;
+    bottom: 15%;
+    background-color: rgb(63, 63, 63);
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    border-left-width: 8px;
+    border-right-width: 8px;
+    border-top-width: 8px;
+    border-bottom-width: 8px;
+    border-left-color: rgb(43, 43, 43);
+    border-right-color: rgb(43, 43, 43);
+    border-top-color: rgb(43, 43, 43);
+    border-bottom-color: rgb(43, 43, 43);
+    border-top-left-radius: 48px;
+    border-bottom-left-radius: 48px;
+    border-top-right-radius: 48px;
+    border-bottom-right-radius: 48px;
 }
