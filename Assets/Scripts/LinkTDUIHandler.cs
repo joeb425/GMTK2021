@@ -33,6 +33,7 @@ public class LinkTDUIHandler : UIHandler
 	private void OnLevelFinished()
 	{
 		_levelFinishedScreen.style.display = DisplayStyle.Flex; //Fix the uis
+		Game.Get.GetUIHandler().SetElementBlockingMouse(_levelFinishedScreen, true);
 	}
 
 	private void OpenSettingsMenu()
