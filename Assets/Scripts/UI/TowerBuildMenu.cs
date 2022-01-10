@@ -112,8 +112,12 @@ public class TowerBuildMenu : VisualElement
 
 		button.onSelected += () =>
 		{
-			_selectedButton?.ClearSelectedState();
-			_selectedButton = button;
+			if (_selectedButton != button)
+			{
+				_selectedButton?.ClearSelectedState();
+				_selectedButton = button;
+			}
+
 			GameState.Get().Board.SetTowerToBePlaced(towerPrefab);
 		};
 

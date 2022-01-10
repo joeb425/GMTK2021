@@ -70,8 +70,12 @@ public class TowerUpgradePanel : GameVisualElement
 
 		button.onSelected += () =>
 		{
-			_selectedButton?.ClearSelectedState();
-			_selectedButton = button;
+			if (_selectedButton != button)
+			{
+				_selectedButton?.ClearSelectedState();
+				_selectedButton = button;
+			}
+
 			_towerDescription.BindToTower(towerPrefab);
 			Debug.Log($"Select tower {towerPrefab}");
 		};
