@@ -79,11 +79,11 @@ public class Game : BaseGame
 
 	public void RestartGame()
 	{
-		SceneManager.LoadScene("Assets/Scenes/Game.unity", LoadSceneMode.Single);
+		Addressables.LoadSceneAsync("Assets/Scenes/Game.unity", LoadSceneMode.Single);
 	}
 
 	public void GoToMainMenu()
 	{
-		SceneManager.LoadScene("Assets/Scenes/MainMenu.unity", LoadSceneMode.Single);
+		Addressables.LoadSceneAsync("Assets/Scenes/MainMenu.unity", LoadSceneMode.Single);
 	}
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine.SceneManagement;
+﻿using UnityEngine.AddressableAssets;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace UI.MainMenu
@@ -43,7 +44,7 @@ namespace UI.MainMenu
 
 		private void GoToMainMenu()
 		{
-			SceneManager.LoadScene("Assets/Scenes/MainMenu.unity", LoadSceneMode.Single);
+			Addressables.LoadSceneAsync("Assets/Scenes/MainMenu.unity", LoadSceneMode.Single);
 		}
 	}
 }
