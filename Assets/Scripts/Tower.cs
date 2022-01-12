@@ -487,38 +487,6 @@ public class Tower : HexTileComponent
 		towerRangeDisplay.SetActive(visible);
 	}
 
-	protected bool CanUpgradeTower()
-	{
-		return _towerLevel < towerData.upgradeInfos.Length;
-	}
-
-	public void UpgradeTower()
-	{
-		if (!CanUpgradeTower())
-		{
-			return;
-		}
-
-		UpgradeInfo upgradeInfo = towerData.upgradeInfos[_towerLevel];
-		if (GameState.Get().SpendCash(upgradeInfo.upgradeCost))
-		{
-			Attributes.ApplyEffect(upgradeInfo.upgradeEffect);
-		}
-	}
-
-	public void LinkTower()
-	{
-		// Link tower -> need to tell board link has occured and probably pass in coord of linking tile
-		var link = 1;
-		GameState.Get().Board.CreateLink(this);
-
-		// 
-	}
-
-	public void UpdateAttributes()
-	{
-	}
-
 	public void UpgradeTower(UpgradePath upgradePath)
 	{
 		GameState gameState = GameState.Get();
@@ -528,5 +496,10 @@ public class Tower : HexTileComponent
 		gameState.SpendCash(upgradePath.upgradeCost);
 
 		Destroy(gameObject);
+	}
+
+	private void OnValidate()
+	{
+		Debug.Log("validate tower?");
 	}
 }
