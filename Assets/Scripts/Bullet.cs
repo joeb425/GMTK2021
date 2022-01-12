@@ -87,7 +87,6 @@ public class Bullet : MonoBehaviour, IGameplayTag
 			bool targetIsDead = false;// target.IsValid();
 
 			Explode();
-			Debug.Log(_chain);
 
 			if (!targetIsDead && TryChaining())
 			{

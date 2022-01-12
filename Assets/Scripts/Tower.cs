@@ -187,9 +187,10 @@ public class Tower : HexTileComponent
 		{
 			if (!hasRotator && trackTarget)
 			{
-				Vector3 point = target.Position;
-				point.y = turret.transform.position.y;
-				turret.LookAt(point);
+				Vector3 toTarget = target.Position - transform.position;
+				toTarget.y = 0;
+				float turnSpeed = Attributes.GetCurrentValue(MyAttributes.Get().TurnSpeed);
+				turret.rotation = Quaternion.Lerp(turret.rotation, Quaternion.LookRotation(toTarget), Time.deltaTime * turnSpeed);
 			}
 
 			UpdateAttacking();
@@ -308,12 +309,19 @@ public class Tower : HexTileComponent
 		if (target != null)
 		{
 			attackTimeRemaining -= Time.deltaTime;
-			if (attackTimeRemaining <= 0)
+			if (attackTimeRemaining <= 0 && IsFacingTarget())
 			{
 				attackTimeRemaining = Attributes.GetCurrentValue(MyAttributes.Get().AttackSpeed) - attackTimeRemaining;
 				Attack();
 			}
 		}
+	}
+
+	private bool IsFacingTarget()
+	{
+		Vector3 toTarget = target.Position - transform.position;
+		float angle = Quaternion.Angle(turret.rotation, Quaternion.LookRotation(toTarget));
+		return angle < 30;
 	}
 
 	void Attack()
@@ -412,6 +420,7 @@ public class Tower : HexTileComponent
 		Attributes.InitAttribute(MyAttributes.Get().SplashPercent, towerData.splash);
 		Attributes.InitAttribute(MyAttributes.Get().Range, towerData.attackRange);
 		Attributes.InitAttribute(MyAttributes.Get().AttackSpeed, towerData.attackSpeed);
+		Attributes.InitAttribute(MyAttributes.Get().TurnSpeed, towerData.turnSpeed);
 		Attributes.InitAttribute(MyAttributes.Get().Split, towerData.split);
 		Attributes.InitAttribute(MyAttributes.Get().Chain, towerData.chain);
 		Attributes.InitAttribute(MyAttributes.Get().ChainRadius, towerData.chainRadius);

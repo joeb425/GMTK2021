@@ -51,6 +51,9 @@ public class TowerData : ScriptableObject
 	[SerializeField, Range(0.0f, 200f)]
 	public float attackSpeed = 1;
 
+	[SerializeField]
+	public float turnSpeed = 5.0f;
+
 	[SerializeField, Range(0, 200)]
 	public int split = 0;
 

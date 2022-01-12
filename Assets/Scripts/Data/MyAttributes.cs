@@ -26,6 +26,9 @@ namespace DefaultNamespace.Data
 		public AttributeType AttackSpeed;
 
 		[SerializeField]
+		public AttributeType TurnSpeed;
+
+		[SerializeField]
 		public AttributeType Split;
 
 		[SerializeField]
