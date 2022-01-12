@@ -32,6 +32,12 @@ namespace DefaultNamespace.Data
 		public AttributeType SplashPercent;
 
 		[SerializeField]
+		public AttributeType Chain;
+
+		[SerializeField]
+		public AttributeType ChainRadius;
+
+		[SerializeField]
 		public AttributeType Speed;
 
 		[SerializeField]

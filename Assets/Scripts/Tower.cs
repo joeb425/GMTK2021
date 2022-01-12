@@ -261,7 +261,7 @@ public class Tower : HexTileComponent
 		return Physics.OverlapSphere(transform.position, Attributes.GetCurrentValue(MyAttributes.Get().Range), 1 << 9);
 	}
 
-	bool IsValidTarget(TargetPoint targetPoint)
+	public bool IsValidTarget(TargetPoint targetPoint)
 	{
 		if (targetPoint == null)
 		{
@@ -273,16 +273,8 @@ public class Tower : HexTileComponent
 		{
 			return false;
 		}
-		
-		
-		// GameplayTagManager.instance.RequestTag("Status.IsAlive", out GameplayTag statusIsAlive);
-		// GameplayTagManager.instance.RequestTag("Status.Invulnerable", out GameplayTag statusInvulnerable);
-		return targetTagFilter.DoesFilterPass(enemyTarget.gameplayTagContainer);
 
-		// bool isAlive = enemyTarget.gameplayTagContainer.ContainsTag(statusIsAlive);
-		// bool isInvulnerable = enemyTarget.gameplayTagContainer.ContainsTag(statusInvulnerable);
-		//
-		// return isAlive && !isInvulnerable;
+		return targetTagFilter.DoesFilterPass(enemyTarget.gameplayTagContainer);
 	}
 
 	bool AcquireTarget()
@@ -365,12 +357,16 @@ public class Tower : HexTileComponent
 					Bullet bulletObject = BulletPool.Get().GetInstance(towerData.bulletPrefab);
 					if (bulletObject != null)
 					{
-						bulletObject.transform.position = bulletSpawnPoint.position;
-						bulletObject.transform.rotation = bulletSpawnPoint.rotation;
+						var bulletTransform = bulletObject.transform;
+						bulletTransform.position = bulletSpawnPoint.position;
+						bulletTransform.rotation = bulletSpawnPoint.rotation;
 
 						Bullet bullet = bulletObject.GetComponent<Bullet>();
 						bullet.target = targetToAttack;
 						bullet.tower = this;
+						int chain = Attributes.GetCurrentValueAsInt(MyAttributes.Get().Chain);
+						float chainRadius = Attributes.GetCurrentValue(MyAttributes.Get().ChainRadius);
+						bullet.SetChain(chain, chainRadius);
 						bullet.Init();
 					}
 				}
@@ -417,6 +413,8 @@ public class Tower : HexTileComponent
 		Attributes.InitAttribute(MyAttributes.Get().Range, towerData.attackRange);
 		Attributes.InitAttribute(MyAttributes.Get().AttackSpeed, towerData.attackSpeed);
 		Attributes.InitAttribute(MyAttributes.Get().Split, towerData.split);
+		Attributes.InitAttribute(MyAttributes.Get().Chain, towerData.chain);
+		Attributes.InitAttribute(MyAttributes.Get().ChainRadius, towerData.chainRadius);
 		onHitEffects = towerData.onHitEffects;
 
 		// TODO bind to callbacks when attributes change

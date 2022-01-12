@@ -8,6 +8,11 @@ public class TargetPoint : MonoBehaviour
 
 	public Vector3 Position => transform.position;
 
+	public bool IsValid()
+	{
+		return Enemy != null && Enemy.isActiveAndEnabled;
+	}
+
 	void Awake()
 	{
 		Enemy = transform.root.GetComponent<Enemy>();
