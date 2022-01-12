@@ -6,6 +6,9 @@ using UnityEngine.UIElements;
 public class GamePrefabs : ScriptableObject
 {
 	[SerializeField]
+	public Tower[] towerPrefabs = default;
+	
+	[SerializeField]
 	public Tower basicTowerPrefab = default;
 
 	[SerializeField]

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Mantis.Engine;
 using Mantis.Utils.UI;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem.Controls;
 using UnityEngine.UIElements;
 
 public class TowerBuildMenu : VisualElement
@@ -38,13 +39,22 @@ public class TowerBuildMenu : VisualElement
 		_towerDescription.BindToTower(null);
 
 		List<Tower> availableTowers = GameData.Get().GetCurrentLevel().availableTowers;
-		if (availableTowers.Count > 0)
+
+		if (availableTowers.Count == 0)
 		{
-			_buttons.Clear();
-			foreach (Tower tower in availableTowers)
-			{
-				CreateButton(tower, "Basic");
-			}
+			Debug.LogError($"No available towers for level {GameData.Get().GetCurrentLevel()}");
+
+#if UNITY_EDITOR
+			availableTowers =
+				AssetDatabase.FindAssets($"Tower:{nameof(Tower)}").ToList()
+					.ConvertAll(guid => AssetDatabase.LoadAssetAtPath<Tower>(AssetDatabase.GUIDToAssetPath(guid)));
+#endif
+		}
+
+		_buttons.Clear();
+		foreach (Tower tower in availableTowers)
+		{
+			CreateButton(tower);
 		}
 	}
 
@@ -71,18 +81,18 @@ public class TowerBuildMenu : VisualElement
 		if (_buttons != null)
 		{
 			_buttons.Clear();
-			CreateButton(gamePrefabs.basicTowerPrefab, "Basic");
-			CreateButton(gamePrefabs.doubleTowerPrefab, "Double");
-			CreateButton(gamePrefabs.rocketTowerPrefab, "Rocket");
-			CreateButton(gamePrefabs.sniperTowerPrefab, "Sniper");
-			CreateButton(gamePrefabs.smgTowerPrefab, "SMG");
-			CreateButton(gamePrefabs.supportTowerPrefab, "Support");
-			CreateButton(gamePrefabs.recoupTowerPrefab, "Recoup"); 
-			CreateButton(gamePrefabs.slowTowerPrefab, "Slow");
-			CreateButton(gamePrefabs.tower9Prefab, "9");
-			CreateButton(gamePrefabs.tower10Prefab, "10");
-			CreateButton(gamePrefabs.tower11Prefab, "11");
-			CreateButton(gamePrefabs.tower12Prefab, "12");
+			// CreateButton(gamePrefabs.basicTowerPrefab, "Basic");
+			// CreateButton(gamePrefabs.doubleTowerPrefab, "Double");
+			// CreateButton(gamePrefabs.rocketTowerPrefab, "Rocket");
+			// CreateButton(gamePrefabs.sniperTowerPrefab, "Sniper");
+			// CreateButton(gamePrefabs.smgTowerPrefab, "SMG");
+			// CreateButton(gamePrefabs.supportTowerPrefab, "Support");
+			// CreateButton(gamePrefabs.recoupTowerPrefab, "Recoup"); 
+			// CreateButton(gamePrefabs.slowTowerPrefab, "Slow");
+			// CreateButton(gamePrefabs.tower9Prefab, "9");
+			// CreateButton(gamePrefabs.tower10Prefab, "10");
+			// CreateButton(gamePrefabs.tower11Prefab, "11");
+			// CreateButton(gamePrefabs.tower12Prefab, "12");
 		}
 	}
 
@@ -99,7 +109,7 @@ public class TowerBuildMenu : VisualElement
 		}
 	}
 
-	private void CreateButton(Tower towerPrefab, string btnText)
+	private void CreateButton(Tower towerPrefab)
 	{
 		VisualElement spawnBasicTower = _iconButton.CloneTree();
 		_buttons.Add(spawnBasicTower);

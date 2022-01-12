@@ -13,17 +13,23 @@ MonoBehaviour:
   m_Name: TowerData_Sniper
   m_EditorClassIdentifier: 
   towerName: Sniper
+  towerDescription: 
   towerIcon: {fileID: 2800000, guid: 2fe36d1c5aac1eb4a9844bb7ad9debec, type: 3}
   towerCost: 5
   towerSell: 4
-  attackRange: 2
-  damage: 0.66
-  attackSpeed: 0.1
-  split: 5
+  attackRange: 15
+  damage: 5
+  attackSpeed: 2
+  turnSpeed: 5
+  split: 0
   splash: 0
+  splashRadius: 0
+  chain: 0
+  chainRadius: 4
   bulletPrefab: {fileID: 7556477264031917805, guid: 8bc7a28741259a142baf7604852785e1,
     type: 3}
   upgradeInfos: []
+  upgradePaths: []
   onHitEffects:
   - {fileID: 11400000, guid: 98097641af988c14bb6bb71566ec298b, type: 2}
   shootSfx: {fileID: 8300000, guid: ef083d5dbc204c04ba079c7b37bfd570, type: 3}

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ee7b0f9fbcc46a080c5fb5c716b97b9, type: 3}
-  m_Name: TowerData_Recoup
+  m_Name: TowerData_Venom
   m_EditorClassIdentifier: 
-  towerName: Recoup
+  towerName: Venom
   towerDescription: 
-  towerIcon: {fileID: 2800000, guid: 2fe36d1c5aac1eb4a9844bb7ad9debec, type: 3}
+  towerIcon: {fileID: 0}
   towerCost: 5
-  towerSell: 4
+  towerSell: 5
   attackRange: 3
-  damage: 5
+  damage: 0
   attackSpeed: 1
   turnSpeed: 5
   split: 0
@@ -26,12 +26,10 @@ MonoBehaviour:
   splashRadius: 1
   chain: 0
   chainRadius: 4
-  bulletPrefab: {fileID: 7556477264031917805, guid: 3764e102f80783e41ba30cd4794e2e57,
-    type: 3}
+  bulletPrefab: {fileID: 0}
   upgradeInfos: []
   upgradePaths: []
-  onHitEffects:
-  - {fileID: 11400000, guid: 1d85132230cc1f14aae8f4504fc4d2cf, type: 2}
-  shootSfx: {fileID: 8300000, guid: 4552758ee0437044eb0460214f880917, type: 3}
+  onHitEffects: []
+  shootSfx: {fileID: 0}
   supportEffects: []
   supportRadius: 0

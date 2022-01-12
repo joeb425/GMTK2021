@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: 
   health: 40
-  speed: 3
+  speed: 0.75
   block: 0

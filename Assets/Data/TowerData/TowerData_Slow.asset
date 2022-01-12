@@ -13,17 +13,23 @@ MonoBehaviour:
   m_Name: TowerData_Slow
   m_EditorClassIdentifier: 
   towerName: Slow
+  towerDescription: 
   towerIcon: {fileID: 0}
   towerCost: 5
   towerSell: 5
   attackRange: 3
-  damage: 0
-  attackSpeed: 1
+  damage: 5
+  attackSpeed: 0.8
+  turnSpeed: 5
   split: 0
   splash: 0
+  splashRadius: 1
+  chain: 0
+  chainRadius: 4
   bulletPrefab: {fileID: 6505662989784689220, guid: 6122676ec2df917478dacb30a02729f5,
     type: 3}
   upgradeInfos: []
+  upgradePaths: []
   onHitEffects:
   - {fileID: 11400000, guid: 98097641af988c14bb6bb71566ec298b, type: 2}
   shootSfx: {fileID: 0}

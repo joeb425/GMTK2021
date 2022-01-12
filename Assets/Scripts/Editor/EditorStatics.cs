@@ -40,9 +40,9 @@ namespace Mantis.LinkTD.Editor.Editor
 				float.TryParse(values[4], out var atkspd);
 				int.TryParse(values[5], out var split);
 				float.TryParse(values[6], out var splash);
-				float.TryParse(values[7], out var dot);
-				float.TryParse(values[8], out var slow);
-				float.TryParse(values[9], out var stun);
+				float.TryParse(values[7], out var splashRadius);
+				int.TryParse(values[8], out var chain);
+				float.TryParse(values[9], out var chainRadius);
 
 				TowerData towerData = null;
 
@@ -69,7 +69,10 @@ namespace Mantis.LinkTD.Editor.Editor
 					UpdateValue(ref towerData.damage, damage) ||
 					UpdateValue(ref towerData.attackSpeed, atkspd) ||
 					UpdateValue(ref towerData.split, split) ||
-					UpdateValue(ref towerData.splash, splash);
+					UpdateValue(ref towerData.splash, splash) ||
+					UpdateValue(ref towerData.splashRadius, splashRadius) ||
+					UpdateValue(ref towerData.chain, chain) ||
+					UpdateValue(ref towerData.chainRadius, chainRadius);
 
 				if (hasChanged)
 				{

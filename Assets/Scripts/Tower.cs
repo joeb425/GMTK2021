@@ -41,7 +41,6 @@ public class Tower : HexTileComponent
 	[SerializeField]
 	private GameplayTagFilter targetTagFilter; 
 
-
 	private float attackTimeRemaining;
 
 	public int numSegments = 64;

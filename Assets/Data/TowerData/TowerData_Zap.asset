@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ee7b0f9fbcc46a080c5fb5c716b97b9, type: 3}
-  m_Name: TowerData_Decay
+  m_Name: TowerData_Zap
   m_EditorClassIdentifier: 
-  towerName: Decay
+  towerName: Zap
   towerDescription: 
   towerIcon: {fileID: 0}
   towerCost: 5
   towerSell: 5
-  attackRange: 2
-  damage: 4
-  attackSpeed: 1
+  attackRange: 6
+  damage: 5
+  attackSpeed: 2
+  turnSpeed: 5
   split: 0
-  splash: 1
+  splash: 0
+  splashRadius: 1
+  chain: 0
+  chainRadius: 4
   bulletPrefab: {fileID: 0}
   upgradeInfos: []
-  upgradePaths:
-  - upgradeCost: 5
-    tower: {fileID: 8119690419672304627, guid: 2add2897b33aaa44ca5482e243244e44, type: 3}
-  - upgradeCost: 5
-    tower: {fileID: 7682699519609654883, guid: 7cb331027864aa34caa51c890a607a5c, type: 3}
+  upgradePaths: []
   onHitEffects: []
   shootSfx: {fileID: 0}
   supportEffects: []

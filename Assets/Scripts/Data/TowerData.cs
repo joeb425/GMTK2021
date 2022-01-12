@@ -60,6 +60,9 @@ public class TowerData : ScriptableObject
 	[SerializeField, Range(0.0f, 200f)]
 	public float splash = 0;
 
+	[SerializeField, Range(0.0f, 200f)]
+	public float splashRadius = 0;
+
 	[SerializeField, Range(0, 200)]
 	public int chain = 0;
 
