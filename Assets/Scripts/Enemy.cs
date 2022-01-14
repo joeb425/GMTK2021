@@ -98,6 +98,7 @@ public class Enemy : MonoBehaviour, IGameplayTag
 
 		_progress = 0.0f;
 		gameplayTagContainer.Reset();
+		attributes.Init();
 		attributes.Reset();
 
 		attributes.InitAttribute(MyAttributes.Get().Health, enemyData.health);

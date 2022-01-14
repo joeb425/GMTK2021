@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DefaultNamespace.Data;
+using Mantis.AttributeSystem;
+using Mantis.GameplayTags;
 using Mantis.Utils;
 using Mantis.Utils.Editor;
 using UnityEditor;
@@ -17,13 +20,40 @@ namespace Mantis.LinkTD.Editor.Editor
 				OnLoadedTowerData);
 		}
 
+		static T CreateOrFind<T>(string filePath, Dictionary<string, T> towerDatas) where T : Object
+		{
+			if (towerDatas.ContainsKey(filePath))
+			{
+				Debug.Log($"Found: {filePath}");
+				return towerDatas[filePath];
+			}
+			else
+			{
+				// string filePath = $"Assets/Data/TowerData/{fileName}.asset";
+				T towerData = ScriptableObject.CreateInstance(typeof(T)) as T;
+				AssetDatabase.CreateAsset(towerData, filePath);
+				Debug.Log($"Created at: {filePath}");
+				return towerData;
+			}
+		}
+
 		static void OnLoadedTowerData(string fileData)
 		{
-			Dictionary<string, TowerData> towerDatas = new Dictionary<string, TowerData>();
-			foreach (TowerData towerData in CustomAssetUtils.FindAssetsByType<TowerData>())
-			{
-				towerDatas.Add(towerData.name, towerData);
-			}
+			// Dictionary<string, TowerData> towerDatas = new Dictionary<string, TowerData>();
+			// foreach (TowerData towerData in CustomAssetUtils.FindAssetsByType<TowerData>())
+			// {
+			// 	Debug.Log(AssetDatabase.GetAssetPath(towerData));
+			// 	towerDatas.Add(towerData.name, towerData);
+			// }
+
+			Dictionary<string, TowerData> towerDatas = CustomAssetUtils.FindAssetsByTypeWithPath<TowerData>();
+			Dictionary<string, GameplayAttributeDefaults> attributeDefaults = CustomAssetUtils.FindAssetsByTypeWithPath<GameplayAttributeDefaults>();
+
+			// Dictionary<string, TowerData> towerDatas = new Dictionary<string, TowerData>();
+			// foreach (TowerData towerData in CustomAssetUtils.FindAssetsByType<TowerData>())
+			// {
+			// 	towerDatas.Add(towerData.name, towerData);
+			// }
 
 			List<string> unusedTowerDatas = towerDatas.Keys.ToList();
 
@@ -33,7 +63,7 @@ namespace Mantis.LinkTD.Editor.Editor
 			{
 				string row = rows[i];
 				var values = row.Split(',');
-				var name = values[0].Split('.').Last();
+				var name = values[0].Split("Tower.").Last();
 				int.TryParse(values[1], out var price);
 				float.TryParse(values[2], out var range);
 				float.TryParse(values[3], out var damage);
@@ -43,60 +73,109 @@ namespace Mantis.LinkTD.Editor.Editor
 				float.TryParse(values[7], out var splashRadius);
 				int.TryParse(values[8], out var chain);
 				float.TryParse(values[9], out var chainRadius);
+				float.TryParse(values[10], out var turnSpeed);
+				int.TryParse(values[11], out var sell);
+				var description = values[12];
 
-				TowerData towerData = null;
+				string filePath = $"Assets/Data/TowerData/TowerData_{name}.asset";
+				TowerData towerData = CreateOrFind(filePath, towerDatas);
 
-				string fileName = $"TowerData_{name}";
+				string defaultsPath = $"Assets/Data/TowerData/AttributeDefaults_{name}.asset";
+				GameplayAttributeDefaults defaults = CreateOrFind(defaultsPath, attributeDefaults);
+				bool defaultsChanged =
+					defaults.FindOrAdd(MyAttributes.Get().Range, range) |
+					defaults.FindOrAdd(MyAttributes.Get().Damage, damage) |
+					defaults.FindOrAdd(MyAttributes.Get().AttackSpeed, atkspd) |
+					defaults.FindOrAdd(MyAttributes.Get().Split, split) |
+					defaults.FindOrAdd(MyAttributes.Get().SplashPercent, splash) |
+					defaults.FindOrAdd(MyAttributes.Get().SplashRadius, splashRadius) |
+					defaults.FindOrAdd(MyAttributes.Get().Chain, chain) |
+					defaults.FindOrAdd(MyAttributes.Get().ChainRadius, chainRadius) |
+					defaults.FindOrAdd(MyAttributes.Get().TurnSpeed, turnSpeed);
 
-				unusedTowerDatas.Remove(fileName);
-
-				if (towerDatas.ContainsKey(fileName))
+				if (defaultsChanged)
 				{
-					towerData = towerDatas[fileName];
-				}
-				else
-				{
-					string filePath = $"Assets/Data/TowerData/{fileName}.asset";
-					towerData = ScriptableObject.CreateInstance(typeof(TowerData)) as TowerData;
-					AssetDatabase.CreateAsset(towerData, filePath);
-					Debug.Log($"Create TowerData at: {filePath}");
+					EditorUtility.SetDirty(defaults);
+					AssetDatabase.SaveAssetIfDirty(defaults);
 				}
 
 				bool hasChanged =
-					UpdateValue(ref towerData.towerName, name) ||
-					UpdateValue(ref towerData.towerCost, price) ||
-					UpdateValue(ref towerData.attackRange, range) ||
-					UpdateValue(ref towerData.damage, damage) ||
-					UpdateValue(ref towerData.attackSpeed, atkspd) ||
-					UpdateValue(ref towerData.split, split) ||
-					UpdateValue(ref towerData.splash, splash) ||
-					UpdateValue(ref towerData.splashRadius, splashRadius) ||
-					UpdateValue(ref towerData.chain, chain) ||
-					UpdateValue(ref towerData.chainRadius, chainRadius);
+					UpdateValue(ref towerData.towerName, name) |
+					UpdateValue(ref towerData.towerCost, price) |
+					UpdateValue(ref towerData.towerSell, sell) |
+					UpdateValue(ref towerData.towerDescription, description);
 
 				if (hasChanged)
 				{
-					Debug.Log($"{towerData.name} changed");
 					EditorUtility.SetDirty(towerData);
 					AssetDatabase.SaveAssetIfDirty(towerData);
 				}
 			}
 
-			string[] allPaths = new string[unusedTowerDatas.Count];
-			for (var i = 0; i < unusedTowerDatas.Count; i++)
-			{
-				var fileName = unusedTowerDatas[i];
-				string filePath = $"Assets/Data/TowerData/{fileName}.asset";
-				allPaths[i] = filePath;
-				Debug.Log($"Delete unused {filePath}");
-			}
+			// string[] allPaths = new string[unusedTowerDatas.Count];
+			// for (var i = 0; i < unusedTowerDatas.Count; i++)
+			// {
+			// 	var fileName = unusedTowerDatas[i];
+			// 	string filePath = $"Assets/Data/TowerData/{fileName}.asset";
+			// 	allPaths[i] = filePath;
+			// 	Debug.Log($"Delete unused {filePath}");
+			// }
 
-			List<string> failed = new List<string>();
-			AssetDatabase.DeleteAssets(allPaths, failed);
+			// List<string> failed = new List<string>();
+			// AssetDatabase.DeleteAssets(allPaths, failed);
+			UpdateTowers();
 		}
 
+		public static void UpdateTowers()
+		{
+			// 
+			var towers = CustomAssetUtils.FindMonoBehaviourByType<Tower>(new [] { "Assets/Prefabs/Towers" });
+			var datas = CustomAssetUtils.FindAssetsByType<TowerData>();
+			var attributeDefaults = CustomAssetUtils.FindAssetsByType<GameplayAttributeDefaults>();
+
+			Debug.Log("Updating towers!");
+			foreach (Tower tower in towers)
+			{
+				GameplayTag tag = tower.GetGameplayTag();
+				if (!tag)
+				{
+					continue;
+				}
+
+				string name = tower.GetGameplayTag().name.Split("Tower.").Last();
+
+				TowerData data = datas.First(d => d.name == $"TowerData_{name}");
+				if (data == null)
+				{
+					Debug.LogError($"Failed to find tower data for tower {name}");
+				}
+
+				GameplayAttributeDefaults attr = attributeDefaults.First(d => d.name == $"AttributeDefaults_{name}");
+				if (attr == null)
+				{
+					Debug.LogError($"Failed to find attribute defaults for tower {name}");
+				}
+
+				bool hasChanged =
+					UpdateValue(ref tower.towerData, data) |
+					UpdateValue(ref tower.GetAttributes().attributeDefaults, attr);
+
+				if (hasChanged)
+				{
+					UpdateValue(ref tower.towerData, data);
+					EditorUtility.SetDirty(tower);
+					AssetDatabase.SaveAssetIfDirty(tower);
+				}
+			}
+		}
+		
 		private static bool UpdateValue<T>(ref T value, T newValue)
 		{
+			if (newValue == null)
+			{
+				return false;
+			}
+
 			if (Equals(value, newValue))
 				return false;
 

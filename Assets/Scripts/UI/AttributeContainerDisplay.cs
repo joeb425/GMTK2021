@@ -38,19 +38,40 @@ namespace UI.MainMenu
 				return;
 			}
 
-			foreach (KeyValuePair<AttributeType, GameplayAttribute> kvp in container.attributes)
+			if (container.attributes.Count > 0)
 			{
-				VisualElement attributeDisplayInstance = _attributeDisplay.CloneTree();
-				_attributeContainer.Add(attributeDisplayInstance);
+				foreach (KeyValuePair<AttributeType, GameplayAttribute> kvp in container.attributes)
+				{
+					VisualElement attributeDisplayInstance = _attributeDisplay.CloneTree();
+					_attributeContainer.Add(attributeDisplayInstance);
 
-				AttributeDisplay attributeDisplay = attributeDisplayInstance.Q<AttributeDisplay>();
-				if (attributeDisplay == null)
-				{
-					Debug.Log("Failed to find attribute display from instance");
+					AttributeDisplay attributeDisplay = attributeDisplayInstance.Q<AttributeDisplay>();
+					if (attributeDisplay == null)
+					{
+						Debug.Log("Failed to find attribute display from instance");
+					}
+					else
+					{
+						attributeDisplay.BindToGameplayAttribute(kvp.Value);
+					}
 				}
-				else
+			}
+			else
+			{
+				foreach (AttributeDefault attributeDefault in container.attributeDefaults.attributeDefaults)
 				{
-					attributeDisplay.BindToGameplayAttribute(kvp.Value);
+					VisualElement attributeDisplayInstance = _attributeDisplay.CloneTree();
+					_attributeContainer.Add(attributeDisplayInstance);
+
+					AttributeDisplay attributeDisplay = attributeDisplayInstance.Q<AttributeDisplay>();
+					if (attributeDisplay == null)
+					{
+						Debug.Log("Failed to find attribute display from instance");
+					}
+					else
+					{
+						attributeDisplay.BindToAttributeDefault(attributeDefault);
+					}
 				}
 			}
 		}

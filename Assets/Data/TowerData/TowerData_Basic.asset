@@ -13,29 +13,20 @@ MonoBehaviour:
   m_Name: TowerData_Basic
   m_EditorClassIdentifier: 
   towerName: Basic
-  towerDescription: A basic tower
+  towerDescription: This is a Tower.Basic
   towerIcon: {fileID: 2800000, guid: 2fe36d1c5aac1eb4a9844bb7ad9debec, type: 3}
   towerCost: 3
-  towerSell: 4
-  attackRange: 3
-  damage: 5
-  attackSpeed: 1
-  turnSpeed: 5
-  split: 0
-  splash: 0
-  splashRadius: 1
-  chain: 0
-  chainRadius: 4
+  towerSell: 5
   bulletPrefab: {fileID: 7556477264031917805, guid: 3764e102f80783e41ba30cd4794e2e57,
     type: 3}
-  upgradeInfos:
-  - upgradeCost: 5
-    upgradeEffect: {fileID: 11400000, guid: 5875d55ef89a56a45945586af535f14e, type: 2}
   upgradePaths:
   - upgradeCost: 2
+    tower: {fileID: 8119690419672304627, guid: 2add2897b33aaa44ca5482e243244e44, type: 3}
+    towerData: {fileID: 0}
+  - upgradeCost: 2
     tower: {fileID: 5942957368654960938, guid: 1038ec44c5e3c514485f69db945a9f65, type: 3}
+    towerData: {fileID: 0}
   onHitEffects:
   - {fileID: 11400000, guid: c3d5aaf545121b44984ca39c087a2b3a, type: 2}
   shootSfx: {fileID: 8300000, guid: 4552758ee0437044eb0460214f880917, type: 3}
   supportEffects: []
-  supportRadius: 0

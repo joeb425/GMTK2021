@@ -13,23 +13,12 @@ MonoBehaviour:
   m_Name: TowerData_Grill
   m_EditorClassIdentifier: 
   towerName: Grill
-  towerDescription: 
+  towerDescription: This is a Tower.Grill
   towerIcon: {fileID: 0}
   towerCost: 5
   towerSell: 5
-  attackRange: 3
-  damage: 3
-  attackSpeed: 0.5
-  turnSpeed: 5
-  split: 0
-  splash: 0
-  splashRadius: 0
-  chain: 0
-  chainRadius: 4
   bulletPrefab: {fileID: 0}
-  upgradeInfos: []
   upgradePaths: []
   onHitEffects: []
   shootSfx: {fileID: 0}
   supportEffects: []
-  supportRadius: 0

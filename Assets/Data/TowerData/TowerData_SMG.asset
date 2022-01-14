@@ -13,25 +13,14 @@ MonoBehaviour:
   m_Name: TowerData_SMG
   m_EditorClassIdentifier: 
   towerName: SMG
-  towerDescription: 
+  towerDescription: This is a Tower.SMG
   towerIcon: {fileID: 2800000, guid: 954aa908e32153a48b5bbec18e4e241f, type: 3}
   towerCost: 5
-  towerSell: 4
-  attackRange: 2.5
-  damage: 5
-  attackSpeed: 0.5
-  turnSpeed: 5
-  split: 0
-  splash: 0
-  splashRadius: 1
-  chain: 0
-  chainRadius: 4
+  towerSell: 5
   bulletPrefab: {fileID: 7556477264031917805, guid: 3764e102f80783e41ba30cd4794e2e57,
     type: 3}
-  upgradeInfos: []
   upgradePaths: []
   onHitEffects:
   - {fileID: 11400000, guid: 98097641af988c14bb6bb71566ec298b, type: 2}
   shootSfx: {fileID: 8300000, guid: 6147df8761937bc43b03075720c8817c, type: 3}
   supportEffects: []
-  supportRadius: 0

@@ -39,7 +39,10 @@ public class Tower : HexTileComponent
 	public Material towerBuildMaterial;
 
 	[SerializeField]
-	private GameplayTagFilter targetTagFilter; 
+	private GameplayTagFilter targetTagFilter;
+
+	[SerializeField]
+	public GameObject turretGameObject;
 
 	private float attackTimeRemaining;
 
@@ -55,6 +58,12 @@ public class Tower : HexTileComponent
 
 	public GameplayAttributeContainer Attributes;
 
+	public GameplayAttributeContainer GetAttributes()
+	{
+		Attributes ??= GetComponent<GameplayAttributeContainer>();
+		return Attributes;
+	}
+
 	private int _towerLevel = 0;
 
 	public List<GameplayEffect> onHitEffects = new List<GameplayEffect>();
@@ -69,6 +78,7 @@ public class Tower : HexTileComponent
 
 	private void Awake()
 	{
+		Debug.Log("Tower awake");
 		if (gameObject.transform.localScale != Vector3.one)
 		{
 			Debug.LogError("Tower should have scale 1.0");
@@ -415,14 +425,7 @@ public class Tower : HexTileComponent
 	public void InitAttributes()
 	{
 		Attributes = GetComponent<GameplayAttributeContainer>();
-		Attributes.InitAttribute(MyAttributes.Get().Damage, towerData.damage);
-		Attributes.InitAttribute(MyAttributes.Get().SplashPercent, towerData.splash);
-		Attributes.InitAttribute(MyAttributes.Get().Range, towerData.attackRange);
-		Attributes.InitAttribute(MyAttributes.Get().AttackSpeed, towerData.attackSpeed);
-		Attributes.InitAttribute(MyAttributes.Get().TurnSpeed, towerData.turnSpeed);
-		Attributes.InitAttribute(MyAttributes.Get().Split, towerData.split);
-		Attributes.InitAttribute(MyAttributes.Get().Chain, towerData.chain);
-		Attributes.InitAttribute(MyAttributes.Get().ChainRadius, towerData.chainRadius);
+		Attributes.Init();
 		onHitEffects = towerData.onHitEffects;
 
 		// TODO bind to callbacks when attributes change
@@ -498,8 +501,29 @@ public class Tower : HexTileComponent
 		Destroy(gameObject);
 	}
 
-	private void OnValidate()
-	{
-		Debug.Log("validate tower?");
-	}
+// 	private void OnValidate()
+// 	{
+// 		if (!gameObject.activeInHierarchy)
+// 		{
+// 			return;
+// 		}
+//
+// #if UNITY_EDITOR
+// 		UnityEditor.EditorApplication.delayCall += () =>
+// 		{
+// 			if (turretGameObject != null)
+// 			{
+// 				DestroyImmediate(turretGameObject);
+// 			}
+//
+// 			Debug.Log($"validate tower?  {name}");
+//
+// 			if (towerData != null && towerData.turretGameObject != null)
+// 			{
+// 				Debug.Log("Spawned turret?aa");
+// 				turretGameObject = Instantiate(towerData.turretGameObject, transform, false);
+// 			}
+// 		};
+// #endif
+// 	}
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DefaultNamespace.Enemy
 {
-	[CreateAssetMenu(menuName = "Attributes/ModifierLayer/EnemyDefenceLayer")]
+	[CreateAssetMenu(menuName = "AttributeSystem/ModifierLayer/EnemyDefenceLayer")]
 	public class EnemyDefenceLayer : AttributeModifierLayer
 	{
 		public override float EditModifierValue(float value, GameplayAttributeModifier modifier)

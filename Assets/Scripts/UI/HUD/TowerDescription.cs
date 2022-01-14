@@ -43,6 +43,6 @@ public class TowerDescription : MantisVisualElement
 		_nameLabel.text = towerIsNull ? "" : _currentTower.towerData.towerName;
 		_descriptionLabel.text = towerIsNull ? "" : _currentTower.towerData.towerDescription;
 
-		AttributeContainerDisplay.BindToAttributeContainer(towerIsNull ? null : tower.Attributes);
+		AttributeContainerDisplay.BindToAttributeContainer(towerIsNull ? null : tower.GetAttributes());
 	}
 }

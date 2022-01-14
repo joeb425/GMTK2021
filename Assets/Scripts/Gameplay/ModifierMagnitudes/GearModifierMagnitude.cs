@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace DefaultNamespace.Enemy.ModifierMagnitude
 {
-	[CreateAssetMenu(menuName = "Attributes/ModifierMagnitude/GearModifierMagnitude")]
+	[CreateAssetMenu(menuName = "AttributeSystem/ModifierMagnitude/GearModifierMagnitude")]
 	public class GearModifierMagnitude : ModifierMagnitide
 	{
 		[SerializeField]

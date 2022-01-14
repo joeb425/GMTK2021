@@ -58,5 +58,11 @@ namespace UI.MainMenu
 			_attributeValue.text = $"{attribute.GetValue()}";
 			attribute.OnAttributeChanged += gameplayAttribute => _attributeValue.text = $"{attribute.GetValue()}";
 		}
+
+		public void BindToAttributeDefault(AttributeDefault defaultValue)
+		{
+			_attributeName.text = defaultValue.attribute.name;
+			_attributeValue.text = $"{defaultValue.value}";
+		}
 	}
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DefaultNamespace.Enemy.ModifierMagnitude
 {
-	[CreateAssetMenu(menuName = "Attributes/ModifierMagnitude/DamageModifierMagnitude")]
+	[CreateAssetMenu(menuName = "AttributeSystem/ModifierMagnitude/DamageModifierMagnitude")]
 	public class DamageModifierMagnitude : ModifierMagnitide
 	{
 		[SerializeField]

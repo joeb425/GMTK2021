@@ -13,26 +13,15 @@ MonoBehaviour:
   m_Name: TowerData_Gear
   m_EditorClassIdentifier: 
   towerName: Gear
-  towerDescription: 
+  towerDescription: This is a Tower.Gear
   towerIcon: {fileID: 2800000, guid: d398f9a95dab9d4469ac31475b523c96, type: 3}
   towerCost: 5
   towerSell: 5
-  attackRange: 2.5
-  damage: 1
-  attackSpeed: 0.5
-  turnSpeed: 5
-  split: 0
-  splash: 0
-  splashRadius: 1
-  chain: 0
-  chainRadius: 4
   bulletPrefab: {fileID: 7556477264031917805, guid: 6e2b1622170444e40a2c06dab77ce310,
     type: 3}
-  upgradeInfos: []
   upgradePaths: []
   onHitEffects:
   - {fileID: 11400000, guid: b14dc4caf07445143a3abfa6a78f95e1, type: 2}
   - {fileID: 11400000, guid: 3b1e8e25d962ff745bf78d37b854539c, type: 2}
   shootSfx: {fileID: 0}
   supportEffects: []
-  supportRadius: 0

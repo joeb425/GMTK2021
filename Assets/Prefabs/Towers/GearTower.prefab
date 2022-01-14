@@ -179,6 +179,12 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 66758fc31446b494ba33f45f035f5d7c, type: 2}
+    - target: {fileID: 7286309082845951563, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: attributeDefaults
+      value: 
+      objectReference: {fileID: 11400000, guid: 5122eca58d6f89b4ca70fd77d1bb0156,
+        type: 2}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: Cost
@@ -190,6 +196,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 381f2ee46de6e5d40ab9fd1025c426c2,
         type: 2}
+    - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: Attributes
+      value: 
+      objectReference: {fileID: 8113870418290040012}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: gameplayTag
@@ -287,3 +298,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 270
+--- !u!114 &8113870418290040012 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7286309082845951563, guid: dfa6eb68b75ccea4e96aedc38b044481,
+    type: 3}
+  m_PrefabInstance: {fileID: 1550480348927126151}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4072676126635458013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3504134767e7ce74e984a26d439d9e27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

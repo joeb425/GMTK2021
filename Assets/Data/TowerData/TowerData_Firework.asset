@@ -13,23 +13,12 @@ MonoBehaviour:
   m_Name: TowerData_Firework
   m_EditorClassIdentifier: 
   towerName: Firework
-  towerDescription: 
+  towerDescription: This is a Tower.Firework
   towerIcon: {fileID: 0}
   towerCost: 5
   towerSell: 5
-  attackRange: 10
-  damage: 5
-  attackSpeed: 2.5
-  turnSpeed: 5
-  split: 0
-  splash: 1
-  splashRadius: 0
-  chain: 0
-  chainRadius: 4
   bulletPrefab: {fileID: 0}
-  upgradeInfos: []
   upgradePaths: []
   onHitEffects: []
   shootSfx: {fileID: 0}
   supportEffects: []
-  supportRadius: 0

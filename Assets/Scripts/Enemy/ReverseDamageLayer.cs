@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DefaultNamespace.Enemy
 {
-	[CreateAssetMenu(menuName = "Attributes/ModifierLayer/ReverseDamageLayer")]
+	[CreateAssetMenu(menuName = "AttributeSystem/ModifierLayer/ReverseDamageLayer")]
 	public class ReverseDamageLayer : AttributeModifierLayer
 	{
 		// TODO pass in attribute system

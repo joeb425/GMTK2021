@@ -20,6 +20,7 @@ MonoBehaviour:
   TurnSpeed: {fileID: 11400000, guid: c9400e846ded82445a1488deeefad195, type: 2}
   Split: {fileID: 11400000, guid: ab5a53af750203848ac2ea9e0e613649, type: 2}
   SplashPercent: {fileID: 11400000, guid: 902c58cf8c3927c4a9f73ab5b70b3d31, type: 2}
+  SplashRadius: {fileID: 11400000, guid: ec643c38902a0c741816de6533d4d15f, type: 2}
   Chain: {fileID: 11400000, guid: 0552e1ec7f418dd408e884802b9090df, type: 2}
   ChainRadius: {fileID: 11400000, guid: 967cef6b1de100741823f9553c382b96, type: 2}
   Speed: {fileID: 11400000, guid: 893ff796af13803458646454cef5d294, type: 2}
