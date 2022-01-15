@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DefaultNamespace.Data;
 using Mantis.Engine;
 using Mantis.Utils.UI;
 using UnityEditor;
@@ -38,23 +39,24 @@ public class TowerBuildMenu : VisualElement
 
 		_towerDescription.BindToTower(null);
 
-		List<Tower> availableTowers = GameData.Get().GetCurrentLevel().availableTowers;
+		List<Tower> disabledTowers = GameData.Get().GetCurrentLevel().disabledTowers;
 
-		if (availableTowers.Count == 0)
+		if (disabledTowers.Count == 0)
 		{
 			Debug.LogError($"No available towers for level {GameData.Get().GetCurrentLevel()}");
 
 #if UNITY_EDITOR
-			availableTowers =
+			disabledTowers =
 				AssetDatabase.FindAssets($"Tower:{nameof(Tower)}").ToList()
 					.ConvertAll(guid => AssetDatabase.LoadAssetAtPath<Tower>(AssetDatabase.GUIDToAssetPath(guid)));
 #endif
 		}
 
 		_buttons.Clear();
-		foreach (Tower tower in availableTowers)
+		foreach (Tower tower in AssetBindings.Get().gamePrefabs.baseTowers)
 		{
-			CreateButton(tower);
+			bool isAvailable = !disabledTowers.Contains(tower);
+			CreateButton(tower, isAvailable);
 		}
 	}
 
@@ -78,22 +80,16 @@ public class TowerBuildMenu : VisualElement
 		_buttons = this.Q<VisualElement>("Buttons");
 		_towerDescription = this.Q<TowerDescription>();
 
+#if UNITY_EDITOR
 		if (_buttons != null)
 		{
 			_buttons.Clear();
-			// CreateButton(gamePrefabs.basicTowerPrefab, "Basic");
-			// CreateButton(gamePrefabs.doubleTowerPrefab, "Double");
-			// CreateButton(gamePrefabs.rocketTowerPrefab, "Rocket");
-			// CreateButton(gamePrefabs.sniperTowerPrefab, "Sniper");
-			// CreateButton(gamePrefabs.smgTowerPrefab, "SMG");
-			// CreateButton(gamePrefabs.supportTowerPrefab, "Support");
-			// CreateButton(gamePrefabs.recoupTowerPrefab, "Recoup"); 
-			// CreateButton(gamePrefabs.slowTowerPrefab, "Slow");
-			// CreateButton(gamePrefabs.tower9Prefab, "9");
-			// CreateButton(gamePrefabs.tower10Prefab, "10");
-			// CreateButton(gamePrefabs.tower11Prefab, "11");
-			// CreateButton(gamePrefabs.tower12Prefab, "12");
+			foreach (Tower tower in AssetBindings.Get().gamePrefabs.baseTowers)
+			{
+				CreateButton(tower, true);
+			}
 		}
+#endif
 	}
 
 	private void OnCashChanged(int currentCash)
@@ -109,13 +105,15 @@ public class TowerBuildMenu : VisualElement
 		}
 	}
 
-	private void CreateButton(Tower towerPrefab)
+	private void CreateButton(Tower towerPrefab, bool isAvailable)
 	{
 		VisualElement spawnBasicTower = _iconButton.CloneTree();
 		_buttons.Add(spawnBasicTower);
 
 		TwoStageButton button = spawnBasicTower.Q<TwoStageButton>("Button");
 		var costLabel = spawnBasicTower.Q<Label>("Cost");
+
+		button.SetEnabled(isAvailable);
 
 		if (!towerPrefab)
 			return;
@@ -137,11 +135,14 @@ public class TowerBuildMenu : VisualElement
 			_selectedButton = null;
 		};
 
-		costLabel.text = "" + towerPrefab.towerData.towerCost;
+		costLabel.text = isAvailable ? "" + towerPrefab.towerData.towerCost : "";
 		spawnBasicTower.name = towerPrefab.towerData.name;
-		button.text = towerPrefab.GetGameplayTag().GetLeafName();
+		button.text = isAvailable ? towerPrefab.towerData.towerName : "";
 		button.style.backgroundImage = towerPrefab.towerData.towerIcon;
 
-		_buttonPrefabs.Add(button, towerPrefab);
+		if (isAvailable)
+		{
+			_buttonPrefabs.Add(button, towerPrefab);
+		}
 	}
 }

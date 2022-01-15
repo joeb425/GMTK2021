@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ab3d04918143b47967032fe5631659, type: 3}
+  m_Name: Tower.7.2
+  m_EditorClassIdentifier: 
+  parent: {fileID: 11400000, guid: f4c30f679b4bf6048a9bcf33ff42fb08, type: 2}
+  children:
+  - {fileID: 11400000, guid: 2de50d9b15c2f144f912b6b3526e39b8, type: 2}
+  - {fileID: 11400000, guid: 1b49b3dd3b6c3b14eb070b2c7b280e2e, type: 2}
+  - {fileID: 11400000, guid: bca49d30f56e20143ba4f6d284652cfb, type: 2}

@@ -18,10 +18,13 @@ using UnityEngine.UIElements;
 public class Tower : HexTileComponent
 {
 	[SerializeField]
+	public string towerName;
+
+	[SerializeField]
 	public TowerData towerData;
 
 	[SerializeField]
-	Transform turret;
+	public Transform turret;
 
 	[SerializeField]
 	public Transform bulletSpawnPoint;
@@ -39,10 +42,7 @@ public class Tower : HexTileComponent
 	public Material towerBuildMaterial;
 
 	[SerializeField]
-	private GameplayTagFilter targetTagFilter;
-
-	[SerializeField]
-	public GameObject turretGameObject;
+	public GameplayTagFilter targetTagFilter;
 
 	private float attackTimeRemaining;
 
@@ -76,9 +76,10 @@ public class Tower : HexTileComponent
 
 	private Camera _mainCamera;
 
+	public BaseTurret testTurret;
+
 	private void Awake()
 	{
-		Debug.Log("Tower awake");
 		if (gameObject.transform.localScale != Vector3.one)
 		{
 			Debug.LogError("Tower should have scale 1.0");
@@ -96,6 +97,13 @@ public class Tower : HexTileComponent
 		_towerDisplay = gameObject.GetComponent<UIDocument>().rootVisualElement;
 		_towerDisplay.Q<AttributeLabel>("Damage").BindToGameplayAttribute(Attributes.GetAttribute(MyAttributes.Get().Damage));
 		_towerDisplay.Q<AttributeLabel>("AttackSpeed").BindToGameplayAttribute(Attributes.GetAttribute(MyAttributes.Get().AttackSpeed));
+
+		testTurret ??= GetComponentInChildren<BaseTurret>();
+		if (testTurret == null)
+		{
+			Debug.LogError($"Turret missing for Tower: {this}");
+			testTurret.Init(this);
+		}
 	}
 
 	private void OnDestroy()
@@ -192,18 +200,23 @@ public class Tower : HexTileComponent
 
 	public override void GameUpdate()
 	{
-		if (TrackTarget() || AcquireTarget())
+		if (testTurret)
 		{
-			if (!hasRotator && trackTarget)
-			{
-				Vector3 toTarget = target.Position - transform.position;
-				toTarget.y = 0;
-				float turnSpeed = Attributes.GetCurrentValue(MyAttributes.Get().TurnSpeed);
-				turret.rotation = Quaternion.Lerp(turret.rotation, Quaternion.LookRotation(toTarget), Time.deltaTime * turnSpeed);
-			}
-
-			UpdateAttacking();
+			testTurret.GameUpdate();
 		}
+
+		// if (TrackTarget() || AcquireTarget())
+		// {
+		// 	if (!hasRotator && trackTarget)
+		// 	{
+		// 		Vector3 toTarget = target.Position - transform.position;
+		// 		toTarget.y = 0;
+		// 		float turnSpeed = Attributes.GetCurrentValue(MyAttributes.Get().TurnSpeed);
+		// 		turret.rotation = Quaternion.Lerp(turret.rotation, Quaternion.LookRotation(toTarget), Time.deltaTime * turnSpeed);
+		// 	}
+		//
+		// 	UpdateAttacking();
+		// }
 
 		Attributes.GameUpdate();
 
@@ -428,12 +441,7 @@ public class Tower : HexTileComponent
 		Attributes.Init();
 		onHitEffects = towerData.onHitEffects;
 
-		// TODO bind to callbacks when attributes change
-		Attributes.GetAttribute(MyAttributes.Get().Range).OnAttributeChanged += (attribute) =>
-		{
-			UpdateTowerRange();
-		};
-
+		Attributes.GetAttribute(MyAttributes.Get().Range).OnAttributeChanged += _ => UpdateTowerRange();
 		UpdateTowerRange();
 	}
 
@@ -501,29 +509,20 @@ public class Tower : HexTileComponent
 		Destroy(gameObject);
 	}
 
-// 	private void OnValidate()
-// 	{
-// 		if (!gameObject.activeInHierarchy)
-// 		{
-// 			return;
-// 		}
-//
-// #if UNITY_EDITOR
-// 		UnityEditor.EditorApplication.delayCall += () =>
-// 		{
-// 			if (turretGameObject != null)
-// 			{
-// 				DestroyImmediate(turretGameObject);
-// 			}
-//
-// 			Debug.Log($"validate tower?  {name}");
-//
-// 			if (towerData != null && towerData.turretGameObject != null)
-// 			{
-// 				Debug.Log("Spawned turret?aa");
-// 				turretGameObject = Instantiate(towerData.turretGameObject, transform, false);
-// 			}
-// 		};
-// #endif
-// 	}
+	private void OnValidate()
+	{
+		if (testTurret == null)
+		{
+			testTurret = GetComponentInChildren<BaseTurret>();
+			if (testTurret)
+			{
+				testTurret.tower = this;
+			}
+		}
+
+		if (towerData != null && towerName != towerData.towerName)
+		{
+			towerName = towerData.towerName;
+		}
+	}
 }

@@ -25,7 +25,7 @@ public class LevelData : ScriptableObject
 	public List<SpawnerHandler.Wave> waves;
 
 	[SerializeField]
-	public List<Tower> availableTowers;
+	public List<Tower> disabledTowers;
 
 	[SerializeField]
 	public List<GameplayEffect> MapModifiers;

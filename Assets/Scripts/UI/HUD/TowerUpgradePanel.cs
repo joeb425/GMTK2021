@@ -91,8 +91,8 @@ public class TowerUpgradePanel : GameVisualElement
 		};
 
 		costLabel.text = "" + towerPrefab.towerData.towerCost;
-		spawnBasicTower.name = towerPrefab.towerData.name;
-		button.text = towerPrefab.GetGameplayTag().GetLeafName();
+		spawnBasicTower.name = towerPrefab.towerData.towerName;
+		button.text = towerPrefab.towerData.towerName;
 		button.style.backgroundImage = towerPrefab.towerData.towerIcon;
 
 		_buttonPrefabs.Add(button, towerPrefab);

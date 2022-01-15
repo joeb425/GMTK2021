@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 263773572115014597}
   - component: {fileID: 6714694530973837297}
   - component: {fileID: 4880797105941278356}
-  - component: {fileID: 269305138398943879}
   m_Layer: 11
   m_Name: Turret
   m_TagString: Untagged
@@ -118,19 +117,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &269305138398943879
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1488689015234951148}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1570505103438834582
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,6 +223,7 @@ MonoBehaviour:
   Attributes: {fileID: 0}
   onHitEffects: []
   groundTile: {fileID: 0}
+  testTurret: {fileID: 0}
 --- !u!135 &4075005451639140559
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -392,6 +379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialAttributes: []
   initialEffects: []
+  attributeDefaults: {fileID: 0}
   attributeModifierLayers: []
 --- !u!114 &3794122738438388309
 MonoBehaviour:
@@ -421,7 +409,6 @@ GameObject:
   - component: {fileID: 7621697150992138159}
   - component: {fileID: 1458418325120663899}
   - component: {fileID: 6918217714850351385}
-  - component: {fileID: 8939768625941979993}
   m_Layer: 11
   m_Name: Base
   m_TagString: Untagged
@@ -493,19 +480,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8939768625941979993
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8286558232567512454}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8796409826960070298
 GameObject:
   m_ObjectHideFlags: 0

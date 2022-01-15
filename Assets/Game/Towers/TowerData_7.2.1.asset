@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ee7b0f9fbcc46a080c5fb5c716b97b9, type: 3}
+  m_Name: TowerData_7.2.1
+  m_EditorClassIdentifier: 
+  towerName: Venom 1
+  towerDescription: This is the Venom 1 Tower
+  towerIcon: {fileID: 0}
+  towerCost: 5
+  towerSell: 5
+  bulletPrefab: {fileID: 0}
+  upgradePaths: []
+  onHitEffects: []
+  shootSfx: {fileID: 0}
+  supportEffects: []

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f3dcc4d46846ed88622898cd634990, type: 3}
   m_Name: GamePrefabs
   m_EditorClassIdentifier: 
+  towerPrefabs: []
   basicTowerPrefab: {fileID: 7682699519609654883, guid: d0f4d9b1f614fa34d841ba8748eaca4e,
     type: 3}
   doubleTowerPrefab: {fileID: 5942957368654960938, guid: 1038ec44c5e3c514485f69db945a9f65,
@@ -44,3 +45,11 @@ MonoBehaviour:
     type: 3}
   bulletPool: {fileID: 11400000, guid: 2983fe1099e94784eb1c6d8b525695b1, type: 2}
   enemyPool: {fileID: 11400000, guid: 468a9b3fa6515af42b092154c7d1033f, type: 2}
+  baseTowers:
+  - {fileID: 2407744784090112884, guid: 49f6c17b85ce5ba4aa6d9de3491558ee, type: 3}
+  - {fileID: 8494463148773148034, guid: f79412fbbc5fa4b4d9d0ddb8c0c52144, type: 3}
+  - {fileID: 1543799799816757714, guid: 9004963123717114d81c8bcde52da11d, type: 3}
+  - {fileID: 3582474683556006425, guid: 82e6336de9f4f6d48939bc8ef1d1f807, type: 3}
+  - {fileID: 6415117826002486080, guid: 618fc24f5f5d49b44bc7147c1405bbb2, type: 3}
+  - {fileID: 992594881665365266, guid: b5217274bc07c7e42976fb87edecc0b3, type: 3}
+  - {fileID: 6009819208452321119, guid: 3608414bca30e2c4eaa342f96a07546d, type: 3}

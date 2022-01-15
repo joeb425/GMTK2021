@@ -38,7 +38,7 @@ public class TowerData : ScriptableObject
 	public Bullet bulletPrefab;
 
 	[SerializeField]
-	public UpgradePath[] upgradePaths;
+	public List<UpgradePath> upgradePaths;
 
 	[SerializeField]
 	public List<GameplayEffect> onHitEffects;

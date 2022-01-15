@@ -1,4 +1,5 @@
-﻿using ObjectPools;
+﻿using System.Collections.Generic;
+using ObjectPools;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -6,43 +7,7 @@ using UnityEngine.UIElements;
 public class GamePrefabs : ScriptableObject
 {
 	[SerializeField]
-	public Tower[] towerPrefabs = default;
-	
-	[SerializeField]
-	public Tower basicTowerPrefab = default;
-
-	[SerializeField]
-	public Tower doubleTowerPrefab = default;
-
-	[SerializeField]
-	public Tower smgTowerPrefab = default;
-
-	[SerializeField]
-	public Tower sniperTowerPrefab = default;
-
-	[SerializeField]
-	public Tower rocketTowerPrefab = default;
-
-	[SerializeField]
-	public Tower supportTowerPrefab = default;
-
-	[SerializeField]
-	public Tower recoupTowerPrefab = default;
-
-	[SerializeField]
-	public Tower slowTowerPrefab = default;
-
-	[SerializeField]
-	public Tower tower9Prefab = default;
-
-	[SerializeField]
-	public Tower tower10Prefab = default;
-
-	[SerializeField]
-	public Tower tower11Prefab = default;
-
-	[SerializeField]
-	public Tower tower12Prefab = default;
+	public List<Tower> baseTowers;
 
 	[SerializeField]
 	public VisualTreeAsset towerBuildButton;

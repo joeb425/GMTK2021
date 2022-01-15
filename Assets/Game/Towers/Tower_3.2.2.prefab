@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3976643076127059699
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3473362098040617308, guid: da73ef123fb78db439f6aa551fbe3ea5,
+        type: 3}
+      propertyPath: m_Name
+      value: Tower_3.2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188315569044241063, guid: da73ef123fb78db439f6aa551fbe3ea5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188315569044241063, guid: da73ef123fb78db439f6aa551fbe3ea5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188315569044241063, guid: da73ef123fb78db439f6aa551fbe3ea5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.038
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188315569044241063, guid: da73ef123fb78db439f6aa551fbe3ea5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.468
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188315569044241063, guid: da73ef123fb78db439f6aa551fbe3ea5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188315569044241063, guid: da73ef123fb78db439f6aa551fbe3ea5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188315569044241063, guid: da73ef123fb78db439f6aa551fbe3ea5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188315569044241063, guid: da73ef123fb78db439f6aa551fbe3ea5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188315569044241063, guid: da73ef123fb78db439f6aa551fbe3ea5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188315569044241063, guid: da73ef123fb78db439f6aa551fbe3ea5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188315569044241063, guid: da73ef123fb78db439f6aa551fbe3ea5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8653735256196648818, guid: da73ef123fb78db439f6aa551fbe3ea5,
+        type: 3}
+      propertyPath: towerData
+      value: 
+      objectReference: {fileID: 11400000, guid: 5ec1958db197f7b4786dcaf4006fdb7e,
+        type: 2}
+    - target: {fileID: 8653735256196648818, guid: da73ef123fb78db439f6aa551fbe3ea5,
+        type: 3}
+      propertyPath: towerName
+      value: Splash 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8653735256196648818, guid: da73ef123fb78db439f6aa551fbe3ea5,
+        type: 3}
+      propertyPath: gameplayTag
+      value: 
+      objectReference: {fileID: 11400000, guid: fa890f9b908e75a4dabe9dc0ba4c8735,
+        type: 2}
+    - target: {fileID: 8659457945298245709, guid: da73ef123fb78db439f6aa551fbe3ea5,
+        type: 3}
+      propertyPath: attributeDefaults
+      value: 
+      objectReference: {fileID: 11400000, guid: b95d855d84b10204dbd1c664f76424e8,
+        type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: da73ef123fb78db439f6aa551fbe3ea5, type: 3}

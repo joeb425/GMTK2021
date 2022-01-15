@@ -30,4 +30,4 @@ MonoBehaviour:
   - attribute: {fileID: 11400000, guid: ec643c38902a0c741816de6533d4d15f, type: 2}
     value: 1
   - attribute: {fileID: 11400000, guid: c9400e846ded82445a1488deeefad195, type: 2}
-    value: 2
+    value: 50
