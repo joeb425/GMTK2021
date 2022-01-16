@@ -12,7 +12,7 @@ public abstract class SingleTargetTurret : BaseTurret
 	{
 		Vector3 toTarget = _target.Position - transform.position;
 		float angle = Quaternion.Angle(turretTransform.rotation, Quaternion.LookRotation(toTarget));
-		return angle < 10;
+		return angle < 25;
 	}
 
 	public override bool CanAttack()
@@ -43,7 +43,12 @@ public abstract class SingleTargetTurret : BaseTurret
 	{
 		if (!IsValidTarget(_target))
 		{
-			_target = null;
+			if (_target != null)
+			{
+				_target = null;
+				OnLoseTarget();
+			}
+
 			return false;
 		}
 
@@ -54,7 +59,12 @@ public abstract class SingleTargetTurret : BaseTurret
 		float range = tower.GetAttributes().GetCurrentValue(MyAttributes.Get().Range);
 		if (Vector3.SqrMagnitude(b - a) > range * range)
 		{
-			_target = null;
+			if (_target != null)
+			{
+				_target = null;
+				OnLoseTarget();
+			}
+
 			return false;
 		}
 
@@ -70,12 +80,16 @@ public abstract class SingleTargetTurret : BaseTurret
 			TargetPoint targetPoint = targetCollider.GetComponent<TargetPoint>();
 			if (IsValidTarget(targetPoint))
 			{
-				_target = targetPoint;
+				if (_target != targetPoint)
+				{
+					_target = targetPoint;
+					OnGainTarget();
+				}
+
 				return true;
 			}
 		}
 
-		_target = null;
 		return false;
 	}
 
@@ -85,5 +99,13 @@ public abstract class SingleTargetTurret : BaseTurret
 		{
 			Gizmos.DrawLine(transform.position, _target.Position);
 		}
+	}
+
+	protected virtual void OnGainTarget()
+	{
+	}
+
+	protected virtual void OnLoseTarget()
+	{
 	}
 }

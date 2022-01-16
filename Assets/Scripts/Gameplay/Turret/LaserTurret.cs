@@ -10,31 +10,45 @@ public class LaserTurret : SingleTargetTurret
 	[SerializeField]
 	private LineRenderer lineRenderer;
 
+	[SerializeField]
+	private Transform hitVFX;
+
+	[SerializeField]
+	private ParticleSystem muzzleParticle;
+
+	[SerializeField]
+	private ParticleSystem hitParticle;
+
 	protected override void UpdateAttacking()
 	{
 		if (_target != null)
 		{
-			lineRenderer.enabled = true;
 			Vector3 startPos = lineRenderer.transform.position;
 			Vector3 endPos = _target.Position;
 			endPos.y = startPos.y;
 			lineRenderer.SetPosition(0, startPos);
 			lineRenderer.SetPosition(1, endPos);
-		}
-		else
-		{
-			lineRenderer.enabled = false;
+			hitParticle.transform.position = endPos;
 		}
 
 		base.UpdateAttacking();
 	}
 
-	// protected override bool RotateToTarget()
-	// {
-	// 	Vector3 toTarget = _target.Position - transform.position;
-	// 	turret.rotation = Quaternion.LookRotation(toTarget);
-	// 	return false;
-	// }
+	protected override void OnGainTarget()
+	{
+		base.OnGainTarget();
+		muzzleParticle.Play();
+		hitParticle.Play();
+		lineRenderer.enabled = true;
+	}
+
+	protected override void OnLoseTarget()
+	{
+		base.OnLoseTarget();
+		muzzleParticle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+		hitParticle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+		lineRenderer.enabled = false;
+	}
 
 	protected override void Attack()
 	{
@@ -75,6 +89,21 @@ public class LaserTurret : SingleTargetTurret
 		if (lineRenderer == null)
 		{
 			lineRenderer = GetComponentsInChildren<LineRenderer>().FirstOrDefault(comp => comp.name == "LaserRenderer");
+		}
+
+		if (hitVFX == null)
+		{
+			hitVFX = GetComponentsInChildren<Transform>().FirstOrDefault(t => t.name == "HitVFX");
+		}
+
+		if (hitParticle == null)
+		{
+			hitParticle = GetComponentsInChildren<ParticleSystem>().FirstOrDefault(t => t.name == "HitParticle");
+		}
+
+		if (muzzleParticle == null)
+		{
+			muzzleParticle = GetComponentsInChildren<ParticleSystem>().FirstOrDefault(t => t.name == "MuzzleParticle");
 		}
 	}
 }
