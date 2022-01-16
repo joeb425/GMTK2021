@@ -6,6 +6,7 @@ using Mantis.AttributeSystem;
 using Mantis.GameplayTags;
 using ObjectPools;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(GameplayAttributeContainer))]
 public abstract class BaseTurret : MonoBehaviour
@@ -15,6 +16,9 @@ public abstract class BaseTurret : MonoBehaviour
 
 	[SerializeField]
 	public Transform turretTransform;
+
+	[SerializeField]
+	UnityEvent onAttack;
 
 	private float _attackTimeRemaining;
 
@@ -66,6 +70,7 @@ public abstract class BaseTurret : MonoBehaviour
 		{
 			_attackTimeRemaining = tower.GetAttributes().GetCurrentValue(MyAttributes.Get().AttackSpeed) - _attackTimeRemaining;
 			Attack();
+			onAttack?.Invoke();
 		}
 	}
 

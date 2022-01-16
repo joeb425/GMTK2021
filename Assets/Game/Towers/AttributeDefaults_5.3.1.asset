@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attributeDefaults:
   - attribute: {fileID: 11400000, guid: c75fbf429ec02f247b5b8ba63de8bab7, type: 2}
-    value: 3
+    value: 5
   - attribute: {fileID: 11400000, guid: fd4237cf35c20574eb2074da49638e90, type: 2}
     value: 5
   - attribute: {fileID: 11400000, guid: 23e240e4da2747a4e87f821be3ccde05, type: 2}
@@ -26,8 +26,8 @@ MonoBehaviour:
   - attribute: {fileID: 11400000, guid: ec643c38902a0c741816de6533d4d15f, type: 2}
     value: 0
   - attribute: {fileID: 11400000, guid: 0552e1ec7f418dd408e884802b9090df, type: 2}
-    value: 0
+    value: 4
   - attribute: {fileID: 11400000, guid: 967cef6b1de100741823f9553c382b96, type: 2}
     value: 0
   - attribute: {fileID: 11400000, guid: c9400e846ded82445a1488deeefad195, type: 2}
-    value: 5
+    value: 50
