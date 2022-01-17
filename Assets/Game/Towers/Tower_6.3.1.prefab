@@ -36,6 +36,11 @@ PrefabInstance:
       objectReference: {fileID: 943344667265898146}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
+      propertyPath: testTurret
+      value: 
+      objectReference: {fileID: 8360349757825322792}
+    - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
       propertyPath: gameplayTag
       value: 
       objectReference: {fileID: 11400000, guid: d457e0f9c292f15469d9369975d0c235,
@@ -103,9 +108,50 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 7496599451727339753}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 4974262664614066099}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3504134767e7ce74e984a26d439d9e27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &946815544876269981 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
+    type: 3}
+  m_PrefabInstance: {fileID: 7496599451727339753}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974262664614066099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec00ed17c21ccbe43a7feaa9f0da2871, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &4974262664614066099 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3242984198978901850, guid: dfa6eb68b75ccea4e96aedc38b044481,
+    type: 3}
+  m_PrefabInstance: {fileID: 7496599451727339753}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8360349757825322792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974262664614066099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 653e1462d8eb48f08a00387a11a38243, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tower: {fileID: 946815544876269981}
+  turretTransform: {fileID: 7755297312994591532}
+  onAttack:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &7755297312994591532 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,
+    type: 3}
+  m_PrefabInstance: {fileID: 7496599451727339753}
+  m_PrefabAsset: {fileID: 0}

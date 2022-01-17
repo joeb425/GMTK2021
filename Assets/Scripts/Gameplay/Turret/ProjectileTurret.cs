@@ -3,6 +3,7 @@ using System.Linq;
 using DefaultNamespace.Data;
 using Mantis.AttributeSystem;
 using ObjectPools;
+using UnityEditor;
 using UnityEditor.Media;
 using UnityEngine;
 
@@ -81,6 +82,11 @@ public class ProjectileTurret : SingleTargetTurret
 		if (bulletSpawnPoint == null)
 		{
 			bulletSpawnPoint = GetComponentsInChildren<Transform>().First(t => t.name == "BulletSpawnPoint");
+		}
+
+		if (bulletPrefab == null)
+		{
+			bulletPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Towers/BasicBullet.prefab").GetComponent<Bullet>();
 		}
 	}
 }

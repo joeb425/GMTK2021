@@ -128,9 +128,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tower: {fileID: 8494463148773148034}
   turretTransform: {fileID: 1396678094847969075}
+  onAttack:
+    m_PersistentCalls:
+      m_Calls: []
   bulletPrefab: {fileID: 7556477264031917805, guid: 3764e102f80783e41ba30cd4794e2e57,
     type: 3}
   bulletSpawnPoint: {fileID: 1396678094847969075}
+--- !u!114 &7429781215504505840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4452238188880147372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8597e5a35e98456fbfa6a0c341cd7812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tower: {fileID: 0}
+  turretTransform: {fileID: 1396678094847969075}
+  onAttack:
+    m_PersistentCalls:
+      m_Calls: []
+  bulletPrefab: {fileID: 7556477264031917805, guid: 3764e102f80783e41ba30cd4794e2e57,
+    type: 3}
+  bulletSpawnPoint: {fileID: 6176975433618317416}
+--- !u!4 &6176975433618317416 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5004033099111384222, guid: dfa6eb68b75ccea4e96aedc38b044481,
+    type: 3}
+  m_PrefabInstance: {fileID: 1209467160145339638}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8491194568418169533 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7286309082845951563, guid: dfa6eb68b75ccea4e96aedc38b044481,

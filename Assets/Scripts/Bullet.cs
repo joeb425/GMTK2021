@@ -56,7 +56,7 @@ public class Bullet : MonoBehaviour, IGameplayTag
 		var myTransform = transform;
 
 		var position = myTransform.position;
-		position.y = 5.0f;
+		position.y = 2.0f;
 		myTransform.position = position;
 
 		lastKnownPos = newTarget.Position;
@@ -106,7 +106,7 @@ public class Bullet : MonoBehaviour, IGameplayTag
 		if (target != null && tower != null)
 		{
 			_hitTargets.Add(target);
-			tower.ApplyHit(target);
+			tower.testTurret.ApplyHit(target);
 			PlaySound();
 			PlayParticleEffect();
 		}
