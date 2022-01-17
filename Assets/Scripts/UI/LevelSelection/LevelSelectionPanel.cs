@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
 namespace UI.MainMenu
 {
@@ -66,7 +67,8 @@ namespace UI.MainMenu
 			// TODO json should just store a single level?
 			// GameBoard.Levels loadedLevel = JsonUtility.FromJson<GameBoard.Levels>(level.text);
 			GlobalData.CurrentLevel = levelIndex;
-			Addressables.LoadSceneAsync("Assets/Scenes/Game.unity");
+			// Addressables.LoadSceneAsync("Assets/Scenes/Game.unity");
+			Object.FindObjectOfType<LoadScene>()?.StartLoading();
 		}
 	}
 }

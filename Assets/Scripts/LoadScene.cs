@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Android;
+using UnityEngine.InputSystem.Utilities;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
@@ -18,6 +19,12 @@ namespace DefaultNamespace
 		[SerializeField]
 		private UIDocument loadingScreen;
 
+		[SerializeField]
+		private bool loadOnAwake = false;
+
+		[SerializeField]
+		private bool pressAnyKeyToContinue;
+
 		private string _percentText = String.Empty;
 
 		private AsyncOperationHandle<SceneInstance> loadOperation;
@@ -25,22 +32,40 @@ namespace DefaultNamespace
 		private bool _isLevelLoaded;
 		private ProgressBar _progressLabel;
 		private Label _statusLabel;
+		private VisualElement _rootVE;
 
 		private void Awake()
 		{
-			var ve = loadingScreen.rootVisualElement;
-			_progressLabel = ve.Q<ProgressBar>("ProgressBar");
-			_statusLabel = ve.Q<Label>("StatusLabel");
+			_rootVE = loadingScreen.rootVisualElement;
+			_rootVE.style.display = DisplayStyle.None;
+			_progressLabel = _rootVE.Q<ProgressBar>("ProgressBar");
+			_statusLabel = _rootVE.Q<Label>("StatusLabel");
 		}
 
-		IEnumerator Start()
+		public void Start()
 		{
+			if (loadOnAwake)
+			{
+				StartLoading();
+			}
+		}
+
+		public void StartLoading()
+		{
+			StartCoroutine(StartLoadingScene());
+		}
+
+		public IEnumerator StartLoadingScene()
+		{
+			_rootVE.style.display = DisplayStyle.Flex;
 			loadOperation = Addressables.LoadSceneAsync(scene, LoadSceneMode.Single, false);
 			yield return loadOperation;
 
-			_statusLabel.text = "Press any key...";
+			if (pressAnyKeyToContinue)
+			{
+				_statusLabel.text = "Press any key...";
+			}
 		}
-		
 
 		private void Update()
 		{
@@ -51,15 +76,15 @@ namespace DefaultNamespace
 				_percentText = "" + loadOperation.PercentComplete;
 				_progressLabel.value = percent;
 				_progressLabel.title = percentText;
+
+				if (loadOperation.IsDone && (!pressAnyKeyToContinue || Input.anyKeyDown || Input.touchCount > 0))
+				{
+					loadOperation.Result.ActivateAsync();
+				}
 			}
 			else
 			{
 				_percentText = "";
-			}
-
-			if (loadOperation.IsDone && (Input.anyKeyDown || Input.touchCount > 0))
-			{
-				loadOperation.Result.ActivateAsync();
 			}
 		}
 
