@@ -9826,25 +9826,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 281648223699800487, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3242984198978901850, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: m_Name
       value: Tower_5.3.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3626461820376400925, guid: dfa6eb68b75ccea4e96aedc38b044481,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3626461820376400925, guid: dfa6eb68b75ccea4e96aedc38b044481,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3626461820376400925, guid: dfa6eb68b75ccea4e96aedc38b044481,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5004033099111384222, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
@@ -9967,6 +9957,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tower: {fileID: 5408728315322962075}
   turretTransform: {fileID: 3282055225377198634}
+  onAttack:
+    m_PersistentCalls:
+      m_Calls: []
   lineRenderer: {fileID: 1702990729574119830}
   hitVFX: {fileID: 1797068969911696903}
   muzzleParticle: {fileID: 6483601308621014140}
