@@ -31,6 +31,5 @@ MonoBehaviour:
     spawnSpeed: 1
     enemyPrefab: {fileID: 4639886780305533709, guid: bd7be24a3eed8884dbc2cc39c0141222,
       type: 3}
-  disabledTowers:
-  - {fileID: 8494463148773148034, guid: f79412fbbc5fa4b4d9d0ddb8c0c52144, type: 3}
+  disabledTowers: []
   MapModifiers: []
