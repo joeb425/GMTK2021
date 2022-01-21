@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TargetPoint : MonoBehaviour
 {
@@ -10,17 +12,11 @@ public class TargetPoint : MonoBehaviour
 
 	public bool IsValid()
 	{
-		return Enemy != null && Enemy.isActiveAndEnabled;
+		return Enemy != null && Enemy.isActiveAndEnabled && Enemy.IsAlive();
 	}
 
 	void Awake()
 	{
 		Enemy = transform.root.GetComponent<Enemy>();
-		Debug.Assert(Enemy != null, "Target point without Enemy root!", this);
-		Debug.Assert(
-			GetComponent<SphereCollider>() != null,
-			"Target point without sphere collider!", this
-		);
-		Debug.Assert(gameObject.layer == 9, "Target point on wrong layer!", this);
 	}
 }

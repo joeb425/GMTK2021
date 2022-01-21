@@ -272,6 +272,19 @@ MonoBehaviour:
   onAttack:
     m_PersistentCalls:
       m_Calls: []
+  targetingState: {fileID: 1273902754838846359}
   bulletPrefab: {fileID: 7556477264031917805, guid: 3764e102f80783e41ba30cd4794e2e57,
     type: 3}
   bulletSpawnPoint: {fileID: 5181845978373890501}
+--- !u!114 &1273902754838846359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7584595235592312154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6279c8618f8a43569b9b28ed1e48425b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -43,8 +43,6 @@ public class TowerBuildMenu : VisualElement
 
 		if (disabledTowers.Count == 0)
 		{
-			Debug.LogError($"No available towers for level {GameData.Get().GetCurrentLevel()}");
-
 #if UNITY_EDITOR
 			disabledTowers =
 				AssetDatabase.FindAssets($"Tower:{nameof(Tower)}").ToList()

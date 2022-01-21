@@ -8,6 +8,7 @@ using Mantis.AttributeSystem.UI;
 using Mantis.GameplayTags;
 using Mantis.Hex;
 using Mantis.Utils;
+using Misc;
 using ObjectPools;
 using UI.MainMenu;
 using UnityEditor;
@@ -78,6 +79,8 @@ public class Tower : HexTileComponent
 
 	public BaseTurret testTurret;
 
+	public ProgressBar attackProgress;
+
 	private void Awake()
 	{
 		if (gameObject.transform.localScale != Vector3.one)
@@ -97,6 +100,7 @@ public class Tower : HexTileComponent
 		_towerDisplay = gameObject.GetComponent<UIDocument>().rootVisualElement;
 		_towerDisplay.Q<AttributeLabel>("Damage").BindToGameplayAttribute(Attributes.GetAttribute(MyAttributes.Get().Damage));
 		_towerDisplay.Q<AttributeLabel>("AttackSpeed").BindToGameplayAttribute(Attributes.GetAttribute(MyAttributes.Get().AttackSpeed));
+		attackProgress = _towerDisplay.Q<ProgressBar>("AttackProgress");
 
 		testTurret ??= GetComponentInChildren<BaseTurret>();
 		if (testTurret == null)
@@ -130,6 +134,8 @@ public class Tower : HexTileComponent
 		{
 			return;
 		}
+
+		GetComponent<TargetingState>().SetTriggerActive(true);
 
 		GameState.Get().Board.GetGroundTileAtHex(hex, out groundTile);
 

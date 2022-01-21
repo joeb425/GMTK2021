@@ -4,12 +4,14 @@ using System.Linq;
 using DefaultNamespace.Data;
 using Mantis.AttributeSystem;
 using Mantis.GameplayTags;
+using Misc;
 using ObjectPools;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(GameplayAttributeContainer))]
+// [RequireComponent(typeof(GameplayAttributeContainer))]
+[RequireComponent(typeof(TargetingState))]
 public abstract class BaseTurret : MonoBehaviour
 {
 	[SerializeField]
@@ -21,7 +23,10 @@ public abstract class BaseTurret : MonoBehaviour
 	[SerializeField]
 	UnityEvent onAttack;
 
-	private float _attackTimeRemaining;
+	[SerializeField]
+	public TargetingState targetingState;
+
+	private float _attackTimer;
 
 	public virtual void Init(Tower parentTower)
 	{
@@ -36,21 +41,19 @@ public abstract class BaseTurret : MonoBehaviour
 
 	public abstract bool CanAttack();
 
-	public Collider[] GetEnemiesInRadius()
-	{
-		return Physics.OverlapSphere(transform.position, tower.GetAttributes().GetCurrentValue(MyAttributes.Get().Range), 1 << 9);
-	}
+	// public Collider[] GetEnemiesInRadius()
+	// {
+	// 	return Physics.OverlapSphere(transform.position, tower.GetAttributes().GetCurrentValue(MyAttributes.Get().Range), 1 << 9);
+	// }
 
 	public List<TargetPoint> GetTargetsInRadius()
 	{
-		return GetEnemiesInRadius()
-			.Select(targetCollider => targetCollider.GetComponent<TargetPoint>())
-			.Where(IsValidTarget).ToList();
+		return targetingState.GetAllTargets().Where(IsValidTarget).ToList();
 	}
 
 	public bool IsValidTarget(TargetPoint targetPoint)
 	{
-		if (targetPoint == null)
+		if (targetPoint == null || !targetPoint.IsValid())
 		{
 			return false;
 		}
@@ -66,10 +69,15 @@ public abstract class BaseTurret : MonoBehaviour
 
 	protected virtual void UpdateAttacking()
 	{
-		_attackTimeRemaining -= Time.deltaTime;
-		if (CanAttack() && _attackTimeRemaining <= 0)
+		float attackSpeed = tower.GetAttributes().GetCurrentValue(MyAttributes.Get().AttackSpeed);
+		_attackTimer += Time.deltaTime;
+
+		float percent = _attackTimer / attackSpeed;
+		tower.attackProgress.value = percent * 100;
+
+		if (CanAttack() && percent > 1.0f)
 		{
-			_attackTimeRemaining = tower.GetAttributes().GetCurrentValue(MyAttributes.Get().AttackSpeed) - _attackTimeRemaining;
+			_attackTimer = 0.0f;//Math.Min(attackSpeed, attackSpeed - _attackTimer);
 			Attack();
 			onAttack?.Invoke();
 		}
@@ -79,6 +87,11 @@ public abstract class BaseTurret : MonoBehaviour
 
 	public void ApplyHit(TargetPoint targetPoint)
 	{
+		if (!IsValidTarget(targetPoint))
+		{
+			return;
+		}
+
 		GameplayAttributeContainer attributes = tower.GetAttributes();
 		foreach (GameplayEffect effect in tower.towerData.onHitEffects)
 		{
@@ -87,16 +100,16 @@ public abstract class BaseTurret : MonoBehaviour
 
 		float damage = attributes.GetCurrentValue(MyAttributes.Get().Damage);
 
-		int splash = attributes.GetCurrentValueAsInt(MyAttributes.Get().SplashRadius);
-		if (splash > 0)
+		float splashPercent = attributes.GetCurrentValue(MyAttributes.Get().SplashPercent);
+		if (splashPercent > 0)
 		{
-			Collider[] splashedTargets = Physics.OverlapSphere(targetPoint.Position, 2.0f, 1 << 9);
+			float splashRadius = attributes.GetCurrentValue(MyAttributes.Get().SplashRadius);
+			Collider[] splashedTargets = Physics.OverlapSphere(targetPoint.Position, splashRadius, 1 << 9);
 			foreach (Collider coll in splashedTargets)
 			{
 				TargetPoint splashTarget = coll.GetComponent<TargetPoint>();
 				if (IsValidTarget(splashTarget))
 				{
-					float splashPercent = attributes.GetCurrentValue(MyAttributes.Get().SplashPercent);
 					DamageEnemy(splashTarget.Enemy, damage * splashPercent);
 				}
 			}
@@ -126,9 +139,19 @@ public abstract class BaseTurret : MonoBehaviour
 
 	protected virtual void OnValidate()
 	{
+		if (tower == null)
+		{
+			tower = GetComponent<Tower>();
+		}
+		
 		if (turretTransform == null)
 		{
 			turretTransform = GetComponentsInChildren<Transform>().First(t => t.name == "Turret");
+		}
+
+		if (targetingState == null)
+		{
+			targetingState = GetComponentInChildren<TargetingState>();
 		}
 	}
 }

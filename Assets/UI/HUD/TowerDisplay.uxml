@@ -7,5 +7,6 @@
             <ui:VisualElement style="width: 9px; height: 9px; background-image: url(&apos;project://database/Assets/Icons/hourglass.png?fileID=2800000&amp;guid=9b08c66f3e346424d8896c5f0d4756a2&amp;type=3#hourglass&apos;); -unity-background-image-tint-color: rgb(153, 244, 255);" />
             <Mantis.AttributeSystem.UI.AttributeLabel name="AttackSpeed" string-attr="5" class="ValueText" style="padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
         </ui:VisualElement>
+        <ui:ProgressBar title="atk" high-value="100" name="AttackProgress" style="flex-grow: initial;" />
     </ui:VisualElement>
 </ui:UXML>

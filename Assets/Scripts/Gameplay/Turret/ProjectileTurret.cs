@@ -24,28 +24,31 @@ public class ProjectileTurret : SingleTargetTurret
 	protected override void Attack()
 	{
 		GameplayAttributeContainer towerAttributes = tower.GetAttributes();
-		List<TargetPoint> targetsToAttack = new List<TargetPoint>();
-		targetsToAttack.Add(_target);
+		int chain = towerAttributes.GetCurrentValueAsInt(MyAttributes.Get().Chain);
+		float chainRadius = towerAttributes.GetCurrentValue(MyAttributes.Get().ChainRadius);
 
-		int numExtraTargets = Mathf.FloorToInt(towerAttributes.GetCurrentValue(MyAttributes.Get().Split));
-		if (numExtraTargets > 0)
-		{
-			Collider[] enemies = GetEnemiesInRadius();
-			foreach (Collider enemyCollider in enemies)
-			{
-				if (numExtraTargets == 0)
-				{
-					break;
-				}
+		List<TargetPoint> targetsToAttack = new List<TargetPoint>(_splitTargets.Count + 1);
+		targetsToAttack.Add(_currentTarget);
+		targetsToAttack.AddRange(_splitTargets);
 
-				TargetPoint targetPoint = enemyCollider.GetComponent<TargetPoint>();
-				if (targetPoint != _target)
-				{
-					numExtraTargets -= 1;
-					targetsToAttack.Add(targetPoint);
-				}
-			}
-		}
+		// int numExtraTargets = Mathf.FloorToInt(towerAttributes.GetCurrentValue(MyAttributes.Get().Split));
+		// if (numExtraTargets > 0)
+		// {
+		// 	List<TargetPoint> extraTargets = GetTargetsInRadius();
+		// 	foreach (var extraTarget in extraTargets)
+		// 	{
+		// 		if (numExtraTargets == 0)
+		// 		{
+		// 			break;
+		// 		}
+		//
+		// 		if (extraTarget != _currentTarget)
+		// 		{
+		// 			numExtraTargets -= 1;
+		// 			targetsToAttack.Add(extraTarget);
+		// 		}
+		// 	}
+		// }
 
 		foreach (TargetPoint targetToAttack in targetsToAttack)
 		{
@@ -65,8 +68,6 @@ public class ProjectileTurret : SingleTargetTurret
 					Bullet bullet = bulletObject.GetComponent<Bullet>();
 					bullet.target = targetToAttack;
 					bullet.tower = tower;
-					int chain = towerAttributes.GetCurrentValueAsInt(MyAttributes.Get().Chain);
-					float chainRadius = towerAttributes.GetCurrentValue(MyAttributes.Get().ChainRadius);
 					bullet.SetChain(chain, chainRadius);
 					bullet.Init();
 				}

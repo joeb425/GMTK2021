@@ -71,13 +71,13 @@ public class SpawnerHandler : MonoBehaviour
 		}
 	}
 
-	public void OnEnemyReachEnd()
+	public void OnEnemyReachEnd(Enemy enemy)
 	{
 		GameState.Get().LoseLife();
 		OnEnemyDestroyed();
 	}
 
-	public void OnEnemyKilled()
+	public void OnEnemyKilled(Enemy enemy)
 	{
 		OnEnemyDestroyed();
 	}

@@ -1,109 +1,107 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DefaultNamespace.Data;
-using ObjectPools;
-using UnityEditor.Media;
 using UnityEngine;
 
 public class LaserTurret : SingleTargetTurret
 {
 	[SerializeField]
-	private LineRenderer lineRenderer;
+	private LaserBeamVFX laserBeamPrefab;
+
+	private Dictionary<TargetPoint, LaserBeamVFX> _laserBeamVFXs = new();
 
 	[SerializeField]
-	private Transform hitVFX;
+	private Transform _bulletSpawnPoint;
 
-	[SerializeField]
-	private ParticleSystem muzzleParticle;
-
-	[SerializeField]
-	private ParticleSystem hitParticle;
-
-	protected override void UpdateAttacking()
+	protected override void Awake()
 	{
-		if (_target != null)
+		base.Awake();
+		OnStartFacingTarget += (_) => SpawnLasers();
+		OnStopFacingTarget += (_) => DestroyLasers();
+	}
+
+	private void DestroyLasers()
+	{
+		foreach (var laserBeamVfX in _laserBeamVFXs)
 		{
-			Vector3 startPos = lineRenderer.transform.position;
-			Vector3 endPos = _target.Position;
-			endPos.y = startPos.y;
-			lineRenderer.SetPosition(0, startPos);
-			lineRenderer.SetPosition(1, endPos);
-			hitParticle.transform.position = endPos;
+			DestroyLaser(laserBeamVfX.Key);
 		}
 
-		base.UpdateAttacking();
+		_laserBeamVFXs = new Dictionary<TargetPoint, LaserBeamVFX>();
 	}
 
-	protected override void OnGainTarget()
+	public void SpawnLasers()
 	{
-		base.OnGainTarget();
-		muzzleParticle.Play();
-		hitParticle.Play();
-		lineRenderer.enabled = true;
+		CreateLaser(_currentTarget);
+		foreach (TargetPoint splitTarget in _splitTargets)
+		{
+			CreateLaser(splitTarget);
+		}
 	}
 
-	protected override void OnLoseTarget()
+	protected override void OnLoseCurrentTarget(TargetPoint target)
 	{
-		base.OnLoseTarget();
-		muzzleParticle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-		hitParticle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-		lineRenderer.enabled = false;
+		// Debug.Log($"Lose target {target}");
+		base.OnLoseCurrentTarget(target);
+		DestroyLaser(target);
+	}
+
+	protected override void AddSplitTarget(TargetPoint target)
+	{
+		base.AddSplitTarget(target);
+		CreateLaser(target);
+	}
+
+	protected override void RemoveSplitTarget(TargetPoint target)
+	{
+		base.RemoveSplitTarget(target);
+		DestroyLaser(target);
 	}
 
 	protected override void Attack()
 	{
-		List<TargetPoint> targetsToAttack = new List<TargetPoint>();
-		targetsToAttack.Add(_target);
+		ApplyHit(_currentTarget);
 
-		int numExtraTargets = Mathf.FloorToInt(tower.GetAttributes().GetCurrentValue(MyAttributes.Get().Split));
-		if (numExtraTargets > 0)
+		// TODO potential bug if early split target dies from splash?
+		for (var i = _splitTargets.Count - 1; i >= 0; i--)
 		{
-			Collider[] enemies = GetEnemiesInRadius();
-			foreach (Collider enemyCollider in enemies)
-			{
-				if (numExtraTargets == 0)
-				{
-					break;
-				}
-
-				TargetPoint targetPoint = enemyCollider.GetComponent<TargetPoint>();
-				if (targetPoint != _target)
-				{
-					numExtraTargets -= 1;
-					targetsToAttack.Add(targetPoint);
-				}
-			}
-		}
-
-		foreach (TargetPoint targetToAttack in targetsToAttack)
-		{
-			ApplyHit(targetToAttack);
+			ApplyHit(_splitTargets[i]);
 		}
 
 		Game.Get.GetAudioHandler().PlaySfx(tower.towerData.shootSfx);
 	}
 
+	private void CreateLaser(TargetPoint newTarget)
+	{
+		if (_laserBeamVFXs.ContainsKey(newTarget))
+			return;
+
+		LaserBeamVFX laser = Instantiate(laserBeamPrefab, _bulletSpawnPoint);
+		laser.SetSourceAndTarget(_bulletSpawnPoint.transform, newTarget.Enemy.enemyModel.transform);
+		_laserBeamVFXs.Add(newTarget, laser);
+	}
+
+	private void DestroyLaser(TargetPoint target)
+	{
+		if (!_laserBeamVFXs.ContainsKey(target))
+			return;
+
+		Destroy(_laserBeamVFXs[target].gameObject);
+		_laserBeamVFXs.Remove(target);
+	}
+
+
 	protected override void OnValidate()
 	{
 		base.OnValidate();
-		if (lineRenderer == null)
+
+		if (tower == null)
 		{
-			lineRenderer = GetComponentsInChildren<LineRenderer>().FirstOrDefault(comp => comp.name == "LaserRenderer");
+			tower = GetComponent<Tower>();
 		}
 
-		if (hitVFX == null)
+		if (_bulletSpawnPoint == null)
 		{
-			hitVFX = GetComponentsInChildren<Transform>().FirstOrDefault(t => t.name == "HitVFX");
-		}
-
-		if (hitParticle == null)
-		{
-			hitParticle = GetComponentsInChildren<ParticleSystem>().FirstOrDefault(t => t.name == "HitParticle");
-		}
-
-		if (muzzleParticle == null)
-		{
-			muzzleParticle = GetComponentsInChildren<ParticleSystem>().FirstOrDefault(t => t.name == "MuzzleParticle");
+			_bulletSpawnPoint = GetComponentsInChildren<Transform>().FirstOrDefault(t => t.name == "BulletSpawnPoint");
 		}
 	}
 }

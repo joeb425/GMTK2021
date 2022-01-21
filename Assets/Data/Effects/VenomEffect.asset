@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d05f0b92f185549bc35851608aea4c, type: 3}
+  m_Name: VenomEffect
+  m_EditorClassIdentifier: 
+  modifiers:
+  - attribute: {fileID: 11400000, guid: 893ff796af13803458646454cef5d294, type: 2}
+    value: 0.1
+    modifierMagnitide: {fileID: 0}
+    modifierParameters: []
+    valueOperator: 2
+  duration: 9999
+  triggerInterval: -1
+  extraEffects: []
+  appliedTags: []
+  removedTags: []
+  sourceRequirements:
+    requiredTags: []
+    blockedTags: []
+  targetRequirements:
+    requiredTags: []
+    blockedTags: []
+  modifierLayers: []
+  effectDisplay:
+    display: {fileID: 11400000, guid: 51af5b17602586944868383ec1d14f93, type: 2}
+    particleSystem: {fileID: 7732684545211868803, guid: 4672aac19d6a7be41b96cc60cf17a55a,
+      type: 3}
+    audioClip: {fileID: 0}

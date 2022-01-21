@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tower_7.1.1
       objectReference: {fileID: 0}
+    - target: {fileID: 5004033099111384222, guid: dfa6eb68b75ccea4e96aedc38b044481,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 7286309082845951563, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: attributeDefaults
@@ -38,7 +43,7 @@ PrefabInstance:
         type: 3}
       propertyPath: testTurret
       value: 
-      objectReference: {fileID: -2282839037738607892}
+      objectReference: {fileID: 2499396425780476589}
     - target: {fileID: 7289787119796724084, guid: dfa6eb68b75ccea4e96aedc38b044481,
         type: 3}
       propertyPath: gameplayTag
@@ -108,7 +113,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3912973290161638955}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-2282839037738607892
+--- !u!114 &2499396425780476589
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,7 +122,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1967167640203598193}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8597e5a35e98456fbfa6a0c341cd7812, type: 3}
+  m_Script: {fileID: 11500000, guid: cfcfe08820e142e0907ac1f981ec523a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tower: {fileID: 6009819208452321119}
@@ -125,9 +130,22 @@ MonoBehaviour:
   onAttack:
     m_PersistentCalls:
       m_Calls: []
-  bulletPrefab: {fileID: 7556477264031917805, guid: 3764e102f80783e41ba30cd4794e2e57,
+  targetingState: {fileID: 922903863348241656}
+  laserBeamPrefab: {fileID: 6715198460880688610, guid: 0e50267757ff97644a0fee29822fc456,
     type: 3}
-  bulletSpawnPoint: {fileID: 8303593103466023605}
+  _bulletSpawnPoint: {fileID: 8303593103466023605}
+--- !u!114 &922903863348241656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967167640203598193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6279c8618f8a43569b9b28ed1e48425b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3883423199733493230 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 263773572115014597, guid: dfa6eb68b75ccea4e96aedc38b044481,

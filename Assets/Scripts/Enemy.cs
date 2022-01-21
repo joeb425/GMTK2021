@@ -29,11 +29,12 @@ public class Enemy : MonoBehaviour, IGameplayTag
 	public GameObject enemyModel;
 
 	private float _progress;
+	public float GetProgress() => _progress;
 
 	private Slider _slider;
 
-	public event Action OnReachEnd;
-	public event Action OnKilled;
+	public event Action<Enemy> OnReachEnd;
+	public event Action<Enemy> OnKilled;
 
 	[SerializeField]
 	public GameObject healthBarPrefab;
@@ -53,6 +54,8 @@ public class Enemy : MonoBehaviour, IGameplayTag
 
 	private TrailRenderer _trailRenderer;
 
+	public TargetPoint targetPoint;
+
 	private void Awake()
 	{
 		if (gameObject.transform.localScale != Vector3.one)
@@ -63,6 +66,7 @@ public class Enemy : MonoBehaviour, IGameplayTag
 		gameplayTagContainer = GetComponent<GameplayTagContainer>();
 		attributes = GetComponent<GameplayAttributeContainer>();
 		_trailRenderer = GetComponentInChildren<TrailRenderer>();
+		targetPoint = GetComponentInChildren<TargetPoint>();
 	}
 
 	private void OnHealthChanged(GameplayAttribute attribute)
@@ -110,7 +114,7 @@ public class Enemy : MonoBehaviour, IGameplayTag
 		healthAttribute.OnAttributeChanged += OnHealthChanged;
 		OnHealthChanged(healthAttribute);
 
-		enemyModel.transform.localPosition = new Vector3(Random.Range(-1.0f, 1.0f), 0.0f, 0.0f);
+		enemyModel.transform.localPosition = new Vector3(Random.Range(-0.5f, 0.5f), 0.0f, 0.0f);
 
 		transform.rotation = GetDesiredRotation();
 
@@ -157,7 +161,7 @@ public class Enemy : MonoBehaviour, IGameplayTag
 		else
 		{
 			// reached end
-			OnReachEnd?.Invoke();
+			OnReachEnd?.Invoke(this);
 			_healthBarInstance.SetActive(false);
 			EnemyPool.Get().ReclaimToPool(this);
 			return;
@@ -188,14 +192,15 @@ public class Enemy : MonoBehaviour, IGameplayTag
 
 	protected void OnDeath()
 	{
-		_healthBarInstance.SetActive(false);
 		EnemyPool.Get().ReclaimToPool(this);
-		OnKilled?.Invoke();
+		_healthBarInstance.SetActive(false);
 		GameState.Get().SetCash(GameState.Get().CurrentCash + 1);
 
 		gameplayTagContainer.RemoveTag(aliveTag);
 
 		PlayDeathSfx();
+
+		OnKilled?.Invoke(this);
 	}
 
 	void SetHealthbarPosition()
@@ -235,5 +240,10 @@ public class Enemy : MonoBehaviour, IGameplayTag
 	public GameplayTag GetGameplayTag()
 	{
 		return gameplayTag;
+	}
+
+	public bool IsAlive()
+	{
+		return gameplayTagContainer.ContainsTag(aliveTag);
 	}
 }
